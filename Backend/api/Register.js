@@ -1,19 +1,16 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
-const cors = require('cors');
-const User = require('./api/Users'); // Assicurati di avere il modello User
+const User = require('./api/Users'); // Assicurati di importare il modello User
 
 const app = express();
-app.use(cors()); // Aggiungi questa riga per abilitare CORS
 app.use(express.json());
 
-require ('dotenv').config();
-const DATABASE_URL = process.env.DATABASE_URL;
-// Connessione a MongoDB
-mongoose.connect(DATABASE_URL, { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => console.log('Connected to MongoDB'))
-    .catch(err => console.error('Could not connect to MongoDB', err));
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', () => {
+    console.log('Connected to MongoDB');
+});
 
 // Endpoint di registrazione
 app.post('/register', async (req, res) => {
