@@ -5,6 +5,7 @@ import NavBar from "./NavBar";
 import Register from "./Register";
 import "./index.css";
 import Login from "./Login";
+import ImageCarousel from "./ImageCarousel";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -12,7 +13,15 @@ ReactDOM.render(
       <NavBar />
       <Routes>
         <Route path="/" element={<div>Home Page</div>} />
-        <Route path="/login" element={<Login />} />
+        <Route
+          path="/login"
+          element={
+            <>
+              <ImageCarousel />
+              <Login />
+            </>
+          }
+        />
         <Route path="/register" element={<Register />} />
       </Routes>
     </Router>

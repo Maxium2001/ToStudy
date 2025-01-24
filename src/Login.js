@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 function Login() {
   const [formData, setFormData] = useState({
-    nome: "",
-    cognome: "",
     email: "",
-    username: "",
     password: "",
   });
 
@@ -48,9 +46,12 @@ function Login() {
           name="email"
           value={formData.email}
           onChange={handleChange}
-          placeholder="Email"
+          placeholder="Email o Username"
           required
         />
+        <p>
+          Non hai un account? <Link to="/register">Registrati qui</Link>
+        </p>
         <input
           type="password"
           name="password"
