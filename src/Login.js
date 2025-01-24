@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-const Register = () => {
+function Login() {
   const [formData, setFormData] = useState({
     nome: "",
     cognome: "",
@@ -21,7 +21,7 @@ const Register = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:3000/register",
+        "http://localhost:3000/login",
         formData
       ); // Assicurati che l'URL sia corretto
       console.log(response.data.message);
@@ -41,38 +41,14 @@ const Register = () => {
 
   return (
     <div>
-      <h2>Register</h2>
+      <h2>Login</h2>
       <form onSubmit={handleSubmit}>
         <input
-          type="text"
-          name="nome"
-          value={formData.nome}
-          onChange={handleChange}
-          placeholder="Nome"
-          required
-        />
-        <input
-          type="text"
-          name="cognome"
-          value={formData.cognome}
-          onChange={handleChange}
-          placeholder="Cognome"
-          required
-        />
-        <input
-          type="email"
+          type="Text"
           name="email"
           value={formData.email}
           onChange={handleChange}
           placeholder="Email"
-          required
-        />
-        <input
-          type="text"
-          name="username"
-          value={formData.username}
-          onChange={handleChange}
-          placeholder="Username"
           required
         />
         <input
@@ -83,10 +59,10 @@ const Register = () => {
           placeholder="Password"
           required
         />
-        <button type="submit">Registrati</button>
+        <button type="submit">Login</button>
       </form>
     </div>
   );
-};
+}
 
-export default Register;
+export default Login;
