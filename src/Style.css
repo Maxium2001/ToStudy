@@ -1,0 +1,121 @@
+
+/*
+#EEEEEE: colore sfondo pagina e navbar;
+#222831: colore scritte, colore link navbar;
+#393E46: colore linee divisorie;
+Roboto: font-family per il testo;
+sans-serif: fallback font-family;
+*/
+
+html,body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+    background-color: #EEEEEE; 
+}
+
+/*HOME PAGE*/
+
+/* contenitore principale che divide lo schermo */
+.homepage-container {
+    display: flex;
+    height: 100vh; /* altezza della finestra */
+}
+
+/* sezione verticale */
+.section {
+    flex: 1; /* ogni sezione occupa la stessa larghezza */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+}
+
+/* sezione orizzontale */
+.section-row {
+    flex: 1; /* ogni sezione occupa la stessa larghezza */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;    
+}
+
+/* linee divisorie */
+.divider {
+    width: 1px; /* spessore della linea */
+    background-color: #393E46; /* linea nera visibile */
+    height: 100%; /* linea verticale */
+}
+
+.divider-row {
+    width: 100%; /* spessore della linea */
+    background-color: #393E46; /* linea nera visibile */
+    height: 1px; /* linea verticale */
+}
+
+
+/*NAVBAR*/
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+}
+
+/* logo */
+.navbar-brand img {
+    height: 40px; 
+}
+
+/* liste di navigazione */
+nav ul {
+    display: flex;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* elementi della lista */
+nav li {
+    margin: 0 10px;
+    position: relative; /* necessario per posizionare la sottolineatura */
+}
+
+/* link */
+nav a {
+    text-decoration: none; /* rimuove la sottolineatura dai link */
+    color: #222831; 
+    font-weight: 500;
+    padding: 10px 0; /* padding verticale per aumentare l'area cliccabile */
+    display: block;
+}
+
+/* sottolineatura */
+nav a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 3px; /* spessore della sottolineatura */
+    background-color: #222831; /* colore della sottolineatura */
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+/* mostra la sottolineatura al passaggio del mouse */
+nav a:hover::after,
+nav a.active::after {
+    transform: scaleX(1);
+    text-decoration: none;
+    color : #222831;
+}
+
+nav a:hover{
+    text-decoration: none;
+    color : #222831;
+}

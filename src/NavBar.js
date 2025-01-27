@@ -1,42 +1,40 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import { NavLink } from 'react-router-dom';
+import './Style.css'; 
 
 function NavBar() {
     return (
-        <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-            <div className="container-fluid">
-                <Link className="navbar-brand" to="/">
-                    <img src="/favicon.ico" alt="Logo" width="30" height="30" className="d-inline-block align-top" />
-                    ToStudy
-                </Link>
-                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span className="navbar-toggler-icon"></span>
-                </button>
-                <div className="collapse navbar-collapse" id="navbarNav">
-                    <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li className="nav-item">
-                            <Link className="nav-link active" aria-current="page" to="/">Home</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="#">I miei appunti</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="#">Esplora</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="#">Gruppi</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="#">Faq</Link>
-                        </li>
-                    </ul>
-                    <ul className="navbar-nav ms-auto">
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/register">User</Link>
-                        </li>
-                    </ul>
-                </div>
+        <nav>
+            <div className="navbar-brand">
+                <NavLink to="/">
+                    <img src="/logo.png" alt="Logo" />
+                </NavLink>
+            </div>
+            <div className="navbar-nav">
+                <ul>
+                    <li>
+                        <NavLink exact to="/" activeClassName="active">Home</NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/appunti" activeClassName="active">Appunti</NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/gruppi" activeClassName="active">Gruppo</NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/calendario" activeClassName="active">Calendario</NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/faq" activeClassName="active">Faq</NavLink>
+                    </li>
+                </ul>
+            </div>
+            <div className="navbar-user">
+                <ul>
+                    <li>
+                        <NavLink to="/register" activeClassName="active">User</NavLink>
+                    </li>
+                </ul>
             </div>
         </nav>
     );
