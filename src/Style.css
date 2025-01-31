@@ -66,12 +66,12 @@ nav {
     padding: 10px 20px;
 }
 
-/* logo */
+/* LOGO */
 .navbar-brand img {
     height: 40px; 
 }
 
-/* liste di navigazione */
+/* LISTE DI NAVIGAZIONE */
 nav ul {
     display: flex;
     list-style-type: none;
@@ -79,13 +79,13 @@ nav ul {
     padding: 0;
 }
 
-/* elementi della lista */
+/* ELEMENTI DELLA LISTA */
 nav li {
     margin: 0 10px;
     position: relative; /* necessario per posizionare la sottolineatura */
 }
 
-/* link */
+/* LINK */
 nav a {
     text-decoration: none; /* rimuove la sottolineatura dai link */
     color: #222831; 
@@ -94,7 +94,7 @@ nav a {
     display: block;
 }
 
-/* sottolineatura */
+/* SOTTOLINEATURA */
 nav a::after {
     content: '';
     position: absolute;
@@ -107,7 +107,7 @@ nav a::after {
     transition: transform 0.3s ease;
 }
 
-/* mostra la sottolineatura al passaggio del mouse */
+/* SOTTOLINEATURA NAVBAR */
 nav a:hover::after,
 nav a.active::after {
     transform: scaleX(1);
