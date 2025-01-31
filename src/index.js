@@ -11,6 +11,7 @@ import FaqPage from "./FaqPage";
 import HomePage from "./HomePage";
 import ImageCarousel from "./ImageCarousel";
 import Login from "./Login";
+import TermsAndConditions from "./TermsAndConditions";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -22,9 +23,31 @@ ReactDOM.render(
         <Route path="/esplora" element={<EsploraPage />} />
         <Route path="/gruppi" element={<GruppiPage />} />
         <Route path="/faq" element={<FaqPage />} />
+<<<<<<< HEAD
         <Route path="/" element={<div>Home Page</div>} />
         <Route path="/login" element={<div><Login /><ImageCarousel /></div>} />
         <Route path="/register" element={<Register />} />
+=======
+        <Route
+          path="/login"
+          element={
+            <>
+              {/* <ImageCarousel /> */}
+              <Login />
+            </>
+          }
+        />
+        <Route
+          path="/register"
+          element={
+            <>
+              {/* <ImageCarousel /> */}
+              <Register />
+            </>
+          }
+        />
+        <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
+>>>>>>> ededa2429e13c8a4594ad5a476b19e248f63a58d
       </Routes>
     </Router>
   </React.StrictMode>,
