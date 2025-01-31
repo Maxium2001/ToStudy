@@ -21,6 +21,8 @@
     "https": "^1.0.0",
     "https-browserify": "^1.0.0",
     "mongoos": "^0.0.1-security",
+    "mongoose": "^8.9.5",
+    "nodemon": "^3.1.9",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^7.1.3",
