@@ -24,15 +24,7 @@ ReactDOM.render(
         <Route path="/gruppi" element={<GruppiPage />} />
         <Route path="/faq" element={<FaqPage />} />
         <Route path="/" element={<div>Home Page</div>} />
-        <Route
-          path="/login"
-          element={
-            <>
-              <ImageCarousel />
-              <Login />
-            </>
-          }
-        />
+        <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
       </Routes>
     </Router>

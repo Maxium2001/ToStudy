@@ -42,7 +42,7 @@ function NavBar() {
       <div className="navbar-user">
         <ul>
           <li>
-            <NavLink to="/register" activeClassName="active">
+            <NavLink to="/login" activeClassName="active">
               User
             </NavLink>
           </li>
