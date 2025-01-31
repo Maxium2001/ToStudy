@@ -62,16 +62,24 @@ html,body {
 
 nav {
     display: flex;
+    align-items: center;
     justify-content: space-between;
     padding: 10px 20px;
 }
 
-/* LOGO */
-.navbar-brand img {
-    height: 40px; 
+/* Contenitore sinistro per logo e link */
+.navbar-left {
+    display: flex;
+    align-items: center;
 }
 
-/* LISTE DI NAVIGAZIONE */
+/* Logo */
+.navbar-brand img {
+    height: 40px; 
+    margin-right: 20px; /* Spazio tra logo e i link */
+}
+
+/* Lista dei link */
 nav ul {
     display: flex;
     list-style-type: none;
@@ -79,11 +87,12 @@ nav ul {
     padding: 0;
 }
 
-/* ELEMENTI DELLA LISTA */
+/* Elementi della lista */
 nav li {
     margin: 0 10px;
-    position: relative; /* necessario per posizionare la sottolineatura */
+    position: relative;
 }
+
 
 /* LINK */
 nav a {
@@ -119,3 +128,32 @@ nav a:hover{
     text-decoration: none;
     color : #222831;
 }
+
+
+
+/* HOME PAGE */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 4 colonne uguali */
+    height: 100vh; /* Occupa tutta l'altezza della viewport */
+  }
+  
+  .grid-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    border-left: 2px solid #ffffff; /* Bordo laterale sinistro */
+    border-right: 2px solid #ffffff; /* Bordo laterale destro */
+  }
+  
+  /* Rimuovere il bordo sinistro per il primo elemento e destro per l'ultimo */
+  .grid-item:first-child {
+    border-left: none;
+  }
+  
+  .grid-item:last-child {
+    border-right: none;
+  }
+  
+  
