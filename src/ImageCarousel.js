@@ -37,6 +37,7 @@ const ImageCarousel = () => {
             src="https://images.pexels.com/photos/1056251/pexels-photo-1056251.jpeg?auto=compress&cs=tinysrgb&w=600"
             className="d-block w-100"
             alt="..."
+            loading="lazy"
           />
         </div>
         <div className="carousel-item">
@@ -44,6 +45,7 @@ const ImageCarousel = () => {
             src="https://images.pexels.com/photos/416160/pexels-photo-416160.jpeg?auto=compress&cs=tinysrgb&w=600"
             className="d-block w-100"
             alt="..."
+            loading="lazy"
           />
         </div>
         <div className="carousel-item">
@@ -51,6 +53,7 @@ const ImageCarousel = () => {
             src="https://images.pexels.com/photos/57416/cat-sweet-kitty-animals-57416.jpeg?auto=compress&cs=tinysrgb&w=600"
             className="d-block w-100"
             alt="..."
+            loading="lazy"
           />
         </div>
       </div>

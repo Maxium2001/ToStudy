@@ -49,9 +49,7 @@ function Login() {
           placeholder="Email o Username"
           required
         />
-        <p>
-          Non hai un account? <Link to="/register">Registrati qui</Link>
-        </p>
+
         <input
           type="password"
           name="password"
@@ -61,6 +59,9 @@ function Login() {
           required
         />
         <button type="submit">Login</button>
+        <p>
+          Non hai un account? <Link to="/register">Registrati qui</Link>
+        </p>
       </form>
     </div>
   );
