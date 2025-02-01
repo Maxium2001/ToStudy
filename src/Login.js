@@ -69,6 +69,7 @@ function Login() {
           placeholder="Password"
           required
         />
+        <Link to="/register">Password dimenticata?</Link>
         <button type="submit">Login</button>
         <p>
           Non hai un account? <Link to="/register">Registrati qui</Link>

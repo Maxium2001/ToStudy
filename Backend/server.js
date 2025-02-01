@@ -73,5 +73,31 @@ app.post("/login", async (req, res) => {
   }
 });
 
+app.post("/forgot-password", async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    // Trova l'utente per email
+    const user = await User.findOne({ email });
+    console.log(email);
+    if (!user) {
+      return res.status(400).json({ message: "User not found" });
+    }
+
+    // Genera un token di reset password (puoi usare una libreria come crypto per generare un token)
+    const resetToken = Math.random().toString(36).substring(2);
+
+    // Salva il token nel database o invialo via email
+    user.resetPasswordToken = resetToken;
+    await user.save();
+
+    res
+      .status(200)
+      .json({ message: "Password reset token generated", resetToken });
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
 // Avvio del server
 app.listen(3000, () => console.log("Server started on port 3000"));
