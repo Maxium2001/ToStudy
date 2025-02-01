@@ -2,7 +2,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const cors = require("cors");
-const User = require("./api/Users"); // Assicurati di avere il modello User
+const User = require("./api/Users");
+const Otp = require("./api/Otp");
 
 const app = express();
 app.use(cors()); // Aggiungi questa riga per abilitare CORS
@@ -44,7 +45,10 @@ app.post("/register", async (req, res) => {
 
     res.status(201).json({ message: "User registered successfully" });
   } catch (error) {
-    res.status(500).json({ message: "Internal server error" });
+    console.error(error);
+    res
+      .status(500)
+      .json({ message: "Internal server error", error: error.message });
   }
 });
 
@@ -58,7 +62,7 @@ app.post("/login", async (req, res) => {
       user = await User.findOne({ email });
     }
     if (!user) {
-      return res.status(400).json({ message: email });
+      return res.status(400).json({ message: "User not found" });
     }
 
     // Confronta la password
@@ -79,7 +83,6 @@ app.post("/forgot-password", async (req, res) => {
 
     // Trova l'utente per email
     const user = await User.findOne({ email });
-    console.log(email);
     if (!user) {
       return res.status(400).json({ message: "User not found" });
     }
@@ -87,15 +90,21 @@ app.post("/forgot-password", async (req, res) => {
     // Genera un token di reset password (puoi usare una libreria come crypto per generare un token)
     const resetToken = Math.random().toString(36).substring(2);
 
-    // Salva il token nel database o invialo via email
-    user.resetPasswordToken = resetToken;
-    await user.save();
+    const newOtp = new Otp({
+      email,
+      otp: resetToken,
+    });
 
+    await newOtp.save();
+
+    console.log(newOtp.otp);
+
+    // Salva il token nel database
     res
       .status(200)
       .json({ message: "Password reset token generated", resetToken });
   } catch (error) {
-    res.status(500).json({ message: "Internal server error" });
+    res.status(500).json({ message: error.message });
   }
 });
 
