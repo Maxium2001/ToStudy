@@ -7,80 +7,144 @@ Roboto: font-family per il testo;
 sans-serif: fallback font-family;
 */
 
-/* Homepage che parte subito sotto la navbar */
+/* Impostazioni per la homepage */
 .homepage {
   display: flex;
+  flex-wrap: nowrap;
   width: 100%;
-  height: 92vh; /* 100vh meno l'altezza della navbar */
+  height: calc(100vh - 8vh); /* Rimane la navbar fissa in alto */
   margin-top: 8vh;
-  background-color: #EEEEEE;
+  padding: 10px;
 }
 
 /* Colonne */
 .column {
   display: flex;
   flex-direction: column;
-  width: 33.33%;
+  flex-grow: 1; /* Le colonne possono crescere per occupare tutto lo spazio disponibile */
   height: 100%;
-  border-right: 2px solid #222831;
+  margin: 10px;
+  overflow-y: auto; /* Aggiunge la barra di scorrimento se necessario */
+  border-right: 1px solid #222831; /* Linea di separazione tra le colonne */
 }
 
-/* Rimuove la linea nera dall'ultima colonna */
+/* Prima colonna (stretta) */
+.column:first-child {
+  width: 25%; /* Prima colonna più stretta */
+  border-right: 1px solid #222831; /* Linea di separazione tra le colonne */
+}
+
+/* Seconda e terza colonna (larghe) */
+.column:nth-child(2), .column:nth-child(3) {
+  width: 37.5%; /* Colonne più larghe */
+}
+
+/* Rimuove la linea nera nell'ultima colonna */
 .column:last-child {
   border-right: none;
 }
 
-/* Zona bianca neutra nella prima colonna */
+/* Titolo sopra le click box */
+.column h2 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #222831;
+  text-align: center;
+}
+
+/* Zona bianca neutra */
 .neutral-zone {
   background-color: #EEEEEE;
-  height: 20%; /* Puoi regolare questa altezza come vuoi */
-  margin: 5px;
+  height: 20%;
+  margin-bottom: 10px;
 }
 
-/* Linea orizzontale di separazione */
-.separator {
-  border: none;
-  border-top: 2px solid black;
-  margin: 10px 0;
+/* Linea orizzontale tra la zona bianca e le click box della prima colonna */
+.column:first-child .separator {
+  border-top: 1px solid #222831; /* Linea orizzontale */
+  margin: 5% 0; /* Spazio sopra e sotto la linea */
 }
 
-/* Box cliccabili, ridotte di dimensione */
+/* Box cliccabili */
 .box {
   background-color: #00ADB5;
-  margin-top: 5%;
-  margin-bottom: 5%;
-  margin-left: 5%;
-  margin-right: 5%;
+  margin: 5% auto;
   border-radius: 8px;
-  height: 100%; /* Altezza fissa per la clickbox */
-  width: 80%; /* Larghezza fissa per la clickbox */
-  align-self: center;
+  height: 20vh;
+  width: 80%;
+  display: flex;
   cursor: pointer;
   transition: 0.3s;
-
 }
 
 .clickable:hover {
-  background-color: #c0392b;
+  background-color: #2228311c;
 }
 
-/* Adattabilità su schermi piccoli */
+/* Colonne che si adattano al contenuto */
+.column .click-box-container {
+  flex-grow: 1;
+  overflow-y: auto; /* Aggiunge la barra di scorrimento verticale */
+  padding-bottom: 20px; /* Distanza dal fondo */
+}
+
+/* Media Queries per schermi piccoli */
 @media (max-width: 768px) {
   .homepage {
-      flex-direction: column;
-      height: auto;
+    flex-direction: column;
+    height: auto;
   }
 
   .column {
-      width: 100%;
-      border-right: none;
+    width: 100%;
+    margin: 10px 0;
   }
 
-  /* Riduci altezza box anche su schermi piccoli */
   .box {
-      height: 50px;
+    height: 10vh;
+    width: 90%;
+  }
+
+  .neutral-zone {
+    width: 90%;
+    margin: 10px auto;
+  }
+  .separator {
+    width: 90%;
   }
 }
+
+
+
+
+
+/* css brutto*/
+.clearclickboxes {
+  display: flex;
+  justify-content: center; /* Centra orizzontalmente */
+  align-items: center; /* Centra verticalmente */
+  height: calc(100vh - 8vh); /* Usa tutta l'altezza della schermata, meno l'altezza della navbar */
+  margin-top: 8vh; /* Sposta verso il basso per non essere coperto dalla navbar */
+}
+
+.clearclickboxes button {
+  font-size: 20px; /* Aumenta la dimensione del font */
+  padding: 10px 20px; /* Aggiungi un po' di padding per un aspetto più grande */
+  background-color: #00ADB5; /* Colore di sfondo del pulsante */
+  color: white; /* Colore del testo */
+  border: none; /* Rimuove il bordo */
+  border-radius: 8px; /* Angoli arrotondati */
+  cursor: pointer; /* Cambia il cursore al passaggio del mouse */
+  transition: 0.3s; /* Aggiungi un effetto di transizione */
+}
+
+.clearclickboxes button:hover {
+  background-color: #2228311c; /* Cambia colore al passaggio del mouse */
+}
+
+
+
 /*NAVBAR*/
 
 /*Sottolineatura*/
