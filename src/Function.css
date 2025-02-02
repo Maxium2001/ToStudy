@@ -1,8 +1,8 @@
 /*
 #EEEEEE (bianco): colore sfondo pagina e navbar;
-#222831 (nero): colore scritte, colore link navbar;
+#222831 (nero): colore scritte, colore link;
 #393E46 (grigio): colore linee divisorie;
-#00ADB5 (azzurro):
+#00ADB5 (azzurro): bottore registrati e accedi;
 Roboto: font-family per il testo;
 sans-serif: fallback font-family;
 */
@@ -236,7 +236,7 @@ nav a:hover{
     background-color: #222831; /* Colore al passaggio del mouse */
   }
   
-/*LOGIN*/
+/*LOGIN e REGISTRATI*/
   /* Contenitore principale della pagina di login */
   .page {
     display: flex; /* Imposta Flexbox per la divisione a colonne */

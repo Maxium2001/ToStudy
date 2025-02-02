@@ -1,9 +1,9 @@
 
 /*
 #EEEEEE (bianco): colore sfondo pagina e navbar;
-#222831 (nero): colore scritte, colore link navbar;
+#222831 (nero): colore scritte, colore link;
 #393E46 (grigio): colore linee divisorie;
-#00ADB5 (azzurro):
+#00ADB5 (azzurro): bottore registrati e accedi;
 Roboto: font-family per il testo;
 sans-serif: fallback font-family;
 */
@@ -13,6 +13,19 @@ html,body {
     padding: 0;
     font-family: 'Roboto', sans-serif;
     background-color: #EEEEEE; 
+}
+
+h1,p {
+    color:#222831;
+    text-align: center;
+}
+
+a {
+    color:#222831;
+}
+
+a:hover{
+    color : #00ADB5;
 }
 
 /*NAVBAR*/
@@ -89,13 +102,36 @@ nav a {
 /*LOGIN*/
 
   /* Stilizzazione del modulo di login */
-  .section form {
+  form {
     width: 80%; /* Larghezza del modulo */
-    padding: 30px;
-    background-color: #EEEEEE;
-    border-radius: 10px;
+    padding: 15%;
     display: flex;
-    flex-direction: column;
-    gap: 20px;
+    flex-direction: column; /*Li mette in colonna*/
+    gap: 2vh;
   }
 
+  input {
+    border: 0.1vh solid #393E46;
+    border-radius: 0.5vh;
+    color:#393E46; /*testo che scrive utente*/
+  }
+
+input:hover {
+    border: 0.3vh solid #222831; /* Colore del bordo quando si passa sopra l'input */
+}
+
+input:focus {
+    border: 0.4vh solid #222831; /* Colore del bordo quando si sta scrivendo*/
+    outline: none; /* Rimuove il focus predefinito */
+}
+
+  /*LOGIN e REGISTRATI*/
+
+  button {
+    background-color: #00ADB5;
+    color: #EEEEEE;
+    padding: 5% 7%;
+    border: none;
+    border-radius: 1vh;
+    cursor: pointer;
+}
