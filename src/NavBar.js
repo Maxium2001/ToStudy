@@ -7,8 +7,8 @@ function NavBar() {
   return (
     <nav>
       <div className="navbar-brand">
-        <NavLink to="/">
-          <img src="/logo.png" alt="Logo" />
+        <NavLink to="/" className="icon-nav">
+          <img src="/logo.png" alt="logo" />
         </NavLink>
       </div>
       <div className="navbar-nav">
@@ -43,8 +43,8 @@ function NavBar() {
       <div className="navbar-user">
         <ul>
           <li>
-            <NavLink to="/login" activeClassName="active">
-              User
+            <NavLink to="/login" className="icon-nav">
+              <img src="/user.png" alt="user" id="user"/>            
             </NavLink>
           </li>
         </ul>

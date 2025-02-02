@@ -59,7 +59,7 @@ nav a::after {
     left: 0;
     right: 0;
     bottom: 0;
-    height: 3px; /* spessore della sottolineatura */
+    height: 3%; /* spessore della sottolineatura */
     background-color: #222831; /* colore della sottolineatura */
     transform: scaleX(0);
     transition: transform 0.3s ease;
@@ -76,6 +76,10 @@ nav a.active::after {
 nav a:hover{
     text-decoration: none;
     color : #222831;
+}
+
+.icon-nav::after {
+  display: none; /* Nasconde la sottolineatura del logo */
 }
 
 /*CAROSELLO*/
@@ -154,6 +158,4 @@ nav a:hover{
     height: 100vh; /* Altezza completa della finestra */
     background-color: #EEEEEE; /* Colore di sfondo per la sezione di login */
   }
-
-  /**/
 
