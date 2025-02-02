@@ -1,16 +1,17 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import "./Style.css";
+import './Function.css';
 
 function NavBar() {
   return (
     <nav>
-      <div className="navbar-left">
-        <div className="navbar-brand">
-         <NavLink to="/">
-            <img src="/logo.png" alt="Logo" />
-         </NavLink>
+      <div className="navbar-brand">
+        <NavLink to="/">
+          <img src="/logo.png" alt="Logo" />
+        </NavLink>
       </div>
+      <div className="navbar-nav">
         <ul>
           <li>
             <NavLink exact to="/" activeClassName="active">
