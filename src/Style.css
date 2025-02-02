@@ -19,7 +19,7 @@ html,body {
 
 nav {
     display: flex;
-    justify-content: space-between;
+    align-items: center;
     padding: 10px 20px;
     position: fixed; /* Fissa la navbar alla posizione desiderata */
     top: 0; /* Posiziona la navbar in alto */
@@ -33,6 +33,26 @@ nav {
 /*Logo*/
 .navbar-brand img {
     height: 40px; 
+    align-items: center;
+}
+
+.navbar-brand, .navbar-nav {
+    display: flex;
+    align-items: center;
+}
+
+/* Distanza tra logo e navbar-nav */
+.navbar-nav {
+    margin-left: 20px; /* Aggiunge spazio tra logo e link */
+}
+
+.navbar-user {
+    margin-left: auto; /* Fa sì che si sposti a destra */
+}
+
+.navbar-user ul {
+    display: flex;
+    align-items: center;
 }
 
 /*Liste di navigazione*/
@@ -41,6 +61,7 @@ nav ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
+    /*margin-right: auto;*/
 }
 
 /*Elementi della vista*/
@@ -56,6 +77,13 @@ nav a {
     font-weight: 500;
     padding: 10px 0; /* padding verticale per aumentare l'area cliccabile */
     display: block;
+}
+
+/*User Icon*/
+#user {
+    width: 50%;
+    height: 50%;
+    object-fit: cover; /* Per evitare distorsioni */
 }
   
 /*LOGIN*/
