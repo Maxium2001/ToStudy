@@ -173,6 +173,7 @@ nav a:hover{
   }
   
 /*LOGIN e REGISTRATI*/
+
   /* Contenitore principale della pagina di login */
   .page {
     display: flex; /* Imposta Flexbox per la divisione a colonne */
@@ -190,3 +191,11 @@ nav a:hover{
     background-color: #EEEEEE; /* Colore di sfondo per la sezione di login */
   }
 
+  input:hover {
+    border: 0.3vh solid #222831; /* Colore del bordo quando si passa sopra l'input */
+}
+
+input:focus {
+    border: 0.4vh solid #222831; /* Colore del bordo quando si sta scrivendo*/
+    outline: none; /* Rimuove il focus predefinito */
+}
