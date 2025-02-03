@@ -1,130 +1,100 @@
-
-/*
-#EEEEEE (bianco): colore sfondo pagina e navbar;
-#222831 (nero): colore scritte, colore link;
-#B0B0B0 (grigio chiaro):
-#393E46 (grigio scuro): colore linee divisorie;
-#00ADB5 (azzurro): bottore registrati e accedi;
-Roboto: font-family per il testo;
-sans-serif: fallback font-family;
-*/
-
-html,body {
+html, body {
     margin: 0;
     padding: 0;
     font-family: 'Roboto', sans-serif;
     background-color: #EEEEEE; 
     font-size: 2.2vh; /*grandezza scritte*/
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
-h1,p {
-    color:#222831;
+h1, p {
+    color: #222831;
     text-align: center;
 }
 
-h1{
+h1 {
     font-size: 5vh; /*grandezza scritte*/
 }
 
 a {
-    color:#222831;
+    color: #222831;
 }
 
-a:hover{
-    color : #00ADB5;
+a:hover {
+    color: #00ADB5;
 }
 
-/*NAVBAR*/
-
+/* Navbar */
 nav {
     display: flex;
+    justify-content: space-between;
     align-items: center;
     padding: 10px 20px;
-    position: fixed; /* Fissa la navbar alla posizione desiderata */
-    top: 0; /* Posiziona la navbar in alto */
-    left: 0; /* Posiziona la navbar a sinistra */
-    width: 100%; /* Assicurati che la navbar occupi tutta la larghezza */
-    height: 8%;
-    z-index: 1000; /* Assicura che la navbar sia sopra gli altri contenuti */
-    background-color: #EEEEEE; /* Puoi aggiungere un colore di sfondo per renderla più visibile */
-}
-
-/*Logo*/
-.navbar-brand img {
-    height: 40px; 
-    align-items: center;
-}
-
-.navbar-brand, .navbar-nav {
+    background-color: #EEEEEE;
+    position: relative;
+  }
+  
+  .navbar-nav ul {
+    list-style: none;
     display: flex;
-    align-items: center;
-}
-
-/* Distanza tra logo e navbar-nav */
-.navbar-nav {
-    margin-left: 20px; /* Aggiunge spazio tra logo e link */
-}
-
-.navbar-user {
-    margin-left: auto; /* Fa sì che si sposti a destra */
-}
-
-.navbar-user ul {
-    display: flex;
-    align-items: center;
-}
-
-/*Liste di navigazione*/
-nav ul {
-    display: flex;
-    list-style-type: none;
     margin: 0;
     padding: 0;
-    /*margin-right: auto;*/
-}
-
-/*Elementi della vista*/
-nav li {
-    margin: 0 10px;
-    position: relative; /* necessario per posizionare la sottolineatura */
-}
-
-/*Link*/
-nav a {
-    text-decoration: none; /* rimuove la sottolineatura dai link */
-    color: #222831; 
-    font-weight: 500;
-    padding: 10px 0; /* padding verticale per aumentare l'area cliccabile */
-    display: block;
-}
-
-/*User Icon*/
-#user {
-    width: 50%;
-    height: 50%;
-    object-fit: cover; /* Per evitare distorsioni */
-}
+  }
   
-/*LOGIN*/
+  .navbar-nav li {
+    margin: 0 10px;
+  }
+  
+  .navbar-nav a {
+    color: #222831;
+    text-decoration: none;
+    font-size: 16px;
+  }
+  
+  .navbar-user ul {
+    list-style: none;
+  }
+  
+  .navbar-user li {
+    margin-left: 10px;
+  }
+  
+  /* Icona hamburger */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 20px;
+    width: 30px;
+    cursor: pointer;
+  }
+  
+  .hamburger .line {
+    height: 4px;
+    background-color: #222831;
+    border-radius: 5px;
+  }
 
-  /* Stilizzazione del modulo di login */
-  form {
-    width: 80%; /* Larghezza del modulo */
+/* FORM LOGIN */
+form {
+    width: 80%;
     padding: 15%;
     display: flex;
-    flex-direction: column; /*Li mette in colonna*/
+    flex-direction: column;
     gap: 2vh;
-  }
+    justify-content: center;
+    margin: auto;
+}
 
-  input {
+input {
     border: 0.1vh solid #393E46;
     border-radius: 0.5vh;
-    color:#393E46; /*testo che scrive utente*/
-  }
+    color: #393E46;
+}
 
-  /*LOGIN e REGISTRATI*/
-
-  button {
+button {
     background-color: #00ADB5;
     color: #EEEEEE;
     padding: 5% 7%;
@@ -133,13 +103,15 @@ nav a {
     cursor: pointer;
 }
 
-/*FAQ*/
-
+/* FAQ */
 .faq-container {
     max-width: 80vh;
     margin: 0 auto;
     padding: 4vh;
-    margin-top: 8vh; /* contenuto sotto la navbar */
+    margin-top: 8vh;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1vh;
 }
 
 .faq-question {
@@ -148,8 +120,7 @@ nav a {
     text-align: left;
     background-color: #EEEEEE;
     color: #222831;
-    border-top: 0.1vh solid #222831; /*separo le varie domande*/
-    border-radius: 0;
+    border-top: 0.1vh solid #222831;
     cursor: pointer;
     font-size: 1.1em;
     display: flex;
@@ -157,8 +128,7 @@ nav a {
     align-items: center;
 }
 
-/*mi contorna i faq, ma non in top*/
-#faq{
+#faq {
     border-bottom: 0.2vh solid #222831;
     border-left: 0.2vh solid #222831;
     border-right: 0.2vh solid #222831;
@@ -182,3 +152,163 @@ nav a {
     margin-top: 5px;
 }
 
+/* Flex per layout generali */
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2vh;
+}
+
+/* Meta Query per dispositivi mobili */
+@media (max-width: 768px) {
+    html, body {
+        font-size: 3.5vh;
+    }
+
+    h1 {
+        font-size: 6vh;
+    }
+
+    /* Media Queries per dispositivi mobili */
+@media (max-width: 768px) {
+    .navbar-nav {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      top: 60px;
+      right: 0;
+      background-color: #00ADB5;
+      width: 100%;
+      padding: 10px 0;
+    }
+  
+    .navbar-nav.active {
+      display: flex;
+    }
+  
+    .navbar-nav ul {
+      flex-direction: column;
+    }
+  
+    .navbar-nav li {
+      margin: 10px 0;
+      text-align: center;
+    }
+  
+    .navbar-nav a {
+      font-size: 18px;
+    }
+  
+    /* Mostra l'icona hamburger sui dispositivi mobili */
+    .hamburger {
+      display: flex;
+    }
+  }
+
+    .faq-container {
+        padding: 2vh;
+        grid-template-columns: 1fr;
+    }
+
+    form {
+        width: 90%;
+        padding: 10%;
+    }
+
+    button {
+        padding: 4% 6%;
+    }
+
+
+/* Meta Query per schermi di grandi dimensioni */
+@media (min-width: 1200px) {
+    html, body {
+        font-size: 2vh;
+    }
+
+    h1 {
+        font-size: 4.5vh;
+    }
+
+    nav {
+        flex-direction: column;
+        align-items: center;
+      }
+    
+      /* Nascondere i link quando lo schermo è piccolo */
+      nav ul {
+        display: none;
+        width: 100%;
+        text-align: center;
+        padding: 10px 0;
+      }
+    
+      nav a {
+        font-size: 16px;
+        padding: 15px;
+        width: 100%;
+      }
+    
+      /* Mostrare il menu quando si clicca sull'icona hamburger */
+      .menu-toggle {
+        display: block;
+        cursor: pointer;
+        font-size: 30px;
+        color: white;
+        background: transparent;
+        border: none;
+      }
+    
+      /* Aggiungere una transizione per il menu */
+      nav ul.show {
+        display: block;
+      }
+    }
+    
+    /* Icona hamburger */
+    .menu-toggle {
+      display: none;
+    }
+    
+    /* Animazione della sottolineatura sui link */
+    nav a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 3%;
+      background-color: #222831;
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+    
+    /* Hover e attivazione della sottolineatura */
+    nav a:hover::after,
+    nav a.active::after {
+      transform: scaleX(1);
+      text-decoration: none;
+      color: #222831;
+    }
+    
+    nav a:hover {
+      text-decoration: none;
+      color: #222831;
+    }
+
+    .faq-container {
+        max-width: 60vh;
+        padding: 3vh;
+    }
+
+    form {
+        width: 70%;
+    }
+
+    button {
+        padding: 3% 5%;
+    }
+
+}
