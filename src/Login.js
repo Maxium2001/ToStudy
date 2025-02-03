@@ -31,21 +31,26 @@ function Login() {
       }
     } catch (error) {
       if (error.response) {
-        setErrorMessage("Utente gia registrato");
+        setErrorMessage(error.response.data.message || "Errore nel login");
         // Il server ha risposto con uno stato diverso da 2xx
       } else if (error.request) {
+        setErrorMessage(
+          error.request.message ||
+            "Errore nel server, contattare l'amministratore"
+        );
         // La richiesta è stata fatta ma non è stata ricevuta alcuna risposta
-        setErrorMessage("Errore nel server, contattare l'amministratore");
       } else {
+        setErrorMessage(
+          error.message || "Errore sconosciuto, contattare l'amministratore"
+        );
         // Qualcosa è andato storto nella configurazione della richiesta
-        setErrorMessage("Errore sconosciuto, contattare l'amministratore");
       }
     }
   };
 
   return (
     <div>
-      <h1>Accedi</h1>
+      <h2>Login</h2>
       <form onSubmit={handleSubmit}>
         <input
           type="Text"
@@ -64,14 +69,9 @@ function Login() {
           placeholder="Password*"
           required
         />
-        <Link to="/passworddimenticata">Password dimenticata?</Link>
-        <button type="submit">Accedi</button>
+        <button type="submit">Login</button>
         <p>
-          Non hai un account?{" "}
-          <Link to="/register">
-            <img src="/logo.png" alt="Logo" />
-          </Link>
-          Registrati qui
+          Non hai un account? <Link to="/register">Registrati qui</Link>
         </p>
       </form>
       {errorMessage && <div className="error-message">{errorMessage}</div>}

@@ -25,7 +25,7 @@ app.post("/register", async (req, res) => {
     // Controlla se l'utente esiste già
     const existingUser = await User.findOne({ username });
     if (existingUser) {
-      return res.status(400).json({ message: "User already exists" });
+      return res.status(400).json({ message: "Utenza già esistente" });
     }
 
     // Hash della password
@@ -42,13 +42,11 @@ app.post("/register", async (req, res) => {
 
     // Salva l'utente nel database
     await newUser.save();
-
-    res.status(200).json({ message: "User registered successfully" });
   } catch (error) {
     console.error(error);
     res
       .status(500)
-      .json({ message: "Internal server error", error: error.message });
+      .json({ message: "Errore del server", error: error.message });
   }
 });
 
@@ -62,18 +60,16 @@ app.post("/login", async (req, res) => {
       user = await User.findOne({ email });
     }
     if (!user) {
-      return res.status(400).json({ message: "User not found" });
+      return res.status(400).json({ message: "Utente non trovato" });
     }
 
     // Confronta la password
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(400).json({ message: "Wrong password" });
+      return res.status(400).json({ message: "Password sbagliata" });
     }
-
-    res.status(200).json({ message: "Login successful" });
   } catch (error) {
-    res.status(500).json({ message: "Internal server error" });
+    res.status(500).json({ message: "Errore del server" });
   }
 });
 
@@ -84,7 +80,7 @@ app.post("/forgotpassword", async (req, res) => {
     // Trova l'utente per email
     const user = await User.findOne({ email: email });
     if (!user) {
-      return res.status(400).json({ message: email + " not found" });
+      return res.status(400).json({ message: email + " non trovato" });
     }
 
     // Genera un token di reset password (puoi usare una libreria come crypto per generare un token)
@@ -97,12 +93,8 @@ app.post("/forgotpassword", async (req, res) => {
 
     // Salva il token nel database
     await newOtp.save();
-
-    res
-      .status(200)
-      .json({ message: "Password reset token generated", resetToken });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ message: "Errore del server" });
   }
 });
 
@@ -113,12 +105,10 @@ app.post("/confermaotp", async (req, res) => {
     // Trova il token di reset password
     const otpDoc = await Otp.findOne({ email, otp });
     if (!otpDoc) {
-      return res.status(400).json({ message: "Invalid OTP" });
+      return res.status(400).json({ message: "Codice di sicurezza invalido" });
     }
-
-    res.status(200).json({ message: "OTP confirmed" });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ message: "Errore del server" });
   }
 });
 

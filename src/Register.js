@@ -38,14 +38,19 @@ const Register = () => {
       }
     } catch (error) {
       if (error.response) {
+        setErrorMessage(error.response.data.message || "Utenza già esistente");
         // Il server ha risposto con uno stato diverso da 2xx
-        setErrorMessage("Utente già registrato");
       } else if (error.request) {
+        setErrorMessage(
+          error.request.message ||
+            "Errore nel server, contattare l'amministratore"
+        );
         // La richiesta è stata fatta ma non è stata ricevuta alcuna risposta
-        setErrorMessage("Errore nel server, contattare l'amministratore");
       } else {
+        setErrorMessage(
+          error.message || "Errore sconosciuto, contattare l'amministratore"
+        );
         // Qualcosa è andato storto nella configurazione della richiesta
-        setErrorMessage("Errore sconosciuto, contattare l'amministratore");
       }
     }
   };
