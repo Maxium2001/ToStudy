@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./Style.css";
-import "./Function.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import NavBar from "./NavBar";
 import Register from "./Register";
@@ -10,7 +9,6 @@ import EsploraPage from "./EsploraPage";
 import GruppiPage from "./GruppiPage";
 import FaqPage from "./FaqPage";
 import HomePage from "./HomePage";
-import "./index.css";
 import ImageCarousel from "./ImageCarousel";
 import Login from "./Login";
 import TermsAndConditions from "./TermsAndConditions";
