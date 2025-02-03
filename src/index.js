@@ -9,9 +9,12 @@ import EsploraPage from "./EsploraPage";
 import GruppiPage from "./GruppiPage";
 import FaqPage from "./FaqPage";
 import HomePage from "./HomePage";
+import "./index.css";
 import ImageCarousel from "./ImageCarousel";
 import Login from "./Login";
 import TermsAndConditions from "./TermsAndConditions";
+import PasswordDimenticata from "./PasswordDimenticata";
+import ConfermaOtp from "./ConfermaOtp";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -23,11 +26,6 @@ ReactDOM.render(
         <Route path="/esplora" element={<EsploraPage />} />
         <Route path="/gruppi" element={<GruppiPage />} />
         <Route path="/faq" element={<FaqPage />} />
-<<<<<<< HEAD
-        <Route path="/" element={<div>Home Page</div>} />
-        <Route path="/login" element={<div><Login /><ImageCarousel /></div>} />
-        <Route path="/register" element={<Register />} />
-=======
         <Route
           path="/login"
           element={
@@ -46,8 +44,9 @@ ReactDOM.render(
             </>
           }
         />
-        <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
->>>>>>> ededa2429e13c8a4594ad5a476b19e248f63a58d
+        <Route path="/termsandconditions" element={<TermsAndConditions />} />
+        <Route path="/passworddimenticata" element={<PasswordDimenticata />} />
+        <Route path="/confermaotp" element={<ConfermaOtp />} />
       </Routes>
     </Router>
   </React.StrictMode>,

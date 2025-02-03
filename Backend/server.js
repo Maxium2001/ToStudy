@@ -2,7 +2,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const cors = require("cors");
-const User = require("./api/Users"); // Assicurati di avere il modello User
+const User = require("./api/Users");
+const Otp = require("./api/Otp"); // Ensure Otp model is correctly defined and imported
 
 const app = express();
 app.use(cors()); // Aggiungi questa riga per abilitare CORS
@@ -42,9 +43,12 @@ app.post("/register", async (req, res) => {
     // Salva l'utente nel database
     await newUser.save();
 
-    res.status(201).json({ message: "User registered successfully" });
+    res.status(200).json({ message: "User registered successfully" });
   } catch (error) {
-    res.status(500).json({ message: "Internal server error" });
+    console.error(error);
+    res
+      .status(500)
+      .json({ message: "Internal server error", error: error.message });
   }
 });
 
@@ -58,7 +62,7 @@ app.post("/login", async (req, res) => {
       user = await User.findOne({ email });
     }
     if (!user) {
-      return res.status(400).json({ message: email });
+      return res.status(400).json({ message: "User not found" });
     }
 
     // Confronta la password
@@ -70,6 +74,51 @@ app.post("/login", async (req, res) => {
     res.status(200).json({ message: "Login successful" });
   } catch (error) {
     res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+app.post("/forgotpassword", async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    // Trova l'utente per email
+    const user = await User.findOne({ email: email });
+    if (!user) {
+      return res.status(400).json({ message: email + " not found" });
+    }
+
+    // Genera un token di reset password (puoi usare una libreria come crypto per generare un token)
+    const resetToken = Math.floor(100000 + Math.random() * 900000).toString();
+
+    const newOtp = new Otp({
+      email,
+      otp: resetToken,
+    });
+
+    // Salva il token nel database
+    await newOtp.save();
+
+    res
+      .status(200)
+      .json({ message: "Password reset token generated", resetToken });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+app.post("/confermaotp", async (req, res) => {
+  try {
+    const { email, otp } = req.body;
+
+    // Trova il token di reset password
+    const otpDoc = await Otp.findOne({ email, otp });
+    if (!otpDoc) {
+      return res.status(400).json({ message: "Invalid OTP" });
+    }
+
+    res.status(200).json({ message: "OTP confirmed" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 });
 

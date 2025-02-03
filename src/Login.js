@@ -1,10 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-<<<<<<< HEAD
-import { Link } from "react-router-dom";
-=======
 import { Link, useNavigate } from "react-router-dom";
->>>>>>> ededa2429e13c8a4594ad5a476b19e248f63a58d
 
 function Login() {
   const navigate = useNavigate();
@@ -35,33 +31,28 @@ function Login() {
       }
     } catch (error) {
       if (error.response) {
-        setErrorMessage(error.response.data.message || "Errore nel login");
+        setErrorMessage("Utente gia registrato");
         // Il server ha risposto con uno stato diverso da 2xx
       } else if (error.request) {
-        setErrorMessage(
-          error.request.message ||
-            "Errore nel server, contattare l'amministratore"
-        );
         // La richiesta è stata fatta ma non è stata ricevuta alcuna risposta
+        setErrorMessage("Errore nel server, contattare l'amministratore");
       } else {
-        setErrorMessage(
-          error.message || "Errore sconosciuto, contattare l'amministratore"
-        );
         // Qualcosa è andato storto nella configurazione della richiesta
+        setErrorMessage("Errore sconosciuto, contattare l'amministratore");
       }
     }
   };
 
   return (
     <div>
-      <h2>Login</h2>
+      <h1>Accedi</h1>
       <form onSubmit={handleSubmit}>
         <input
           type="Text"
           name="email"
           value={formData.email}
           onChange={handleChange}
-          placeholder="Email o Username"
+          placeholder="Email o Username*"
           required
         />
 
@@ -70,12 +61,17 @@ function Login() {
           name="password"
           value={formData.password}
           onChange={handleChange}
-          placeholder="Password"
+          placeholder="Password*"
           required
         />
-        <button type="submit">Login</button>
+        <Link to="/passworddimenticata">Password dimenticata?</Link>
+        <button type="submit">Accedi</button>
         <p>
-          Non hai un account? <Link to="/register">Registrati qui</Link>
+          Non hai un account?{" "}
+          <Link to="/register">
+            <img src="/logo.png" alt="Logo" />
+          </Link>
+          Registrati qui
         </p>
       </form>
       {errorMessage && <div className="error-message">{errorMessage}</div>}

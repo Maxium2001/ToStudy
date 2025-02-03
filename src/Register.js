@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import { set } from "mongoose";
 
 const Register = () => {
   const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState("");
   const [formData, setFormData] = useState({
     nome: "",
     cognome: "",
@@ -21,26 +23,29 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (formData.password !== formData.confirmPassword) {
+      setErrorMessage("Le password non corrispondono");
+      return;
+    }
     try {
       const response = await axios.post(
         "http://localhost:3000/register",
         formData
       ); // Assicurati che l'URL sia corretto
-      if (response.status === 201) {
-        // Assuming 201 is the status code for successful user creation
+      if (response.status === 200) {
         navigate("/");
         console.log("User created successfully");
       }
     } catch (error) {
       if (error.response) {
         // Il server ha risposto con uno stato diverso da 2xx
-        console.error("Error response:", error.response.data);
+        setErrorMessage("Utente già registrato");
       } else if (error.request) {
         // La richiesta è stata fatta ma non è stata ricevuta alcuna risposta
-        console.error("Error request:", error.request);
+        setErrorMessage("Errore nel server, contattare l'amministratore");
       } else {
         // Qualcosa è andato storto nella configurazione della richiesta
-        console.error("Error message:", error.message);
+        setErrorMessage("Errore sconosciuto, contattare l'amministratore");
       }
     }
   };
@@ -61,7 +66,7 @@ const Register = () => {
           name="nome"
           value={formData.nome}
           onChange={handleChange}
-          placeholder="Nome"
+          placeholder="Nome*"
           required
         />
         <input
@@ -69,7 +74,7 @@ const Register = () => {
           name="cognome"
           value={formData.cognome}
           onChange={handleChange}
-          placeholder="Cognome"
+          placeholder="Cognome*"
           required
         />
         <input
@@ -77,7 +82,7 @@ const Register = () => {
           name="username"
           value={formData.username}
           onChange={handleChange}
-          placeholder="Username"
+          placeholder="Username*"
           required
         />
         <input
@@ -85,7 +90,7 @@ const Register = () => {
           name="email"
           value={formData.email}
           onChange={handleChange}
-          placeholder="Email"
+          placeholder="Email*"
           required
         />
         <input
@@ -93,7 +98,15 @@ const Register = () => {
           name="password"
           value={formData.password}
           onChange={handleChange}
-          placeholder="Password"
+          placeholder="Password*"
+          required
+        />
+        <input
+          type="password"
+          name="confirmPassword"
+          value={formData.confirmPassword || ""}
+          onChange={handleChange}
+          placeholder="Conferma Password*"
           required
         />
         <input
@@ -106,10 +119,11 @@ const Register = () => {
           required
         />
         <label htmlFor="terms">
-          Accetto i <Link to="/terms-and-conditions">Termini e Condizioni</Link>
+          Accetto i <Link to="/termsandconditions">Termini e Condizioni</Link>
         </label>
-        <button type="submit">Registrati</button>
+        <button type="submit">Crea account</button>
       </form>
+      {errorMessage && <div className="error-message">{errorMessage}</div>}
     </div>
   );
 };
