@@ -1,8 +1,10 @@
 
 /*
-#EEEEEE: colore sfondo pagina e navbar;
-#222831: colore scritte, colore link navbar;
-#393E46: colore linee divisorie;
+#EEEEEE (bianco): colore sfondo pagina e navbar;
+#222831 (nero): colore scritte, colore link;
+#B0B0B0 (grigio chiaro):
+#393E46 (grigio scuro): colore linee divisorie;
+#00ADB5 (azzurro): bottore registrati e accedi;
 Roboto: font-family per il testo;
 sans-serif: fallback font-family;
 */
@@ -12,89 +14,82 @@ html,body {
     padding: 0;
     font-family: 'Roboto', sans-serif;
     background-color: #EEEEEE; 
+    font-size: 2.2vh; /*grandezza scritte*/
 }
 
-/*HOME PAGE*/
-
-/* contenitore principale che divide lo schermo */
-.homepage-container {
-    display: flex;
-    height: 100vh; /* altezza della finestra */
-}
-
-/* sezione verticale */
-.section {
-    flex: 1; /* ogni sezione occupa la stessa larghezza */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+h1,p {
+    color:#222831;
     text-align: center;
-    padding: 20px;
 }
 
-/* sezione orizzontale */
-.section-row {
-    flex: 1; /* ogni sezione occupa la stessa larghezza */
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 20px;    
+h1{
+    font-size: 5vh; /*grandezza scritte*/
 }
 
-/* linee divisorie */
-.divider {
-    width: 1px; /* spessore della linea */
-    background-color: #393E46; /* linea nera visibile */
-    height: 100%; /* linea verticale */
+a {
+    color:#222831;
 }
 
-.divider-row {
-    width: 100%; /* spessore della linea */
-    background-color: #393E46; /* linea nera visibile */
-    height: 1px; /* linea verticale */
+a:hover{
+    color : #00ADB5;
 }
-
 
 /*NAVBAR*/
 
 nav {
     display: flex;
     align-items: center;
-    justify-content: space-between;
     padding: 10px 20px;
+    position: fixed; /* Fissa la navbar alla posizione desiderata */
+    top: 0; /* Posiziona la navbar in alto */
+    left: 0; /* Posiziona la navbar a sinistra */
+    width: 100%; /* Assicurati che la navbar occupi tutta la larghezza */
+    height: 8%;
+    z-index: 1000; /* Assicura che la navbar sia sopra gli altri contenuti */
+    background-color: #EEEEEE; /* Puoi aggiungere un colore di sfondo per renderla più visibile */
 }
 
-/* Contenitore sinistro per logo e link */
-.navbar-left {
+/*Logo*/
+.navbar-brand img {
+    height: 40px; 
+    align-items: center;
+}
+
+.navbar-brand, .navbar-nav {
     display: flex;
     align-items: center;
 }
 
-/* Logo */
-.navbar-brand img {
-    height: 40px; 
-    margin-right: 20px; /* Spazio tra logo e i link */
+/* Distanza tra logo e navbar-nav */
+.navbar-nav {
+    margin-left: 20px; /* Aggiunge spazio tra logo e link */
 }
 
-/* Lista dei link */
+.navbar-user {
+    margin-left: auto; /* Fa sì che si sposti a destra */
+}
+
+.navbar-user ul {
+    display: flex;
+    align-items: center;
+}
+
+/*Liste di navigazione*/
 nav ul {
     display: flex;
     list-style-type: none;
     margin: 0;
     padding: 0;
+    /*margin-right: auto;*/
 }
 
-/* Elementi della lista */
+/*Elementi della vista*/
 nav li {
     margin: 0 10px;
-    position: relative;
+    position: relative; /* necessario per posizionare la sottolineatura */
 }
 
-
-/* LINK */
+/*Link*/
 nav a {
     text-decoration: none; /* rimuove la sottolineatura dai link */
     color: #222831; 
@@ -103,57 +98,87 @@ nav a {
     display: block;
 }
 
-/* SOTTOLINEATURA */
-nav a::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 3px; /* spessore della sottolineatura */
-    background-color: #222831; /* colore della sottolineatura */
-    transform: scaleX(0);
+/*User Icon*/
+#user {
+    width: 50%;
+    height: 50%;
+    object-fit: cover; /* Per evitare distorsioni */
+}
+  
+/*LOGIN*/
+
+  /* Stilizzazione del modulo di login */
+  form {
+    width: 80%; /* Larghezza del modulo */
+    padding: 15%;
+    display: flex;
+    flex-direction: column; /*Li mette in colonna*/
+    gap: 2vh;
+  }
+
+  input {
+    border: 0.1vh solid #393E46;
+    border-radius: 0.5vh;
+    color:#393E46; /*testo che scrive utente*/
+  }
+
+  /*LOGIN e REGISTRATI*/
+
+  button {
+    background-color: #00ADB5;
+    color: #EEEEEE;
+    padding: 5% 7%;
+    border: none;
+    border-radius: 1vh;
+    cursor: pointer;
+}
+
+/*FAQ*/
+
+.faq-container {
+    max-width: 80vh;
+    margin: 0 auto;
+    padding: 4vh;
+    margin-top: 8vh; /* contenuto sotto la navbar */
+}
+
+.faq-question {
+    width: 100%;
+    padding: 1vh;
+    text-align: left;
+    background-color: #EEEEEE;
+    color: #222831;
+    border-top: 0.1vh solid #222831; /*separo le varie domande*/
+    border-radius: 0;
+    cursor: pointer;
+    font-size: 1.1em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/*mi contorna i faq, ma non in top*/
+#faq{
+    border-bottom: 0.2vh solid #222831;
+    border-left: 0.2vh solid #222831;
+    border-right: 0.2vh solid #222831;
+}
+
+.faq-question:hover, .faq-question:focus {
+    background-color: #B0B0B0;
+    border: 0.2vh solid #222831;
+}
+
+.faq-arrow {
     transition: transform 0.3s ease;
 }
 
-/* SOTTOLINEATURA NAVBAR */
-nav a:hover::after,
-nav a.active::after {
-    transform: scaleX(1);
-    text-decoration: none;
-    color : #222831;
+.faq-arrow.open {
+    transform: rotate(180deg);
 }
 
-nav a:hover{
-    text-decoration: none;
-    color : #222831;
+.faq-answer {
+    padding: 1vh;
+    margin-top: 5px;
 }
 
-
-
-/* HOME PAGE */
-.grid-container {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr); /* 4 colonne uguali */
-    height: 100vh; /* Occupa tutta l'altezza della viewport */
-  }
-  
-  .grid-item {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5rem;
-    border-left: 2px solid #ffffff; /* Bordo laterale sinistro */
-    border-right: 2px solid #ffffff; /* Bordo laterale destro */
-  }
-  
-  /* Rimuovere il bordo sinistro per il primo elemento e destro per l'ultimo */
-  .grid-item:first-child {
-    border-left: none;
-  }
-  
-  .grid-item:last-child {
-    border-right: none;
-  }
-  
-  

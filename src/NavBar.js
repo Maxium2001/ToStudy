@@ -1,16 +1,17 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import "./Style.css";
+import './Function.css';
 
 function NavBar() {
   return (
     <nav>
-      <div className="navbar-left">
-        <div className="navbar-brand">
-         <NavLink to="/">
-            <img src="/logo.png" alt="Logo" />
-         </NavLink>
+      <div className="navbar-brand">
+        <NavLink to="/" className="icon-nav">
+          <img src="/logo.png" alt="logo" />
+        </NavLink>
       </div>
+      <div className="navbar-nav">
         <ul>
           <li>
             <NavLink exact to="/" activeClassName="active">
@@ -42,8 +43,8 @@ function NavBar() {
       <div className="navbar-user">
         <ul>
           <li>
-            <NavLink to="/login" activeClassName="active">
-              User
+            <NavLink to="/login" className="icon-nav">
+              <img src="/user.png" alt="user" id="user"/>            
             </NavLink>
           </li>
         </ul>
