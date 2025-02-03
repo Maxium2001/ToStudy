@@ -25,24 +25,26 @@ ReactDOM.render(
         <Route path="/esplora" element={<EsploraPage />} />
         <Route path="/gruppi" element={<GruppiPage />} />
         <Route path="/faq" element={<FaqPage />} />
-        <Route
-          path="/login"
-          element={
-            <>
-              {/* <ImageCarousel /> */}
-              <Login />
-            </>
-          }
-        />
-        <Route
-          path="/register"
-          element={
-            <>
-              {/* <ImageCarousel /> */}
-              <Register />
-            </>
-          }
-        />
+        <Route path="/login" element={
+          <div className="page">
+            <div className="carousel-section">
+              <ImageCarousel /> {/* Carosello a sinistra */}
+            </div>
+            <div className="section">
+              <Login /> {/* Modulo di login a destra */}
+            </div>
+          </div>
+        } />
+        <Route path="/register" element={
+          <div className="page">
+            <div className="carousel-section">
+              <ImageCarousel /> {/* Carosello a sinistra */}
+            </div>
+            <div className="section">
+              <Register /> {/* Modulo di registrazione a destra */}
+            </div>
+          </div>
+        } />
         <Route path="/termsandconditions" element={<TermsAndConditions />} />
         <Route path="/passworddimenticata" element={<PasswordDimenticata />} />
         <Route path="/confermaotp" element={<ConfermaOtp />} />
