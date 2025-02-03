@@ -42,6 +42,7 @@ app.post("/register", async (req, res) => {
 
     // Salva l'utente nel database
     await newUser.save();
+    res.status(201).json({ message: "Utente creato con successo" });
   } catch (error) {
     console.error(error);
     res
@@ -68,6 +69,7 @@ app.post("/login", async (req, res) => {
     if (!isMatch) {
       return res.status(400).json({ message: "Password sbagliata" });
     }
+    res.status(200).json({ message: "Accesso riuscito" });
   } catch (error) {
     res.status(500).json({ message: "Errore del server" });
   }
@@ -93,8 +95,11 @@ app.post("/forgotpassword", async (req, res) => {
 
     // Salva il token nel database
     await newOtp.save();
+    res.status(200).json({ message: "Codice di sicurezza inviato" });
   } catch (error) {
-    res.status(500).json({ message: "Errore del server" });
+    res.status(500).json({
+      message: "Codice di sicurezza gia mandato, aspettare un attimo",
+    });
   }
 });
 
@@ -107,6 +112,7 @@ app.post("/confermaotp", async (req, res) => {
     if (!otpDoc) {
       return res.status(400).json({ message: "Codice di sicurezza invalido" });
     }
+    res.status(200).json({ message: "Codice di sicurezza valido" });
   } catch (error) {
     res.status(500).json({ message: "Errore del server" });
   }

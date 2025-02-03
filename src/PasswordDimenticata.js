@@ -17,7 +17,6 @@ const PasswordDimenticata = () => {
       if (response.status === 200) {
         // Assuming 201 is the status code for successful user creation
         navigate("/confermaotp");
-        console.log("User created successfully");
         setMessage("Password inviata alla tua email");
       }
     } catch (error) {

@@ -27,22 +27,16 @@ function Login() {
       console.log("Loggin successfully");
       if (response.status === 200) {
         navigate("/");
-        console.log("Loggin succes`sfully");
       }
     } catch (error) {
       if (error.response) {
-        setErrorMessage(error.response.data.message || "Errore nel login");
+        setErrorMessage(error.response.data.message);
         // Il server ha risposto con uno stato diverso da 2xx
       } else if (error.request) {
-        setErrorMessage(
-          error.request.message ||
-            "Errore nel server, contattare l'amministratore"
-        );
+        setErrorMessage(error.request.message);
         // La richiesta è stata fatta ma non è stata ricevuta alcuna risposta
       } else {
-        setErrorMessage(
-          error.message || "Errore sconosciuto, contattare l'amministratore"
-        );
+        setErrorMessage(error.message);
         // Qualcosa è andato storto nella configurazione della richiesta
       }
     }
@@ -57,7 +51,7 @@ function Login() {
           name="email"
           value={formData.email}
           onChange={handleChange}
-          placeholder="Email o Username*"
+          placeholder="Email o Username"
           required
         />
 
@@ -66,9 +60,10 @@ function Login() {
           name="password"
           value={formData.password}
           onChange={handleChange}
-          placeholder="Password*"
+          placeholder="Password"
           required
         />
+        <Link to="/passworddimenticata">Password dimenticata?</Link>
         <button type="submit">Login</button>
         <p>
           Non hai un account? <Link to="/register">Registrati qui</Link>

@@ -23,34 +23,28 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (formData.password !== formData.confirmPassword) {
-      setErrorMessage("Le password non corrispondono");
-      return;
-    }
     try {
+      if (formData.password !== formData.confirmPassword) {
+        setErrorMessage("Le password non corrispondono");
+      }
       const response = await axios.post(
         "http://localhost:3000/register",
         formData
       ); // Assicurati che l'URL sia corretto
-      if (response.status === 200) {
+      if (response.status === 201) {
+        // Assuming 201 is the status code for successful user creation
         navigate("/");
-        console.log("User created successfully");
       }
     } catch (error) {
       if (error.response) {
-        setErrorMessage(error.response.data.message || "Utenza già esistente");
         // Il server ha risposto con uno stato diverso da 2xx
+        setErrorMessage(error.response.data.message);
       } else if (error.request) {
-        setErrorMessage(
-          error.request.message ||
-            "Errore nel server, contattare l'amministratore"
-        );
         // La richiesta è stata fatta ma non è stata ricevuta alcuna risposta
+        setErrorMessage(error.request);
       } else {
-        setErrorMessage(
-          error.message || "Errore sconosciuto, contattare l'amministratore"
-        );
         // Qualcosa è andato storto nella configurazione della richiesta
+        setErrorMessage(error.message);
       }
     }
   };
@@ -71,7 +65,7 @@ const Register = () => {
           name="nome"
           value={formData.nome}
           onChange={handleChange}
-          placeholder="Nome*"
+          placeholder="Nome"
           required
         />
         <input
@@ -79,7 +73,7 @@ const Register = () => {
           name="cognome"
           value={formData.cognome}
           onChange={handleChange}
-          placeholder="Cognome*"
+          placeholder="Cognome"
           required
         />
         <input
@@ -87,7 +81,7 @@ const Register = () => {
           name="username"
           value={formData.username}
           onChange={handleChange}
-          placeholder="Username*"
+          placeholder="Username"
           required
         />
         <input
@@ -95,7 +89,7 @@ const Register = () => {
           name="email"
           value={formData.email}
           onChange={handleChange}
-          placeholder="Email*"
+          placeholder="Email"
           required
         />
         <input
@@ -103,15 +97,15 @@ const Register = () => {
           name="password"
           value={formData.password}
           onChange={handleChange}
-          placeholder="Password*"
+          placeholder="Password"
           required
         />
         <input
           type="password"
           name="confirmPassword"
-          value={formData.confirmPassword || ""}
+          value={formData.confirmPassword}
           onChange={handleChange}
-          placeholder="Conferma Password*"
+          placeholder="Conferma Password"
           required
         />
         <input
@@ -126,7 +120,7 @@ const Register = () => {
         <label htmlFor="terms">
           Accetto i <Link to="/termsandconditions">Termini e Condizioni</Link>
         </label>
-        <button type="submit">Crea account</button>
+        <button type="submit">Registrati</button>
       </form>
       {errorMessage && <div className="error-message">{errorMessage}</div>}
     </div>
