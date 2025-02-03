@@ -4,6 +4,7 @@ const bcrypt = require("bcrypt");
 const cors = require("cors");
 const User = require("./api/Users");
 const Otp = require("./api/Otp"); // Ensure Otp model is correctly defined and imported
+const nodemailer = require("nodemailer");
 
 const app = express();
 app.use(cors()); // Aggiungi questa riga per abilitare CORS
@@ -16,6 +17,17 @@ mongoose
   .connect(DATABASE_URL, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.error("Could not connect to MongoDB", err));
+
+const EMAIL = process.env.EMAIL;
+const EMAIL_PASSWORD = process.env.EMAIL_PASSWORD;
+// Configura il trasportatore di Nodemailer
+const transporter = nodemailer.createTransport({
+  service: "gmail", // Puoi usare altri servizi come Yahoo, Outlook, etc.
+  auth: {
+    user: EMAIL,
+    pass: EMAIL_PASSWORD, // Sostituisci con la tua password
+  },
+});
 
 // Endpoint di registrazione
 app.post("/register", async (req, res) => {
@@ -75,7 +87,7 @@ app.post("/login", async (req, res) => {
   }
 });
 
-app.post("/forgotpassword", async (req, res) => {
+app.post("/generaotp", async (req, res) => {
   try {
     const { email } = req.body;
 
@@ -85,17 +97,36 @@ app.post("/forgotpassword", async (req, res) => {
       return res.status(400).json({ message: email + " non trovato" });
     }
 
+    const existingOtp = await Otp.findOne({ email });
+    if (existingOtp) {
+      await Otp.deleteOne({ email });
+    }
     // Genera un token di reset password (puoi usare una libreria come crypto per generare un token)
     const resetToken = Math.floor(100000 + Math.random() * 900000).toString();
 
     const newOtp = new Otp({
       email,
       otp: resetToken,
+      expiresAt: new Date(Date.now() + 10 * 60 * 1000), // Scade in 10 minuti
     });
 
-    // Salva il token nel database
-    await newOtp.save();
-    res.status(200).json({ message: "Codice di sicurezza inviato" });
+    // Configura l'email
+    const mailOptions = {
+      from: EMAIL, // Sostituisci con la tua email
+      to: email,
+      subject: "Codice di sicurezza",
+      text: `Il tuo codice di sicurezza è: ${resetToken}`,
+    };
+
+    // Invia l'email
+    try {
+      await transporter.sendMail(mailOptions);
+      // Salva il token nel database
+      await newOtp.save();
+      return res.status(200).json({ message: "Codice di sicurezza inviato" });
+    } catch (error) {
+      return res.status(500).json({ message: "Errore nell'invio dell'email" });
+    }
   } catch (error) {
     res.status(500).json({
       message: "Codice di sicurezza gia mandato, aspettare un attimo",
@@ -113,6 +144,31 @@ app.post("/confermaotp", async (req, res) => {
       return res.status(400).json({ message: "Codice di sicurezza invalido" });
     }
     res.status(200).json({ message: "Codice di sicurezza valido" });
+  } catch (error) {
+    res.status(500).json({ message: "Errore del server" });
+  }
+});
+
+app.post("/passwordreset", async (req, res) => {
+  try {
+    const { email, otp, newPassword } = req.body;
+
+    // Trova il token di reset password
+    const otpDoc = await Otp.findOne({ email, otp });
+    if (!otpDoc) {
+      return res.status(400).json({ message: "Codice di sicurezza invalido" });
+    }
+
+    // Hash della nuova password
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+    // Aggiorna la password dell'utente
+    await User.findOneAndUpdate({ email }, { password: hashedPassword });
+
+    // Rimuovi il token OTP dal database
+    await Otp.deleteOne({ email, otp });
+
+    res.status(200).json({ message: "Password aggiornata con successo" });
   } catch (error) {
     res.status(500).json({ message: "Errore del server" });
   }

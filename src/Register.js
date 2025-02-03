@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import { set } from "mongoose";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -26,6 +25,7 @@ const Register = () => {
     try {
       if (formData.password !== formData.confirmPassword) {
         setErrorMessage("Le password non corrispondono");
+        return;
       }
       const response = await axios.post(
         "http://localhost:3000/register",

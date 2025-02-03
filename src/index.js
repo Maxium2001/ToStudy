@@ -13,7 +13,7 @@ import ImageCarousel from "./ImageCarousel";
 import Login from "./Login";
 import TermsAndConditions from "./TermsAndConditions";
 import PasswordDimenticata from "./PasswordDimenticata";
-import ConfermaOtp from "./ConfermaOtp";
+import PasswordReset from "./ResetPassword";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -47,7 +47,7 @@ ReactDOM.render(
         } />
         <Route path="/termsandconditions" element={<TermsAndConditions />} />
         <Route path="/passworddimenticata" element={<PasswordDimenticata />} />
-        <Route path="/confermaotp" element={<ConfermaOtp />} />
+        <Route path="/resetpassword" element={<PasswordReset />} />
       </Routes>
     </Router>
   </React.StrictMode>,

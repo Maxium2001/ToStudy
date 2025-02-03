@@ -142,6 +142,7 @@ a:hover {
 
 /* NAVBAR */
 nav {
+<<<<<<< HEAD
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -153,6 +154,52 @@ nav {
   left: 0;
   width: 100%;
   z-index: 1000;
+=======
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #EEEEEE;
+    position: relative;
+  }
+  
+  .navbar-nav ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .navbar-nav li {
+    margin: 0 10px;
+  }
+  
+  .navbar-nav a {
+    color: #222831;
+    text-decoration: none;
+    font-size: 16px;
+  }
+  
+  .navbar-user ul {
+    list-style: none;
+  }
+  
+  .navbar-user li {
+    margin-left: 10px;
+  }
+
+  /*Sottolineatura*/
+  nav a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 3%; /* spessore della sottolineatura */
+    background-color: #222831; /* colore della sottolineatura */
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+>>>>>>> 7e3e3e1a5d29462dc31d2b2a62de35b95069df54
 }
 
 /* Contenitore link navbar */
@@ -206,7 +253,31 @@ nav {
   display: none;
 }
 
+<<<<<<< HEAD
 
+=======
+.icon-nav img {
+    width: 30vh; /* Modifica la larghezza del logo */
+    height: auto; /* Mantiene le proporzioni */
+    object-fit: contain; /* Evita distorsioni */
+}
+
+#user{
+    width: 10vh; /* Modifica la larghezza del logo */
+    height: auto; /* Mantiene le proporzioni */
+    object-fit: contain; /* Evita distorsioni */  
+}
+
+@media (max-width: 768px) {
+    .icon-nav img {
+        width: 30vh; /* Riduce la dimensione del logo su schermi più piccoli */
+    }
+
+    #user img{
+        width: 10vh; /* Riduce la dimensione del logo su schermi più piccoli */
+    }
+}
+>>>>>>> 7e3e3e1a5d29462dc31d2b2a62de35b95069df54
   
 
 
@@ -446,7 +517,12 @@ button {
     button {
         padding: 4% 6%;
     }
+<<<<<<< HEAD
     .faq-question {
         font-size: 1.5em;
     }
   }
+=======
+
+}
+>>>>>>> 7e3e3e1a5d29462dc31d2b2a62de35b95069df54
