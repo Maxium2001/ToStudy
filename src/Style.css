@@ -35,6 +35,8 @@ a:hover {
 
 
 
+
+
 /*HOMEPAGE*/
 /* Impostazioni per la homepage */
 .homepage {
@@ -51,7 +53,7 @@ a:hover {
     flex-direction: column;
     flex-grow: 1; /* Le colonne possono crescere per occupare tutto lo spazio disponibile */
     height: 100%;
-    margin: 10px;
+    margin: 5% 0; /* Spazio sopra e sotto le colonne */
     overflow-y: auto; /* Aggiunge la barra di scorrimento se necessario */
     border-right: 1px solid #222831; /* Linea di separazione tra le colonne */
   }
@@ -112,6 +114,8 @@ a:hover {
 
 
 
+
+
   /* APPUNTI BRUTTO*/
   .clearclickboxes {
     display: flex;
@@ -142,72 +146,23 @@ a:hover {
 
 /* NAVBAR */
 nav {
-<<<<<<< HEAD
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 5px 20px; /* Ridotto per diminuire altezza */
-  height: 50px; /* Altezza navbar più bassa */
+  height: 10%; /* Altezza navbar più bassa */
   background-color: #EEEEEE;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   z-index: 1000;
-=======
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    background-color: #EEEEEE;
-    position: relative;
   }
-  
-  .navbar-nav ul {
-    list-style: none;
-    display: flex;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .navbar-nav li {
-    margin: 0 10px;
-  }
-  
-  .navbar-nav a {
-    color: #222831;
-    text-decoration: none;
-    font-size: 16px;
-  }
-  
-  .navbar-user ul {
-    list-style: none;
-  }
-  
-  .navbar-user li {
-    margin-left: 10px;
-  }
-
-  /*Sottolineatura*/
-  nav a::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 3%; /* spessore della sottolineatura */
-    background-color: #222831; /* colore della sottolineatura */
-    transform: scaleX(0);
-    transition: transform 0.3s ease;
->>>>>>> 7e3e3e1a5d29462dc31d2b2a62de35b95069df54
-}
-
 /* Contenitore link navbar */
 .navbar-nav {
   display: flex;
   align-items: center; /* Allinea i link al centro accanto al logo */
 }
-
 /* Lista navbar */
 .navbar-nav ul {
   list-style: none;
@@ -215,69 +170,50 @@ nav {
   margin: 0;
   padding: 0;
 }
-
 /* Distanza tra gli item della navbar */
 .navbar-nav li {
   margin: 0 15px;
 }
-
 /* Link della navbar */
 .navbar-nav a {
   color: #222831;
   text-decoration: none;
-  font-size: 16px;
+  font-size: 90%;
   position: relative; /* Necessario per la sottolineatura */
 }
-
 /* Sottolineatura animata */
 .navbar-nav a::after {
   content: '';
   position: absolute;
   left: 0;
-  bottom: -2px; /* Spazio tra testo e sottolineatura */
+  bottom: -3vh; /* Spazio tra testo e sottolineatura */
   width: 100%;
   height: 2px; /* Spessore sottolineatura */
   background-color: #222831;
   transform: scaleX(0);
   transition: transform 0.3s ease-in-out;
 }
-
 /* Mostra la sottolineatura al passaggio del mouse */
 .navbar-nav a:hover::after,
 .navbar-nav a.active::after {
   transform: scaleX(1);
 }
-
 /* Evita la sottolineatura sotto il logo */
 .icon-nav::after {
   display: none;
 }
-
-<<<<<<< HEAD
-
-=======
 .icon-nav img {
     width: 30vh; /* Modifica la larghezza del logo */
     height: auto; /* Mantiene le proporzioni */
     object-fit: contain; /* Evita distorsioni */
 }
-
 #user{
     width: 10vh; /* Modifica la larghezza del logo */
     height: auto; /* Mantiene le proporzioni */
     object-fit: contain; /* Evita distorsioni */  
 }
 
-@media (max-width: 768px) {
-    .icon-nav img {
-        width: 30vh; /* Riduce la dimensione del logo su schermi più piccoli */
-    }
 
-    #user img{
-        width: 10vh; /* Riduce la dimensione del logo su schermi più piccoli */
-    }
-}
->>>>>>> 7e3e3e1a5d29462dc31d2b2a62de35b95069df54
   
 
 
@@ -451,6 +387,7 @@ button {
 
 
 
+
   /* Media Queries per dispositivi mobili */
   @media (max-width: 768px) {
         html, body {
@@ -517,12 +454,14 @@ button {
     button {
         padding: 4% 6%;
     }
-<<<<<<< HEAD
     .faq-question {
         font-size: 1.5em;
     }
+    .icon-nav img {
+      width: 30vh; /* Riduce la dimensione del logo su schermi più piccoli */
   }
-=======
 
-}
->>>>>>> 7e3e3e1a5d29462dc31d2b2a62de35b95069df54
+  #user img{
+      width: 10vh; /* Riduce la dimensione del logo su schermi più piccoli */
+  }
+  }

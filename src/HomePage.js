@@ -13,11 +13,11 @@ function HomePage() {
     return (
         <div className="homepage">
             <div className="column">
-            <h2>PROFILO</h2> 
+            <h1>PROFILO</h1> 
                 <div className="neutral-zone"></div>
                 <a href="ProfiloPage.js" className="circle-icon clickable"></a>
                 <hr className="separator" />
-                <h2>APPUNTI</h2> 
+                <h1>APPUNTI</h1> 
                 {/* Colonna Scrollabile: Questo div è scrollabile se il contenuto è più grande */}
                 <div class="click-box-container" id="clickBoxesContainer1">
                    {clickBoxes.map((box, index) => (
@@ -28,7 +28,7 @@ function HomePage() {
              </div>
           </div>
             <div className="column">
-            <h2>GRUPPI</h2> 
+            <h1>GRUPPI</h1> 
             <div class="click-box-container" id="clickBoxesContainer1">
                    {clickBoxes.map((box, index) => (
                <div className="box clickable" key={index}>
@@ -38,7 +38,7 @@ function HomePage() {
                 </div>
             </div>
             <div className="column">
-            <h2>SCHEDA DI OGGI</h2> 
+            <h1>SCHEDA DI OGGI</h1> 
             <div class="click-box-container" id="clickBoxesContainer1">
                    {clickBoxes.map((box, index) => (
                <div className="box clickable" key={index}>
