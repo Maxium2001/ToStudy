@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import "./Style.css";
-import './Function.css';
 
 const FaqPage = () => {
     const [openIndex, setOpenIndex] = useState(null);

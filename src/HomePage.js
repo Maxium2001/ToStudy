@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import './Style.css';
-import './Function.css';
 
 function HomePage() {
   const [clickBoxes, setClickBoxes] = useState([]);

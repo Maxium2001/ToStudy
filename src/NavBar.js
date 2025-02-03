@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import "./Style.css";
-import './Function.css';
 
 function NavBar() {
   const [isMobile, setIsMobile] = useState(false);
