@@ -206,8 +206,8 @@ nav {
     margin-left: 10px;
   }
 
-  *Sottolineatura*/
-nav a::after {
+  /*Sottolineatura*/
+  nav a::after {
     content: '';
     position: absolute;
     left: 0;
@@ -234,6 +234,28 @@ nav a:hover{
 
 .icon-nav::after {
   display: none; /* Nasconde la sottolineatura del logo */
+}
+
+.icon-nav img {
+    width: 30vh; /* Modifica la larghezza del logo */
+    height: auto; /* Mantiene le proporzioni */
+    object-fit: contain; /* Evita distorsioni */
+}
+
+#user{
+    width: 10vh; /* Modifica la larghezza del logo */
+    height: auto; /* Mantiene le proporzioni */
+    object-fit: contain; /* Evita distorsioni */  
+}
+
+@media (max-width: 768px) {
+    .icon-nav img {
+        width: 30vh; /* Riduce la dimensione del logo su schermi più piccoli */
+    }
+
+    #user img{
+        width: 10vh; /* Riduce la dimensione del logo su schermi più piccoli */
+    }
 }
   
   /* Icona hamburger */
@@ -481,96 +503,6 @@ button {
 
     button {
         padding: 4% 6%;
-    }
-
-
-/* Meta Query per schermi di grandi dimensioni */
-@media (min-width: 1200px) {
-    html, body {
-        font-size: 2vh;
-    }
-
-    h1 {
-        font-size: 4.5vh;
-    }
-
-    nav {
-        flex-direction: column;
-        align-items: center;
-      }
-    
-      /* Nascondere i link quando lo schermo è piccolo */
-      nav ul {
-        display: none;
-        width: 100%;
-        text-align: center;
-        padding: 10px 0;
-      }
-    
-      nav a {
-        font-size: 16px;
-        padding: 15px;
-        width: 100%;
-      }
-    
-      /* Mostrare il menu quando si clicca sull'icona hamburger */
-      .menu-toggle {
-        display: block;
-        cursor: pointer;
-        font-size: 30px;
-        color: #EEEEEE;
-        background: transparent;
-        border: none;
-      }
-    
-      /* Aggiungere una transizione per il menu */
-      nav ul.show {
-        display: block;
-      }
-    }
-    
-    /* Icona hamburger */
-    .menu-toggle {
-      display: none;
-    }
-    
-    /* Animazione della sottolineatura sui link */
-    nav a::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      height: 3%;
-      background-color: #222831;
-      transform: scaleX(0);
-      transition: transform 0.3s ease;
-    }
-    
-    /* Hover e attivazione della sottolineatura */
-    nav a:hover::after,
-    nav a.active::after {
-      transform: scaleX(1);
-      text-decoration: none;
-      color: #222831;
-    }
-    
-    nav a:hover {
-      text-decoration: none;
-      color: #222831;
-    }
-
-    .faq-container {
-        max-width: 60vh;
-        padding: 3vh;
-    }
-
-    form {
-        width: 70%;
-    }
-
-    button {
-        padding: 3% 5%;
     }
 
 }
