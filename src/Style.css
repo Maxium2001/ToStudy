@@ -394,9 +394,11 @@ button {
 
   /* Media Queries per dispositivi mobili */
   @media (max-width: 768px) {
-        html, body {
-            font-size: 3.5vh;
-       }
+    html, body {
+      font-size: 3.5vh;
+      background-color: #EEEEEE;
+      overflow-x: hidden; /* Impedisce lo scroll orizzontale */
+}
         h1 {
               font-size: 6vh;
       }
@@ -405,6 +407,13 @@ button {
             align-items: center;
             height: auto;
        }
+
+
+
+
+
+
+
         .column {
         width: 90%;
         margin-bottom: 20px;
@@ -424,29 +433,76 @@ button {
       .separator {
         width: 90%;
       }
-      .navbar-nav {
-      display: none;
-      flex-direction: column;
-      position: absolute;
-      top: 60px;
-      right: 0;
-      background-color: #EEEEEE;
-      width: 100%;
-      padding: 10px 0;
-    }
-     .navbar-nav.active {
-      display: flex;      
-    }
-    .navbar-nav ul {
-      flex-direction: column;
-    }
-    .navbar-nav li {
-      margin: 10px 0;
-      text-align: center;
-    }
-    .navbar-nav a {
-      font-size: 18px;
-    }
+
+
+
+
+
+
+
+  /* Imposta il layout della navbar */
+  nav {
+    flex-direction: row; /* Cambia l'orientamento a riga*/
+    align-items: flex-start; /* Allinea tutto a sinistra */
+    height: auto; /* Altezza dinamica */
+    padding: 10px; /* Aggiunge più padding */
+  }
+
+  /* Logo e utente in alto */
+  #logo {
+    width: 20vh; /* Rende il logo più piccolo */
+  }
+
+  #user {
+    width: 6vh; /* Rende l'icona utente più piccola */
+    margin: 0;
+    position: absolute; /* Posizionamento fisso in alto a destra */
+    top: 6vh;
+    right: 5vh;
+  }
+
+  /* Contenitore della navbar */
+  .navbar-nav {
+    flex-direction: row; /* Disposizione orizzontalmente*/
+    width: 100%; /* Occupa tutta la larghezza */
+    align-items: flex-start; /* Allinea i link a sinistra */
+    margin-top: 20px; /* Spazio sotto il logo e user */
+  }
+
+  /* Lista della navbar */
+  .navbar-nav ul {
+    flex-direction: row; /* Cambia orientamento in orizzontalmente*/
+    overflow-x: auto; /* Permette lo scroll */
+    max-height: 50vh; /* Limita l'altezza massima della lista */
+    width: 90%; /* Occupa tutta la larghezza */
+    padding: 0; /* Rimuove il padding */
+    scrollbar-width: thin; /* Per Firefox */
+    scrollbar-color: #B0B0B0 transparent; /* Per Firefox */
+    height: 11vh;
+  }
+
+  /* Elementi della lista */
+  .navbar-nav li {
+    margin: 0; /* Spazio verticale tra gli elementi */
+    width: 35%; /* Link a tutta larghezza */
+    flex-shrink: 0; /* Evita che i link si restringano */
+  }
+
+  /* Link della navbar */
+  .navbar-nav a {
+    font-size: 1rem; /* Rende i link più leggibili */
+    padding: 5px 10px; /* Aggiunge padding interno ai link */
+    display: block; /* Ogni link occupa una riga intera */
+    text-align: center; /* Allinea il testo a sinistra */
+  }
+
+
+
+
+
+
+
+
     .faq-container {
         padding: 2vh;
         grid-template-columns: 1fr;
@@ -461,11 +517,4 @@ button {
     .faq-question {
         font-size: 1.5em;
     }
-    .icon-nav img {
-      width: 30vh; /* Riduce la dimensione del logo su schermi più piccoli */
-  }
-
-  #user img{
-      width: 10vh; /* Riduce la dimensione del logo su schermi più piccoli */
-  }
   }
