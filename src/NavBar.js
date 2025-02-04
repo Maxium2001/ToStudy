@@ -31,11 +31,6 @@ function NavBar() {
               </NavLink>
             </li>
             <li>
-              <NavLink to="/calendario" activeClassName="active">
-                Calendario
-              </NavLink>
-            </li>
-            <li>
               <NavLink to="/faq" activeClassName="active">
                 Faq
               </NavLink>
