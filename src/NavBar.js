@@ -1,14 +1,16 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import "./Style.css";
+import { useAuth } from "./Autenticato";
 
 function NavBar() {
+  const { isAuthenticated } = useAuth();
   return (
     <nav>
       <div className="navbar">
         <div className="navbar-brand">
-          <NavLink to="/" className="icon-nav">
-            <img src="/logo.png" alt="logo" />
+          <NavLink to="/">
+            <img src="/logo.png" alt="logo" id="logo" />
           </NavLink>
         </div>
 
@@ -31,11 +33,6 @@ function NavBar() {
               </NavLink>
             </li>
             <li>
-              <NavLink to="/calendario" activeClassName="active">
-                Calendario
-              </NavLink>
-            </li>
-            <li>
               <NavLink to="/faq" activeClassName="active">
                 Faq
               </NavLink>
@@ -43,16 +40,21 @@ function NavBar() {
           </ul>
         </div>
       </div>
-      
-      <div className="navbar-user">
-        <ul>
-          <li>
-            <NavLink to="/login" className="icon-nav">
+      {isAuthenticated ? (
+        <>
+          <div className="navbar-user">
+            <NavLink to="/profilepage">
               <img src="/user.png" alt="user" id="user" />
             </NavLink>
-          </li>
-        </ul>
-      </div>
+          </div>
+        </>
+      ) : (
+        <div className="navbar-user">
+          <NavLink to="/login">
+            <img src="/user.png" alt="user" id="user" />
+          </NavLink>
+        </div>
+      )}
     </nav>
   );
 }

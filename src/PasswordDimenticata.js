@@ -7,7 +7,6 @@ const PasswordDimenticata = () => {
   const [email, setEmail] = useState("");
   const [otp, setOtp] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const [otpSent, setOtpSent] = useState(false);
 
   const handleOtpGeneration = async (e) => {
     e.preventDefault();
@@ -16,7 +15,6 @@ const PasswordDimenticata = () => {
         email: email,
       }); // Assicurati che l'URL sia corretto
       if (response.status === 200) {
-        setOtpSent(true);
         setErrorMessage("OTP inviato alla tua email");
       }
     } catch (error) {

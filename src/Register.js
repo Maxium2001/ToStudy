@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "./Autenticato";
 
 const Register = () => {
   const navigate = useNavigate();
+  const { login } = useAuth();
   const [errorMessage, setErrorMessage] = useState("");
   const [formData, setFormData] = useState({
     nome: "",
@@ -30,9 +32,9 @@ const Register = () => {
       const response = await axios.post(
         "http://localhost:3000/register",
         formData
-      ); // Assicurati che l'URL sia corretto
+      );
       if (response.status === 201) {
-        // Assuming 201 is the status code for successful user creation
+        login();
         navigate("/");
       }
     } catch (error) {
@@ -120,7 +122,7 @@ const Register = () => {
         <label htmlFor="terms">
           Accetto i <Link to="/termsandconditions">Termini e Condizioni</Link>
         </label>
-        <button type="submit">Registrati</button>
+        <button type="submit">Crea account</button>
       </form>
       {errorMessage && <div className="error-message">{errorMessage}</div>}
     </div>

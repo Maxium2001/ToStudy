@@ -37,8 +37,6 @@ a:hover {
 
 
 
-
-
 /*HOMEPAGE*/
 /* Impostazioni per la homepage */
 .homepage {
@@ -237,15 +235,18 @@ nav {
 .icon-nav::after {
   display: none;
 }
-.icon-nav img {
-    width: 30vh; /* Modifica la larghezza del logo */
-    height: auto; /* Mantiene le proporzioni */
-    object-fit: contain; /* Evita distorsioni */
+
+#logo{
+  width: 30vh; /* Modifica la larghezza del logo */
+  height: auto; /* Mantiene le proporzioni */
+  object-fit: contain; /* Evita distorsioni */
 }
+
 #user{
-    width: 10vh; /* Modifica la larghezza del logo */
+    width: 8vh; /* Modifica la larghezza del logo */
     height: auto; /* Mantiene le proporzioni */
-    object-fit: contain; /* Evita distorsioni */  
+    object-fit: contain; /* Evita distorsioni */ 
+    margin-top: 30% 
 }
 
 
@@ -388,6 +389,7 @@ button {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-radius: 0;
 }
 #faq {
     border-bottom: 0.2vh solid #222831;
@@ -396,7 +398,7 @@ button {
 }
 .faq-question:hover, .faq-question:focus {
     background-color: #B0B0B0;
-    border: 0.2vh solid #222831;
+    border: 0.1vh solid #222831;
 }
 .faq-arrow {
     transition: transform 0.3s ease;
@@ -427,124 +429,57 @@ button {
   @media (max-width: 768px) {
         html, body {
             font-size: 3.5vh;
-
        }
         h1 {
               font-size: 6vh;
       }
-/* Container principale */
-.homepage {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  height: 100vh; /* Usa l'intera altezza della finestra */
-  overflow: hidden; /* Impedisce lo scroll della pagina */
-}
-
-/* Zona neutra sopra le colonne su mobile */
-.neutral-zone {
-  display: block;
-  width: 100%;
-  background-color: lightgray;
-  padding: 15px;
-  text-align: center;
-  margin-bottom: 20px; /* Spazio tra la zona neutra e la colonna 1 */
-  z-index: 10; /* Rende la zona neutra fissa sopra */
-}
-
-/* Contenitore delle colonne - in questo caso, le colonne sono una sotto l'altra */
-.scroll-container {
-  display: flex;
-  flex-direction: column; /* Le colonne sono disposte verticalmente */
-  width: 100%;
-  height: 100vh; /* L'intero contenitore occupa l'altezza della finestra */
-  overflow-y: auto; /* Abilita lo scroll verticale per il contenuto delle colonne */
-}
-
-/* Colonna 1 */
-.column:first-child {
-  width: 100%;
-  height: auto; /* Altezza automatica in base al contenuto */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  scroll-snap-align: start;
-  margin-bottom: 20px; /* Distanza tra le colonne */
-}
-
-/* Colonna 2 */
-.column:last-child {
-  width: 100%;
-  height: auto; /* Altezza automatica in base al contenuto */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  scroll-snap-align: start;
-}
-
-/* Contenitore delle clickbox */
-.click-box-container {
-  display: flex;
-  flex-direction: row; /* Le clickbox sono disposte orizzontalmente */
-  align-items: center;
-  justify-content: flex-start;
-  width: 100%;
-  overflow-x: auto; /* Abilita lo scroll orizzontale per le clickbox */
-  max-height: calc(100vh - 160px); /* Limita l'altezza per non far scorrere troppo */
-  flex-wrap: nowrap; /* Le clickbox restano sulla stessa riga senza andare a capo */
-}
-
-/* Ogni clickbox */
-.box {
-  width: 60vw; /* La larghezza delle clickbox è ridotta per adattarsi meglio */
-  height: 60px;
-  margin-right: 10px; /* Spazio tra le clickbox */
-  background-color: #f0f0f0;
-  border-radius: 5px;
-  padding: 10px;
-  flex-shrink: 0; /* Impedisce che la clickbox si riduca */
-}
-
-/* Mostriamo la zona neutra sopra le colonne su mobile */
-.mobile-only {
-  display: block;
-  width: 100%;
-  background-color: lightgray;
-  padding: 15px;
-  text-align: center;
-}
-
-.desktop-only {
-  display: none;
-}
-.mobile-only{
-  display:none;
-
-}
-     /* Navbar */
-    .navbar-nav ul {
-      display:flex;
+        .homepage {
+            flex-direction: column;
+            align-items: center;
+            height: auto;
+       }
+        .column {
+        width: 90%;
+        margin-bottom: 20px;
+       }
+        .click-box-container {
+        flex-direction: column;
+        align-items: center;
+       }
+        .box {
+        height: 60px;
+          width: 100%;
+       }
+      .neutral-zone {
+        width: 90%;
+        margin: 10px auto;
+      }
+      .separator {
+        width: 90%;
+      }
+      .navbar-nav {
+      display: none;
       flex-direction: column;
       position: absolute;
-      top: 8vh;
-      left: 0;
-      width: 100%;
+      top: 60px;
+      right: 0;
       background-color: #EEEEEE;
-      text-align: center;
-  }
-  .navbar-nav ul.active {
-      display: flex;
-  }
-
-  .navbar-nav li {
+      width: 100%;
+      padding: 10px 0;
+    }
+     .navbar-nav.active {
+      display: flex;      
+    }
+    .navbar-nav ul {
+      flex-direction: column;
+    }
+    .navbar-nav li {
       margin: 10px 0;
-  }
-
-  .menu-toggle {
-      display: block;
-      cursor: pointer;
-  }
+      text-align: center;
+    }
+    .navbar-nav a {
+      font-size: 18px;
+    }
     .faq-container {
         padding: 2vh;
         grid-template-columns: 1fr;
@@ -563,7 +498,7 @@ button {
       width: 30vh; /* Riduce la dimensione del logo su schermi più piccoli */
   }
 
-  #user img{
-      width: 10vh; /* Riduce la dimensione del logo su schermi più piccoli */
-  }
+.container {
+    padding: 1vh; /* Riduci il padding generale */
+}
   }

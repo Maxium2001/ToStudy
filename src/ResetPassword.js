@@ -64,7 +64,6 @@ const PasswordReset = () => {
             />
           </div>
         </div>
-        <p>{otp}</p>
         <button type="submit">Reimposta Password</button>
         {errorMessage && <p>{errorMessage}</p>}
       </form>
