@@ -7,8 +7,8 @@ function NavBar() {
     <nav>
       <div className="navbar">
         <div className="navbar-brand">
-          <NavLink to="/" className="icon-nav">
-            <img src="/logo.png" alt="logo" />
+          <NavLink to="/">
+            <img src="/logo.png" alt="logo" id="logo"/>
           </NavLink>
         </div>
 
@@ -45,13 +45,9 @@ function NavBar() {
       </div>
       
       <div className="navbar-user">
-        <ul>
-          <li>
-            <NavLink to="/login" className="icon-nav">
+            <NavLink to="/login">
               <img src="/user.png" alt="user" id="user" />
             </NavLink>
-          </li>
-        </ul>
       </div>
     </nav>
   );

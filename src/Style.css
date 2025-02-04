@@ -37,6 +37,7 @@ a:hover {
 
 
 
+
 /*HOMEPAGE*/
 /* Impostazioni per la homepage */
 .homepage {
@@ -202,15 +203,18 @@ nav {
 .icon-nav::after {
   display: none;
 }
-.icon-nav img {
-    width: 30vh; /* Modifica la larghezza del logo */
-    height: auto; /* Mantiene le proporzioni */
-    object-fit: contain; /* Evita distorsioni */
+
+#logo{
+  width: 30vh; /* Modifica la larghezza del logo */
+  height: auto; /* Mantiene le proporzioni */
+  object-fit: contain; /* Evita distorsioni */
 }
+
 #user{
-    width: 10vh; /* Modifica la larghezza del logo */
+    width: 8vh; /* Modifica la larghezza del logo */
     height: auto; /* Mantiene le proporzioni */
-    object-fit: contain; /* Evita distorsioni */  
+    object-fit: contain; /* Evita distorsioni */ 
+    margin-top: 30% 
 }
 
 
