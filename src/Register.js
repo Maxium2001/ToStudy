@@ -30,9 +30,8 @@ const Register = () => {
       const response = await axios.post(
         "http://localhost:3000/register",
         formData
-      ); // Assicurati che l'URL sia corretto
+      );
       if (response.status === 201) {
-        // Assuming 201 is the status code for successful user creation
         navigate("/");
       }
     } catch (error) {
@@ -120,7 +119,7 @@ const Register = () => {
         <label htmlFor="terms">
           Accetto i <Link to="/termsandconditions">Termini e Condizioni</Link>
         </label>
-        <button type="submit">Registrati</button>
+        <button type="submit">Crea account</button>
       </form>
       {errorMessage && <div className="error-message">{errorMessage}</div>}
     </div>
