@@ -24,7 +24,7 @@ function Login() {
       const response = await axios.post(
         "http://localhost:3000/login",
         formData
-      ); // Assicurati che l'URL sia corretto
+      );
       console.log("Loggin successfully");
       if (response.status === 200) {
         navigate("/");
@@ -45,14 +45,14 @@ function Login() {
 
   return (
     <div>
-      <h1>Login</h1>
+      <h1>Accedi</h1>
       <form onSubmit={handleSubmit}>
         <input
           type="Text"
           name="email"
           value={formData.email}
           onChange={handleChange}
-          placeholder="Email o Username"
+          placeholder="Email o Username*"
           required
         />
 
@@ -61,13 +61,17 @@ function Login() {
           name="password"
           value={formData.password}
           onChange={handleChange}
-          placeholder="Password"
+          placeholder="Password*"
           required
         />
         <Link to="/passworddimenticata">Password dimenticata?</Link>
         <button type="submit">Login</button>
         <p>
-          Non hai un account? <Link to="/register">Registrati qui</Link>
+          Non hai un account?{" "}
+          <Link to="/register">
+            <img src="/user.png" alt="user" />
+          </Link>
+          Registrati qui
         </p>
       </form>
       {errorMessage && <div className="error-message">{errorMessage}</div>}
