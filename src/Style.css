@@ -357,6 +357,7 @@ button {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-radius: 0;
 }
 #faq {
     border-bottom: 0.2vh solid #222831;
@@ -365,7 +366,7 @@ button {
 }
 .faq-question:hover, .faq-question:focus {
     background-color: #B0B0B0;
-    border: 0.2vh solid #222831;
+    border: 0.1vh solid #222831;
 }
 .faq-arrow {
     transition: transform 0.3s ease;
@@ -394,26 +395,29 @@ button {
 
   /* Media Queries per dispositivi mobili */
   @media (max-width: 768px) {
+
+    /*STYLE*/
     html, body {
       font-size: 3.5vh;
       background-color: #EEEEEE;
       overflow-x: hidden; /* Impedisce lo scroll orizzontale */
-}
-        h1 {
-              font-size: 6vh;
-      }
-        .homepage {
+    }
+
+    body{
+      margin-top: 22vh;
+    }
+
+    h1 {
+      font-size: 6vh;
+    }
+        
+    
+    
+    .homepage {
             flex-direction: column;
             align-items: center;
             height: auto;
        }
-
-
-
-
-
-
-
         .column {
         width: 90%;
         margin-bottom: 20px;
@@ -439,13 +443,13 @@ button {
 
 
 
-
+/*NAVBAR*/
   /* Imposta il layout della navbar */
   nav {
     flex-direction: row; /* Cambia l'orientamento a riga*/
     align-items: flex-start; /* Allinea tutto a sinistra */
-    height: auto; /* Altezza dinamica */
-    padding: 10px; /* Aggiunge più padding */
+    height: 26%; /* Altezza dinamica */
+    padding: 0.1vh; /* Aggiunge più padding */
   }
 
   /* Logo e utente in alto */
@@ -491,7 +495,7 @@ button {
   /* Link della navbar */
   .navbar-nav a {
     font-size: 1rem; /* Rende i link più leggibili */
-    padding: 5px 10px; /* Aggiunge padding interno ai link */
+    padding: 1vh; /* Aggiunge padding interno ai link */
     display: block; /* Ogni link occupa una riga intera */
     text-align: center; /* Allinea il testo a sinistra */
   }
@@ -502,19 +506,23 @@ button {
 
 
 
+/*FAQ*/
+  .faq-container {
+    max-width: 100%; /* Usa tutta la larghezza dello schermo */
+    padding: 2vh; /* Riduci il padding */
+    margin-top: 4vh; /* Riduci il margine superiore */
+}
 
-    .faq-container {
-        padding: 2vh;
-        grid-template-columns: 1fr;
-    }
-    form {
-        width: 90%;
-        padding: 10%;
-    }
-    button {
-        padding: 4% 6%;
-    }
-    .faq-question {
-        font-size: 1.5em;
-    }
+.faq-question {
+    font-size: 1em; /* Rendi il testo leggermente più piccolo */
+    padding: 2vh; /* Aggiungi più spazio interno per facilitare il tocco */
+}
+
+.faq-answer {
+    font-size: 0.9em; /* Riduci il testo delle risposte */
+}
+
+.container {
+    padding: 1vh; /* Riduci il padding generale */
+}
   }
