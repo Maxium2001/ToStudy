@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import "./Style.css";
+import { useAuth } from "./Autenticato";
 
 function Login() {
   const navigate = useNavigate();
+  const { login } = useAuth();
   const [errorMessage, setErrorMessage] = useState("");
   const [formData, setFormData] = useState({
     email: "",
@@ -27,6 +29,7 @@ function Login() {
       );
       console.log("Loggin successfully");
       if (response.status === 200) {
+        login();
         navigate("/");
       }
     } catch (error) {

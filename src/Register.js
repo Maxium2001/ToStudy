@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "./Autenticato";
 
 const Register = () => {
   const navigate = useNavigate();
+  const { login } = useAuth();
   const [errorMessage, setErrorMessage] = useState("");
   const [formData, setFormData] = useState({
     nome: "",
@@ -32,6 +34,7 @@ const Register = () => {
         formData
       );
       if (response.status === 201) {
+        login();
         navigate("/");
       }
     } catch (error) {

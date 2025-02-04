@@ -14,42 +14,56 @@ import Login from "./Login";
 import TermsAndConditions from "./TermsAndConditions";
 import PasswordDimenticata from "./PasswordDimenticata";
 import PasswordReset from "./ResetPassword";
+import { AuthProvider } from "./Autenticato";
+import ProfilePage from "./ProfilePage";
 
 ReactDOM.render(
   <React.StrictMode>
-    <Router>
-      <NavBar />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/appunti" element={<AppuntiPage />} />
-        <Route path="/esplora" element={<EsploraPage />} />
-        <Route path="/gruppi" element={<GruppiPage />} />
-        <Route path="/faq" element={<FaqPage />} />
-        <Route path="/login" element={
-          <div className="page">
-            <div className="carousel-section">
-              <ImageCarousel /> {/* Carosello a sinistra */}
-            </div>
-            <div className="section">
-              <Login /> {/* Modulo di login a destra */}
-            </div>
-          </div>
-        } />
-        <Route path="/register" element={
-          <div className="page">
-            <div className="carousel-section">
-              <ImageCarousel /> {/* Carosello a sinistra */}
-            </div>
-            <div className="section">
-              <Register /> {/* Modulo di registrazione a destra */}
-            </div>
-          </div>
-        } />
-        <Route path="/termsandconditions" element={<TermsAndConditions />} />
-        <Route path="/passworddimenticata" element={<PasswordDimenticata />} />
-        <Route path="/resetpassword" element={<PasswordReset />} />
-      </Routes>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <NavBar />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/appunti" element={<AppuntiPage />} />
+          <Route path="/esplora" element={<EsploraPage />} />
+          <Route path="/gruppi" element={<GruppiPage />} />
+          <Route path="/faq" element={<FaqPage />} />
+          <Route
+            path="/login"
+            element={
+              <div className="page">
+                <div className="carousel-section">
+                  <ImageCarousel /> {/* Carosello a sinistra */}
+                </div>
+                <div className="section">
+                  <Login /> {/* Modulo di login a destra */}
+                </div>
+              </div>
+            }
+          />
+          <Route
+            path="/register"
+            element={
+              <div className="page">
+                <div className="carousel-section">
+                  <ImageCarousel /> {/* Carosello a sinistra */}
+                </div>
+                <div className="section">
+                  <Register /> {/* Modulo di registrazione a destra */}
+                </div>
+              </div>
+            }
+          />
+          <Route path="/termsandconditions" element={<TermsAndConditions />} />
+          <Route
+            path="/passworddimenticata"
+            element={<PasswordDimenticata />}
+          />
+          <Route path="/resetpassword" element={<PasswordReset />} />
+          <Route path="/profilepage" element={<ProfilePage />} />
+        </Routes>
+      </Router>
+    </AuthProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );
