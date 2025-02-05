@@ -128,7 +128,7 @@ a:hover {
   padding: 15px;
   text-align: center;
 }
-mobile-only {
+.mobile-only {
   display: none;
 }
 
@@ -427,78 +427,192 @@ button {
 
   /* Media Queries per dispositivi mobili */
   @media (max-width: 768px) {
-        html, body {
-            font-size: 3.5vh;
-       }
-        h1 {
-              font-size: 6vh;
-      }
-        .homepage {
-            flex-direction: column;
-            align-items: center;
-            height: auto;
-       }
-        .column {
-        width: 90%;
-        margin-bottom: 20px;
-       }
-        .click-box-container {
-        flex-direction: column;
-        align-items: center;
-       }
-        .box {
-        height: 60px;
-          width: 100%;
-       }
-      .neutral-zone {
-        width: 90%;
-        margin: 10px auto;
-      }
-      .separator {
-        width: 90%;
-      }
-      .navbar-nav {
-      display: none;
-      flex-direction: column;
-      position: absolute;
-      top: 60px;
-      right: 0;
+
+    /*STYLE*/
+    html, body {
+      font-size: 3.5vh;
       background-color: #EEEEEE;
-      width: 100%;
-      padding: 10px 0;
+      overflow-x: hidden; /* Impedisce lo scroll orizzontale */
     }
-     .navbar-nav.active {
-      display: flex;      
+
+    body{
+      margin-top: 22vh;
     }
-    .navbar-nav ul {
-      flex-direction: column;
+
+    h1 {
+      font-size: 6vh;
     }
-    .navbar-nav li {
-      margin: 10px 0;
-      text-align: center;
-    }
-    .navbar-nav a {
-      font-size: 18px;
-    }
-    .faq-container {
-        padding: 2vh;
-        grid-template-columns: 1fr;
-    }
-    form {
-        width: 90%;
-        padding: 10%;
-    }
-    button {
-        padding: 4% 6%;
-    }
-    .faq-question {
-        font-size: 1.5em;
-    }
-    .icon-nav img {
-      width: 30vh; /* Riduce la dimensione del logo su schermi più piccoli */
+
+/* Container principale */
+.homepage {
+  margin-top: 5%;
+display: flex;
+flex-direction: column;
+align-items: center;
+width: 100%;
+height: 100vh; /* Usa l'intera altezza della finestra */
+overflow: hidden; /* Impedisce lo scroll della pagina */
+}
+
+/* Zona neutra sopra le colonne su mobile */
+.neutral-zone {
+display: block;
+width: 100%;
+background-color: lightgray;
+padding: 15px;
+text-align: center;
+margin-bottom: 20px; /* Spazio tra la zona neutra e la colonna 1 */
+z-index: 10; /* Rende la zona neutra fissa sopra */
+}
+
+/* Contenitore delle colonne - in questo caso, le colonne sono una sotto l'altra */
+.scroll-container {
+display: flex;
+flex-direction: column; /* Le colonne sono disposte verticalmente */
+width: 100%;
+height: 100vh; /* L'intero contenitore occupa l'altezza della finestra */
+overflow-y: auto; /* Abilita lo scroll verticale per il contenuto delle colonne */
+}
+
+/* Colonna 1 */
+.column:first-child {
+width: 100%;
+height: auto; /* Altezza automatica in base al contenuto */
+display: flex;
+flex-direction: column;
+align-items: center;
+scroll-snap-align: start;
+margin-bottom: 20px; /* Distanza tra le colonne */
+}
+
+/* Colonna 2 */
+.column:last-child {
+width: 100%;
+height: auto; /* Altezza automatica in base al contenuto */
+display: flex;
+flex-direction: column;
+align-items: center;
+scroll-snap-align: start;
+}
+
+/* Contenitore delle clickbox */
+.click-box-container {
+display: flex;
+flex-direction: row; /* Le clickbox sono disposte orizzontalmente */
+align-items: center;
+justify-content: flex-start;
+width: 100%;
+overflow-x: auto; /* Abilita lo scroll orizzontale per le clickbox */
+max-height: calc(100vh - 160px); /* Limita l'altezza per non far scorrere troppo */
+flex-wrap: nowrap; /* Le clickbox restano sulla stessa riga senza andare a capo */
+}
+
+/* Ogni clickbox */
+.box {
+width: 60vw; /* La larghezza delle clickbox è ridotta per adattarsi meglio */
+height: 60px;
+margin-right: 10px; /* Spazio tra le clickbox */
+background-color: #f0f0f0;
+border-radius: 5px;
+padding: 10px;
+flex-shrink: 0; /* Impedisce che la clickbox si riduca */
+}
+
+/* Mostriamo la zona neutra sopra le colonne su mobile */
+.mobile-only {
+display: block;
+width: 100%;
+background-color: lightgray;
+padding: 15px;
+text-align: center;
+}
+
+.desktop-only {
+display: none;
+}
+.mobile-only{
+display:none;
+
+}
+
+
+/*NAVBAR*/
+  /* Imposta il layout della navbar */
+  nav {
+    flex-direction: row; /* Cambia l'orientamento a riga*/
+    align-items: flex-start; /* Allinea tutto a sinistra */
+    height: 26%; /* Altezza dinamica */
+    padding: 0.1vh; /* Aggiunge più padding */
   }
 
-.container {
-    padding: 1vh; /* Riduci il padding generale */
+  /* Logo e utente in alto */
+  #logo {
+    width: 20vh; /* Rende il logo più piccolo */
+  }
+
+  #user {
+    width: 6vh; /* Rende l'icona utente più piccola */
+    margin: 0;
+    position: absolute; /* Posizionamento fisso in alto a destra */
+    top: 6vh;
+    right: 5vh;
+  }
+
+  /* Contenitore della navbar */
+  .navbar-nav {
+    flex-direction: row; /* Disposizione orizzontalmente*/
+    width: 100%; /* Occupa tutta la larghezza */
+    align-items: flex-start; /* Allinea i link a sinistra */
+    margin-top: 20px; /* Spazio sotto il logo e user */
+  }
+
+  /* Lista della navbar */
+  .navbar-nav ul {
+    flex-direction: row; /* Cambia orientamento in orizzontalmente*/
+    overflow-x: auto; /* Permette lo scroll */
+    max-height: 50vh; /* Limita l'altezza massima della lista */
+    width: 90%; /* Occupa tutta la larghezza */
+    padding: 0; /* Rimuove il padding */
+    scrollbar-width: thin; /* Per Firefox */
+    scrollbar-color: #B0B0B0 transparent; /* Per Firefox */
+    height: 11vh;
+  }
+
+  /* Elementi della lista */
+  .navbar-nav li {
+    margin: 0; /* Spazio verticale tra gli elementi */
+    width: 35%; /* Link a tutta larghezza */
+    flex-shrink: 0; /* Evita che i link si restringano */
+  }
+
+  /* Link della navbar */
+  .navbar-nav a {
+    font-size: 1rem; /* Rende i link più leggibili */
+    padding: 1vh; /* Aggiunge padding interno ai link */
+    display: block; /* Ogni link occupa una riga intera */
+    text-align: center; /* Allinea il testo a sinistra */
+  }
+
+
+
+  /*FAQ*/
+  .faq-container {
+    max-width: 100%; /* Usa tutta la larghezza dello schermo */
+    padding: 2vh; /* Riduci il padding */
+    margin-top: 4vh; /* Riduci il margine superiore */
 }
+
+.faq-question {
+    font-size: 1em; /* Rendi il testo leggermente più piccolo */
+    padding: 2vh; /* Aggiungi più spazio interno per facilitare il tocco */
+}
+
+.faq-answer {
+    font-size: 0.9em; /* Riduci il testo delle risposte */
+}
+
+.container {
+    padding: 1vh; /* Riduci il padding generale */
+}
+
   }
