@@ -388,6 +388,48 @@ button {
 
 
 
+/*Gruppi */
+
+.containerG {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  gap: 20px;
+  padding: 20px;
+  height: 100vh;
+  background-color: #f4f4f4;
+}
+.GruppiPage {
+  display: flex;
+  flex-wrap: nowrap;
+  width: 100%;
+  height: calc(100vh - 8vh); /* Rimane la navbar fissa in alto */
+  margin-top: 8vh;
+  padding: 10px;
+}
+/* Colonne */
+.columnG {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1; /* Le colonne possono crescere per occupare tutto lo spazio disponibile */
+  height: 100%;
+  margin: 5% 0; /* Spazio sopra e sotto le colonne */
+  overflow-y: auto; /* Aggiunge la barra di scorrimento se necessario */
+  border-right: 1px solid #222831; /* Linea di separazione tra le colonne */
+}
+
+/* Colonna centrale più grande */
+.centrale {
+  text-align: center;
+}
+
+
+
+
+
+
+
+
+
   /* Media Queries per dispositivi mobili */
   @media (max-width: 768px) {
         html, body {
@@ -465,3 +507,9 @@ button {
       width: 10vh; /* Riduce la dimensione del logo su schermi più piccoli */
   }
   }
+
+
+
+
+
+
