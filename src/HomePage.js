@@ -1,6 +1,3 @@
-
-
-
 import React, { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import './Style.css';
@@ -47,41 +44,26 @@ function HomePage() {
         container.removeEventListener('touchmove', handleTouchMove);
       };
     }
-  }, [isMobile]);
-
-  return (
+  }, []);
+  
+return (
     <div className="homepage">
-      {isMobile ? (
-        <div className="mobile-view" ref={containerRef}>
-          <div className="column">
-            <h1>PROFILO</h1>
+      <div className="columns" ref={containerRef}>
+        {/* Colonna SINISTRA (ora con id="sinistra") */}
+        <div className="column" id="sinistra">
+          <div className="neutral-zone">
+            <h1>PROFILO</h1> 
           </div>
-          <div className="column">
-            <h1>APPUNTI</h1>
-            <ClickBoxContainer clickBoxes={clickBoxes} />
-          </div>
-          <div className="column">
-            <h1>GRUPPI</h1>
-            <ClickBoxContainer clickBoxes={clickBoxes} />
-          </div>
+          <h1>APPUNTI</h1> 
+          <ClickBoxContainer clickBoxes={clickBoxes} />
         </div>
-      ) : (
-        <div className="columns" ref={containerRef}>
-          <div className="column" id="destra">
-            <div className="neutral-zone bottom">
-              <h1>PROFILO</h1> 
-            </div>
-            <div>
-              <h1>APPUNTI</h1> 
-              <ClickBoxContainer clickBoxes={clickBoxes} />
-            </div>
-          </div>
-          <div className="column">
-            <h1>GRUPPI</h1> 
-            <ClickBoxContainer clickBoxes={clickBoxes} />
-          </div>
+
+        {/* Colonna DESTRA */}
+        <div className="column" id="destra">
+          <h1>GRUPPI</h1> 
+          <ClickBoxContainer clickBoxes={clickBoxes} />
         </div>
-      )}
+      </div>
     </div>
   );
 }
@@ -97,5 +79,6 @@ function ClickBoxContainer({ clickBoxes }) {
     </div>
   );
 }
+
 
 export default HomePage;

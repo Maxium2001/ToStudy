@@ -16,6 +16,7 @@ html, body {
     display: flex;
     flex-direction: column;
     height: 100%;
+    overflow: hidden; /* Evita lo scroll orizzontale e verticale */
 }
 body{
     margin-top: 8vh;
@@ -45,95 +46,59 @@ a:hover {
 .homepage {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  width: 100%;
-  height: calc(100vh - 8vh); /* Rimane la navbar fissa in alto */
-  margin-top: 8vh;
-  overflow: hidden; /* Nasconde eventuali overflow */
-}
-  .container {
-    display: grid;
-    grid-template-rows: auto;
-    gap: 10px;
+  height: 100vh;
+  padding-top: 60px; /* Spazio per la navbar */
 }
 
-/* Zona neutra sopra le colonne su mobile */
-.neutral-zone {
-  display: block;
-  width: 152%;
-  background-color: #EEEEEE;
-  text-align: center;
-  padding: 10px 0; /* Aggiunge spazio sopra e sotto */
-  border-bottom: 2px solid #B0B0B0; /* Linea di separazione */
-}
-
-/* Contenitore colonne */
 .columns {
   display: flex;
-  width: 100%;
-  height: 100%;
-  padding: 0; /* Nessun padding */
-  overflow: hidden; /* Evita lo scroll */
+  flex: 1; /* Le colonne occupano uguale spazio */
 }
 
-/* Ogni colonna occupa una parte dello schermo, ma scorre in verticale se necessario */
 .column {
-  width: 50%;
-  height: 100%;
   display: flex;
   flex-direction: column;
+  flex: 1;
+  padding: 10px;
+  height: calc(100vh - 60px); /* Altezza piena meno la navbar */
+}
+
+.neutral-zone {
+  height: 50px; /* Imposta un'altezza fissa per la zona neutra */
+  background-color: #e0e0e0; /* Colore della zona neutra */
+  display: flex;
+  justify-content: center;
   align-items: center;
-  padding: 10px; /* Padding interno */
-  background-color: #EEEEEE;
-  overflow: hidden; /* Evita overflow verticale */
-}
- #destra{
-  width: 50%;
-  border-right: 0.3vh solid #B0B0B0; /* Linea nera */
-  padding-right: 10%;
-  height: 100%;
-  overflow: hidden;
- }
- /* Di default, la zona neutra è nascosta su mobile */
-.mobile-only {
-  display: none;
+  padding: 10px;
+  margin-bottom: 10px;
 }
 
-/* La zona neutra sarà visibile solo su desktop */
-.desktop-only {
-  display: block;
+.click-box-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1; /* Permette di riempire lo spazio della colonna */
+  overflow-y: auto; /* Permette lo scroll verticale solo dentro le clickbox */
 }
-  /* Box cliccabili */
-  .box {
-    background-color: #00ADB5;
-    margin: 5% auto;
-    height: 50%;
-    width: 100%;
-    display: flex;
-    cursor: pointer;
-    transition: 0.3s;
-    margin-bottom: 10%;
-  }
-  .clickable:hover {
-    background-color: #2228311c;
-  }
-  /* Colonne che si adattano al contenuto */
-  .column .click-box-container {
-    width: 60%;
-    flex-grow: 1;
-    overflow-y: auto; /* Aggiunge la barra di scorrimento verticale */
-    padding-bottom: 0.1vh; /* Distanza dal fondo */
-  }
- 
- .desktop-only {
-  display: block;
+
+.box {
   width: 100%;
-  background-color: #EEEEEE;
-  padding: 15px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
+  padding: 10px;
+  margin: 10px 0;
+  background-color: #00ADB5;
+  border-radius: 5px;
 }
-.mobile-only {
-  display: none;
+
+#sinistra .click-box-container .box {
+  width: calc(100% - 20px); /* Diminuisce la larghezza per la zona neutra */
+}
+
+#destra .click-box-container .box {
+  width: 100%; /* La seconda colonna ha larghezza completa */
 }
 
 
@@ -144,36 +109,6 @@ a:hover {
 
 
 
-
-
-
-
-
-
-
-
-
-  /* APPUNTI BRUTTO*/
-  .clearclickboxes {
-    display: flex;
-    justify-content: center; /* Centra orizzontalmente */
-    align-items: center; /* Centra verticalmente */
-    height: calc(100vh - 8vh); /* Usa tutta l'altezza della schermata, meno l'altezza della navbar */
-    margin-top: 8vh; /* Sposta verso il basso per non essere coperto dalla navbar */
-  }
-  .clearclickboxes button {
-    font-size: 20px; /* Aumenta la dimensione del font */
-    padding: 10px 20px; /* Aggiungi un po' di padding per un aspetto più grande */
-    background-color: #00ADB5; /* Colore di sfondo del pulsante */
-    color: #EEEEEE; /* Colore del testo */
-    border: none; /* Rimuove il bordo */
-    border-radius: 8px; /* Angoli arrotondati */
-    cursor: pointer; /* Cambia il cursore al passaggio del mouse */
-    transition: 0.3s; /* Aggiungi un effetto di transizione */
-  }
-  .clearclickboxes button:hover {
-    background-color: #222831; /* Cambia colore al passaggio del mouse */
-  }  
 
 
 
@@ -318,6 +253,9 @@ nav {
 
 
 
+
+  
+
 /*LOGIN e REGISTRATI*/
 
   /* Contenitore principale della pagina di login */
@@ -431,39 +369,55 @@ button {
 
 /*Gruppi */
 
-.containerG {
-  display: grid;
-  grid-template-columns: 1fr 2fr 1fr;
-  gap: 20px;
-  padding: 20px;
-  height: 100vh;
-  background-color: #f4f4f4;
-}
 .GruppiPage {
   display: flex;
-  flex-wrap: nowrap;
-  width: 100%;
-  height: calc(100vh - 8vh); /* Rimane la navbar fissa in alto */
-  margin-top: 8vh;
-  padding: 10px;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 20px;
+  height: 100vh; /* Occupa tutto lo schermo */
 }
 /* Colonne */
 .columnG {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1; /* Le colonne possono crescere per occupare tutto lo spazio disponibile */
-  height: 100%;
-  margin: 5% 0; /* Spazio sopra e sotto le colonne */
-  overflow-y: auto; /* Aggiunge la barra di scorrimento se necessario */
-  border-right: 1px solid #222831; /* Linea di separazione tra le colonne */
+  flex: 1; /* Tutte le colonne hanno la stessa larghezza */
+  background: #EEEEEE;
+  padding: 20px;
+  border-radius: 8px;
+  height: 100%; /* Si estende per tutta l'altezza disponibile */
+  overflow-y: auto; /* Scorrimento verticale solo dentro la colonna */
 }
 
 /* Colonna centrale più grande */
 .centrale {
-  text-align: center;
+  flex: 1.5; /* La colonna centrale è leggermente più larga */
 }
 
 
+
+
+
+
+/*APPUNTI*/
+.AppuntiPage {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 20px;
+  height: 100vh; /* Occupa tutto lo schermo */
+}
+
+.columnA {
+  flex: 1; /* Tutte le colonne hanno la stessa larghezza */
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  height: 100%; /* Si estende per tutta l'altezza disponibile */
+  overflow-y: auto; /* Scorrimento verticale solo dentro la colonna */
+  
+}
+
+.centrale {
+  flex: 1.5; /* La colonna centrale è leggermente più larga */
+}
 
 
 
@@ -478,7 +432,8 @@ button {
     html, body {
       font-size: 3.5vh;
       background-color: #EEEEEE;
-      overflow-x: hidden; /* Impedisce lo scroll orizzontale */
+      overflow-x:  auto; /* Impedisce lo scroll orizzontale */
+      overflow-y: auto !important; /* Permette lo scroll verticale */
     }
 
     body{
@@ -488,89 +443,45 @@ button {
     h1 {
       font-size: 6vh;
     }
-
-/* Container principale */
-.homepage {
-  margin-top: 5%;
-display: flex;
-flex-direction: column;
-align-items: center;
-width: 100%;
-height: 100vh; /* Usa l'intera altezza della finestra */
-overflow: hidden; /* Impedisce lo scroll della pagina */
-}
-.columns {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-}
-
-.column {
-  min-width: 100%;
-  height: auto;
-  flex-shrink: 0;
-}
-
-/* Scroll styling */
-.columns::-webkit-scrollbar {
-  display: none; /* Nasconde la scrollbar su mobile */
-}
-/* Zona neutra sopra le colonne su mobile */
-.neutral-zone {
-display: block;
-width: 100%;
-background-color: lightgray;
-padding: 15px;
-text-align: center;
-margin-bottom: 20px; /* Spazio tra la zona neutra e la colonna 1 */
-z-index: 10; /* Rende la zona neutra fissa sopra */
-}
-
-.scroll-container {
-  display: flex;
-  flex-direction: column; /* IMPORTANTE */
-  width: 100%;
-  overflow-y: auto; /* Mantieni lo scroll verticale */
-}
-
-/* Contenitore delle clickbox */
-.click-box-container {
-display: flex;
-flex-direction: row; /* Le clickbox sono disposte orizzontalmente */
-align-items: center;
-justify-content: flex-start;
-width: 100%;
-overflow-x: auto; /* Abilita lo scroll orizzontale per le clickbox */
-max-height: calc(100vh - 160px); /* Limita l'altezza per non far scorrere troppo */
-flex-wrap: nowrap; /* Le clickbox restano sulla stessa riga senza andare a capo */
-}
-
-/* Ogni clickbox */
-.box {
-width: 30vh; /* La larghezza delle clickbox è ridotta per adattarsi meglio */
-height: 30vh;
-margin-right: 10px; /* Spazio tra le clickbox */
-background-color: #00ADB5;
-border-radius: 5px;
-padding: 10px;
-flex-shrink: 0; /* Impedisce che la clickbox si riduca */
-}
-
-/* Mostriamo la zona neutra sopra le colonne su mobile */
-.mobile-only {
-display: block;
-width: 100%;
-background-color: lightgray;
-padding: 15px;
-text-align: center;
-}
-
-.desktop-only {
-display: none;
-}
-
+    .homepage {
+      padding: 0;  /* Rimuove il padding laterale su mobile */
+      width: 100%;  /* Imposta la larghezza a 100% */
+      padding-top: 60px; /* Spazio per la navbar */
+    }
+    .container {
+      flex-direction: column;  /* Le colonne si dispongono una sotto l'altra */
+      justify-content: flex-start;  /* Allinea le colonne dall'alto */
+      align-items: stretch !important;  /* Allinea gli elementi all'interno delle colonne */
+      min-height: 100vh;  /* Imposta l'altezza minima a 100vh */
+    }
+    .columns {
+      flex-direction: column;  /* Le colonne si dispongono una sotto l'altra */
+      width: 100% !important;  /* Colonne prendono tutta la larghezza disponibile */
+      gap: 0;  /* Rimuove lo spazio tra le colonne */
+      display: block !important;
+      position: relative !important;
+    }
+  
+    .column {
+      height: 50vh;
+      width: 100% !important;  /* Le colonne occupano tutta la larghezza disponibile */
+      padding: 5px;
+      margin: 0;
+      border: none !important;  /* Rimuove le linee laterali */
+    }
+  
+    .click-box-container {
+      flex-direction: row !important; /* Da verticale a orizzontale */
+      overflow-x: auto !important; /* Scorrimento se non entrano */
+      white-space: nowrap;
+    }
+    .clickbox-container::-webkit-scrollbar {
+      display: none; /* Nasconde la scrollbar su Chrome/Safari */
+    }
+    .box {
+      flex: 0 0 auto !important; /* Impedisce il ridimensionamento */
+    margin-right: 10px; /* Spazio tra le box */
+    }
 
 
 /*NAVBAR*/
@@ -629,6 +540,34 @@ display: none;
     display: block; /* Ogni link occupa una riga intera */
     text-align: center; /* Allinea il testo a sinistra */
   }
+
+
+
+  /*APPUNTI*/
+  .AppuntiPage {
+    flex-direction: column; /* Le colonne diventano verticali su mobile */
+    height: auto; /* Si adatta al contenuto */
+  }
+
+  .column {
+    height: auto; /* Su mobile non serve il 100vh */
+  }
+
+
+
+
+  /*GRUPPI*/
+  .GruppiPage {
+    flex-direction: column; /* Le colonne diventano verticali su mobile */
+    height: auto; /* Si adatta al contenuto */
+  }
+
+  .columnG {
+    height: auto; /* Su mobile non serve il 100vh */
+  }
+
+
+
 
 
 
