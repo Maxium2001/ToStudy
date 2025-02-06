@@ -11,11 +11,14 @@ html, body {
     margin : 0;
     padding: 0;
     font-family: 'Roboto', sans-serif;
-    background-color: #B0B0B0; 
+    background-color: #EEEEEE; 
     font-size: 2.2vh; /*grandezza scritte*/
     display: flex;
     flex-direction: column;
     height: 100%;
+}
+body{
+    margin-top: 8vh;
 }
 h1, p {
     color: #222831;
@@ -40,18 +43,16 @@ a:hover {
 /*HOMEPAGE*/
 /* Impostazioni per la homepage */
 .homepage {
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* Centra gli elementi orizzontalmente */
-    width: 100%;
-    height: calc(100vh - 8vh); /* Rimane la navbar fissa in alto */
-    margin-top: 8vh;
-    padding: 10px;
-    overflow: hidden;
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: calc(100vh - 8vh); /* Rimane la navbar fissa in alto */
+  margin-top: 8vh;
+  overflow: hidden; /* Nasconde eventuali overflow */
+}
   .container {
     display: grid;
-    grid-template-columns: 1fr 1fr; /* Due colonne uguali */
     grid-template-rows: auto;
     gap: 10px;
 }
@@ -59,32 +60,40 @@ a:hover {
 /* Zona neutra sopra le colonne su mobile */
 .neutral-zone {
   display: block;
-  width: 100%;
-  background-color: lightgray;
-  padding: 15px;
+  width: 152%;
+  background-color: #EEEEEE;
   text-align: center;
-  margin-bottom: 20px; /* Distanza tra zona neutra e colonne */
+  padding: 10px 0; /* Aggiunge spazio sopra e sotto */
+  border-bottom: 2px solid #B0B0B0; /* Linea di separazione */
 }
 
 /* Contenitore colonne */
 .columns {
-    display: flex;
-    overflow-x: auto; /* Per lo scrolling su mobile */
-    width: 100%;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  padding: 0; /* Nessun padding */
+  overflow: hidden; /* Evita lo scroll */
 }
 
 /* Ogni colonna occupa una parte dello schermo, ma scorre in verticale se necessario */
 .column {
-  width: 50%; /* O qualsiasi altra larghezza che desideri */
-  flex: 0 0 50%; /* Assicurati che le colonne non siano troppo strette */
+  width: 50%;
   height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start; /* Inizia dal top della colonna */
-  overflow-y: auto; /* Scorrimento verticale se necessario */
-  padding: 10px; /* Padding per dare un po' di spazio alle colonne */
+  padding: 10px; /* Padding interno */
+  background-color: #EEEEEE;
+  overflow: hidden; /* Evita overflow verticale */
 }
+ #destra{
+  width: 50%;
+  border-right: 0.3vh solid #B0B0B0; /* Linea nera */
+  padding-right: 10%;
+  height: 100%;
+  overflow: hidden;
+ }
  /* Di default, la zona neutra è nascosta su mobile */
 .mobile-only {
   display: none;
@@ -115,16 +124,11 @@ a:hover {
     overflow-y: auto; /* Aggiunge la barra di scorrimento verticale */
     padding-bottom: 0.1vh; /* Distanza dal fondo */
   }
-  .scroll-container {
-    display: flex;
-    flex-direction: row;
-    width: 100%;/* Rende le colonne larghe come la finestra del browser */
-    height: 100%; /* Rende le colonne alte come la finestra del browser */
-  }  
+ 
  .desktop-only {
   display: block;
   width: 100%;
-  background-color: lightgray;
+  background-color: #EEEEEE;
   padding: 15px;
   text-align: center;
 }
@@ -453,7 +457,24 @@ width: 100%;
 height: 100vh; /* Usa l'intera altezza della finestra */
 overflow: hidden; /* Impedisce lo scroll della pagina */
 }
+.columns {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+}
 
+.column {
+  min-width: 100%;
+  height: auto;
+  flex-shrink: 0;
+}
+
+/* Scroll styling */
+.columns::-webkit-scrollbar {
+  display: none; /* Nasconde la scrollbar su mobile */
+}
 /* Zona neutra sopra le colonne su mobile */
 .neutral-zone {
 display: block;
@@ -465,34 +486,11 @@ margin-bottom: 20px; /* Spazio tra la zona neutra e la colonna 1 */
 z-index: 10; /* Rende la zona neutra fissa sopra */
 }
 
-/* Contenitore delle colonne - in questo caso, le colonne sono una sotto l'altra */
 .scroll-container {
-display: flex;
-flex-direction: column; /* Le colonne sono disposte verticalmente */
-width: 100%;
-height: 100vh; /* L'intero contenitore occupa l'altezza della finestra */
-overflow-y: auto; /* Abilita lo scroll verticale per il contenuto delle colonne */
-}
-
-/* Colonna 1 */
-.column:first-child {
-width: 100%;
-height: auto; /* Altezza automatica in base al contenuto */
-display: flex;
-flex-direction: column;
-align-items: center;
-scroll-snap-align: start;
-margin-bottom: 20px; /* Distanza tra le colonne */
-}
-
-/* Colonna 2 */
-.column:last-child {
-width: 100%;
-height: auto; /* Altezza automatica in base al contenuto */
-display: flex;
-flex-direction: column;
-align-items: center;
-scroll-snap-align: start;
+  display: flex;
+  flex-direction: column; /* IMPORTANTE */
+  width: 100%;
+  overflow-y: auto; /* Mantieni lo scroll verticale */
 }
 
 /* Contenitore delle clickbox */
@@ -509,10 +507,10 @@ flex-wrap: nowrap; /* Le clickbox restano sulla stessa riga senza andare a capo 
 
 /* Ogni clickbox */
 .box {
-width: 60vw; /* La larghezza delle clickbox è ridotta per adattarsi meglio */
-height: 60px;
+width: 30vh; /* La larghezza delle clickbox è ridotta per adattarsi meglio */
+height: 30vh;
 margin-right: 10px; /* Spazio tra le clickbox */
-background-color: #f0f0f0;
+background-color: #00ADB5;
 border-radius: 5px;
 padding: 10px;
 flex-shrink: 0; /* Impedisce che la clickbox si riduca */
@@ -530,10 +528,7 @@ text-align: center;
 .desktop-only {
 display: none;
 }
-.mobile-only{
-display:none;
 
-}
 
 
 /*NAVBAR*/

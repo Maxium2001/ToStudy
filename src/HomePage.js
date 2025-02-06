@@ -1,9 +1,13 @@
+
+
+
 import React, { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import './Style.css';
 
 function HomePage() {
   const [clickBoxes, setClickBoxes] = useState([]);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const containerRef = useRef(null);
 
   useEffect(() => {
@@ -11,46 +15,73 @@ function HomePage() {
     setClickBoxes(storedBoxes);
   }, []);
 
-  // Funzione per gestire lo swipe
   useEffect(() => {
-    const container = containerRef.current;
-    let startX = 0;
-
-    const handleTouchStart = (e) => {
-      startX = e.touches[0].clientX;
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
     };
-
-    const handleTouchMove = (e) => {
-      const diffX = startX - e.touches[0].clientX;
-      container.scrollLeft += diffX;
-      startX = e.touches[0].clientX;
-    };
-
-    container.addEventListener('touchstart', handleTouchStart);
-    container.addEventListener('touchmove', handleTouchMove);
-
-    return () => {
-      container.removeEventListener('touchstart', handleTouchStart);
-      container.removeEventListener('touchmove', handleTouchMove);
-    };
+    
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  useEffect(() => {
+    if (isMobile) {
+      const container = containerRef.current;
+      let startX = 0;
+
+      const handleTouchStart = (e) => {
+        startX = e.touches[0].clientX;
+      };
+
+      const handleTouchMove = (e) => {
+        const diffX = startX - e.touches[0].clientX;
+        container.scrollLeft += diffX;
+        startX = e.touches[0].clientX;
+      };
+
+      container.addEventListener('touchstart', handleTouchStart);
+      container.addEventListener('touchmove', handleTouchMove);
+
+      return () => {
+        container.removeEventListener('touchstart', handleTouchStart);
+        container.removeEventListener('touchmove', handleTouchMove);
+      };
+    }
+  }, [isMobile]);
 
   return (
     <div className="homepage">
-      {/* Zona neutra - visibile sopra le colonne su mobile */}
-  
-      <div className="scroll-container" ref={containerRef}>
-        <div className="column">
-          <h1>PROFILO</h1> 
-
-          <h1>APPUNTI</h1> 
-          <ClickBoxContainer clickBoxes={clickBoxes} />
+      {isMobile ? (
+        <div className="mobile-view" ref={containerRef}>
+          <div className="column">
+            <h1>PROFILO</h1>
+          </div>
+          <div className="column">
+            <h1>APPUNTI</h1>
+            <ClickBoxContainer clickBoxes={clickBoxes} />
+          </div>
+          <div className="column">
+            <h1>GRUPPI</h1>
+            <ClickBoxContainer clickBoxes={clickBoxes} />
+          </div>
         </div>
-        <div className="column">
-          <h1>GRUPPI</h1> 
-          <ClickBoxContainer clickBoxes={clickBoxes} />
+      ) : (
+        <div className="columns" ref={containerRef}>
+          <div className="column" id="destra">
+            <div className="neutral-zone bottom">
+              <h1>PROFILO</h1> 
+            </div>
+            <div>
+              <h1>APPUNTI</h1> 
+              <ClickBoxContainer clickBoxes={clickBoxes} />
+            </div>
+          </div>
+          <div className="column">
+            <h1>GRUPPI</h1> 
+            <ClickBoxContainer clickBoxes={clickBoxes} />
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }
@@ -68,5 +99,3 @@ function ClickBoxContainer({ clickBoxes }) {
 }
 
 export default HomePage;
-
-
