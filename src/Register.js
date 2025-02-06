@@ -57,7 +57,7 @@ const Register = () => {
       <p>
         Sei già registrato?{" "}
         <Link to="/login">
-          <img src="/logo.png" alt="Logo" />
+          <img src="/user.png" />
         </Link>
         Accedi
       </p>
