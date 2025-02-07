@@ -12,9 +12,16 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     setIsAuthenticated(false);
   };
+  const [id, setId] = useState("");
+
+  const setUserId = (newId) => {
+    setId(newId);
+  };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
+    <AuthContext.Provider
+      value={{ isAuthenticated, login, logout, id, setUserId }}
+    >
       {children}
     </AuthContext.Provider>
   );

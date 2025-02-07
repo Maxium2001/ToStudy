@@ -5,7 +5,7 @@ import { useAuth } from "./Autenticato";
 
 const Register = () => {
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { login, setUserId } = useAuth();
   const [errorMessage, setErrorMessage] = useState("");
   const [formData, setFormData] = useState({
     nome: "",
@@ -34,6 +34,7 @@ const Register = () => {
         formData
       );
       if (response.status === 201) {
+        setUserId(response.data.userId);
         login();
         navigate("/");
       }

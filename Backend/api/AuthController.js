@@ -1,7 +1,7 @@
 require("dotenv").config();
 const bcrypt = require("bcrypt");
-const User = require("Users");
-const Otp = require("Otp");
+const User = require("./Users");
+const Otp = require("./Otp");
 const nodemailer = require("nodemailer");
 
 const EMAIL = process.env.EMAIL;
@@ -39,7 +39,9 @@ const register = async (req, res) => {
 
     // Salva l'utente nel database
     await newUser.save();
-    res.status(201).json({ message: "Utente creato con successo" });
+    res
+      .status(201)
+      .json({ message: "Registrazione riuscita", userId: newUser._id });
   } catch (error) {
     console.error(error);
     res
@@ -66,7 +68,7 @@ const login = async (req, res) => {
     if (!isMatch) {
       return res.status(400).json({ message: "Password sbagliata" });
     }
-    res.status(200).json({ message: "Accesso riuscito" });
+    res.status(200).json({ message: "Accesso riuscito", userId: user._id });
   } catch (error) {
     res.status(500).json({ message: "Errore del server" });
   }
