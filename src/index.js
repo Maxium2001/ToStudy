@@ -29,6 +29,7 @@ ReactDOM.render(
           <Route path="/esplora" element={<EsploraPage />} />
           <Route path="/gruppi" element={<GruppiPage />} />
           <Route path="/faq" element={<FaqPage />} />
+          <Route path="/profilo" element={<ProfiloPage />} />
           <Route
             path="/login"
             element={
