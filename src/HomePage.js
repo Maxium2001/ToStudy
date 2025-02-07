@@ -1,11 +1,22 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from "react-router-dom";
 import './Style.css';
 
 function HomePage() {
   const [clickBoxes, setClickBoxes] = useState([]);
+  const [username, setUsername] = useState('Utente123');
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const containerRef = useRef(null);
+  const [imagePreview, setImagePreview] = useState(null); // Aggiungi lo stato per l'anteprima dell'immagine
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0]; // Prendi il file caricato
+    if (file) {
+      const imageUrl = URL.createObjectURL(file); // Crea un URL temporaneo per il file
+      setImagePreview(imageUrl); // Salva l'URL dell'immagine nel state
+      console.log('Foto caricata:', file);
+    }
+  };
 
   useEffect(() => {
     const storedBoxes = JSON.parse(localStorage.getItem('clickBoxes')) || [];
@@ -16,7 +27,7 @@ function HomePage() {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
     };
-    
+
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
@@ -44,23 +55,53 @@ function HomePage() {
         container.removeEventListener('touchmove', handleTouchMove);
       };
     }
-  }, []);
-  
-return (
+  }, [isMobile]);
+
+  return (
     <div className="homepage">
       <div className="columns" ref={containerRef}>
-        {/* Colonna SINISTRA (ora con id="sinistra") */}
+        {/* Colonna SINISTRA */}
         <div className="column" id="sinistra">
           <div className="neutral-zone">
-            <h1>PROFILO</h1> 
+          <div className="profilo-widget-container">
+      {/* Link per navigare alla pagina del profilo */}
+      <NavLink to="/profilo">
+        <h1>PROFILO</h1>
+      </NavLink>
+
+      {/* Widget della foto profilo e username */}
+      <div className="profilo-widget">
+        <div className="foto-username-container">
+          <div className="foto-container">
+            <img
+                src={imagePreview || 'default-image.jpg'} // Usa l'anteprima o un'immagine di default
+                alt="Foto Profilo"
+              className="foto-profilo"
+            />
           </div>
-          <h1>APPUNTI</h1> 
+          <div className="foto-upload">
+            <input
+              type="file"
+              accept="image/*"
+              id="foto-utente"
+              className="foto-input"
+              onChange={handleFileChange}
+            />
+            <label htmlFor="foto-utente" className="foto-label">
+              Carica Foto
+            </label>
+          </div>
+          <div className="username">{username || 'Username'}</div>
+        </div>
+            </div>
+          </div></div>
+          <h1>APPUNTI</h1>
           <ClickBoxContainer clickBoxes={clickBoxes} />
         </div>
 
         {/* Colonna DESTRA */}
         <div className="column" id="destra">
-          <h1>GRUPPI</h1> 
+          <h1>GRUPPI</h1>
           <ClickBoxContainer clickBoxes={clickBoxes} />
         </div>
       </div>
@@ -79,6 +120,5 @@ function ClickBoxContainer({ clickBoxes }) {
     </div>
   );
 }
-
 
 export default HomePage;

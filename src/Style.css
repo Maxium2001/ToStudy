@@ -39,7 +39,6 @@ a:hover {
 
 
 
-
 /*HOMEPAGE*/
 /* Impostazioni per la homepage */
 .homepage {
@@ -64,12 +63,11 @@ a:hover {
 
 .neutral-zone {
   height: 50px; /* Imposta un'altezza fissa per la zona neutra */
-  background-color: #e0e0e0; /* Colore della zona neutra */
+  background-color: #EEEEEE; /* Colore della zona neutra */
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 14vh;
 }
 
 .click-box-container {
@@ -308,8 +306,8 @@ button {
 
 
 
-/* FAQ */
-.faq-container {
+/* FAQ e PROFILO */
+.Selettore {
     max-width: 80vh;
     margin: 0 auto;
     padding: 4vh;
@@ -318,8 +316,8 @@ button {
     grid-template-columns: 1fr;
     gap: 1vh;
 }
-.faq-question {
-    width: 100%;
+.Titolo {
+    width: 80vh;
     padding: 1vh;
     text-align: left;
     background-color: #EEEEEE;
@@ -332,22 +330,22 @@ button {
     align-items: center;
     border-radius: 0;
 }
-#faq {
+#Titolo-container {
     border-bottom: 0.2vh solid #222831;
     border-left: 0.2vh solid #222831;
     border-right: 0.2vh solid #222831;
 }
-.faq-question:hover, .faq-question:focus {
+.Titolo:hover, .Titolo:focus {
     background-color: #B0B0B0;
     border: 0.1vh solid #222831;
 }
-.faq-arrow {
+.arrow {
     transition: transform 0.3s ease;
 }
-.faq-arrow.open {
+.arrow.open {
     transform: rotate(180deg);
 }
-.faq-answer {
+.answer {
     padding: 1vh;
     margin-top: 5px;
 }
@@ -479,6 +477,90 @@ button {
   font-size: 30px;
   cursor: pointer;
 }
+
+
+
+
+
+
+/*WIDGET PROFILO*/
+.profilo-widget-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;  /* Disposizione verticale */
+  align-items: center;     /* Allineamento centrale */
+  gap: 1vh;                /* Distanza tra il titolo e il widget */
+}
+/* Profilo widget - layout quadrato */
+.profilo-widget {
+  display: flex;
+  align-items: center;
+  max-width: 80vh;
+  padding: 1vh;
+  border:0.3vh solid #222831;
+  border-radius: 10px;
+}
+
+.foto-username-container {
+  display: flex;
+  align-items: center;
+  gap: 2vh; /* Spazio tra l'immagine, il bottone e l'username */
+}
+
+.foto-container {
+  width: 15vh;
+  height: 15vh;
+  border-radius: 1vh;
+  overflow: hidden;
+  border: 0.1vh solid #393E46;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.foto-profilo {
+  max-width: 80vh;
+  height: 100%;
+  object-fit: cover;
+}
+
+.foto-upload {
+  display: flex;
+  align-items: flex-start;
+}
+
+.foto-input {
+  display: none; /* Nasconde l'input file */
+}
+
+.foto-label {
+  cursor: pointer;
+  padding: 5px 10px;
+  background-color: #222831;
+  color: #EEEEEE;
+  border-radius: 1vh;
+  font-size: 0.9rem;
+  margin-top: 1vh;
+}
+
+.username {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #222831;
+}
+
+.campo{
+  padding: 1vh;
+}
+
+.mini-button{
+  text-align: center;
+  margin-left: 2vh;
+  padding: 0.5vh 2.5vh;
+}
+
+
+
 
 
 
@@ -634,19 +716,19 @@ button {
 
 
 
-  /*FAQ*/
-  .faq-container {
+  /*FAQ e PROFILO*/
+.Selettore{
     max-width: 100%; /* Usa tutta la larghezza dello schermo */
     padding: 2vh; /* Riduci il padding */
     margin-top: 4vh; /* Riduci il margine superiore */
 }
 
-.faq-question {
+.Titolo {
     font-size: 1em; /* Rendi il testo leggermente più piccolo */
     padding: 2vh; /* Aggiungi più spazio interno per facilitare il tocco */
 }
 
-.faq-answer {
+.answer {
     font-size: 0.9em; /* Riduci il testo delle risposte */
 }
 
