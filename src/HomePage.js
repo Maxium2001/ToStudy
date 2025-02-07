@@ -1,34 +1,13 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import './Style.css';
 import AppuntiList from './AppuntiList';
 
 const HomePage = () => {
   const [clickBoxes, setClickBoxes] = useState([]);
+  const [username, setUsername] = useState('Utente123');
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const containerRef = useRef(null);
-
-  const [expandedMaterie, setExpandedMaterie] = useState(["Matematica", "Fisica"]);
-  const [materie, setMaterie] = useState([
-    {
-      nome: "Matematica",
-      appunti: [
-        { titolo: "Algebra", commento: "Appunto su Algebra", autore: "Mario Rossi", dataCreazione: "01/01/2025" },
-        { titolo: "Geometria", commento: "Appunto su Geometria", autore: "Luigi Bianchi", dataCreazione: "02/01/2025" },
-      ],
-    },
-    {
-      nome: "Fisica",
-      appunti: [
-        { titolo: "Meccanica", commento: "Appunto su Meccanica", autore: "Giulia Verdi", dataCreazione: "03/01/2025" },
-        { titolo: "Ottica", commento: "Appunto su Ottica", autore: "Anna Neri", dataCreazione: "04/01/2025" },
-      ],
-    },
-  ]);
-
-  const handleAppuntoClick = (appunto) => {
-    // Logica per gestire il click su un appunto
-  };
 
   useEffect(() => {
     const storedBoxes = JSON.parse(localStorage.getItem('clickBoxes')) || [];
@@ -39,7 +18,7 @@ const HomePage = () => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
     };
-    
+
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
@@ -72,23 +51,18 @@ const HomePage = () => {
   return (
     <div className="homepage">
       <div className="columns" ref={containerRef}>
-        {/* Colonna SINISTRA (ora con id="sinistra") */}
+        {/* Colonna SINISTRA */}
         <div className="column" id="sinistra">
           <div className="neutral-zone">
             <h1>PROFILO</h1> 
-            <Link to="/profilo">Vai al Profilo</Link>
           </div>
-          <AppuntiList
-            expandedMaterie={expandedMaterie}
-            materie={materie}
-            handleAppuntoClick={handleAppuntoClick}
-            recent={true} // Passa la proprietà recent
-          />
+          <h1>APPUNTI</h1> 
+          <ClickBoxContainer clickBoxes={clickBoxes} />
         </div>
 
         {/* Colonna DESTRA */}
         <div className="column" id="destra">
-          <h1>GRUPPI</h1> 
+          <h1>GRUPPI</h1>
           <ClickBoxContainer clickBoxes={clickBoxes} />
         </div>
       </div>
