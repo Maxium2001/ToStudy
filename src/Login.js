@@ -6,7 +6,7 @@ import { useAuth } from "./Autenticato";
 
 function Login() {
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { login, setUserId } = useAuth();
   const [errorMessage, setErrorMessage] = useState("");
   const [formData, setFormData] = useState({
     email: "",
@@ -29,6 +29,7 @@ function Login() {
       );
       console.log("Loggin successfully");
       if (response.status === 200) {
+        setUserId(response.data.userId);
         login();
         navigate("/");
       }

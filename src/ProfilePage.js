@@ -3,7 +3,7 @@ import { useAuth } from "./Autenticato";
 import { NavLink } from "react-router-dom";
 
 const ProfilePage = () => {
-  const { logout } = useAuth();
+  const { logout, id } = useAuth();
   return (
     <div>
       <header>
@@ -18,6 +18,7 @@ const ProfilePage = () => {
           <h2>Posts</h2>
           {/* Add user posts here */}
         </section>
+        <p>User ID: {id}</p>
         <NavLink to="/">
           <button onClick={logout}>Logout</button>
         </NavLink>
