@@ -387,7 +387,7 @@ button {
 }
 
 /* Colonna centrale più grande */
-.centrale {
+.centraleG {
   flex: 1.5; /* La colonna centrale è leggermente più larga */
 }
 
@@ -399,26 +399,117 @@ button {
 /*APPUNTI*/
 .AppuntiPage {
   display: flex;
-  justify-content: space-between;
-  gap: 20px;
-  padding: 20px;
-  height: 100vh; /* Occupa tutto lo schermo */
+  width: 90%;
+  height: 90vh;
+  gap: 10px;
 }
 
 .columnA {
-  flex: 1; /* Tutte le colonne hanno la stessa larghezza */
-  background: #f9f9f9;
-  padding: 20px;
+  background: white;
+  padding: 15px;
   border-radius: 8px;
-  height: 100%; /* Si estende per tutta l'altezza disponibile */
-  overflow-y: auto; /* Scorrimento verticale solo dentro la colonna */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
   
 }
-
-.centrale {
-  flex: 1.5; /* La colonna centrale è leggermente più larga */
+.columnA:first-child {
+  flex: 1;
+  max-width: 20%;
+}
+.materia {
+  font-weight: bold;
+  cursor: pointer;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #ddd;
+  margin-bottom: 5px;
+  border-radius: 5px;
 }
 
+.sottocategoria {
+  display: none;
+  margin-left: 15px;
+  padding-left: 10px;
+  border-left: 2px solid #ccc;
+}
+
+.materia.open .sottocategoria {
+  display: block;
+}
+
+/* Colonna centrale (Appunti) */
+.columnA.centrale {
+  flex: 2;
+  max-width: 50%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.appunto-box {
+  background: #e3e3e3;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.appunto-box:hover {
+  background: #ccc;
+}
+
+/* Colonna destra (Info e Commenti) */
+.columnA:last-child {
+  flex: 1;
+  max-width: 30%;
+}
+
+.info-utente {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* Pallino in basso a destra */
+.floating-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  background: #007bff;
+  color: white;
+  font-size: 24px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.floating-button:hover {
+  background: #0056b3;
+}
+
+/* Modale */
+.modal {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  background: white;
+  padding: 20px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.modal.open {
+  display: block;
+}
 
 
 
@@ -549,8 +640,12 @@ button {
     height: auto; /* Si adatta al contenuto */
   }
 
-  .column {
-    height: auto; /* Su mobile non serve il 100vh */
+  .columnA {
+    max-width: 100%; /* Su mobile non serve il 100vh */
+  }
+  .floating-button {
+    bottom: 10px;
+    right: 10px;
   }
 
 

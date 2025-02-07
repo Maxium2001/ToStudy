@@ -16,7 +16,7 @@ const GruppiPage = () => {
             </div>
 
             {/* Seconda colonna - Gruppi */}
-            <div className="columnG centrale">
+            <div className="columnG centraleG">
                 <h2>Gruppi</h2>
                 <p>Elenco dei gruppi disponibili...</p>
             </div>
