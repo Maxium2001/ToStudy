@@ -4,6 +4,7 @@ import './Style.css';
 
 function HomePage() {
   const [clickBoxes, setClickBoxes] = useState([]);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const containerRef = useRef(null);
 
   useEffect(() => {
@@ -11,42 +12,54 @@ function HomePage() {
     setClickBoxes(storedBoxes);
   }, []);
 
-  // Funzione per gestire lo swipe
   useEffect(() => {
-    const container = containerRef.current;
-    let startX = 0;
-
-    const handleTouchStart = (e) => {
-      startX = e.touches[0].clientX;
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
     };
-
-    const handleTouchMove = (e) => {
-      const diffX = startX - e.touches[0].clientX;
-      container.scrollLeft += diffX;
-      startX = e.touches[0].clientX;
-    };
-
-    container.addEventListener('touchstart', handleTouchStart);
-    container.addEventListener('touchmove', handleTouchMove);
-
-    return () => {
-      container.removeEventListener('touchstart', handleTouchStart);
-      container.removeEventListener('touchmove', handleTouchMove);
-    };
+    
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  return (
-    <div className="homepage">
-      {/* Zona neutra - visibile sopra le colonne su mobile */}
-  
-      <div className="scroll-container" ref={containerRef}>
-        <div className="column">
-          <h1>PROFILO</h1> 
+  useEffect(() => {
+    if (isMobile) {
+      const container = containerRef.current;
+      let startX = 0;
 
+      const handleTouchStart = (e) => {
+        startX = e.touches[0].clientX;
+      };
+
+      const handleTouchMove = (e) => {
+        const diffX = startX - e.touches[0].clientX;
+        container.scrollLeft += diffX;
+        startX = e.touches[0].clientX;
+      };
+
+      container.addEventListener('touchstart', handleTouchStart);
+      container.addEventListener('touchmove', handleTouchMove);
+
+      return () => {
+        container.removeEventListener('touchstart', handleTouchStart);
+        container.removeEventListener('touchmove', handleTouchMove);
+      };
+    }
+  }, []);
+  
+return (
+    <div className="homepage">
+      <div className="columns" ref={containerRef}>
+        {/* Colonna SINISTRA (ora con id="sinistra") */}
+        <div className="column" id="sinistra">
+          <div className="neutral-zone">
+            <h1>PROFILO</h1> 
+          </div>
           <h1>APPUNTI</h1> 
           <ClickBoxContainer clickBoxes={clickBoxes} />
         </div>
-        <div className="column">
+
+        {/* Colonna DESTRA */}
+        <div className="column" id="destra">
           <h1>GRUPPI</h1> 
           <ClickBoxContainer clickBoxes={clickBoxes} />
         </div>
@@ -67,6 +80,5 @@ function ClickBoxContainer({ clickBoxes }) {
   );
 }
 
+
 export default HomePage;
-
-
