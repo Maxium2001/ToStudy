@@ -1,33 +1,73 @@
 import React, { useState } from "react";
 import "./Style.css";
+import AppuntiList from "./AppuntiList";
 
 const AppuntiPage = () => {
-  const [selectedMateria, setSelectedMateria] = useState(null);
+  // Stato per gestire le materie espanse
+  const [expandedMaterie, setExpandedMaterie] = useState([]);
+  // Stato per gestire l'appunto selezionato
   const [selectedAppunto, setSelectedAppunto] = useState(null);
+  // Stato per gestire l'apertura del modale per aggiungere appunti
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isAddMateriaModalOpen, setIsAddMateriaModalOpen] = useState(false); // New state for adding a subject
-  const [isMenuOpen, setIsMenuOpen] = useState(false); // Stato per gestire la visibilità del menu
+  // Stato per gestire l'apertura del modale per aggiungere materie
+  const [isAddMateriaModalOpen, setIsAddMateriaModalOpen] = useState(false);
+  // Stato per gestire l'apertura del menu popup
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  // Stato per gestire il nome della nuova materia
   const [newMateria, setNewMateria] = useState("");
+  // Stato per gestire il titolo del nuovo appunto
   const [newTitle, setNewTitle] = useState("");
+  // Stato per gestire il file caricato
   const [uploadedFile, setUploadedFile] = useState(null);
+  // Stato per gestire il commento del nuovo appunto
   const [newComment, setNewComment] = useState("");
 
+  // Stato per gestire le materie e i relativi appunti
   const [materie, setMaterie] = useState([
-    { nome: "Matematica", appunti: [{ titolo: "Algebra", commento: "Appunto su Algebra" }, { titolo: "Geometria", commento: "Appunto su Geometria" }] },
-    { nome: "Fisica", appunti: [{ titolo: "Meccanica", commento: "Appunto su Meccanica" }, { titolo: "Ottica", commento: "Appunto su Ottica" }] },
+    {
+      nome: "Matematica",
+      appunti: [
+        { titolo: "Algebra", commento: "Appunto su Algebra", autore: "Mario Rossi", dataCreazione: "01/01/2025" },
+        { titolo: "Geometria", commento: "Appunto su Geometria", autore: "Luigi Bianchi", dataCreazione: "02/01/2025" },
+      ],
+    },
+    {
+      nome: "Fisica",
+      appunti: [
+        { titolo: "Meccanica", commento: "Appunto su Meccanica", autore: "Giulia Verdi", dataCreazione: "03/01/2025" },
+        { titolo: "Ottica", commento: "Appunto su Ottica", autore: "Anna Neri", dataCreazione: "04/01/2025" },
+      ],
+    },
   ]);
 
-  const handleMateriaClick = (materia) => {
-    setSelectedMateria(selectedMateria === materia ? null : materia);
+  // Funzione per gestire il click su una materia
+  const handleMateriaClick = (materiaNome) => {
+    setExpandedMaterie((prevExpandedMaterie) =>
+      prevExpandedMaterie.includes(materiaNome)
+        ? prevExpandedMaterie.filter((nome) => nome !== materiaNome)
+        : [...prevExpandedMaterie, materiaNome]
+    );
   };
 
+  // Funzione per gestire il caricamento di un file
   const handleFileUpload = (event) => {
     setUploadedFile(event.target.files[0]);
   };
 
+  // Funzione per gestire il click su un appunto
+  const handleAppuntoClick = (appunto) => {
+    setSelectedAppunto(appunto);
+  };
+
+  // Funzione per aggiungere un nuovo appunto
   const handleAddAppunto = () => {
     if (newMateria && newTitle && uploadedFile && newComment) {
-      const newAppunto = { titolo: newTitle, commento: newComment };
+      const newAppunto = {
+        titolo: newTitle,
+        commento: newComment,
+        autore: "Autore Default", // Sostituisci con il nome dell'autore appropriato
+        dataCreazione: new Date().toLocaleDateString(),
+      };
       setMaterie((prevMaterie) =>
         prevMaterie.map((materia) =>
           materia.nome === newMateria
@@ -35,7 +75,9 @@ const AppuntiPage = () => {
             : materia
         )
       );
-      alert(`Appunto "${newTitle}" aggiunto a ${newMateria} con file: ${uploadedFile.name}`);
+      alert(
+        `Appunto "${newTitle}" aggiunto a ${newMateria} con file: ${uploadedFile.name}`
+      );
       setIsModalOpen(false);
       setNewMateria("");
       setNewTitle("");
@@ -46,15 +88,24 @@ const AppuntiPage = () => {
     }
   };
 
+  // Funzione per aggiungere una nuova materia
   const handleAddMateria = () => {
     if (newMateria) {
-      setMaterie((prevMaterie) => [...prevMaterie, { nome: newMateria, appunti: [] }]);
+      setMaterie((prevMaterie) => [
+        ...prevMaterie,
+        { nome: newMateria, appunti: [] },
+      ]);
       alert(`Materia "${newMateria}" aggiunta`);
-      setIsAddMateriaModalOpen(false); // Close subject modal after adding
+      setIsAddMateriaModalOpen(false);
       setNewMateria("");
     } else {
       alert("Inserisci un nome per la materia!");
     }
+  };
+
+  // Funzione per aprire/chiudere il popup menu
+  const togglePopup = () => {
+    setIsMenuOpen(!isMenuOpen);
   };
 
   return (
@@ -65,13 +116,25 @@ const AppuntiPage = () => {
         <ul>
           {materie.map((materia, index) => (
             <li key={index}>
-              <div className="materia" onClick={() => handleMateriaClick(materia.nome)}>
-                {materia.nome} <span>{selectedMateria === materia.nome ? "▼" : "▶"}</span>
+              <div
+                className="materia"
+                onClick={() => handleMateriaClick(materia.nome)}
+              >
+                {materia.nome}{" "}
+                <span>
+                  {expandedMaterie.includes(materia.nome) ? "▼" : "▶"}
+                </span>
               </div>
-              {selectedMateria === materia.nome && (
+              {expandedMaterie.includes(materia.nome) && (
                 <ul className="sottocategoria">
                   {materia.appunti.map((appunto, i) => (
-                    <li key={i} onClick={() => setSelectedAppunto(appunto)}>
+                    <li
+                      key={i}
+                      onClick={() => handleAppuntoClick(appunto)}
+                      className={
+                        selectedAppunto === appunto ? "selected" : ""
+                      }
+                    >
                       {appunto.titolo}
                     </li>
                   ))}
@@ -83,52 +146,34 @@ const AppuntiPage = () => {
       </div>
 
       {/* Colonna centrale - Appunti */}
-      <div className="columnA centrale">
-        <h2>Appunti</h2>
-        {selectedMateria ? (
-          <div className="appunti-list">
-            {materie
-              .find((m) => m.nome === selectedMateria)
-              .appunti.map((appunto, index) => (
-                <div
-                  key={index}
-                  className="appunto-box"
-                  onClick={() => setSelectedAppunto(appunto)}
-                >
-                  <h3>{appunto.titolo}</h3>
-                </div>
-              ))}
-          </div>
-        ) : (
-          <p>Seleziona una materia</p>
-        )}
-      </div>
+      <AppuntiList
+        expandedMaterie={expandedMaterie}
+        materie={materie}
+        handleAppuntoClick={handleAppuntoClick}
+      />
 
       {/* Colonna destra - Dettagli */}
       <div className="columnA">
         <h2>Info Appunto</h2>
         {selectedAppunto ? (
           <>
-            <p>Autore: Io</p>
+            <p>Autore: {selectedAppunto.autore}</p>
+            <p>Data di creazione: {selectedAppunto.dataCreazione}</p>
             <h3>Commento</h3>
             <p>{selectedAppunto.commento}</p>
           </>
         ) : (
-          <p>Seleziona un appunto</p>
+          <p>Seleziona un appunto per visualizzare i dettagli</p>
         )}
       </div>
 
       {/* Pulsante flottante */}
-      <div className="floating-button-container">
-        <button className="floating-button" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-          +
-        </button>
-        {isMenuOpen && (
-          <div className="floating-menu">
-            <button onClick={() => { setIsModalOpen(true); setIsMenuOpen(false); }}>Inserisci Appunto</button>
-            <button onClick={() => { setIsAddMateriaModalOpen(true); setIsMenuOpen(false); }}>Aggiungi Materia</button>
-          </div>
-        )}
+      <button id="add-button" className={isMenuOpen ? "active" : ""} onClick={togglePopup}>
+        +
+      </button>
+      <div id="popup-container" className={isMenuOpen ? "active" : ""}>
+        <button onClick={() => { setIsModalOpen(true); setIsMenuOpen(false); }}>Inserisci Appunto</button>
+        <button onClick={() => { setIsAddMateriaModalOpen(true); setIsMenuOpen(false); }}>Aggiungi Materia</button>
       </div>
 
       {/* Modale per aggiungere appunti */}

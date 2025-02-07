@@ -46,7 +46,7 @@ a:hover {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  padding-top: 60px; /* Spazio per la navbar */
+
 }
 
 .columns {
@@ -64,7 +64,7 @@ a:hover {
 
 .neutral-zone {
   height: 50px; /* Imposta un'altezza fissa per la zona neutra */
-  background-color: #e0e0e0; /* Colore della zona neutra */
+  background-color: #EEEEEE; /* Colore della zona neutra */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -401,31 +401,80 @@ button {
   width: 90%;
   height: 90vh;
   gap: 10px;
-  padding-top: 60px; /* Spazio per la navbar */
+
 }
 
 /* Colonne */
 .columnA {
   flex: 1; /* Rende tutte le colonne flessibili */
+  padding: 20px;
 }
 
-/* Colonna sinistra - Materie */
-.columnA.left {
-  overflow-y: auto; /* Scroll per contenuti lunghi */
-  max-height: 80vh;
+.materie-list, .appunti-list {
+  list-style-type: none; /* Rimuove i punti dalla lista */
+  padding: 0; /* Rimuove il padding predefinito */
+}
+
+.materia {
+  cursor: pointer;
+  padding: 10px;
+  border: 1px solid #EEEEEE;
+  margin-bottom: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color 0.3s;
+  background-color: #00ADB5;
+}
+
+.materia:hover {
+  background-color: #EEEEEE;
+}
+.materia.expanded {
+  background-color: #EEEEEE;
+}
+
+.appunti-list {
+  margin-left: 20px;
+  margin-top: 5px;
+}
+
+.appunto {
+  cursor: pointer;
+  padding: 5px;
+  border: 1px solid #EEEEEE;
+  margin-bottom: 3px;
+  transition: background-color 0.3s;
+}
+
+.appunto:hover {
+  background-color: #EEEEEE;
+}
+
+.appunto.selected {
+  background-color: #EEEEEE;
+}
+
+.toggle-icon {
+  font-size: 12px;
+  margin-left: 10px;
 }
 
 /* Colonna centrale - Appunti */
-.columnA.center {
+.columnA.centrale {
+  flex:2;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  text-align: center;
+  align-items: center;
+  justify-content: flex-start; /* Allinea gli elementi in alto */
+  padding: 20px;
+  overflow-y: auto; /* Scorrimento verticale */
 }
-
-/* Colonna destra - Dettagli */
-.columnA.right {
-  /* Eventuali stili specifici per la colonna destra */
+/* Titolo "Appunti" */
+.columnA.centrale h2 {
+  margin-top: 0; /* Rimuove eventuali margini superiori */
+  margin-bottom: 10px; /* Aggiunge uno spazio sotto il titolo */
+  text-align: center; /* Allinea il testo al centro */
 }
 
 .modal {
@@ -434,11 +483,10 @@ button {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
   display: flex;
   justify-content: center;
   align-items: center;
-  visibility: hidden; /* Initially hidden */
+  visibility: hidden;
   opacity: 0;
   transition: opacity 0.3s ease, visibility 0.3s ease;
 }
@@ -457,31 +505,134 @@ button {
   width: 100%;
   position: relative;
 }
-
-.close-button {
+.modal-content .close-button {
   position: absolute;
   top: 10px;
   right: 10px;
-  font-size: 24px;
   cursor: pointer;
 }
-
-/* Floating Button */
-.floating-button {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  padding: 10px 20px;
+/* Box per ogni appunto */
+.appunto-box {
+  width: 100%;
+  max-width: 400px;
+  border: 1px solid #EEEEEE;
+  border-radius: 8px;
+  padding: 15px;
+  margin: 10px 0;
+  text-align: center;
   background-color: #00ADB5;
-  color: #EEEEEE;
-  border: none;
-  border-radius: 50%;
-  font-size: 30px;
-  cursor: pointer;
 }
 
+/* Materia al centro */
+.appunto-box h3.materia {
+  font-size: 1.2em;
+  margin: 0;
+  font-weight: bold;
+  text-align: center;
+}
 
+/* Titolo sotto la materia */
+.appunto-box p.titolo {
+  font-size: 0.9em;
+  margin: 5px 0;
+  color: #555;
+  align-items: center;
+}
 
+/* Contenitore per i file allegati */
+.appunto-box .file-container {
+  display: flex;
+  overflow-x: auto;
+  margin-top: 10px;
+  padding-bottom: 10px;
+}
+
+/* Stile per ogni file */
+.appunto-box .file-container .file {
+  margin-right: 10px;
+  padding: 5px;
+  background-color: #EEEEEE;
+  border-radius: 4px;
+  text-align: center;
+  min-width: 60px;
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Barra di scorrimento orizzontale */
+.appunto-box .file-container::-webkit-scrollbar {
+  height: 8px;
+}
+
+.appunto-box .file-container::-webkit-scrollbar-thumb {
+  background-color: #EEEEEE;
+  border-radius: 4px;
+}
+
+.appunto-box .file-container::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+.appunti-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+}
+#add-button {
+  background-color: #00ADB5; /* Colore di sfondo */
+  color:#EEEEEE ; /* Colore del testo */
+  border: none; /* Rimuove il bordo */
+  padding: 20px; /* Spaziatura interna */
+  height: 10%;
+  width: 5%;
+  right: 10px;
+  bottom: 10px;
+  position: fixed; /* Posizionamento fisso */
+  z-index: 10; /* Posizionamento sopra gli altri elementi */
+  text-align: center;
+  display: flex; /* Abilita Flexbox */
+  justify-content: center; /* Centra orizzontalmente */
+  align-items: center; /* Centra verticalmente */
+}
+
+/* Contenitore delle box */
+#popup-container {
+  position: fixed;
+  bottom: 10px;
+  right: 50px;
+  z-index: 11;
+  display: none;  /* Hidden by default */
+  border-radius: 8px;
+  padding: 10px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 50px;
+}
+
+/* Stile per i pulsanti all'interno del popup-container */
+#popup-container button {
+  width: 100%;
+  height: 10%;
+  margin: 2px 0;
+  background-color: #00adb5;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 12px;
+}
+/* Mostra le box quando il pulsante "+" è cliccato */
+#popup-container.active {
+  display: block;  /* Shows when active */
+}
 
 
   /* Media Queries per dispositivi mobili */
@@ -611,9 +762,43 @@ button {
   .columnA {
     max-width: 100%; /* Su mobile non serve il 100vh */
   }
-  .floating-button {
-    bottom: 10px;
-    right: 10px;
+  .appunti-list {
+    flex-direction: row; /* Disposizione orizzontale delle box */
+    overflow-x: auto; /* Permette lo scorrimento orizzontale */
+    white-space: nowrap; /* Impedisce il wrapping delle box */
+  }
+
+  .appunto-box {
+    flex: 0 0 auto; /* Impedisce il ridimensionamento delle box */
+    margin-right: 10px; /* Spazio tra le box */
+  }
+
+  .appunti-list::-webkit-scrollbar {
+    height: 8px; /* Altezza della scrollbar orizzontale */
+  }
+
+  .appunti-list::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 4px;
+  }
+
+  .appunti-list::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+  }
+  #add-button {
+    padding: 15px; /* Riduce la spaziatura interna */
+    width: 15%; /* Aumenta la larghezza del pulsante */
+    height: 15%; /* Aumenta l'altezza del pulsante */
+    right: 5%; /* Distanza dal lato destro */
+    bottom: 5%; /* Distanza dal fondo */
+  }
+  #popup-container {
+    width: 50%;
+    height: 15%;
+  }
+ #popup-container button {
+    height: 60%; /* Altezza massima */
+  
   }
 
 

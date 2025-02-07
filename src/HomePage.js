@@ -1,11 +1,34 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './Style.css';
+import AppuntiList from './AppuntiList';
 
-function HomePage() {
+const HomePage = () => {
   const [clickBoxes, setClickBoxes] = useState([]);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const containerRef = useRef(null);
+
+  const [expandedMaterie, setExpandedMaterie] = useState(["Matematica", "Fisica"]);
+  const [materie, setMaterie] = useState([
+    {
+      nome: "Matematica",
+      appunti: [
+        { titolo: "Algebra", commento: "Appunto su Algebra", autore: "Mario Rossi", dataCreazione: "01/01/2025" },
+        { titolo: "Geometria", commento: "Appunto su Geometria", autore: "Luigi Bianchi", dataCreazione: "02/01/2025" },
+      ],
+    },
+    {
+      nome: "Fisica",
+      appunti: [
+        { titolo: "Meccanica", commento: "Appunto su Meccanica", autore: "Giulia Verdi", dataCreazione: "03/01/2025" },
+        { titolo: "Ottica", commento: "Appunto su Ottica", autore: "Anna Neri", dataCreazione: "04/01/2025" },
+      ],
+    },
+  ]);
+
+  const handleAppuntoClick = (appunto) => {
+    // Logica per gestire il click su un appunto
+  };
 
   useEffect(() => {
     const storedBoxes = JSON.parse(localStorage.getItem('clickBoxes')) || [];
@@ -44,18 +67,23 @@ function HomePage() {
         container.removeEventListener('touchmove', handleTouchMove);
       };
     }
-  }, []);
-  
-return (
+  }, [isMobile]);
+
+  return (
     <div className="homepage">
       <div className="columns" ref={containerRef}>
         {/* Colonna SINISTRA (ora con id="sinistra") */}
         <div className="column" id="sinistra">
           <div className="neutral-zone">
             <h1>PROFILO</h1> 
+            <Link to="/profilo">Vai al Profilo</Link>
           </div>
-          <h1>APPUNTI</h1> 
-          <ClickBoxContainer clickBoxes={clickBoxes} />
+          <AppuntiList
+            expandedMaterie={expandedMaterie}
+            materie={materie}
+            handleAppuntoClick={handleAppuntoClick}
+            recent={true} // Passa la proprietà recent
+          />
         </div>
 
         {/* Colonna DESTRA */}
@@ -79,6 +107,5 @@ function ClickBoxContainer({ clickBoxes }) {
     </div>
   );
 }
-
 
 export default HomePage;

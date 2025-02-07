@@ -16,6 +16,7 @@ import PasswordDimenticata from "./PasswordDimenticata";
 import PasswordReset from "./ResetPassword";
 import { AuthProvider } from "./Autenticato";
 import ProfilePage from "./ProfilePage";
+import ProfiloPage from "./ProfiloPage";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -28,6 +29,7 @@ ReactDOM.render(
           <Route path="/esplora" element={<EsploraPage />} />
           <Route path="/gruppi" element={<GruppiPage />} />
           <Route path="/faq" element={<FaqPage />} />
+          <Route path="/profilo" element={<ProfiloPage />} />
           <Route
             path="/login"
             element={
