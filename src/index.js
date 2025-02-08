@@ -15,7 +15,6 @@ import TermsAndConditions from "./TermsAndConditions";
 import PasswordDimenticata from "./PasswordDimenticata";
 import PasswordReset from "./ResetPassword";
 import { AuthProvider } from "./Autenticato";
-import ProfilePage from "./ProfilePage";
 import ProfiloPage from "./ProfiloPage";
 
 ReactDOM.render(
@@ -62,7 +61,6 @@ ReactDOM.render(
             element={<PasswordDimenticata />}
           />
           <Route path="/resetpassword" element={<PasswordReset />} />
-          <Route path="/profilepage" element={<ProfilePage />} />
         </Routes>
       </Router>
     </AuthProvider>
