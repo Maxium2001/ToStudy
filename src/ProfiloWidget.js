@@ -16,9 +16,9 @@ const ProfiloWidget = ({ username }) => {
   return (
     <div className="profilo-widget-container">
       {/* Link per navigare alla pagina del profilo */}
-      <NavLink to="/profilo">
+   
         <h1>PROFILO</h1>
-      </NavLink>
+ 
       {/* Widget della foto profilo e username */}
       <div className="profilo-widget">
         <div className="foto-username-container">
@@ -66,4 +66,3 @@ const ProfiloWidget = ({ username }) => {
 };
 
 export default ProfiloWidget;
-

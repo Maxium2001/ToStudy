@@ -131,11 +131,12 @@ const ProfiloPage = () => {
           )}
         </div>
 
-        <NavLink to="/">
+        <NavLink to="/Login">
           <button className="mini-button" onClick={logout}>
             Logout
           </button>
         </NavLink>
+        <br />
       </div>
     </div>
   );
