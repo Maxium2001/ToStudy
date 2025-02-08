@@ -1,8 +1,8 @@
 /*
-#EEEEEE (bianco): colore sfondo pagina e navbar;
-#222831 (nero): colore scritte, colore link;
+#EEEEEE (bianco): colore sfondo pagina e navbar, background bottone modifica foto;
+#222831 (nero): colore scritte, colore link, bordi dei vari elementi;
 #393E46 (grigio scuro): colore linee divisorie;
-#B0B0B0 (grigio chiaro): hover del faq;
+#B0B0B0 (grigio chiaro): hover del faq, background foto non inserita;
 #00ADB5 (azzurro): bottore registrati e accedi;
 Roboto: font-family per il testo;
 sans-serif: fallback font-family;
@@ -319,6 +319,9 @@ button {
 
 
 
+
+
+
 /* FAQ e PROFILO */
 .Selettore {
     max-width: 80vh;
@@ -377,7 +380,10 @@ button {
 
 
 
-/*Gruppi */
+
+
+
+/* GRUPPI */
 
 .GruppiPage {
   display: flex;
@@ -678,6 +684,12 @@ button {
 
 
 
+
+
+
+
+
+
 /*WIDGET PROFILO*/
 .profilo-widget-container {
   display: flex;
@@ -692,7 +704,7 @@ button {
   align-items: center;
   max-width: 80vh;
   padding: 1vh;
-  border:0.3vh solid #222831;
+  border:0.1vh solid #222831;
   border-radius: 10px;
 }
 
@@ -702,40 +714,59 @@ button {
   gap: 2vh; /* Spazio tra l'immagine, il bottone e l'username */
 }
 
-.foto-container {
-  width: 15vh;
-  height: 15vh;
-  border-radius: 1vh;
-  overflow: hidden;
-  border: 0.1vh solid #393E46;
+.foto-profilo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Assicura che l'immagine sia adattata al contenitore */
+  display: block;
+}
+
+/*bottone modifica*/
+.foto-label {
+  position: absolute;
+  bottom: 1vh;
+  right: 1.5vh;
+  background-color: #EEEEEE;
+  color: #222831;
+  border: 0.1vh solid #222831;
+  width: 3.5vh;
+  height: 3.5vh;
+  border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.foto-profilo {
-  max-width: 80vh;
-  height: 100%;
-  object-fit: cover;
+.foto-label:hover {
+  background-color: #EEEEEE;
+  transform: scale(1.1); /* Aumenta leggermente la dimensione dell'icona al passaggio del mouse */
 }
 
-.foto-upload {
-  display: flex;
-  align-items: flex-start;
+/* Modifica della foto - quando clicchi sull'immagine */
+.foto-profilo:hover {
+  cursor: pointer;
+  opacity: 0.8; /* Aggiungi un leggero effetto di opacità quando si passa sopra l'immagine */
+}
+
+/*sfondo per la foto di default*/
+.foto-container {
+  position: relative; /* Importante per il posizionamento dell'icona */
+  width: 15vh;
+  height: 15vh;
+  border: 0.1vh solid #222831;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.foto-icon {
+  width: 1.5vh;
+  height: 1.5vh;
 }
 
 .foto-input {
-  display: none; /* Nasconde l'input file */
-}
-
-.foto-label {
-  cursor: pointer;
-  padding: 5px 10px;
-  background-color: #222831;
-  color: #EEEEEE;
-  border-radius: 1vh;
-  font-size: 0.9rem;
-  margin-top: 1vh;
+  display: none; /* Nasconde il file input */
 }
 
 .username {
@@ -752,6 +783,19 @@ button {
   text-align: center;
   margin-left: 2vh;
   padding: 0.5vh 2.5vh;
+}
+
+/*quando l'immagine non è presente*/
+.fallback-text {
+  position: absolute;
+  font-size: 1.2rem;
+  color: #EEEEEE; 
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
 }
 
 
@@ -946,23 +990,25 @@ button {
 
 
   /*FAQ e PROFILO*/
-.Selettore{
-    max-width: 100%; /* Usa tutta la larghezza dello schermo */
-    padding: 2vh; /* Riduci il padding */
-    margin-top: 4vh; /* Riduci il margine superiore */
+  .Selettore {
+    max-width: 90vw; /* Adatta la larghezza allo schermo */
+    padding: 2vh; /* Riduce il padding per gli spazi stretti */
+    margin-top: 4vh; /* Riduce il margine superiore */
+    gap: 2vh; /* Aumenta lo spazio tra gli elementi */
 }
 
 .Titolo {
-    font-size: 1em; /* Rendi il testo leggermente più piccolo */
-    padding: 2vh; /* Aggiungi più spazio interno per facilitare il tocco */
+    width: 100%; /* Usa il 100% della larghezza */
+    font-size: 1em; /* Riduce leggermente il font */
+    padding: 2vh; /* Aumenta il padding per un migliore tocco su mobile */
 }
 
 .answer {
-    font-size: 0.9em; /* Riduci il testo delle risposte */
+    padding: 2vh; /* Aumenta il padding per leggibilità */
 }
 
 .container {
-    padding: 1vh; /* Riduci il padding generale */
+    padding: 3vh; /* Aggiunge spaziature più comode */
 }
 
   }
