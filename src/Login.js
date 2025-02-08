@@ -25,7 +25,7 @@ function Login() {
     console.log("Form data:", formData); // Log dei dati del form
     try {
       const response = await axios.post(
-        "http://localhost:3001/login", // Assicurati che l'endpoint sia corretto
+        "http://localhost:3000/login", // Assicurati che l'endpoint sia corretto
         formData
       );
       console.log("Response:", response); // Log della risposta del server
@@ -42,7 +42,9 @@ function Login() {
         setErrorMessage(error.response.data.message);
         // Il server ha risposto con uno stato diverso da 2xx
       } else if (error.request) {
-        setErrorMessage("Nessuna risposta dal server. Verifica che il server sia in esecuzione.");
+        setErrorMessage(
+          "Nessuna risposta dal server. Verifica che il server sia in esecuzione."
+        );
         // La richiesta è stata fatta ma non è stata ricevuta alcuna risposta
       } else {
         setErrorMessage(error.message);

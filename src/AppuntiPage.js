@@ -141,12 +141,6 @@ const AppuntiPage = () => {
                 onClick={() => handleMateriaClick(materia.nome)}
               >
                 {materia.nome}{" "}
-                <span>{selectedMateria === materia.nome ? "▼" : "▶"}</span>
-              <div
-                className="materia"
-                onClick={() => handleMateriaClick(materia.nome)}
-              >
-                {materia.nome}{" "}
                 <span>
                   {expandedMaterie.includes(materia.nome) ? "▼" : "▶"}
                 </span>

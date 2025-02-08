@@ -25,19 +25,16 @@ const creaGroupo = async (req, res) => {
     res.status(201).json({ message: "Gruppo creato con successo" });
   } catch (error) {
     console.error("Errore nel salvataggio del gruppo:", error);
-    res
-      .status(500)
-      .json({
-        message: "Errore nel salvataggio del gruppo",
-        error: error.message,
-      });
+    res.status(500).json({
+      message: "Errore nel salvataggio del gruppo",
+      error: error.message,
+    });
   }
 };
 
 const getGroupById = async (req, res) => {
   try {
-    const { id } = req.body;
-
+    const { id } = req.params; // Usa req.params per ottenere l'ID del gruppo
     const group = await Group.findById(id);
     if (!group) {
       return res.status(404).json({ message: "Gruppo non trovato" });
@@ -45,12 +42,7 @@ const getGroupById = async (req, res) => {
     res.status(200).json(group);
   } catch (error) {
     console.error("Errore nel recupero del gruppo:", error);
-    res
-      .status(500)
-      .json({
-        message: "Errore nel recupero del gruppo",
-        error: error.message,
-      });
+    res.status(500).json({ message: error.message });
   }
 };
 

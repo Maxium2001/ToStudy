@@ -50,7 +50,9 @@ app.post("/passwordreset", (req, res) => {
 
 app.get("/getusergroups", userController.getUserGroups);
 
-app.post("/creamateria", userController.creaMateria);
+app.post("/creamateria", MateriaController.creaMateria);
+
+app.get("/getmateria", MateriaController.getMateriaById);
 
 app.post("/addusergroup", userController.addUserGroup);
 
@@ -64,7 +66,7 @@ app.get("/getappunti", userController.getAppunti);
 
 app.post("/creagroup", groupController.creaGroupo);
 
-app.get("/getgroupbyid", groupController.getGroupById);
+app.get("/getgroup", groupController.getGroupById);
 
 // Avvio del server
 app.listen(3000, () => console.log("Server started on port 3000"));

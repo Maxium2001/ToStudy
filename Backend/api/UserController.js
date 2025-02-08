@@ -4,11 +4,12 @@ const crypto = require("crypto");
 const multer = require("multer");
 const Materia = require("./Materia");
 const Group = require("./Groups");
+const { getGroupById } = require("./GroupController");
 
 const upload = multer({ storage: multer.memoryStorage() });
 const getUserGroups = async (req, res) => {
   try {
-    const { id } = req.query; // Usa req.query per ottenere i parametri di query
+    const { id } = req.body;
     const user = await User.findById(id).populate({
       path: "gruppi",
       model: "Group",
@@ -16,12 +17,20 @@ const getUserGroups = async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: "Utente non trovato" });
     }
-    res.status(200).json(user.gruppi);
+
+    const groups = await Promise.all(
+      user.gruppi.map(async (groupId) => {
+        const group = await Group.findById(groupId);
+        return group;
+      })
+    );
+
+    res.status(200).json(groups);
   } catch (error) {
-    if (error.name === "CastError") {
+    if (error.message === "Gruppo non trovato") {
+      res.status(404).json({ message: "Gruppo non trovato" });
+    } else if (error.name === "CastError") {
       res.status(400).json({ message: "ID utente non valido" });
-    } else if (error.name === "ValidationError") {
-      res.status(400).json({ message: "Errore di validazione" });
     } else {
       res.status(500).json({ message: error.message });
     }
@@ -39,7 +48,18 @@ const addUserGroup = async (req, res) => {
     if (!group) {
       return res.status(404).json({ message: "Gruppo non trovato" });
     }
+    if (group.utenti.includes(id)) {
+      return res
+        .status(400)
+        .json({ message: "Utente già presente nel gruppo" });
+    }
+    if (user.gruppi.includes(groupId)) {
+      return res
+        .status(400)
+        .json({ message: "Utente già presente nel gruppo" });
+    }
     await User.findByIdAndUpdate(id, { $push: { gruppi: groupId } });
+    await Group.findByIdAndUpdate(groupId, { $push: { utenti: id } });
     res.status(200).json({ message: "Utente aggiunto al gruppo" });
   } catch (error) {
     if (error.name === "CastError") {
@@ -50,27 +70,9 @@ const addUserGroup = async (req, res) => {
   }
 };
 
-const creaMateria = async (req, res) => {
-  try {
-    const { nome, autore, commento } = req.body;
-    const newMateria = new Materia({
-      nome,
-      autore,
-      commento,
-    });
-    await newMateria.save();
-    res.status(201).json({ message: "Materia creata con successo" });
-  } catch (error) {
-    console.error(error);
-    res
-      .status(500)
-      .json({ message: "Errore del server", error: error.message });
-  }
-};
-
 const creaAppunti = async (req, res) => {
   try {
-    const { titolo, materia } = req.body;
+    const { titolo, materia, autore, commento } = req.body;
     const file = req.file;
 
     // Calcola l'hash del file
@@ -89,6 +91,8 @@ const creaAppunti = async (req, res) => {
 
     const newAppunti = new Appunti({
       titolo,
+      autore,
+      commento,
       file: file.buffer,
       fileType: file.mimetype,
       fileHash,
@@ -134,7 +138,6 @@ module.exports = {
   creaAppunti,
   getUserGroups,
   upload,
-  creaMateria,
   addUserGroup,
   getAppunti,
 };

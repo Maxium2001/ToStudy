@@ -50,7 +50,7 @@ function NavBar() {
         </>
       ) : (
         <div className="navbar-user">
-          <NavLink to="/profilo">
+          <NavLink to="/login">
             <img src="/user.png" alt="user" id="user" />
           </NavLink>
         </div>
