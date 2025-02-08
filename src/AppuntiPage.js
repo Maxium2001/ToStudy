@@ -13,8 +13,20 @@ const AppuntiPage = () => {
   const [newComment, setNewComment] = useState("");
 
   const [materie, setMaterie] = useState([
-    { nome: "Matematica", appunti: [{ titolo: "Algebra", commento: "Appunto su Algebra" }, { titolo: "Geometria", commento: "Appunto su Geometria" }] },
-    { nome: "Fisica", appunti: [{ titolo: "Meccanica", commento: "Appunto su Meccanica" }, { titolo: "Ottica", commento: "Appunto su Ottica" }] },
+    {
+      nome: "Matematica",
+      appunti: [
+        { titolo: "Algebra", commento: "Appunto su Algebra" },
+        { titolo: "Geometria", commento: "Appunto su Geometria" },
+      ],
+    },
+    {
+      nome: "Fisica",
+      appunti: [
+        { titolo: "Meccanica", commento: "Appunto su Meccanica" },
+        { titolo: "Ottica", commento: "Appunto su Ottica" },
+      ],
+    },
   ]);
 
   const handleMateriaClick = (materia) => {
@@ -35,7 +47,9 @@ const AppuntiPage = () => {
             : materia
         )
       );
-      alert(`Appunto "${newTitle}" aggiunto a ${newMateria} con file: ${uploadedFile.name}`);
+      alert(
+        `Appunto "${newTitle}" aggiunto a ${newMateria} con file: ${uploadedFile.name}`
+      );
       setIsModalOpen(false);
       setNewMateria("");
       setNewTitle("");
@@ -48,7 +62,10 @@ const AppuntiPage = () => {
 
   const handleAddMateria = () => {
     if (newMateria) {
-      setMaterie((prevMaterie) => [...prevMaterie, { nome: newMateria, appunti: [] }]);
+      setMaterie((prevMaterie) => [
+        ...prevMaterie,
+        { nome: newMateria, appunti: [] },
+      ]);
       alert(`Materia "${newMateria}" aggiunta`);
       setIsAddMateriaModalOpen(false); // Close subject modal after adding
       setNewMateria("");
@@ -65,8 +82,12 @@ const AppuntiPage = () => {
         <ul>
           {materie.map((materia, index) => (
             <li key={index}>
-              <div className="materia" onClick={() => handleMateriaClick(materia.nome)}>
-                {materia.nome} <span>{selectedMateria === materia.nome ? "▼" : "▶"}</span>
+              <div
+                className="materia"
+                onClick={() => handleMateriaClick(materia.nome)}
+              >
+                {materia.nome}{" "}
+                <span>{selectedMateria === materia.nome ? "▼" : "▶"}</span>
               </div>
               {selectedMateria === materia.nome && (
                 <ul className="sottocategoria">
@@ -120,13 +141,30 @@ const AppuntiPage = () => {
 
       {/* Pulsante flottante */}
       <div className="floating-button-container">
-        <button className="floating-button" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+        <button
+          className="floating-button"
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+        >
           +
         </button>
         {isMenuOpen && (
           <div className="floating-menu">
-            <button onClick={() => { setIsModalOpen(true); setIsMenuOpen(false); }}>Inserisci Appunto</button>
-            <button onClick={() => { setIsAddMateriaModalOpen(true); setIsMenuOpen(false); }}>Aggiungi Materia</button>
+            <button
+              onClick={() => {
+                setIsModalOpen(true);
+                setIsMenuOpen(false);
+              }}
+            >
+              Inserisci Appunto
+            </button>
+            <button
+              onClick={() => {
+                setIsAddMateriaModalOpen(true);
+                setIsMenuOpen(false);
+              }}
+            >
+              Aggiungi Materia
+            </button>
           </div>
         )}
       </div>
@@ -135,7 +173,10 @@ const AppuntiPage = () => {
       {isModalOpen && (
         <div className={`modal ${isModalOpen ? "open" : ""}`}>
           <div className="modal-content">
-            <span className="close-button" onClick={() => setIsModalOpen(false)}>
+            <span
+              className="close-button"
+              onClick={() => setIsModalOpen(false)}
+            >
               ×
             </span>
             <h2>Nuovo Appunto</h2>
@@ -183,7 +224,10 @@ const AppuntiPage = () => {
       {isAddMateriaModalOpen && (
         <div className={`modal ${isAddMateriaModalOpen ? "open" : ""}`}>
           <div className="modal-content">
-            <span className="close-button" onClick={() => setIsAddMateriaModalOpen(false)}>
+            <span
+              className="close-button"
+              onClick={() => setIsAddMateriaModalOpen(false)}
+            >
               ×
             </span>
             <h2>Aggiungi Nuova Materia</h2>

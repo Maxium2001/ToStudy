@@ -1,5 +1,11 @@
 const User = require("./Users");
+const Appunti = require("./Appunti");
+const crypto = require("crypto");
+const multer = require("multer");
+const Materia = require("./Materia");
+const Group = require("./Groups");
 
+const upload = multer({ storage: multer.memoryStorage() });
 const getUserGroups = async (req, res) => {
   try {
     const { id } = req.query; // Usa req.query per ottenere i parametri di query
@@ -22,4 +28,113 @@ const getUserGroups = async (req, res) => {
   }
 };
 
-module.exports = { getUserGroups };
+const addUserGroup = async (req, res) => {
+  try {
+    const { id, groupId } = req.body;
+    const user = await User.findById(id);
+    if (!user) {
+      return res.status(404).json({ message: "Utente non trovato" });
+    }
+    const group = await Group.findById(groupId);
+    if (!group) {
+      return res.status(404).json({ message: "Gruppo non trovato" });
+    }
+    await User.findByIdAndUpdate(id, { $push: { gruppi: groupId } });
+    res.status(200).json({ message: "Utente aggiunto al gruppo" });
+  } catch (error) {
+    if (error.name === "CastError") {
+      res.status(400).json({ message: "ID utente o gruppo non valido" });
+    } else {
+      res.status(500).json({ message: error.message });
+    }
+  }
+};
+
+const creaMateria = async (req, res) => {
+  try {
+    const { nome, autore, commento } = req.body;
+    const newMateria = new Materia({
+      nome,
+      autore,
+      commento,
+    });
+    await newMateria.save();
+    res.status(201).json({ message: "Materia creata con successo" });
+  } catch (error) {
+    console.error(error);
+    res
+      .status(500)
+      .json({ message: "Errore del server", error: error.message });
+  }
+};
+
+const creaAppunti = async (req, res) => {
+  try {
+    const { titolo, materia } = req.body;
+    const file = req.file;
+
+    // Calcola l'hash del file
+    const fileHash = crypto
+      .createHash("sha256")
+      .update(file.buffer)
+      .digest("hex");
+
+    // Controlla se esiste già un file con lo stesso hash
+    const existingFile = await Appunti.findOne({ fileHash });
+    if (existingFile) {
+      return res
+        .status(400)
+        .json({ message: "Il file esiste già nel database" });
+    }
+
+    const newAppunti = new Appunti({
+      titolo,
+      file: file.buffer,
+      fileType: file.mimetype,
+      fileHash,
+      materia,
+    });
+
+    await newAppunti.save();
+
+    // Aggiungi il riferimento dell'appunto alla materia
+    await Materia.findByIdAndUpdate(materia, {
+      $push: { appunti: newAppunti._id },
+    });
+
+    res.status(201).json({ message: "Appunto creato con successo" });
+  } catch (error) {
+    console.error(error);
+    res
+      .status(500)
+      .json({ message: "Errore del server", error: error.message });
+  }
+};
+
+const getAppunti = async (req, res) => {
+  try {
+    const { id } = req.query;
+    const appunti = await Appunti.findById(id);
+    if (!appunti) {
+      return res.status(404).json({ message: "Appunti non trovati" });
+    }
+    res.set("Content-Type", appunti.fileType);
+    res.send(appunti.file);
+    res.status(200);
+  } catch (error) {
+    if (error.name === "CastError") {
+      res.status(400).json({ message: "ID appunti non valido" });
+    } else {
+      res.status(500).json({ message: error.message });
+    }
+  }
+};
+
+module.exports = {
+  creaAppunti,
+  getUserGroups,
+  upload,
+  creaMateria,
+  addUserGroup,
+  getAppunti,
+};

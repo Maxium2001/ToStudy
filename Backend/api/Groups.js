@@ -3,8 +3,12 @@ const mongoose = require("mongoose");
 const GroupSchema = new mongoose.Schema({
   nome: { type: String, required: true, unique: true },
   descrizione: { type: String, required: true },
-  utenti: { type: Array, required: true },
-  materiale: { type: Array, default: [] },
+  utenti: [
+    { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+  ],
+  materiale: [
+    { type: mongoose.Schema.Types.ObjectId, ref: "Material", default: [] },
+  ],
   dataCreazione: { type: Date, default: Date.now },
   thumbnail: {
     type: String,

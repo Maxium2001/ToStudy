@@ -29,9 +29,21 @@ app.post("/passwordreset", authController.passwordReset);
 
 app.get("/getusergroups", userController.getUserGroups);
 
-app.post("/creategroup", groupController.createGroup);
+app.post("/creamateria", userController.creaMateria);
 
-app.get("/getgroup", groupController.getGroupById);
+app.post("/addusergroup", userController.addUserGroup);
+
+app.post(
+  "/creaappunti",
+  userController.upload.single("file"),
+  userController.creaAppunti
+);
+
+app.get("/getappunti", userController.getAppunti);
+
+app.post("/creagroup", groupController.creaGroupo);
+
+app.get("/getgroupbyid", groupController.getGroupById);
 
 // Avvio del server
 app.listen(3000, () => console.log("Server started on port 3000"));

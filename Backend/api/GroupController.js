@@ -1,7 +1,7 @@
 const Group = require("./Groups");
 const User = require("./Users");
 
-const createGroup = async (req, res) => {
+const creaGroupo = async (req, res) => {
   try {
     const { nome, descrizione, utente, materiale } = req.body;
 
@@ -45,4 +45,4 @@ const getGroupById = async (req, res) => {
   }
 };
 
-module.exports = { createGroup, getGroupById };
+module.exports = { creaGroupo, getGroupById };

@@ -18,7 +18,6 @@ const ProfilePage = () => {
           <h2>Posts</h2>
           {/* Add user posts here */}
         </section>
-        <p>User ID: {id}</p>
         <NavLink to="/">
           <button onClick={logout}>Logout</button>
         </NavLink>

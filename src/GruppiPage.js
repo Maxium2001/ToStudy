@@ -52,11 +52,37 @@ const GruppiPage = () => {
         </ul>
       </div>
 
-            {/* Seconda colonna - Gruppi */}
-            <div className="columnG centrale">
-                <h2>Gruppi</h2>
-                <p>Elenco dei gruppi disponibili...</p>
-            </div>
+      {/* Seconda colonna - Gruppi */}
+
+      {isAuthenticated ? (
+        <>
+          <div className="columnG centrale">
+            <h2>I tuoi gruppi</h2>
+            <ul>
+              {gruppi.map((gruppo) => (
+                <li key={gruppo._id}>
+                  <img
+                    src={gruppo.thumbnail}
+                    alt={gruppo.nome}
+                    className="group-thumbnail"
+                  />
+                  {gruppo.nome}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="navbar-user">
+            <NavLink to="/profilepage">
+              <img src="/user.png" alt="user" id="user" />
+            </NavLink>
+          </div>
+        </>
+      ) : (
+        <div className="columnG centrale">
+          <h2>Gruppi</h2>
+          <p>Elenco dei gruppi disponibili...</p>
+        </div>
+      )}
 
       {/* Terza colonna - Nome Utente */}
       <div className="columnG">
