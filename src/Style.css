@@ -50,15 +50,27 @@ a:hover {
 
 .columns {
   display: flex;
-  flex: 1; /* Le colonne occupano uguale spazio */
+  flex-direction: row;
+  justify-content: space-between; /* Distribuisce lo spazio tra le colonne */
+  align-items: flex-start; /* Allinea le colonne in alto */
+  width: 100%;
 }
 
-.column {
+/* Colonna sinistra */
+.column#sinistra {
+  flex: 1;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Colonna destra */
+.column#destra {
+  flex: 1;
+  padding: 20px;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  flex: 1;
-  padding: 10px;
-  height: calc(100vh - 60px); /* Altezza piena meno la navbar */
+  align-items: flex-start; /* Allinea gli elementi a sinistra */
 }
 
 .neutral-zone {
@@ -376,19 +388,50 @@ button {
 }
 /* Colonne */
 .columnG {
-  flex: 1; /* Tutte le colonne hanno la stessa larghezza */
-  background: #EEEEEE;
+  width: 30%; /* Regola la larghezza se necessario */
+  float: left; /* Assicura che la colonna venga visualizzata accanto alle altre */
   padding: 20px;
-  border-radius: 8px;
-  height: 100%; /* Si estende per tutta l'altezza disponibile */
-  overflow-y: auto; /* Scorrimento verticale solo dentro la colonna */
+  box-sizing: border-box;
+  /* Aggiungi altri stili per gestire visibilità e posizione */
 }
 
-/* Colonna centrale più grande */
-.centraleG {
-  flex: 1.5; /* La colonna centrale è leggermente più larga */
+.file-list {
+  margin-top: 20px;
 }
 
+.file-list ul {
+  list-style-type: none;
+}
+
+.file-list li {
+  margin: 5px 0;
+}
+
+.file-list a {
+  text-decoration: none;
+  color: blue;
+}.colonna-destra {
+  flex: 0 0 45%; /* La colonna di destra occupa il 45% della larghezza */
+  padding-left: 20px;
+}
+
+.colonna-destra h3 {
+  margin-top: 0;
+}
+
+.colonna-destra ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.colonna-destra li {
+  margin: 5px 0;
+}
+
+.colonna-destra a {
+  text-decoration: none;
+  color: blue;
+}
 
 
 

@@ -2,7 +2,7 @@ const User = require("./Users");
 
 const getUserGroups = async (req, res) => {
   try {
-    const { id } = req.query; // Usa req.query per ottenere i parametri di query
+    const { id } = req.params; // Usa req.query per ottenere i parametri di query
     const user = await User.findById(id).populate({
       path: "gruppi",
       model: "Group",

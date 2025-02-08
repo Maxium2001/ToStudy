@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { NavLink } from "react-router-dom";
 import './Style.css';
 import AppuntiList from './AppuntiList';
+import GruppiList from './GruppiList';
 
 function HomePage() {
   const [clickBoxes, setClickBoxes] = useState([]);
@@ -9,7 +10,6 @@ function HomePage() {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const containerRef = useRef(null);
   const [imagePreview, setImagePreview] = useState(null); // Aggiungi lo stato per l'anteprima dell'immagine
-
 
   const handleFileChange = (event) => {
     const file = event.target.files[0]; // Prendi il file caricato
@@ -19,6 +19,7 @@ function HomePage() {
       console.log('Foto caricata:', file);
     }
   };
+
   const [expandedMaterie, setExpandedMaterie] = useState(["Matematica", "Fisica"]);
   const [materie, setMaterie] = useState([
     {
@@ -27,6 +28,9 @@ function HomePage() {
         { titolo: "Algebra", commento: "Appunto su Algebra", autore: "Mario Rossi", dataCreazione: "01/01/2025" },
         { titolo: "Geometria", commento: "Appunto su Geometria", autore: "Luigi Bianchi", dataCreazione: "02/01/2025" },
       ],
+      gruppi: [
+        { titolo: "Gruppo 1", autore: "Autore 1", dataCreazione: "01/01/2023" }
+      ]
     },
     {
       nome: "Fisica",
@@ -34,12 +38,18 @@ function HomePage() {
         { titolo: "Meccanica", commento: "Appunto su Meccanica", autore: "Giulia Verdi", dataCreazione: "03/01/2025" },
         { titolo: "Ottica", commento: "Appunto su Ottica", autore: "Anna Neri", dataCreazione: "04/01/2025" },
       ],
+      gruppi: [
+        { titolo: "Gruppo 2", autore: "Autore 2", dataCreazione: "02/01/2023" }
+      ]
     },
   ]);
 
-  
   const handleAppuntoClick = (appunto) => {
     // Logica per gestire il click su un appunto
+  };
+
+  const handleGruppiClick = (gruppo) => {
+    // Logica per gestire il click su un gruppo
   };
 
   useEffect(() => {
@@ -87,51 +97,55 @@ function HomePage() {
         {/* Colonna SINISTRA */}
         <div className="column" id="sinistra">
           <div className="neutral-zone">
-          <div className="profilo-widget-container">
-      {/* Link per navigare alla pagina del profilo */}
-      <NavLink to="/profilo">
-        <h1>PROFILO</h1>
-      </NavLink>
-      {/* Widget della foto profilo e username */}
-      <div className="profilo-widget">
-        <div className="foto-username-container">
-          <div className="foto-container">
-            <img
-                src={imagePreview || 'default-image.jpg'} // Usa l'anteprima o un'immagine di default
-                alt="Foto Profilo"
-              className="foto-profilo"
-            />
-          </div>
-          <div className="foto-upload">
-            <input
-              type="file"
-              accept="image/*"
-              id="foto-utente"
-              className="foto-input"
-              onChange={handleFileChange}
-            />
-            <label htmlFor="foto-utente" className="foto-label">
-              Carica Foto
-            </label>
-          </div>
-          <div className="username">{username || 'Username'}</div>
-        </div>
+            <div className="profilo-widget-container">
+              {/* Link per navigare alla pagina del profilo */}
+              <NavLink to="/profilo">
+                <h1>PROFILO</h1>
+              </NavLink>
+              {/* Widget della foto profilo e username */}
+              <div className="profilo-widget">
+                <div className="foto-username-container">
+                  <div className="foto-container">
+                    <img
+                      src={imagePreview || 'default-image.jpg'} // Usa l'anteprima o un'immagine di default
+                      alt="Foto Profilo"
+                      className="foto-profilo"
+                    />
+                  </div>
+                  <div className="foto-upload">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      id="foto-utente"
+                      className="foto-input"
+                      onChange={handleFileChange}
+                    />
+                    <label htmlFor="foto-utente" className="foto-label">
+                      Carica Foto
+                    </label>
+                  </div>
+                  <div className="username">{username || 'Username'}</div>
+                </div>
+              </div>
             </div>
-          </div></div>
+          </div>
           <AppuntiList
             expandedMaterie={expandedMaterie}
             materie={materie}
             handleAppuntoClick={handleAppuntoClick}
             recent={true} // Passa la proprietà recent
           />
-          </div>
+        </div>
         {/* Colonna DESTRA */}
         <div className="column" id="destra">
-          <h1>GRUPPI</h1>
-          <ClickBoxContainer clickBoxes={clickBoxes} />
+          <GruppiList
+            expandedMaterie={expandedMaterie}
+            materie={materie}
+            handleGruppiClick={handleGruppiClick}
+          />
         </div>
       </div>
-      </div>
+    </div>
   );
 }
 
