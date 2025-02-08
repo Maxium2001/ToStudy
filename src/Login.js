@@ -22,23 +22,27 @@ function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("Form data:", formData); // Log dei dati del form
     try {
       const response = await axios.post(
-        "http://localhost:3000/login",
+        "http://localhost:3001/login", // Assicurati che l'endpoint sia corretto
         formData
       );
-      console.log("Loggin successfully");
+      console.log("Response:", response); // Log della risposta del server
       if (response.status === 200) {
         setUserId(response.data.userId);
         login();
         navigate("/");
+      } else {
+        setErrorMessage("Login fallito. Verifica le tue credenziali.");
       }
     } catch (error) {
+      console.error("Error:", error); // Log dell'errore
       if (error.response) {
         setErrorMessage(error.response.data.message);
         // Il server ha risposto con uno stato diverso da 2xx
       } else if (error.request) {
-        setErrorMessage(error.request.message);
+        setErrorMessage("Nessuna risposta dal server. Verifica che il server sia in esecuzione.");
         // La richiesta è stata fatta ma non è stata ricevuta alcuna risposta
       } else {
         setErrorMessage(error.message);
@@ -52,14 +56,13 @@ function Login() {
       <h1>Accedi</h1>
       <form onSubmit={handleSubmit}>
         <input
-          type="Text"
+          type="text"
           name="email"
           value={formData.email}
           onChange={handleChange}
           placeholder="Email o Username*"
           required
         />
-
         <input
           type="password"
           name="password"

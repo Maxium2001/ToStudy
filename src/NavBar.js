@@ -43,14 +43,14 @@ function NavBar() {
       {isAuthenticated ? (
         <>
           <div className="navbar-user">
-            <NavLink to="/profilepage">
+            <NavLink to="/profilo">
               <img src="/user.png" alt="user" id="user" />
             </NavLink>
           </div>
         </>
       ) : (
         <div className="navbar-user">
-          <NavLink to="/login">
+          <NavLink to="/profilo">
             <img src="/user.png" alt="user" id="user" />
           </NavLink>
         </div>

@@ -1,37 +1,38 @@
 /*
-#EEEEEE (bianco): colore sfondo pagina e navbar;
-#222831 (nero): colore scritte, colore link;
+#EEEEEE (bianco): colore sfondo pagina e navbar, background bottone modifica foto;
+#222831 (nero): colore scritte, colore link, bordi dei vari elementi;
 #393E46 (grigio scuro): colore linee divisorie;
-#B0B0B0 (grigio chiaro): hover del faq;
+#B0B0B0 (grigio chiaro): hover del faq, background foto non inserita;
 #00ADB5 (azzurro): bottore registrati e accedi;
 Roboto: font-family per il testo;
 sans-serif: fallback font-family;
 */
 html, body {
-    margin : 0;
-    padding: 0;
-    font-family: 'Roboto', sans-serif;
-    background-color: #EEEEEE; 
-    font-size: 2.2vh; /*grandezza scritte*/
-    flex-direction: column;
-    height: 100%;
-    overflow: hidden; /* Evita lo scroll orizzontale e verticale */
+  margin : 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+  background-color: #EEEEEE; 
+  font-size: 2.2vh; /*grandezza scritte*/
+  flex-direction: column;
+  height: 100%;
+  overflow-x:  auto; /* Impedisce lo scroll orizzontale */
+  overflow-y: auto !important; /* Permette lo scroll verticale */
 }
 body{
-    margin-top: 10vh;
+  margin-top: 14vh;
 }
 h1, p {
-    color: #222831;
-    text-align: center;
+  color: #222831;
+  text-align: center;
 }
 h1 {
-    font-size: 5vh; /*grandezza scritte*/
+  font-size: 5vh; /*grandezza scritte*/
 }
 a {
-    color: #222831;
+  color: #222831;
 }
 a:hover {
-    color: #00ADB5;
+  color: #00ADB5;
 }
 
 
@@ -43,61 +44,61 @@ a:hover {
 /*HOMEPAGE*/
 /* Impostazioni per la homepage */
 .homepage {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  padding-top: 60px; /* Spazio per la navbar */
+display: flex;
+flex-direction: column;
+height: 100vh;
+
 }
 
 .columns {
-  display: flex;
-  flex: 1; /* Le colonne occupano uguale spazio */
+display: flex;
+flex: 1; /* Le colonne occupano uguale spazio */
 }
 
 .column {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  padding: 10px;
-  height: calc(100vh - 60px); /* Altezza piena meno la navbar */
+display: flex;
+flex-direction: column;
+flex: 1;
+padding: 10px;
+height: calc(100vh - 60px); /* Altezza piena meno la navbar */
 }
 
 .neutral-zone {
-  height: 50px; /* Imposta un'altezza fissa per la zona neutra */
-  background-color: #e0e0e0; /* Colore della zona neutra */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 10px;
-  margin-bottom: 10px;
+height: 50px; /* Imposta un'altezza fissa per la zona neutra */
+background-color: #EEEEEE; /* Colore della zona neutra */
+display: flex;
+justify-content: center;
+align-items: center;
+margin-bottom: 14vh;
+margin-top: 10vh;
 }
 
 .click-box-container {
-  display: flex;
-  flex-direction: column;
-  flex: 1; /* Permette di riempire lo spazio della colonna */
-  overflow-y: auto; /* Permette lo scroll verticale solo dentro le clickbox */
+display: flex;
+flex-direction: column;
+flex: 1; /* Permette di riempire lo spazio della colonna */
+overflow-y: auto; /* Permette lo scroll verticale solo dentro le clickbox */
 }
 
 .box {
-  width: 100%;
-  height: 100px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 10px;
-  margin: 10px 0;
-  background-color: #00ADB5;
-  border-radius: 5px;
+width: 100%;
+height: 100px;
+display: flex;
+align-items: center;
+justify-content: center;
+text-align: center;
+padding: 10px;
+margin: 10px 0;
+background-color: #00ADB5;
+border-radius: 5px;
 }
 
 #sinistra .click-box-container .box {
-  width: calc(100% - 20px); /* Diminuisce la larghezza per la zona neutra */
+width: calc(100% - 20px); /* Diminuisce la larghezza per la zona neutra */
 }
 
 #destra .click-box-container .box {
-  width: 100%; /* La seconda colonna ha larghezza completa */
+width: 100%; /* La seconda colonna ha larghezza completa */
 }
 
 
@@ -117,78 +118,78 @@ a:hover {
 
 /* NAVBAR */
 nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 5px 20px; /* Ridotto per diminuire altezza */
-  height: 10%; /* Altezza navbar più bassa */
-  background-color: #EEEEEE;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 1000;
-  }
+display: flex;
+align-items: center;
+justify-content: space-between;
+padding: 5px 20px; /* Ridotto per diminuire altezza */
+height: 10%; /* Altezza navbar più bassa */
+background-color: #EEEEEE;
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+z-index: 1000;
+}
 /* Contenitore link navbar */
 .navbar-nav {
-  display: flex;
-  align-items: center; /* Allinea i link al centro accanto al logo */
+display: flex;
+align-items: center; /* Allinea i link al centro accanto al logo */
 }
 /* Lista navbar */
 .navbar-nav ul {
-  list-style: none;
-  display: flex;
-  margin: 0;
-  padding: 0;
+list-style: none;
+display: flex;
+margin: 0;
+padding: 0;
 }
 /* Distanza tra gli item della navbar */
 .navbar-nav li {
-  margin: 0 15px;
+margin: 0 15px;
 }
 /* Link della navbar */
 .navbar-nav a {
-  color: #222831;
-  text-decoration: none;
-  font-size: 90%;
-  position: relative; /* Necessario per la sottolineatura */
+color: #222831;
+text-decoration: none;
+font-size: 90%;
+position: relative; /* Necessario per la sottolineatura */
 }
 /* Sottolineatura animata */
 .navbar-nav a::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: -3vh; /* Spazio tra testo e sottolineatura */
-  width: 100%;
-  height: 2px; /* Spessore sottolineatura */
-  background-color: #222831;
-  transform: scaleX(0);
-  transition: transform 0.3s ease-in-out;
+content: '';
+position: absolute;
+left: 0;
+bottom: -3vh; /* Spazio tra testo e sottolineatura */
+width: 100%;
+height: 2px; /* Spessore sottolineatura */
+background-color: #222831;
+transform: scaleX(0);
+transition: transform 0.3s ease-in-out;
 }
 /* Mostra la sottolineatura al passaggio del mouse */
 .navbar-nav a:hover::after,
 .navbar-nav a.active::after {
-  transform: scaleX(1);
+transform: scaleX(1);
 }
 /* Evita la sottolineatura sotto il logo */
 .icon-nav::after {
-  display: none;
+display: none;
 }
 
 #logo{
-  width: 30vh; /* Modifica la larghezza del logo */
-  height: auto; /* Mantiene le proporzioni */
-  object-fit: contain; /* Evita distorsioni */
+width: 30vh; /* Modifica la larghezza del logo */
+height: auto; /* Mantiene le proporzioni */
+object-fit: contain; /* Evita distorsioni */
 }
 
 #user{
-    width: 8vh; /* Modifica la larghezza del logo */
-    height: auto; /* Mantiene le proporzioni */
-    object-fit: contain; /* Evita distorsioni */ 
-    margin-top: 30% 
+  width: 8vh; /* Modifica la larghezza del logo */
+  height: auto; /* Mantiene le proporzioni */
+  object-fit: contain; /* Evita distorsioni */ 
+  margin-top: 30% 
 }
 
 
-  
+
 
 
 
@@ -196,53 +197,53 @@ nav {
 
 /*CAROSELLO*/
 .carousel-container {
-    width: 100%; /* Imposta la larghezza del carosello */
-    height: 100vh; /* Imposta l'altezza del carosello */
-    overflow: hidden; /* Nasconde le immagini che escono dal carosello */
-    position: relative;
-  }
-  /* Sezione del carosello (a sinistra) */
-  .carousel-section {
-    flex: 1; /* Il carosello occupa tutta la larghezza disponibile della sezione a sinistra */
-    width: 100%; /* Ogni immagine occupa tutta la larghezza del carosello */
-    height: 100vh; /* Ogni immagine occupa tutta l'altezza del carosello */
-    overflow: hidden; /* Nasconde eventuali contenuti che escono dal carosello */
-    position: relative; /* Necessario per l'overlay o altre proprietà di posizione */
-  }
-  .carousel {
-    display: flex; /* Allinea le immagini orizzontalmente */
-    transition: transform 1s ease-in-out; /* Transizione fluida tra le immagini */
-  }
-  .carousel-slides {
-    display: flex; /* Le immagini sono allineate in una riga */
-    height: 100%; /* Imposta l'altezza al 100% del contenitore */
-    width: 100%; /* Imposta la larghezza al 100% */
-  }
-  .carousel-slides img {
-    width: 100%; /* Ogni immagine occupa tutta la larghezza del carosello */
-    height: 100vh; /* Ogni immagine occupa tutta l'altezza del carosello */
-    object-fit: cover; /* Ritaglia l'immagine per coprire l'intero contenitore */
-  }
-  .carousel-indicators {
-    display: flex;
-    justify-content: center;
-    margin-top: 10px;
-  }
-  .indicator {
-    width: 12px;
-    height: 12px;
-    background-color: #EEEEEE;
-    border-radius: 50%;
-    margin: 0 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  .indicator.active {
-    background-color: #393E46; /* Colore quando attivo */
-  }
-  .indicator:hover {
-    background-color: #222831; /* Colore al passaggio del mouse */
-  }
+  width: 100%; /* Imposta la larghezza del carosello */
+  height: 100vh; /* Imposta l'altezza del carosello */
+  overflow: hidden; /* Nasconde le immagini che escono dal carosello */
+  position: relative;
+}
+/* Sezione del carosello (a sinistra) */
+.carousel-section {
+  flex: 1; /* Il carosello occupa tutta la larghezza disponibile della sezione a sinistra */
+  width: 100%; /* Ogni immagine occupa tutta la larghezza del carosello */
+  height: 100vh; /* Ogni immagine occupa tutta l'altezza del carosello */
+  overflow: hidden; /* Nasconde eventuali contenuti che escono dal carosello */
+  position: relative; /* Necessario per l'overlay o altre proprietà di posizione */
+}
+.carousel {
+  display: flex; /* Allinea le immagini orizzontalmente */
+  transition: transform 1s ease-in-out; /* Transizione fluida tra le immagini */
+}
+.carousel-slides {
+  display: flex; /* Le immagini sono allineate in una riga */
+  height: 100%; /* Imposta l'altezza al 100% del contenitore */
+  width: 100%; /* Imposta la larghezza al 100% */
+}
+.carousel-slides img {
+  width: 100%; /* Ogni immagine occupa tutta la larghezza del carosello */
+  height: 100vh; /* Ogni immagine occupa tutta l'altezza del carosello */
+  object-fit: cover; /* Ritaglia l'immagine per coprire l'intero contenitore */
+}
+.carousel-indicators {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+.indicator {
+  width: 12px;
+  height: 12px;
+  background-color: #EEEEEE;
+  border-radius: 50%;
+  margin: 0 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.indicator.active {
+  background-color: #393E46; /* Colore quando attivo */
+}
+.indicator:hover {
+  background-color: #222831; /* Colore al passaggio del mouse */
+}
 
 
 
@@ -253,53 +254,53 @@ nav {
 
 
 
-  
+
 
 /*LOGIN e REGISTRATI*/
 
-  /* Contenitore principale della pagina di login */
-  .page {
-    display: flex; /* Imposta Flexbox per la divisione a colonne */
-    height: 100vh; /* Imposta l'altezza della finestra del browser */
-  }
-  /* Sezione del login (a destra) */
-  .section {
-    flex: 1; /* Il modulo di login occupa metà dello spazio */
-    max-width: 50%; /* Limita la larghezza del modulo di login alla metà della pagina */
-    display: flex;
-    justify-content: center; /* Allinea il modulo di login al centro orizzontalmente */
-    align-items: center; /* Allinea il modulo di login al centro verticalmente */
-    height: 100vh; /* Altezza completa della finestra */
-    background-color: #EEEEEE; /* Colore di sfondo per la sezione di login */
-  }
-  input:hover {
-    border: 0.3vh solid #222831; /* Colore del bordo quando si passa sopra l'input */
+/* Contenitore principale della pagina di login */
+.page {
+  display: flex; /* Imposta Flexbox per la divisione a colonne */
+  height: 100vh; /* Imposta l'altezza della finestra del browser */
+}
+/* Sezione del login (a destra) */
+.section {
+  flex: 1; /* Il modulo di login occupa metà dello spazio */
+  max-width: 50%; /* Limita la larghezza del modulo di login alla metà della pagina */
+  display: flex;
+  justify-content: center; /* Allinea il modulo di login al centro orizzontalmente */
+  align-items: center; /* Allinea il modulo di login al centro verticalmente */
+  height: 100vh; /* Altezza completa della finestra */
+  background-color: #EEEEEE; /* Colore di sfondo per la sezione di login */
+}
+input:hover {
+  border: 0.3vh solid #222831; /* Colore del bordo quando si passa sopra l'input */
 }
 input:focus {
-    border: 0.4vh solid #222831; /* Colore del bordo quando si sta scrivendo*/
-    outline: none; /* Rimuove il focus predefinito */
+  border: 0.4vh solid #222831; /* Colore del bordo quando si sta scrivendo*/
+  outline: none; /* Rimuove il focus predefinito */
 }
 form {
-    width: 80%;
-    padding: 15%;
-    display: flex;
-    flex-direction: column;
-    gap: 2vh;
-    justify-content: center;
-    margin: auto;
+  width: 80%;
+  padding: 15%;
+  display: flex;
+  flex-direction: column;
+  gap: 2vh;
+  justify-content: center;
+  margin: auto;
 }
 input {
-    border: 0.1vh solid #393E46;
-    border-radius: 0.5vh;
-    color: #393E46;
+  border: 0.1vh solid #393E46;
+  border-radius: 0.5vh;
+  color: #393E46;
 }
 button {
-    background-color: #00ADB5;
-    color: #EEEEEE;
-    padding: 5% 7%;
-    border: none;
-    border-radius: 1vh;
-    cursor: pointer;
+  background-color: #00ADB5;
+  color: #EEEEEE;
+  padding: 5% 7%;
+  border: none;
+  border-radius: 1vh;
+  cursor: pointer;
 }
 
 
@@ -308,56 +309,66 @@ button {
 
 
 
-/* FAQ */
-.faq-container {
-    max-width: 80vh;
-    margin: 0 auto;
-    padding: 4vh;
-    margin-top: 8vh;
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1vh;
+
+
+
+/* FAQ e PROFILO */
+.Selettore {
+  width: 90%;
+  max-width: 80vh;
+  margin: 0 auto;
+  padding: 4vh;
+  margin-top: 8vh;
+  display: grid;
+  gap: 1vh;
+  max-height: 80vh; 
 }
-.faq-question {
-    width: 100%;
-    padding: 1vh;
-    text-align: left;
-    background-color: #EEEEEE;
-    color: #222831;
-    border-top: 0.1vh solid #222831;
-    cursor: pointer;
-    font-size: 1.1em;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-radius: 0;
+.Titolo {
+  width: 100%;
+  padding: 1vh;
+  text-align: left;
+  background-color: #EEEEEE;
+  color: #222831;
+  border-top: 0.1vh solid #222831;
+  cursor: pointer;
+  font-size: 1.1em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 0;
 }
-#faq {
-    border-bottom: 0.2vh solid #222831;
-    border-left: 0.2vh solid #222831;
-    border-right: 0.2vh solid #222831;
+#Titolo-container {
+  border-bottom: 0.2vh solid #222831;
+  border-left: 0.2vh solid #222831;
+  border-right: 0.2vh solid #222831;
 }
-.faq-question:hover, .faq-question:focus {
-    background-color: #B0B0B0;
-    border: 0.1vh solid #222831;
+.Titolo:hover, .Titolo:focus {
+  background-color: #B0B0B0;
+  border: 0.1vh solid #222831;
 }
-.faq-arrow {
-    transition: transform 0.3s ease;
+.arrow {
+  transition: transform 0.3s ease;
 }
-.faq-arrow.open {
-    transform: rotate(180deg);
+.arrow.open {
+  transform: rotate(180deg);
 }
-.faq-answer {
-    padding: 1vh;
-    margin-top: 5px;
+.answer {
+  padding: 1vh;
+  margin-top: 5px;
 }
 /* Flex per layout generali */
 .container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 2vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2vh;
+}
+
+.mini-button{
+text-align: center;
+margin-left: 2vh;
+padding: 0.5vh 2.5vh;
 }
 
 
@@ -366,28 +377,31 @@ button {
 
 
 
-/*Gruppi */
+
+
+
+/* GRUPPI */
 
 .GruppiPage {
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
-  padding: 20px;
-  height: 100vh; /* Occupa tutto lo schermo */
+display: flex;
+justify-content: space-between;
+gap: 20px;
+padding: 20px;
+height: 100vh; /* Occupa tutto lo schermo */
 }
 /* Colonne */
 .columnG {
-  flex: 1; /* Tutte le colonne hanno la stessa larghezza */
-  background: #EEEEEE;
-  padding: 20px;
-  border-radius: 8px;
-  height: 100%; /* Si estende per tutta l'altezza disponibile */
-  overflow-y: auto; /* Scorrimento verticale solo dentro la colonna */
+flex: 1; /* Tutte le colonne hanno la stessa larghezza */
+background: #EEEEEE;
+padding: 20px;
+border-radius: 8px;
+height: 100%; /* Si estende per tutta l'altezza disponibile */
+overflow-y: auto; /* Scorrimento verticale solo dentro la colonna */
 }
 
 /* Colonna centrale più grande */
 .centraleG {
-  flex: 1.5; /* La colonna centrale è leggermente più larga */
+flex: 1.5; /* La colonna centrale è leggermente più larga */
 }
 
 
@@ -396,267 +410,568 @@ button {
 
 /* Layout generale */
 .AppuntiPage {
-  display: flex;
-  flex-direction: row; /* Disposizione orizzontale su desktop */
-  width: 90%;
-  height: 90vh;
-  gap: 10px;
-  padding-top: 60px; /* Spazio per la navbar */
+display: flex;
+flex-direction: row; /* Disposizione orizzontale su desktop */
+width: 90%;
+height: 90vh;
+gap: 10px;
+
 }
 
 /* Colonne */
 .columnA {
-  flex: 1; /* Rende tutte le colonne flessibili */
+flex: 1; /* Rende tutte le colonne flessibili */
+padding: 20px;
 }
 
-/* Colonna sinistra - Materie */
-.columnA.left {
-  overflow-y: auto; /* Scroll per contenuti lunghi */
-  max-height: 80vh;
+.materie-list, .appunti-list {
+list-style-type: none; /* Rimuove i punti dalla lista */
+padding: 0; /* Rimuove il padding predefinito */
+}
+
+.materia {
+cursor: pointer;
+padding: 10px;
+border: 1px solid #EEEEEE;
+margin-bottom: 5px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+transition: background-color 0.3s;
+background-color: #00ADB5;
+}
+
+.materia:hover {
+background-color: #EEEEEE;
+}
+.materia.expanded {
+background-color: #EEEEEE;
+}
+
+.appunti-list {
+margin-left: 20px;
+margin-top: 5px;
+}
+
+.appunto {
+cursor: pointer;
+padding: 5px;
+border: 1px solid #EEEEEE;
+margin-bottom: 3px;
+transition: background-color 0.3s;
+}
+
+.appunto:hover {
+background-color: #EEEEEE;
+}
+
+.appunto.selected {
+background-color: #EEEEEE;
+}
+
+.toggle-icon {
+font-size: 12px;
+margin-left: 10px;
 }
 
 /* Colonna centrale - Appunti */
-.columnA.center {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  text-align: center;
+.columnA.centrale {
+flex:2;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: flex-start; /* Allinea gli elementi in alto */
+padding: 20px;
+overflow-y: auto; /* Scorrimento verticale */
 }
-
-/* Colonna destra - Dettagli */
-.columnA.right {
-  /* Eventuali stili specifici per la colonna destra */
+/* Titolo "Appunti" */
+.columnA.centrale h2 {
+margin-top: 0; /* Rimuove eventuali margini superiori */
+margin-bottom: 10px; /* Aggiunge uno spazio sotto il titolo */
+text-align: center; /* Allinea il testo al centro */
 }
 
 .modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  visibility: hidden; /* Initially hidden */
-  opacity: 0;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+display: flex;
+justify-content: center;
+align-items: center;
+visibility: hidden;
+opacity: 0;
+transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
 .modal.open {
-  visibility: visible;
-  opacity: 1;
+visibility: visible;
+opacity: 1;
 }
 
 /* Modal Content */
 .modal-content {
-  background-color: #EEEEEE;
-  padding: 20px;
-  border-radius: 8px;
-  max-width: 400px;
-  width: 100%;
-  position: relative;
+background-color: #EEEEEE;
+padding: 20px;
+border-radius: 8px;
+max-width: 400px;
+width: 100%;
+position: relative;
+}
+.modal-content .close-button {
+position: absolute;
+top: 10px;
+right: 10px;
+cursor: pointer;
+}
+/* Box per ogni appunto */
+.appunto-box {
+width: 100%;
+max-width: 400px;
+border: 1px solid #EEEEEE;
+border-radius: 8px;
+padding: 15px;
+margin: 10px 0;
+text-align: center;
+background-color: #00ADB5;
 }
 
-.close-button {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  font-size: 24px;
-  cursor: pointer;
+/* Materia al centro */
+.appunto-box h3.materia {
+font-size: 1.2em;
+margin: 0;
+font-weight: bold;
+text-align: center;
 }
 
-/* Floating Button */
-.floating-button {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  padding: 10px 20px;
-  background-color: #00ADB5;
-  color: #EEEEEE;
-  border: none;
-  border-radius: 50%;
-  font-size: 30px;
-  cursor: pointer;
+/* Titolo sotto la materia */
+.appunto-box p.titolo {
+font-size: 0.9em;
+margin: 5px 0;
+color: #555;
+align-items: center;
+}
+
+/* Contenitore per i file allegati */
+.appunto-box .file-container {
+display: flex;
+overflow-x: auto;
+margin-top: 10px;
+padding-bottom: 10px;
+}
+
+/* Stile per ogni file */
+.appunto-box .file-container .file {
+margin-right: 10px;
+padding: 5px;
+background-color: #EEEEEE;
+border-radius: 4px;
+text-align: center;
+min-width: 60px;
+max-width: 100px;
+overflow: hidden;
+text-overflow: ellipsis;
+white-space: nowrap;
+}
+
+/* Barra di scorrimento orizzontale */
+.appunto-box .file-container::-webkit-scrollbar {
+height: 8px;
+}
+
+.appunto-box .file-container::-webkit-scrollbar-thumb {
+background-color: #EEEEEE;
+border-radius: 4px;
+}
+
+.appunto-box .file-container::-webkit-scrollbar-thumb:hover {
+background-color: #555;
+}
+.appunti-list {
+display: flex;
+flex-direction: column;
+gap: 10px;
+overflow-y: auto;
+}
+#add-button {
+background-color: #00ADB5; /* Colore di sfondo */
+color:#EEEEEE ; /* Colore del testo */
+border: none; /* Rimuove il bordo */
+padding: 20px; /* Spaziatura interna */
+height: 10%;
+width: 5%;
+right: 10px;
+bottom: 10px;
+position: fixed; /* Posizionamento fisso */
+z-index: 10; /* Posizionamento sopra gli altri elementi */
+text-align: center;
+display: flex; /* Abilita Flexbox */
+justify-content: center; /* Centra orizzontalmente */
+align-items: center; /* Centra verticalmente */
+}
+
+/* Contenitore delle box */
+#popup-container {
+position: fixed;
+bottom: 10px;
+right: 50px;
+z-index: 11;
+display: none;  /* Hidden by default */
+border-radius: 8px;
+padding: 10px;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+margin-bottom: 50px;
+}
+
+/* Stile per i pulsanti all'interno del popup-container */
+#popup-container button {
+width: 100%;
+height: 10%;
+margin: 2px 0;
+background-color: #00adb5;
+color: white;
+border: none;
+border-radius: 5px;
+cursor: pointer;
+transition: background-color 0.3s;
+display: flex;
+align-items: center;
+justify-content: center;
+text-align: center;
+font-size: 12px;
+}
+/* Mostra le box quando il pulsante "+" è cliccato */
+#popup-container.active {
+display: block;  /* Shows when active */
 }
 
 
 
 
 
-  /* Media Queries per dispositivi mobili */
-  @media (max-width: 768px) {
 
-    /*STYLE*/
-    html, body {
-      font-size: 3.5vh;
-      background-color: #EEEEEE;
-      overflow-x:  auto; /* Impedisce lo scroll orizzontale */
-      overflow-y: auto !important; /* Permette lo scroll verticale */
-    }
 
-    body{
-      margin-top: 25vh;
-    }
 
-    h1 {
-      font-size: 6vh;
-    }
-    .homepage {
-      padding: 0;  /* Rimuove il padding laterale su mobile */
-      width: 100%;  /* Imposta la larghezza a 100% */
-      padding-top: 60px; /* Spazio per la navbar */
-    }
-    .container {
-      flex-direction: column;  /* Le colonne si dispongono una sotto l'altra */
-      justify-content: flex-start;  /* Allinea le colonne dall'alto */
-      align-items: stretch !important;  /* Allinea gli elementi all'interno delle colonne */
-      min-height: 100vh;  /* Imposta l'altezza minima a 100vh */
-    }
-    .columns {
-      flex-direction: column;  /* Le colonne si dispongono una sotto l'altra */
-      width: 100% !important;  /* Colonne prendono tutta la larghezza disponibile */
-      gap: 0;  /* Rimuove lo spazio tra le colonne */
-      display: block !important;
-      position: relative !important;
-    }
-  
-    .column {
-      height: 50vh;
-      width: 100% !important;  /* Le colonne occupano tutta la larghezza disponibile */
-      padding: 5px;
-      margin: 0;
-      border: none !important;  /* Rimuove le linee laterali */
-    }
-  
-    .click-box-container {
-      flex-direction: row !important; /* Da verticale a orizzontale */
-      overflow-x: auto !important; /* Scorrimento se non entrano */
-      white-space: nowrap;
-    }
-    .clickbox-container::-webkit-scrollbar {
-      display: none; /* Nasconde la scrollbar su Chrome/Safari */
-    }
-    .box {
-      flex: 0 0 auto !important; /* Impedisce il ridimensionamento */
-    margin-right: 10px; /* Spazio tra le box */
-    }
+
+/*WIDGET PROFILO*/
+.profilo-widget-container {
+display: flex;
+align-items: center;
+flex-direction: column;  /* Disposizione verticale */
+align-items: center;     /* Allineamento centrale */
+gap: 1vh;                /* Distanza tra il titolo e il widget */
+}
+/* Profilo widget - layout quadrato */
+.profilo-widget {
+display: flex;
+align-items: center;
+max-width: 80vh;
+padding: 1vh;
+border:0.1vh solid #222831;
+border-radius: 10px;
+}
+
+.foto-username-container {
+display: flex;
+align-items: center;
+gap: 2vh; /* Spazio tra l'immagine, il bottone e l'username */
+}
+
+.foto-profilo {
+width: 100%;
+height: 100%;
+object-fit: cover; /* Assicura che l'immagine sia adattata al contenitore */
+display: block;
+}
+
+/*bottone modifica*/
+.foto-label {
+position: absolute;
+bottom: 1vh;
+right: 1.5vh;
+background-color: #EEEEEE;
+color: #222831;
+border: 0.1vh solid #222831;
+width: 3.5vh;
+height: 3.5vh;
+border-radius: 50%;
+display: flex;
+justify-content: center;
+align-items: center;
+cursor: pointer;
+transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.foto-label:hover {
+background-color: #EEEEEE;
+transform: scale(1.1); /* Aumenta leggermente la dimensione dell'icona al passaggio del mouse */
+}
+
+/* Modifica della foto - quando clicchi sull'immagine */
+.foto-profilo:hover {
+cursor: pointer;
+opacity: 0.8; /* Aggiungi un leggero effetto di opacità quando si passa sopra l'immagine */
+}
+
+/*sfondo per la foto di default*/
+.foto-container {
+position: relative; /* Importante per il posizionamento dell'icona */
+width: 15vh;
+height: 15vh;
+border: 0.1vh solid #222831;
+border-radius: 50%;
+overflow: hidden;
+}
+
+.foto-icon {
+width: 1.5vh;
+height: 1.5vh;
+}
+
+.foto-input {
+display: none; /* Nasconde il file input */
+}
+
+.username {
+font-size: 1.2rem;
+font-weight: bold;
+color: #222831;
+}
+
+.campo{
+padding: 1vh;
+}
+
+/*quando l'immagine non è presente*/
+.fallback-text {
+position: absolute;
+font-size: 1.2rem;
+color: #EEEEEE; 
+text-align: center;
+display: flex;
+justify-content: center;
+align-items: center;
+width: 100%;
+height: 100%;
+}
+
+
+
+
+
+
+
+
+/* Media Queries per dispositivi mobili */
+@media (max-width: 768px) {
+
+  /*STYLE*/
+  html, body {
+    font-size: 3.5vh;
+    background-color: #EEEEEE;
+    overflow-x:  auto; /* Impedisce lo scroll orizzontale */
+    overflow-y: auto !important; /* Permette lo scroll verticale */
+  }
+
+  body{
+    margin-top: 25vh;
+  }
+
+  h1 {
+    font-size: 6vh;
+  }
+  .homepage {
+    padding: 0;  /* Rimuove il padding laterale su mobile */
+    width: 100%;  /* Imposta la larghezza a 100% */
+    padding-top: 60px; /* Spazio per la navbar */
+  }
+  .container {
+    flex-direction: column;  /* Le colonne si dispongono una sotto l'altra */
+    justify-content: flex-start;  /* Allinea le colonne dall'alto */
+    align-items: stretch !important;  /* Allinea gli elementi all'interno delle colonne */
+    min-height: 100vh;  /* Imposta l'altezza minima a 100vh */
+  }
+  .columns {
+    flex-direction: column;  /* Le colonne si dispongono una sotto l'altra */
+    width: 100% !important;  /* Colonne prendono tutta la larghezza disponibile */
+    gap: 0;  /* Rimuove lo spazio tra le colonne */
+    display: block !important;
+    position: relative !important;
+  }
+
+  .column {
+    height: 50vh;
+    width: 100% !important;  /* Le colonne occupano tutta la larghezza disponibile */
+    padding: 5px;
+    margin: 0;
+    border: none !important;  /* Rimuove le linee laterali */
+  }
+
+  .click-box-container {
+    flex-direction: row !important; /* Da verticale a orizzontale */
+    overflow-x: auto !important; /* Scorrimento se non entrano */
+    white-space: nowrap;
+  }
+  .clickbox-container::-webkit-scrollbar {
+    display: none; /* Nasconde la scrollbar su Chrome/Safari */
+  }
+  .box {
+    flex: 0 0 auto !important; /* Impedisce il ridimensionamento */
+  margin-right: 10px; /* Spazio tra le box */
+  }
 
 
 /*NAVBAR*/
-  /* Imposta il layout della navbar */
-  nav {
-    flex-direction: row; /* Cambia l'orientamento a riga*/
-    align-items: flex-start; /* Allinea tutto a sinistra */
-    height: 26%; /* Altezza dinamica */
-    padding: 0.1vh; /* Aggiunge più padding */
-  }
-
-  /* Logo e utente in alto */
-  #logo {
-    width: 20vh; /* Rende il logo più piccolo */
-  }
-
-  #user {
-    width: 6vh; /* Rende l'icona utente più piccola */
-    margin: 0;
-    position: absolute; /* Posizionamento fisso in alto a destra */
-    top: 6vh;
-    right: 5vh;
-  }
-
-  /* Contenitore della navbar */
-  .navbar-nav {
-    flex-direction: row; /* Disposizione orizzontalmente*/
-    width: 100%; /* Occupa tutta la larghezza */
-    align-items: flex-start; /* Allinea i link a sinistra */
-    margin-top: 20px; /* Spazio sotto il logo e user */
-  }
-
-  /* Lista della navbar */
-  .navbar-nav ul {
-    flex-direction: row; /* Cambia orientamento in orizzontalmente*/
-    overflow-x: auto; /* Permette lo scroll */
-    max-height: 50vh; /* Limita l'altezza massima della lista */
-    width: 90%; /* Occupa tutta la larghezza */
-    padding: 0; /* Rimuove il padding */
-    scrollbar-width: thin; /* Per Firefox */
-    scrollbar-color: #B0B0B0 transparent; /* Per Firefox */
-    height: 11vh;
-  }
-
-  /* Elementi della lista */
-  .navbar-nav li {
-    margin: 0; /* Spazio verticale tra gli elementi */
-    width: 35%; /* Link a tutta larghezza */
-    flex-shrink: 0; /* Evita che i link si restringano */
-  }
-
-  /* Link della navbar */
-  .navbar-nav a {
-    font-size: 1rem; /* Rende i link più leggibili */
-    padding: 1vh; /* Aggiunge padding interno ai link */
-    display: block; /* Ogni link occupa una riga intera */
-    text-align: center; /* Allinea il testo a sinistra */
-  }
-
-
-
-  /*APPUNTI*/
-  .AppuntiPage {
-    flex-direction: column; /* Le colonne diventano verticali su mobile */
-    height: auto; /* Si adatta al contenuto */
-  }
-
-  .columnA {
-    max-width: 100%; /* Su mobile non serve il 100vh */
-  }
-  .floating-button {
-    bottom: 10px;
-    right: 10px;
-  }
-
-
-
-
-  /*GRUPPI*/
-  .GruppiPage {
-    flex-direction: column; /* Le colonne diventano verticali su mobile */
-    height: auto; /* Si adatta al contenuto */
-  }
-
-  .columnG {
-    height: auto; /* Su mobile non serve il 100vh */
-  }
-
-
-
-
-
-
-  /*FAQ*/
-  .faq-container {
-    max-width: 100%; /* Usa tutta la larghezza dello schermo */
-    padding: 2vh; /* Riduci il padding */
-    margin-top: 4vh; /* Riduci il margine superiore */
+/* Imposta il layout della navbar */
+nav {
+  flex-direction: row; /* Cambia l'orientamento a riga*/
+  align-items: flex-start; /* Allinea tutto a sinistra */
+  height: 26%; /* Altezza dinamica */
+  padding: 0.1vh; /* Aggiunge più padding */
 }
 
-.faq-question {
-    font-size: 1em; /* Rendi il testo leggermente più piccolo */
-    padding: 2vh; /* Aggiungi più spazio interno per facilitare il tocco */
+/* Logo e utente in alto */
+#logo {
+  width: 20vh; /* Rende il logo più piccolo */
 }
 
-.faq-answer {
-    font-size: 0.9em; /* Riduci il testo delle risposte */
+#user {
+  width: 6vh; /* Rende l'icona utente più piccola */
+  margin: 0;
+  position: absolute; /* Posizionamento fisso in alto a destra */
+  top: 6vh;
+  right: 5vh;
+}
+
+/* Contenitore della navbar */
+.navbar-nav {
+  flex-direction: row; /* Disposizione orizzontalmente*/
+  width: 100%; /* Occupa tutta la larghezza */
+  align-items: flex-start; /* Allinea i link a sinistra */
+  margin-top: 20px; /* Spazio sotto il logo e user */
+}
+
+/* Lista della navbar */
+.navbar-nav ul {
+  flex-direction: row; /* Cambia orientamento in orizzontalmente*/
+  overflow-x: auto; /* Permette lo scroll */
+  max-height: 50vh; /* Limita l'altezza massima della lista */
+  width: 90%; /* Occupa tutta la larghezza */
+  padding: 0; /* Rimuove il padding */
+  scrollbar-width: thin; /* Per Firefox */
+  scrollbar-color: #B0B0B0 transparent; /* Per Firefox */
+  height: 11vh;
+}
+
+/* Elementi della lista */
+.navbar-nav li {
+  margin: 0; /* Spazio verticale tra gli elementi */
+  width: 35%; /* Link a tutta larghezza */
+  flex-shrink: 0; /* Evita che i link si restringano */
+}
+
+/* Link della navbar */
+.navbar-nav a {
+  font-size: 1rem; /* Rende i link più leggibili */
+  padding: 1vh; /* Aggiunge padding interno ai link */
+  display: block; /* Ogni link occupa una riga intera */
+  text-align: center; /* Allinea il testo a sinistra */
+}
+
+
+
+/*APPUNTI*/
+.AppuntiPage {
+  flex-direction: column; /* Le colonne diventano verticali su mobile */
+  height: auto; /* Si adatta al contenuto */
+}
+
+.columnA {
+  max-width: 100%; /* Su mobile non serve il 100vh */
+}
+.appunti-list {
+  flex-direction: row; /* Disposizione orizzontale delle box */
+  overflow-x: auto; /* Permette lo scorrimento orizzontale */
+  white-space: nowrap; /* Impedisce il wrapping delle box */
+}
+
+.appunto-box {
+  flex: 0 0 auto; /* Impedisce il ridimensionamento delle box */
+  margin-right: 10px; /* Spazio tra le box */
+}
+
+.appunti-list::-webkit-scrollbar {
+  height: 8px; /* Altezza della scrollbar orizzontale */
+}
+
+.appunti-list::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 4px;
+}
+
+.appunti-list::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+#add-button {
+  padding: 15px; /* Riduce la spaziatura interna */
+  width: 15%; /* Aumenta la larghezza del pulsante */
+  height: 15%; /* Aumenta l'altezza del pulsante */
+  right: 5%; /* Distanza dal lato destro */
+  bottom: 5%; /* Distanza dal fondo */
+}
+#popup-container {
+  width: 50%;
+  height: 15%;
+}
+#popup-container button {
+  height: 60%; /* Altezza massima */
+
+}
+
+
+
+
+/*GRUPPI*/
+.GruppiPage {
+  flex-direction: column; /* Le colonne diventano verticali su mobile */
+  height: auto; /* Si adatta al contenuto */
+}
+
+.columnG {
+  height: auto; /* Su mobile non serve il 100vh */
+}
+
+
+
+
+
+
+/*FAQ e PROFILO*/
+.Selettore {
+  max-width: 90vw; /* Adatta la larghezza allo schermo */
+  padding: 2vh; /* Riduce il padding per gli spazi stretti */
+  margin-top: 4vh; /* Riduce il margine superiore */
+  gap: 2vh; /* Aumenta lo spazio tra gli elementi */
+}
+
+.Titolo {
+  width: 100%; /* Usa il 100% della larghezza */
+  font-size: 1em; /* Riduce leggermente il font */
+  padding: 2vh; /* Aumenta il padding per un migliore tocco su mobile */
+}
+
+.answer {
+  padding: 2vh; /* Aumenta il padding per leggibilità */
 }
 
 .container {
-    padding: 1vh; /* Riduci il padding generale */
+  padding: 3vh; /* Aggiunge spaziature più comode */
 }
 
-  }
-
-
+}
 
 
 

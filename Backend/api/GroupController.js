@@ -24,10 +24,13 @@ const creaGroupo = async (req, res) => {
 
     res.status(201).json({ message: "Gruppo creato con successo" });
   } catch (error) {
-    console.error(error);
+    console.error("Errore nel salvataggio del gruppo:", error);
     res
       .status(500)
-      .json({ message: "Errore del server", error: error.message });
+      .json({
+        message: "Errore nel salvataggio del gruppo",
+        error: error.message,
+      });
   }
 };
 
@@ -41,7 +44,13 @@ const getGroupById = async (req, res) => {
     }
     res.status(200).json(group);
   } catch (error) {
-    res.status(500).json({ message: "Errore del server" });
+    console.error("Errore nel recupero del gruppo:", error);
+    res
+      .status(500)
+      .json({
+        message: "Errore nel recupero del gruppo",
+        error: error.message,
+      });
   }
 };
 

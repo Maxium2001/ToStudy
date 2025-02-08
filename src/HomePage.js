@@ -1,11 +1,51 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from "react-router-dom";
 import './Style.css';
+import AppuntiList from './AppuntiList';
+import GruppiList from './GruppiList';
+import ProfiloWidget from './ProfiloWidget';
 
 function HomePage() {
   const [clickBoxes, setClickBoxes] = useState([]);
+  const [username, setUsername] = useState('Utente123');
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const containerRef = useRef(null);
+  const [imagePreview, setImagePreview] = useState(null); // Aggiungi lo stato per l'anteprima dell'immagine
+
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0]; // Prendi il file caricato
+    if (file) {
+      const imageUrl = URL.createObjectURL(file); // Crea un URL temporaneo per il file
+      setImagePreview(imageUrl); // Salva l'URL dell'immagine nel state
+      console.log('Foto caricata:', file);
+    }
+  };
+  const [expandedMaterie, setExpandedMaterie] = useState(["Matematica", "Fisica"]);
+  const [materie, setMaterie] = useState([
+    {
+      nome: "Matematica",
+      appunti: [
+        { titolo: "Algebra", commento: "Appunto su Algebra", autore: "Mario Rossi", dataCreazione: "01/01/2025" },
+        { titolo: "Geometria", commento: "Appunto su Geometria", autore: "Luigi Bianchi", dataCreazione: "02/01/2025" },
+      ],
+    },
+    {
+      nome: "Fisica",
+      appunti: [
+        { titolo: "Meccanica", commento: "Appunto su Meccanica", autore: "Giulia Verdi", dataCreazione: "03/01/2025" },
+        { titolo: "Ottica", commento: "Appunto su Ottica", autore: "Anna Neri", dataCreazione: "04/01/2025" },
+      ],
+    },
+  ]);
+
+  
+  const handleAppuntoClick = (appunto) => {
+    // Logica per gestire il click su un appunto
+  };
+  const handleGruppiClick = (gruppo) => {
+    // Logica per gestire il click su un gruppo
+  }
 
   useEffect(() => {
     const storedBoxes = JSON.parse(localStorage.getItem('clickBoxes')) || [];
@@ -16,7 +56,7 @@ function HomePage() {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
     };
-    
+
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
@@ -44,27 +84,36 @@ function HomePage() {
         container.removeEventListener('touchmove', handleTouchMove);
       };
     }
-  }, []);
-  
-return (
-    <div className="homepage">
-      <div className="columns" ref={containerRef}>
-        {/* Colonna SINISTRA (ora con id="sinistra") */}
-        <div className="column" id="sinistra">
-          <div className="neutral-zone">
-            <h1>PROFILO</h1> 
-          </div>
-          <h1>APPUNTI</h1> 
-          <ClickBoxContainer clickBoxes={clickBoxes} />
-        </div>
+  }, [isMobile]);
 
+  return (
+    <div className="homepage">
+    <div className="columns" ref={containerRef}>
+      <div className="column" id="sinistra">
+        <div className="neutral-zone">
+          <ProfiloWidget
+            imagePreview={imagePreview}
+            handleFileChange={handleFileChange}
+            username={username}
+          />
+        </div>
+          <AppuntiList
+            expandedMaterie={expandedMaterie}
+            materie={materie}
+            handleAppuntoClick={handleAppuntoClick}
+            recent={true} // Passa la proprietà recent
+          />
+          </div>
         {/* Colonna DESTRA */}
         <div className="column" id="destra">
-          <h1>GRUPPI</h1> 
-          <ClickBoxContainer clickBoxes={clickBoxes} />
+          <GruppiList
+        expandedMaterie={expandedMaterie}
+        materie={materie}
+        handleGruppiClick={handleGruppiClick}
+      />
         </div>
       </div>
-    </div>
+      </div>
   );
 }
 
@@ -79,6 +128,5 @@ function ClickBoxContainer({ clickBoxes }) {
     </div>
   );
 }
-
 
 export default HomePage;
