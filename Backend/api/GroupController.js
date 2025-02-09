@@ -1,25 +1,36 @@
+const mongoose = require("mongoose");
 const Group = require("./Groups");
 const User = require("./Users");
-const Materia = require("./Materia");
-const { get } = require("http");
 
 const creaGroupo = async (req, res) => {
   try {
-    const { nome, descrizione, utente, materie } = req.body;
+    console.log("Richiesta ricevuta per creazione gruppo:", req.body);
 
-    const utenti = [utente];
+    const { nome, descrizione, _id, materiale } = req.body;
+
+    // Trova l'utente per _id
+    const user = await User.findById(_id);
+
+    if (!user) {
+      throw new Error("Utente non trovato.");
+    }
+
+    // Converti il valore di 'user._id' in ObjectId
+    const utenti = [user._id];
 
     const newGroup = new Group({
       nome,
       descrizione,
       utenti,
-      materie,
+      materiale,
     });
 
     await newGroup.save();
 
+    console.log("Gruppo creato con successo:", newGroup);
+
     await User.findOneAndUpdate(
-      { email: utente },
+      { _id: user._id },
       { $push: { gruppi: newGroup._id } },
       { new: true }
     );
@@ -34,30 +45,9 @@ const creaGroupo = async (req, res) => {
   }
 };
 
-const getGroupMaterie = async (req, res) => {
-  try {
-    const { id } = req.body;
-    const group = await Group.findById(id);
-    if (!group) {
-      return res.status(404).json({ message: "Gruppo non trovato" });
-    }
-
-    const materie = await Promise.all(
-      group.materie.map(async (materiaId) => {
-        const materia = await Materia.findById(materiaId);
-        return materia;
-      })
-    );
-    res.status(200).json(materie);
-  } catch (error) {
-    console.error("Errore nel recupero delle materie del gruppo:", error);
-    res.status(500).json({ message: error.message });
-  }
-};
-
 const getGroupById = async (req, res) => {
   try {
-    const { id } = req.body;
+    const { id } = req.params; // Usa req.params per ottenere l'ID del gruppo
     const group = await Group.findById(id);
     if (!group) {
       return res.status(404).json({ message: "Gruppo non trovato" });
@@ -69,4 +59,4 @@ const getGroupById = async (req, res) => {
   }
 };
 
-module.exports = { creaGroupo, getGroupById, getGroupMaterie };
+module.exports = { creaGroupo, getGroupById };

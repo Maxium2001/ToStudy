@@ -91,6 +91,10 @@ const AppuntiPage = () => {
     }
   };
 
+    fetchGroups();
+  }, [id]);
+
+  useEffect(() => {
   const fetchMateria = async () => {
     try {
       const a = [];
@@ -136,6 +140,7 @@ const AppuntiPage = () => {
   };
 
   // Funzione per gestire il click su una materia
+
   const handleMateriaClick = (materiaNome) => {
     setExpandedMaterie((prevExpandedMaterie) =>
       prevExpandedMaterie.includes(materiaNome)
