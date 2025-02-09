@@ -263,7 +263,7 @@ const AppuntiPage = () => {
           {materie.map((materia, index) => (
             <li key={index}>
               <div
-                className="materia"
+                className="materiaA"
                 onClick={() => handleMateriaClick(materia.nome)}
               >
                 {materia.nome}{" "}
