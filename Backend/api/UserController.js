@@ -84,9 +84,9 @@ const creaAppunti = async (req, res) => {
     // Controlla se esiste già un file con lo stesso hash
     const existingFile = await Appunti.findOne({ fileHash });
     if (existingFile) {
-      return res
-        .status(400)
-        .json({ message: "Il file esiste già nel database" });
+      return await Materia.findByIdAndUpdate(materia, {
+        $push: { appunti: existingFile._id },
+      });
     }
 
     const newAppunti = new Appunti({

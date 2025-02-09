@@ -1,14 +1,17 @@
-const Materia = require("./Materia"); // Assicurati di avere un modello Materia
-
+const Materia = require("./Materia");
+const Group = require("./Groups");
 const creaMateria = async (req, res) => {
   try {
-    const { nome, autore, commento } = req.body;
+    const { nome, autore, commento, gruppo } = req.body;
     const newMateria = new Materia({
       nome,
       autore,
       commento,
     });
     await newMateria.save();
+    await Group.findByIdAndUpdate(gruppo, {
+      $push: { materie: newMateria._id },
+    });
     res.status(201).json({ message: "Materia creata con successo" });
   } catch (error) {
     console.error(error);
