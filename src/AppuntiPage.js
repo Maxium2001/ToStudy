@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import "./Style.css";
 import AppuntiList from "./AppuntiList";
+import { useEffect } from "react";
+import axios from "axios";
 
 const AppuntiPage = () => {
   // Stato per gestire le materie espanse
@@ -59,6 +61,19 @@ const AppuntiPage = () => {
       ],
     },
   ]);
+
+  useEffect(() => {
+    const fetchMaterie = async () => {
+      try {
+        const response = await axios.get("/");
+        setMaterie(response.data);
+      } catch (error) {
+        console.error("Errore nel recupero delle materie:", error);
+      }
+    };
+
+    fetchMaterie();
+  }, []);
 
   // Funzione per gestire il click su una materia
   const handleMateriaClick = (materiaNome) => {

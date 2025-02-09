@@ -6,7 +6,7 @@ const GroupSchema = new mongoose.Schema({
   utenti: [
     { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
   ],
-  materiale: [
+  materie: [
     { type: mongoose.Schema.Types.ObjectId, ref: "Material", default: [] },
   ],
   dataCreazione: { type: Date, default: Date.now },

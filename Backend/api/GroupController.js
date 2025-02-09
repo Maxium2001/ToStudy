@@ -1,9 +1,11 @@
 const Group = require("./Groups");
 const User = require("./Users");
+const Materia = require("./Materia");
+const { get } = require("http");
 
 const creaGroupo = async (req, res) => {
   try {
-    const { nome, descrizione, utente, materiale } = req.body;
+    const { nome, descrizione, utente, materie } = req.body;
 
     const utenti = [utente];
 
@@ -11,7 +13,7 @@ const creaGroupo = async (req, res) => {
       nome,
       descrizione,
       utenti,
-      materiale,
+      materie,
     });
 
     await newGroup.save();
@@ -32,6 +34,27 @@ const creaGroupo = async (req, res) => {
   }
 };
 
+const getGroupMaterie = async (req, res) => {
+  try {
+    const { id } = req.body;
+    const group = await Group.findById(id);
+    if (!group) {
+      return res.status(404).json({ message: "Gruppo non trovato" });
+    }
+
+    const materie = await Promise.all(
+      group.materie.map(async (materiaId) => {
+        const materia = await Materia.findById(materiaId);
+        return materia;
+      })
+    );
+    res.status(200).json(materie);
+  } catch (error) {
+    console.error("Errore nel recupero delle materie del gruppo:", error);
+    res.status(500).json({ message: error.message });
+  }
+};
+
 const getGroupById = async (req, res) => {
   try {
     const { id } = req.params; // Usa req.params per ottenere l'ID del gruppo
@@ -46,4 +69,4 @@ const getGroupById = async (req, res) => {
   }
 };
 
-module.exports = { creaGroupo, getGroupById };
+module.exports = { creaGroupo, getGroupById, getGroupMaterie };
