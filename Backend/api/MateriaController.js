@@ -2,11 +2,11 @@ const Materia = require("./Materia");
 const Group = require("./Groups");
 const creaMateria = async (req, res) => {
   try {
-    const { nome, autore, commento, gruppo } = req.body;
+    const { nome, autore, gruppo } = req.body;
     const newMateria = new Materia({
       nome,
       autore,
-      commento,
+      gruppo,
     });
     await newMateria.save();
     await Group.findByIdAndUpdate(gruppo, {

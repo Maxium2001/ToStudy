@@ -57,7 +57,7 @@ const getGroupMaterie = async (req, res) => {
 
 const getGroupById = async (req, res) => {
   try {
-    const { id } = req.params; // Usa req.params per ottenere l'ID del gruppo
+    const { id } = req.body;
     const group = await Group.findById(id);
     if (!group) {
       return res.status(404).json({ message: "Gruppo non trovato" });

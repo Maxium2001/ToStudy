@@ -4,12 +4,11 @@ const crypto = require("crypto");
 const multer = require("multer");
 const Materia = require("./Materia");
 const Group = require("./Groups");
-const { getGroupById } = require("./GroupController");
 
 const upload = multer({ storage: multer.memoryStorage() });
 const getUserGroups = async (req, res) => {
   try {
-    const { id } = req.body;
+    const { id } = req.query;
     const user = await User.findById(id).populate({
       path: "gruppi",
       model: "Group",

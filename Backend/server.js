@@ -64,8 +64,6 @@ app.post(
 
 app.get("/getappunti", userController.getAppunti);
 
-app.get("/getgroupmaterie", groupController.getGroupMaterie);
-
 app.post("/creagroup", groupController.creaGroupo);
 
 app.get("/getgroup", groupController.getGroupById);

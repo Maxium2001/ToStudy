@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import "./Style.css";
 import AppuntiList from "./AppuntiList";
 import { useEffect } from "react";
 import axios from "axios";
+import { useAuth } from "./Autenticato";
 
 const AppuntiPage = () => {
+  const { id } = useAuth();
   // Stato per gestire le materie espanse
   const [expandedMaterie, setExpandedMaterie] = useState([]);
   // Stato per gestire l'appunto selezionato
@@ -23,6 +25,8 @@ const AppuntiPage = () => {
   const [uploadedFile, setUploadedFile] = useState(null);
   // Stato per gestire il commento del nuovo appunto
   const [newComment, setNewComment] = useState("");
+
+  const [groupMateria, setGroupMateria] = useState([]);
 
   // Stato per gestire le materie e i relativi appunti
   const [materie, setMaterie] = useState([
@@ -61,19 +65,56 @@ const AppuntiPage = () => {
       ],
     },
   ]);
-
   useEffect(() => {
-    const fetchMaterie = async () => {
+    const fetchGroups = async () => {
       try {
-        const response = await axios.get("/");
-        setMaterie(response.data);
+        const response = await axios.get(
+          "http://localhost:3000/getusergroups",
+          {
+            params: { id: id },
+          }
+        );
+        const groupData = response.data;
+        const materieData = groupData.flatMap((group) => group.materie);
+        setMaterie(materieData);
+        console.log(materieData);
       } catch (error) {
-        console.error("Errore nel recupero delle materie:", error);
+        if (error.response) {
+          // The request was made and the server responded with a status code
+          // that falls out of the range of 2xx
+          console.error("Errore nel recupero del gruppo:", error.response.data);
+          console.error("Status code:", error.response.status);
+        } else if (error.request) {
+          // The request was made but no response was received
+          console.error("Nessuna risposta ricevuta:", error.request);
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          console.error("Errore nella richiesta:", error.message);
+        }
       }
     };
 
-    fetchMaterie();
-  }, []);
+    fetchGroups();
+  }, [id]);
+
+  useEffect(() => {
+  const fetchMateria = async () => {
+      const groupMateriaPromises = groupMateria.map(async (materia) => {
+        try {
+          const response = await axios.get("http://localhost:3000/getmateria", {
+            params: { materiaId: materia.id },
+          });
+          return response.data;
+        } catch (error) {
+          console.error(`Errore nel recupero della materia ${materia.id}:`, error);
+          return null;
+        }
+      });
+
+      const materieData = await Promise.all(groupMateriaPromises);
+      setMaterie(materieData.filter((materia) => materia !== null));
+  }
+  },
 
   // Funzione per gestire il click su una materia
   const handleMateriaClick = (materiaNome) => {
