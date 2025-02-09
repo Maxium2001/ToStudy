@@ -1,7 +1,6 @@
-import React, { use, useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Style.css";
 import AppuntiList from "./AppuntiList";
-import { useEffect } from "react";
 import axios from "axios";
 import { useAuth } from "./Autenticato";
 
@@ -152,6 +151,7 @@ const AppuntiPage = () => {
   // Funzione per gestire il click su un appunto
   const handleAppuntoClick = (appunto) => {
     setSelectedAppunto(appunto);
+    console.log(appunto);
   };
 
   // Funzione per aggiungere un nuovo appunto
@@ -226,6 +226,29 @@ const AppuntiPage = () => {
     }
   };
 
+  const handleDownload = async (appunto) => {
+    try {
+      const response = await axios.get("http://localhost:3000/getappunti", {
+        params: { id: appunto.id },
+        responseType: "blob",
+      });
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute(
+        "download",
+        `${appunto.titolo}.${response.data.type.split("/")[1]}`
+      ); // Imposta il nome del file
+      document.body.appendChild(link);
+      alert("Appunto scaricato con successo");
+      link.click();
+      link.parentNode.removeChild(link);
+    } catch (error) {
+      console.error("Errore nel download dell'appunto:", error);
+      alert("Errore nel download dell'appunto");
+    }
+  };
+
   // Funzione per aprire/chiudere il popup menu
   const togglePopup = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -282,6 +305,9 @@ const AppuntiPage = () => {
             <p>Data di creazione: {selectedAppunto.dataCreazione}</p>
             <h3>Commento</h3>
             <p>{selectedAppunto.commento}</p>
+            <button onClick={() => handleDownload(selectedAppunto)}>
+              Scarica Appunto
+            </button>
           </>
         ) : (
           <p>Seleziona un appunto per visualizzare i dettagli</p>
