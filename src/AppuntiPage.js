@@ -26,79 +26,66 @@ const AppuntiPage = () => {
   // Stato per gestire il commento del nuovo appunto
   const [newComment, setNewComment] = useState("");
 
-  const [groupMateria, setGroupMateria] = useState([]);
+  const [temp, setTemp] = useState([]);
 
   // Stato per gestire le materie e i relativi appunti
   const [materie, setMaterie] = useState([
     {
-      nome: "Matematica",
+      nome: String,
       appunti: [
         {
-          titolo: "Algebra",
-          commento: "Appunto su Algebra",
-          autore: "Mario Rossi",
-          dataCreazione: "01/01/2025",
-        },
-        {
-          titolo: "Geometria",
-          commento: "Appunto su Geometria",
-          autore: "Luigi Bianchi",
-          dataCreazione: "02/01/2025",
-        },
-      ],
-    },
-    {
-      nome: "Fisica",
-      appunti: [
-        {
-          titolo: "Meccanica",
-          commento: "Appunto su Meccanica",
-          autore: "Giulia Verdi",
-          dataCreazione: "03/01/2025",
-        },
-        {
-          titolo: "Ottica",
-          commento: "Appunto su Ottica",
-          autore: "Anna Neri",
-          dataCreazione: "04/01/2025",
+          titolo: String,
+          commento: String,
+          autore: String,
+          dataCreazione: Date,
         },
       ],
     },
   ]);
+
   useEffect(() => {
-    const fetchGroups = async () => {
-      try {
-        const response = await axios.get(
-          "http://localhost:3000/getusergroups",
-          {
-            params: { id: id },
-          }
-        );
-        const groupData = response.data;
-        const materieData = groupData.flatMap((group) => group.materie);
-        setMaterie(materieData);
-        console.log(materieData);
-      } catch (error) {
-        if (error.response) {
-          // The request was made and the server responded with a status code
-          // that falls out of the range of 2xx
-          console.error("Errore nel recupero del gruppo:", error.response.data);
-          console.error("Status code:", error.response.status);
-        } else if (error.request) {
-          // The request was made but no response was received
-          console.error("Nessuna risposta ricevuta:", error.request);
-        } else {
-          // Something happened in setting up the request that triggered an Error
-          console.error("Errore nella richiesta:", error.message);
-        }
-      }
+    const fetchData = async () => {
+      await fetchGroups();
     };
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    if (temp.length > 0) {
+      fetchMateria();
+    }
+  }, [temp]);
+
+  const fetchGroups = async () => {
+    try {
+      const response = await axios.get("http://localhost:3000/getusergroups", {
+        params: { id: id },
+      });
+      const groupData = response.data;
+      const materieData = groupData.flatMap((group) => group.materie);
+      setTemp(materieData);
+    } catch (error) {
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        console.error("Errore nel recupero del gruppo:", error.response.data);
+        console.error("Status code:", error.response.status);
+      } else if (error.request) {
+        // The request was made but no response was received
+        console.error("Nessuna risposta ricevuta:", error.request);
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.error("Errore nella richiesta:", error.message);
+      }
+    }
+  };
 
     fetchGroups();
   }, [id]);
 
   useEffect(() => {
-    const fetchMateria = async () => {
+  const fetchMateria = async () => {
       const groupMateriaPromises = groupMateria.map(async (materia) => {
         try {
           const response = await axios.get("http://localhost:3000/getmateria", {
@@ -113,10 +100,8 @@ const AppuntiPage = () => {
 
       const materieData = await Promise.all(groupMateriaPromises);
       setMaterie(materieData.filter((materia) => materia !== null));
-    };
-
-    fetchMateria();
-  }, [groupMateria]);
+  }
+  },
 
   // Funzione per gestire il click su una materia
 

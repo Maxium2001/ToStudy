@@ -23,7 +23,7 @@ const creaMateria = async (req, res) => {
 
 const getMateriaById = async (req, res) => {
   try {
-    const { id } = req.params;
+    const { id } = req.query;
     const materia = await Materia.findById(id);
     if (!materia) {
       return res.status(404).json({ message: "Materia non trovata" });

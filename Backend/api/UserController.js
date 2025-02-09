@@ -133,10 +133,28 @@ const getAppunti = async (req, res) => {
   }
 };
 
+const getAppuntiById = async (req, res) => {
+  try {
+    const { id } = req.query;
+    const appunti = await Appunti.findById(id);
+    if (!appunti) {
+      return res.status(404).json({ message: "Appunti non trovati" });
+    }
+    res.status(200).json(appunti);
+  } catch (error) {
+    if (error.name === "CastError") {
+      res.status(400).json({ message: "ID appunti non valido" });
+    } else {
+      res.status(500).json({ message: error.message });
+    }
+  }
+};
+
 module.exports = {
   creaAppunti,
   getUserGroups,
   upload,
   addUserGroup,
   getAppunti,
+  getAppuntiById,
 };
