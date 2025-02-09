@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const AppuntiSchema = new Schema({
   titolo: { type: String, required: true },
-  autore: { type: Schema.Types.ObjectId, ref: "Users", required: true },
+  autore: { type: Schema.Types.ObjectId, ref: "User", required: true },
   commento: { type: String },
   file: { type: Buffer, required: true },
   fileType: { type: String, required: true },

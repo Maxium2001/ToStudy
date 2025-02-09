@@ -25,19 +25,24 @@ const AppuntiPage = () => {
   const [uploadedFile, setUploadedFile] = useState(null);
   // Stato per gestire il commento del nuovo appunto
   const [newComment, setNewComment] = useState("");
+  const [newGroup, setNewGroup] = useState("");
 
   const [temp, setTemp] = useState([]);
+
+  const [groups, setGroups] = useState([]);
 
   // Stato per gestire le materie e i relativi appunti
   const [materie, setMaterie] = useState([
     {
       nome: String,
+      id: String,
       appunti: [
         {
           titolo: String,
           commento: String,
           autore: String,
           dataCreazione: Date,
+          id: String,
         },
       ],
     },
@@ -65,6 +70,11 @@ const AppuntiPage = () => {
       const groupData = response.data;
       const materieData = groupData.flatMap((group) => group.materie);
       setTemp(materieData);
+      const groupList = groupData.map((group) => ({
+        nome: group.nome,
+        id: group._id,
+      }));
+      setGroups(groupList);
     } catch (error) {
       if (error.response) {
         // The request was made and the server responded with a status code
@@ -88,38 +98,42 @@ const AppuntiPage = () => {
         const response = await axios.get("http://localhost:3000/getmateria", {
           params: { id: temp[i] },
         });
+
         a.push(response.data);
       }
-      setMaterie(
-        a.map((materia) => ({ nome: materia.nome, appunti: materia.appunti }))
-      );
-      setMaterie(
-        a.map((materia) => ({
-          nome: materia.nome,
-          appunti: materia.appunti.map((appunti) => appunti), // Salva solo gli ID degli appunti
-        }))
-      );
-      console.log(materie);
+      const materieWithAppunti = await getMaterieWithAppunti(a);
+      setMaterie(materieWithAppunti);
     } catch (error) {
-      if (error.response) {
-        // The request was made and the server responded with a status code
-        // that falls out of the range of 2xx
-        console.error(
-          "Errore nel recupero della materia:",
-          error.response.data
-        );
-        console.error("Status code:", error.response.status);
-      } else if (error.request) {
-        // The request was made but no response was received
-        console.error("Nessuna risposta ricevuta:", error.request);
-      } else {
-        // Something happened in setting up the request that triggered an Error
-        console.error("Errore nella richiesta:", error.message);
-      }
+      console.error("Errore nel recupero delle materie:", error);
     }
   };
+  const getMaterieWithAppunti = async (materie) => {
+    return await Promise.all(
+      materie.map(async (materia) => {
+        const appunti = await Promise.all(
+          materia.appunti.map(async (appuntoId) => {
+            const response = await axios.get(
+              "http://localhost:3000/getappuntibyid",
+              {
+                params: { id: appuntoId },
+              }
+            );
 
-  const fetchAppunti = {};
+            return {
+              titolo: response.data.titolo,
+              commento: response.data.commento,
+              autore: response.data.autore.username,
+              dataCreazione: new Date(
+                response.data.dataCreazione
+              ).toLocaleDateString(),
+              id: appuntoId,
+            };
+          })
+        );
+        return { nome: materia.nome, id: materia._id, appunti: appunti };
+      })
+    );
+  };
 
   // Funzione per gestire il click su una materia
   const handleMateriaClick = (materiaNome) => {
@@ -141,14 +155,34 @@ const AppuntiPage = () => {
   };
 
   // Funzione per aggiungere un nuovo appunto
-  const handleAddAppunto = () => {
+  const handleAddAppunto = async (e) => {
     if (newMateria && newTitle && uploadedFile && newComment) {
       const newAppunto = {
         titolo: newTitle,
         commento: newComment,
-        autore: "Autore Default", // Sostituisci con il nome dell'autore appropriato
-        dataCreazione: new Date().toLocaleDateString(),
+        autore: id,
       };
+      const materiaId = materie.find((m) => m.nome === newMateria).id;
+      try {
+        const formData = new FormData();
+        formData.append("titolo", newTitle);
+        formData.append("commento", newComment);
+        formData.append("file", uploadedFile);
+        formData.append("autore", id);
+        formData.append("materia", materiaId);
+        const response = await axios.post(
+          "http://localhost:3000/creaappunti",
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+      } catch (error) {
+        console.error("Errore nell'aggiunta dell'appunto:", error);
+        alert("Errore nell'aggiunta dell'appunto");
+      }
       setMaterie((prevMaterie) =>
         prevMaterie.map((materia) =>
           materia.nome === newMateria
@@ -176,6 +210,17 @@ const AppuntiPage = () => {
         ...prevMaterie,
         { nome: newMateria, appunti: [] },
       ]);
+      const groupId = groups.find((group) => group.nome === newGroup).id;
+      try {
+        axios.post("http://localhost:3000/creamateria", {
+          nome: newMateria,
+          autore: id,
+          gruppo: groupId,
+        });
+      } catch (error) {
+        console.error("Errore nell'aggiunta della materia:", error);
+        alert("Errore nell'aggiunta della materia");
+      }
       alert(`Materia "${newMateria}" aggiunta`);
       setIsAddMateriaModalOpen(false);
       setNewMateria("");
@@ -338,6 +383,18 @@ const AppuntiPage = () => {
               ×
             </span>
             <h2>Aggiungi Nuova Materia</h2>
+            <label>Gruppo:</label>
+            <select
+              value={newGroup}
+              onChange={(e) => setNewGroup(e.target.value)}
+            >
+              <option value="">Seleziona gruppo</option>
+              {groups.map((group, index) => (
+                <option key={index} value={group.nome}>
+                  {group.nome}
+                </option>
+              ))}
+            </select>
 
             <label>Nome Materia:</label>
             <input

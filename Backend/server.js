@@ -64,6 +64,10 @@ app.post(
   userController.creaAppunti
 );
 
+app.get("/getappuntibyid", userController.getAppuntiById);
+
+app.get("/getusernamebyid", userController.getUsernameById);
+
 app.get("/getappunti", userController.getAppunti);
 
 app.post("/creagroup", groupController.creaGroupo);

@@ -83,9 +83,10 @@ const creaAppunti = async (req, res) => {
     // Controlla se esiste già un file con lo stesso hash
     const existingFile = await Appunti.findOne({ fileHash });
     if (existingFile) {
-      return await Materia.findByIdAndUpdate(materia, {
+      await Materia.findByIdAndUpdate(materia, {
         $push: { appunti: existingFile._id },
       });
+      res.status(201).json({ message: "Appunto creato con successo" });
     }
 
     const newAppunti = new Appunti({
@@ -136,7 +137,9 @@ const getAppunti = async (req, res) => {
 const getAppuntiById = async (req, res) => {
   try {
     const { id } = req.query;
-    const appunti = await Appunti.findById(id);
+    const appunti = await Appunti.findById(id)
+      .select("titolo autore commento dataCreazione")
+      .populate("autore", "username");
     if (!appunti) {
       return res.status(404).json({ message: "Appunti non trovati" });
     }
@@ -150,7 +153,26 @@ const getAppuntiById = async (req, res) => {
   }
 };
 
+const getUsernameById = async (req, res) => {
+  try {
+    const { id } = req.query;
+    console.log(id);
+    const user = await User.findById(id).select("username");
+    if (!user) {
+      return res.status(404).json({ message: "Utente non trovato" });
+    }
+    res.status(200).json(user);
+  } catch (error) {
+    if (error.name === "CastError") {
+      res.status(400).json({ message: "ID utente non valido" });
+    } else {
+      res.status(500).json({ message: error.message });
+    }
+  }
+};
+
 module.exports = {
+  getUsernameById,
   creaAppunti,
   getUserGroups,
   upload,
