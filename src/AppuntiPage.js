@@ -4,7 +4,6 @@ import AppuntiList from "./AppuntiList";
 import { useEffect } from "react";
 import axios from "axios";
 import { useAuth } from "./Autenticato";
-import { set } from "mongoose";
 
 const AppuntiPage = () => {
   const { id } = useAuth();
@@ -32,36 +31,13 @@ const AppuntiPage = () => {
   // Stato per gestire le materie e i relativi appunti
   const [materie, setMaterie] = useState([
     {
-      nome: "Matematica",
+      nome: String,
       appunti: [
         {
-          titolo: "Algebra",
-          commento: "Appunto su Algebra",
-          autore: "Mario Rossi",
-          dataCreazione: "01/01/2025",
-        },
-        {
-          titolo: "Geometria",
-          commento: "Appunto su Geometria",
-          autore: "Luigi Bianchi",
-          dataCreazione: "02/01/2025",
-        },
-      ],
-    },
-    {
-      nome: "Fisica",
-      appunti: [
-        {
-          titolo: "Meccanica",
-          commento: "Appunto su Meccanica",
-          autore: "Giulia Verdi",
-          dataCreazione: "03/01/2025",
-        },
-        {
-          titolo: "Ottica",
-          commento: "Appunto su Ottica",
-          autore: "Anna Neri",
-          dataCreazione: "04/01/2025",
+          titolo: String,
+          commento: String,
+          autore: String,
+          dataCreazione: Date,
         },
       ],
     },
@@ -107,32 +83,44 @@ const AppuntiPage = () => {
 
   const fetchMateria = async () => {
     try {
-      const updatedMaterie = await Promise.all(
-        temp.map(async (materia) => {
-          try {
-            const response = await axios.get(
-              "http://localhost:3000/getmateria",
-              {
-                params: { id: materia },
-              }
-            );
-            console.log("Response:", response.data);
-            return response.data;
-          } catch (error) {
-            console.error(
-              `Errore nel recupero della materia con id ${materia}:`,
-              error
-            );
-            throw error; // Rilancia l'errore per essere catturato nel blocco esterno
-          }
-        })
+      const a = [];
+      for (let i = 0; i < temp.length; i++) {
+        const response = await axios.get("http://localhost:3000/getmateria", {
+          params: { id: temp[i] },
+        });
+        a.push(response.data);
+      }
+      setMaterie(
+        a.map((materia) => ({ nome: materia.nome, appunti: materia.appunti }))
       );
-      setTemp(updatedMaterie);
-      console.log("Materie:", updatedMaterie);
+      setMaterie(
+        a.map((materia) => ({
+          nome: materia.nome,
+          appunti: materia.appunti.map((appunti) => appunti), // Salva solo gli ID degli appunti
+        }))
+      );
+      console.log(materie);
     } catch (error) {
-      console.error("Errore nel recupero delle materie:", error);
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        console.error(
+          "Errore nel recupero della materia:",
+          error.response.data
+        );
+        console.error("Status code:", error.response.status);
+      } else if (error.request) {
+        // The request was made but no response was received
+        console.error("Nessuna risposta ricevuta:", error.request);
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.error("Errore nella richiesta:", error.message);
+      }
     }
   };
+
+  const fetchAppunti = {};
+
   // Funzione per gestire il click su una materia
   const handleMateriaClick = (materiaNome) => {
     setExpandedMaterie((prevExpandedMaterie) =>
