@@ -40,21 +40,11 @@ function NavBar() {
           </ul>
         </div>
       </div>
-      {isAuthenticated ? (
-        <>
-          <div className="navbar-user">
-            <NavLink to="/profilo">
-              <img src="/user.png" alt="user" id="user" />
-            </NavLink>
-          </div>
-        </>
-      ) : (
-        <div className="navbar-user">
-          <NavLink to="/login">
-            <img src="/user.png" alt="user" id="user" />
-          </NavLink>
-        </div>
-      )}
+      <div className="navbar-user">
+        <NavLink to="/profilo">
+          <img src="/user.png" alt="user" id="user" />
+        </NavLink>
+      </div>
     </nav>
   );
 }

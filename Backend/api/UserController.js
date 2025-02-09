@@ -86,17 +86,17 @@ const creaAppunti = async (req, res) => {
       await Materia.findByIdAndUpdate(materia, {
         $push: { appunti: existingFile._id },
       });
-      res.status(201).json({ message: "Appunto creato con successo" });
+      return res.status(201).json({ message: "Appunto creato con successo" });
     }
 
     const newAppunti = new Appunti({
-      titolo,
-      autore,
-      commento,
+      titolo: titolo,
+      autore: autore,
+      commento: commento,
       file: file.buffer,
       fileType: file.mimetype,
-      fileHash,
-      materia,
+      fileHash: fileHash,
+      materia: materia,
     });
 
     await newAppunti.save();

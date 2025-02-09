@@ -56,8 +56,6 @@ app.get("/getmateria", MateriaController.getMateriaById);
 
 app.post("/addusergroup", userController.addUserGroup);
 
-app.get("/getgroupmaterie", groupController.getGroupMaterie);
-
 app.post(
   "/creaappunti",
   userController.upload.single("file"),

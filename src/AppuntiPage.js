@@ -91,10 +91,6 @@ const AppuntiPage = () => {
     }
   };
 
-    fetchGroups();
-  }, [id]);
-
-  useEffect(() => {
   const fetchMateria = async () => {
     try {
       const a = [];
@@ -140,7 +136,6 @@ const AppuntiPage = () => {
   };
 
   // Funzione per gestire il click su una materia
-
   const handleMateriaClick = (materiaNome) => {
     setExpandedMaterie((prevExpandedMaterie) =>
       prevExpandedMaterie.includes(materiaNome)
@@ -168,6 +163,7 @@ const AppuntiPage = () => {
         autore: id,
       };
       const materiaId = materie.find((m) => m.nome === newMateria).id;
+
       try {
         const formData = new FormData();
         formData.append("titolo", newTitle);
@@ -175,15 +171,11 @@ const AppuntiPage = () => {
         formData.append("file", uploadedFile);
         formData.append("autore", id);
         formData.append("materia", materiaId);
-        const response = await axios.post(
-          "http://localhost:3000/creaappunti",
-          formData,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        );
+        await axios.post("http://localhost:3000/creaappunti", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
       } catch (error) {
         console.error("Errore nell'aggiunta dell'appunto:", error);
         alert("Errore nell'aggiunta dell'appunto");

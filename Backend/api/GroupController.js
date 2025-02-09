@@ -6,7 +6,7 @@ const creaGroupo = async (req, res) => {
   try {
     console.log("Richiesta ricevuta per creazione gruppo:", req.body);
 
-    const { nome, descrizione, _id, materiale } = req.body;
+    const { nome, descrizione, _id } = req.body;
 
     // Trova l'utente per _id
     const user = await User.findById(_id);
@@ -16,13 +16,11 @@ const creaGroupo = async (req, res) => {
     }
 
     // Converti il valore di 'user._id' in ObjectId
-    const utenti = [user._id];
 
     const newGroup = new Group({
-      nome,
-      descrizione,
-      utenti,
-      materiale,
+      nome: nome,
+      descrizione: descrizione,
+      utenti: _id,
     });
 
     await newGroup.save();
