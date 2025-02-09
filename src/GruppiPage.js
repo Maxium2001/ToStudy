@@ -1,55 +1,82 @@
 import React, { useEffect, useState } from "react";
 import "./Style.css";
 import GruppiList from "./GruppiList";
-import { useParams } from "react-router-dom";
 import { useAuth } from "./Autenticato";
 import axios from "axios";
 
 const GruppiPage = () => {
-  const { id } = useParams(); // Ottieni l'ID del gruppo dalla URL
-  const { id: userId } = useAuth(); // Ottieni l'utente autenticato
-  const [group, setGroup] = useState(null);
-  const [expandedMaterie, setExpandedMaterie] = useState([]);
-  const [selectedGruppi, setSelectedGruppi] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isAddMateriaModalOpen, setIsAddMateriaModalOpen] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [newMateria, setNewMateria] = useState("");
-  const [newTitle, setNewTitle] = useState("");
-  const [newDescription, setNewDescription] = useState(""); // Aggiungi newDescription allo stato
-  const [materie, setMaterie] = useState([
-    {
-      nome: "Matematica",
-      gruppi: [
-        {
-          titolo: "Gruppo 1",
-          autore: "Autore 1",
-          dataCreazione: "01/01/2023",
-          files: [
-            { nome: "Appunti.pdf", url: "/path/to/file1.pdf" },
-            { nome: "Risultati.xlsx", url: "/path/to/file2.xlsx" },
-          ],
-        },
-      ],
-    },
-  ]);
+  const { id } = useAuth(); // Ottieni l'ID utente autenticato
+  const [groups, setGroups] = useState([]); // Stato per gestire i gruppi
+  const [expandedGroups, setExpandedGroups] = useState([]); // Stato per gestire i gruppi espansi
+  const [materie, setMaterie] = useState([]); // Stato per gestire le materie
+  const [expandedMaterie, setExpandedMaterie] = useState([]); // Stato per gestire le materie espanse
+  const [selectedMateria, setSelectedMateria] = useState(null); // Stato per gestire la materia selezionata
+  const [selectedGruppi, setSelectedGruppi] = useState(null); // Stato per gestire il gruppo selezionato
+  const [isModalOpen, setIsModalOpen] = useState(false); // Stato per gestire l'apertura del modale per aggiungere gruppi
+  const [isAddMateriaModalOpen, setIsAddMateriaModalOpen] = useState(false); // Stato per gestire l'apertura del modale per aggiungere materie
+  const [isMenuOpen, setIsMenuOpen] = useState(false); // Stato per gestire l'apertura del menu popup
+  const [newMateria, setNewMateria] = useState(""); // Stato per gestire il nome della nuova materia
+  const [newTitle, setNewTitle] = useState(""); // Stato per gestire il titolo del nuovo gruppo
+  const [newDescription, setNewDescription] = useState(""); // Stato per gestire la descrizione del nuovo gruppo
+  const [newGroup, setNewGroup] = useState(""); // Stato per gestire il gruppo selezionato per la nuova materia
 
   useEffect(() => {
-    const fetchGroupById = async () => {
-      try {
-        const response = await fetch(`http://localhost:3000/getgroup?id=${id}`);
-        if (!response.ok) {
-          throw new Error("Gruppo non trovato");
-        }
-        const data = await response.json();
-        setGroup(data);
-      } catch (error) {
-        console.error("Errore nel recupero del gruppo", error);
-      }
+    const fetchData = async () => {
+      await fetchGroups();
     };
 
-    fetchGroupById();
-  }, [id]); // Ricarica i dati quando cambia l'ID del gruppo
+    fetchData();
+  }, []);
+
+  const fetchGroups = async () => {
+    try {
+      const response = await axios.get("http://localhost:3000/getusergroups", {
+        params: { id: id },
+      });
+      console.log("Gruppi utente:", response.data);
+      const groupData = response.data;
+      setGroups(groupData);
+    } catch (error) {
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        console.error("Errore nel recupero del gruppo:", error.response.data);
+        console.error("Status code:", error.response.status);
+      } else if (error.request) {
+        // The request was made but no response was received
+        console.error("Nessuna risposta ricevuta:", error.request);
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.error("Errore nella richiesta:", error.message);
+      }
+    }
+  };
+
+  const fetchMaterie = async (groupId) => {
+    try {
+      const response = await axios.get("http://localhost:3000/getgroup", {
+        params: { id: groupId },
+      });
+      return response.data.materie;
+    } catch (error) {
+      console.error("Errore nel recupero delle materie:", error);
+      return [];
+    }
+  };
+
+  // Funzione per gestire il click su un gruppo
+  const handleGruppiClick = async (group) => {
+    if (expandedGroups.includes(group.id)) {
+      setExpandedGroups(expandedGroups.filter((id) => id !== group.id));
+    } else {
+      const materie = await fetchMaterie(group.id);
+      setMaterie((prevMaterie) => [
+        ...prevMaterie,
+        ...materie.map((materia) => ({ ...materia, gruppo: group.id })),
+      ]);
+      setExpandedGroups([...expandedGroups, group.id]);
+    }
+  };
 
   // Funzione per gestire il click su una materia
   const handleMateriaClick = (materiaNome) => {
@@ -58,16 +85,12 @@ const GruppiPage = () => {
         ? prevExpandedMaterie.filter((nome) => nome !== materiaNome)
         : [...prevExpandedMaterie, materiaNome]
     );
-  };
-
-  // Funzione per gestire il click su un gruppo
-  const handleGruppiClick = (gruppo) => {
-    setSelectedGruppi(gruppo);
+    setSelectedMateria(materiaNome);
   };
 
   const handleAddGruppo = async (e) => {
     e.preventDefault(); // Evita il comportamento predefinito del form (rinfrescare la pagina)
-  
+
     if (!newTitle || !newDescription) {
       alert("Per favore, completa tutti i campi.");
       return;
@@ -76,54 +99,59 @@ const GruppiPage = () => {
       const response = await axios.post("http://localhost:3000/creagroup", {
         nome: newTitle,
         descrizione: newDescription,
-        _id: userId, // Assicurati di passare un ID utente valido
-        materiale: [],
+        _id: id, // Assicurati di passare un ID utente valido
       });
-  
+
       if (response.status === 201) {
         alert("Gruppo creato con successo!");
         console.log("Gruppo salvato:", response.data); // Puoi vedere il gruppo appena creato
         setNewTitle("");
         setNewDescription("");
         setIsModalOpen(false);
+        fetchGroups(); // Ricarica i gruppi
       }
     } catch (error) {
       console.error("Errore nel salvataggio del gruppo:", error.response);
-      alert("Errore nel salvataggio del gruppo: " + (error.response?.data?.message || "Errore sconosciuto"));
+      alert(
+        "Errore nel salvataggio del gruppo: " +
+          (error.response?.data?.message || "Errore sconosciuto")
+      );
     }
   };
 
   // Funzione per aggiungere una nuova materia
-  const handleAddMateria = async () => {
-    if (newMateria) {
-      try {
-        // Chiamata al backend per aggiungere la materia
-        const response = await fetch("http://localhost:3000/creatematerie", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            nome: newMateria,
-          }),
-        });
+  const handleAddMateria = async (e) => {
+    e.preventDefault(); // Evita il comportamento predefinito del form (rinfrescare la pagina)
 
-        if (!response.ok) {
-          throw new Error("Errore nell'aggiunta della materia");
-        }
+    if (!newMateria || !newGroup) {
+      alert("Per favore, completa tutti i campi.");
+      return;
+    }
+    const gruppoId = groups.find((m) => m.nome === newGroup);
+    console.log("Gruppo selezionato:", groups);
+    try {
+      const response = await axios.post("http://localhost:3000/creamateria", {
+        nome: newMateria,
+        autore: id,
+        gruppo: gruppoId, // Ensure newGroup is an ObjectId
+      });
 
-        const data = await response.json();
-        alert(`Materia "${newMateria}" aggiunta`);
-        setIsAddMateriaModalOpen(false);
+      if (response.status === 201) {
+        alert(`Materia "${newMateria}" aggiunta con successo!`);
+        setMaterie((prevMaterie) => [
+          ...prevMaterie,
+          { nome: newMateria, gruppo: newGroup },
+        ]);
         setNewMateria("");
-
-        // Se necessario, aggiorna la UI o lo stato locale qui dopo che la materia è stata creata con successo
-      } catch (error) {
-        console.error("Errore nell'aggiungere la materia", error);
-        alert("Errore durante l'aggiunta della materia.");
+        setNewGroup("");
+        setIsAddMateriaModalOpen(false);
       }
-    } else {
-      alert("Inserisci un nome per la materia!");
+    } catch (error) {
+      console.error("Errore nell'aggiunta della materia:", error.response);
+      alert(
+        "Errore nell'aggiunta della materia: " +
+          (error.response?.data?.message || "Errore sconosciuto")
+      );
     }
   };
 
@@ -134,42 +162,46 @@ const GruppiPage = () => {
 
   return (
     <div className="GruppiPage">
-      {/* Colonna sinistra - Materie */}
+      {/* Colonna sinistra - Gruppi */}
       <div className="columnG">
-        <h2>Materie</h2>
+        <h2>Gruppi</h2>
         <ul>
-          {materie.map((materia, index) => (
-            <li key={index}>
-              <div
-                className="materia"
-                onClick={() => handleMateriaClick(materia.nome)}
-              >
-                {materia.nome}{" "}
-                <span>
-                  {expandedMaterie.includes(materia.nome) ? "▼" : "▶"}
-                </span>
-              </div>
-              {expandedMaterie.includes(materia.nome) && (
-                <ul className="sottocategoria">
-                  {materia.gruppi &&
-                    Array.isArray(materia.gruppi) &&
-                    materia.gruppi.map((gruppo, i) => (
-                      <li
-                        key={i}
-                        onClick={() => handleGruppiClick(gruppo)}
-                        className={selectedGruppi === gruppo ? "selected" : ""}
-                      >
-                        {gruppo.titolo}
-                      </li>
-                    ))}
-                </ul>
-              )}
-            </li>
-          ))}
+          {groups.length > 0 ? (
+            groups.map((group, index) => (
+              <li key={index}>
+                <div
+                  className="Gruppi"
+                  onClick={() => handleGruppiClick(group)}
+                >
+                  {group.nome}{" "}
+                  <span>{expandedGroups.includes(group.id) ? "▼" : "▶"}</span>
+                </div>
+                {expandedGroups.includes(group.id) && (
+                  <ul className="sottocategoria">
+                    {materie
+                      .filter((materia) => materia.gruppo === group.id)
+                      .map((materia, i) => (
+                        <li
+                          key={i}
+                          onClick={() => handleMateriaClick(materia.nome)}
+                          className={
+                            selectedMateria === materia.nome ? "selected" : ""
+                          }
+                        >
+                          {materia.nome}
+                        </li>
+                      ))}
+                  </ul>
+                )}
+              </li>
+            ))
+          ) : (
+            <p>Nessun gruppo trovato.</p>
+          )}
         </ul>
       </div>
 
-      {/* Colonna centrale - Gruppi */}
+      {/* Colonna centrale */}
       <GruppiList
         expandedMaterie={expandedMaterie}
         materie={materie}
@@ -248,19 +280,6 @@ const GruppiPage = () => {
             </span>
             <h2>Nuovo Gruppo</h2>
 
-            <label>Materia:</label>
-            <select
-              value={newMateria}
-              onChange={(e) => setNewMateria(e.target.value)}
-            >
-              <option value="">Seleziona materia</option>
-              {materie.map((m, index) => (
-                <option key={index} value={m.nome}>
-                  {m.nome}
-                </option>
-              ))}
-            </select>
-
             <label>Titolo:</label>
             <input
               type="text"
@@ -291,6 +310,18 @@ const GruppiPage = () => {
               ×
             </span>
             <h2>Aggiungi Nuova Materia</h2>
+            <label>Gruppo:</label>
+            <select
+              value={newGroup}
+              onChange={(e) => setNewGroup(e.target.value)}
+            >
+              <option value="">Seleziona gruppo</option>
+              {groups.map((group, index) => (
+                <option key={index} value={group.id}>
+                  {group.nome}
+                </option>
+              ))}
+            </select>
 
             <label>Nome Materia:</label>
             <input
