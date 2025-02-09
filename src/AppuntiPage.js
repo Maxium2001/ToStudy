@@ -98,7 +98,7 @@ const AppuntiPage = () => {
   }, [id]);
 
   useEffect(() => {
-  const fetchMateria = async () => {
+    const fetchMateria = async () => {
       const groupMateriaPromises = groupMateria.map(async (materia) => {
         try {
           const response = await axios.get("http://localhost:3000/getmateria", {
@@ -113,10 +113,13 @@ const AppuntiPage = () => {
 
       const materieData = await Promise.all(groupMateriaPromises);
       setMaterie(materieData.filter((materia) => materia !== null));
-  }
-  },
+    };
+
+    fetchMateria();
+  }, [groupMateria]);
 
   // Funzione per gestire il click su una materia
+
   const handleMateriaClick = (materiaNome) => {
     setExpandedMaterie((prevExpandedMaterie) =>
       prevExpandedMaterie.includes(materiaNome)

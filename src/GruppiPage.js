@@ -7,6 +7,7 @@ import axios from "axios";
 
 const GruppiPage = () => {
   const { id } = useParams(); // Ottieni l'ID del gruppo dalla URL
+  const { id: userId } = useAuth(); // Ottieni l'utente autenticato
   const [group, setGroup] = useState(null);
   const [expandedMaterie, setExpandedMaterie] = useState([]);
   const [selectedGruppi, setSelectedGruppi] = useState(null);
@@ -66,18 +67,20 @@ const GruppiPage = () => {
 
   const handleAddGruppo = async (e) => {
     e.preventDefault(); // Evita il comportamento predefinito del form (rinfrescare la pagina)
-
+  
     if (!newTitle || !newDescription) {
       alert("Per favore, completa tutti i campi.");
       return;
     }
     try {
-      const response = await axios.post("http://localhost:3000/creategroup", {
+      const response = await axios.post("http://localhost:3000/creagroup", {
         nome: newTitle,
         descrizione: newDescription,
+        _id: userId, // Assicurati di passare un ID utente valido
+        materiale: [],
       });
-
-      if (response.status === 200) {
+  
+      if (response.status === 201) {
         alert("Gruppo creato con successo!");
         console.log("Gruppo salvato:", response.data); // Puoi vedere il gruppo appena creato
         setNewTitle("");
@@ -86,10 +89,7 @@ const GruppiPage = () => {
       }
     } catch (error) {
       console.error("Errore nel salvataggio del gruppo:", error.response);
-      alert(
-        "Errore nel salvataggio del gruppo: " +
-          (error.response?.data?.message || "Errore sconosciuto")
-      );
+      alert("Errore nel salvataggio del gruppo: " + (error.response?.data?.message || "Errore sconosciuto"));
     }
   };
 
