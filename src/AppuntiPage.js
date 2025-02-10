@@ -105,6 +105,7 @@ const AppuntiPage = () => {
       }
       const materieWithAppunti = await getMaterieWithAppunti(a);
       setMaterie(materieWithAppunti);
+      console.log(materie);
     } catch (error) {
       console.error("Errore nel recupero delle materie:", error);
     }
@@ -309,7 +310,7 @@ const AppuntiPage = () => {
           {materie.map((materia, index) => (
             <li key={index}>
               <div
-                className="materiaA"
+                className="materia"
                 onClick={() => handleMateriaClick(materia.nome)}
               >
                 {materia.nome}{" "}

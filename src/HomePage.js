@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useRef } from "react";
-import { NavLink } from "react-router-dom";
 import "./Style.css";
 import AppuntiList from "./AppuntiList";
 import GruppiList from "./GruppiList";
