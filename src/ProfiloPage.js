@@ -16,8 +16,6 @@ const ProfiloPage = () => {
   });
 
   const [istruzione, setIstruzione] = useState(userData.istruzione); // Stato per l'istruzione
-  const [imagePreview, setImagePreview] = useState(null); // Stato per l'anteprima dell'immagine
-  const [username, setUsername] = useState("Utente123");
   const [openIndex, setOpenIndex] = useState(null);
   const [sesso, setSesso] = useState(userData.sesso);
   const [eta, setEta] = useState(userData.eta);
@@ -33,7 +31,6 @@ const ProfiloPage = () => {
         const response = await axios.get(`http://localhost:3000/getuserbyid`, {
           params: { id: id },
         });
-        setUsername(response.data.username);
         setUserData(response.data);
       } catch (error) {
         console.error("Errore nel recupero dell'username:", error);
@@ -41,19 +38,6 @@ const ProfiloPage = () => {
     };
     fetchUsername();
   }, [id]);
-
-  const handleIstruzioneChange = (event) => {
-    setIstruzione(event.target.value);
-  };
-
-  const handleFileChange = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      setImagePreview(imageUrl);
-      console.log("Foto caricata:", file);
-    }
-  };
 
   const handleClick = (index) => {
     setOpenIndex(openIndex === index ? null : index); // Toggle della sezione
@@ -102,11 +86,7 @@ const ProfiloPage = () => {
   return (
     <div className="profilo-page">
       {/* Componente ProfiloWidget */}
-      <ProfiloWidget
-        imagePreview={imagePreview}
-        handleFileChange={handleFileChange}
-        username={username}
-      />
+      <ProfiloWidget />
 
       {/* Bottoni delle impostazioni */}
       <div className="Selettore">

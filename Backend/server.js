@@ -5,7 +5,11 @@ require("dotenv").config();
 const authController = require("./api/AuthController");
 const groupController = require("./api/GroupController");
 const userController = require("./api/UserController");
-const MateriaController = require("./api/MateriaController");
+const materiaController = require("./api/MateriaController");
+const appuntiController = require("./api/AppuntiController");
+const multer = require("multer");
+
+const upload = multer({ storage: multer.memoryStorage() });
 
 const app = express();
 app.use(cors());
@@ -52,31 +56,31 @@ app.post("/resetpassword", authController.resetPassword);
 
 app.get("/getusergroups", userController.getUserGroups);
 
-app.post("/creamateria", MateriaController.creaMateria);
+app.post("/creamateria", materiaController.creaMateria);
 
-app.get("/getmateria", MateriaController.getMateriaById);
+app.get("/getmateria", materiaController.getMateriaById);
 
-app.post("/rimuovimateria", MateriaController.rimuoviMateria);
+app.post("/rimuovimateria", materiaController.rimuoviMateria);
 
 app.post("/addusergroup", userController.addUserGroup);
 
 app.put("/aggiornaprofilo", userController.aggiornaProfilo);
 
-app.post(
-  "/creaappunti",
-  userController.upload.single("file"),
-  userController.creaAppunti
-);
+app.post("/creaappunti", upload.single("file"), appuntiController.creaAppunti);
 
-app.post("/rimuoviappunti", userController.rimuoviAppunti);
+app.post("/rimuoviappunti", appuntiController.rimuoviAppunti);
 
-app.get("/getappunti", userController.getAppunti);
+app.post("/uploadicon", upload.single("icon"), userController.uploadIcon);
 
-app.get("/getappuntibyid", userController.getAppuntiById);
+app.get("/geticon", userController.getIcon);
+
+app.get("/getappunti", appuntiController.getAppunti);
+
+app.get("/getappuntibyid", appuntiController.getAppuntiById);
 
 app.get("/getuserbyid", userController.getUserById);
 
-app.get("/getappunti", userController.getAppunti);
+app.get("/getappunti", appuntiController.getAppunti);
 
 app.post("/creagroup", groupController.creaGroupo);
 

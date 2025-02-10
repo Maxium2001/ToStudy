@@ -2,9 +2,28 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import "./Style.css";
 import { useAuth } from "./Autenticato";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 function NavBar() {
-  const { isAuthenticated } = useAuth();
+  const { id } = useAuth();
+  const [image, setImage] = useState(null);
+  useEffect(() => {
+    const fetchIcon = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3000/geticon`, {
+          params: { id: id },
+          responseType: "blob",
+        });
+        const iconUrl = URL.createObjectURL(response.data);
+        setImage(iconUrl);
+        console.log("Icona caricata con successo");
+      } catch (error) {
+        console.error("Errore nel recupero dell'icona:", error);
+      }
+    };
+    fetchIcon();
+  }, [id]);
   return (
     <nav>
       <div className="navbar">
@@ -42,7 +61,7 @@ function NavBar() {
       </div>
       <div className="navbar-user">
         <NavLink to="/profilo">
-          <img src="/user.png" alt="user" id="user" />
+          <img src={image} alt="user" id="user" />
         </NavLink>
       </div>
     </nav>

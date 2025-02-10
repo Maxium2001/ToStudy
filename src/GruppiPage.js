@@ -119,6 +119,9 @@ const GruppiPage = () => {
       return;
     }
     try {
+      if (materie.find((m) => m.nome === newMateria)) {
+        alert("Materia già esistente");
+      }
       const response = await axios.post("http://localhost:3000/creamateria", {
         nome: newMateria,
         autore: id,
@@ -193,14 +196,13 @@ const GruppiPage = () => {
       </div>
 
       <GruppiList
-  groups={groups}
-  materie={materie}  // Usa lo stato 'materie' definito
-  expandedGroups={expandedGroups}
-  handleGruppiClick={handleGruppiClick}
-  handleMateriaClick={handleMateriaClick}
-  selectedMateria={selectedMateria}
-/>
-
+        groups={groups}
+        materie={materie} // Usa lo stato 'materie' definito
+        expandedGroups={expandedGroups}
+        handleGruppiClick={handleGruppiClick}
+        handleMateriaClick={handleMateriaClick}
+        selectedMateria={selectedMateria}
+      />
 
       {/* Colonna destra: Dettagli (ad esempio della materia selezionata) */}
       <div className="columnG">

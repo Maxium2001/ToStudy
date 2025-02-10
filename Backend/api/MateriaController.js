@@ -1,5 +1,6 @@
 const Materia = require("./Materia");
 const Group = require("./Groups");
+
 const creaMateria = async (req, res) => {
   try {
     const { nome, autore, gruppo } = req.body;
@@ -40,6 +41,9 @@ const getMateriaById = async (req, res) => {
 const rimuoviMateria = async (req, res) => {
   try {
     const { id } = req.body;
+    const materia = Materia.findById(id);
+    const appunti = materia.appunti;
+    await Materia.findByIdAndDelete(id);
     await Materia.findByIdAndDelete(id);
     await Group.updateMany({ materie: id }, { $pull: { materie: id } });
     res.status(200).json({ message: "Materia rimossa con successo" });

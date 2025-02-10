@@ -12,9 +12,9 @@ const userSchema = new Schema({
   sesso: { type: String },
   eta: { type: Number },
   icon: {
-    type: String,
-    default:
-      "https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png",
+    type: Schema.Types.ObjectId,
+    ref: "Icona",
+    default: "67aa6c3f3cec4db75761072e",
   },
 });
 
