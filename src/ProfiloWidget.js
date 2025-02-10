@@ -17,7 +17,7 @@ const ProfiloWidget = ({ username }) => {
     <div className="profilo-widget-container">
       {/* Link per navigare alla pagina del profilo */}
    
-        <h1>PROFILO</h1>
+        <h2>PROFILO</h2>
  
       {/* Widget della foto profilo e username */}
       <div className="profilo-widget">

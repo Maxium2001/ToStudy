@@ -18,12 +18,12 @@ html, body {
   overflow-x:  auto; /* Impedisce lo scroll orizzontale */
   overflow-y: auto !important; /* Permette lo scroll verticale */
 }
-body{
-  margin-top: 14vh;
-}
-h1, p {
+h1, p, h2, h4{
   color: #222831;
   text-align: center;
+}
+h4{
+  font-weight: bold;
 }
 h1 {
   font-size: 5vh; /*grandezza scritte*/
@@ -34,6 +34,10 @@ a {
 a:hover {
   color: #00ADB5;
 }
+ul {
+  list-style: none;
+}
+
 
 
 
@@ -47,7 +51,7 @@ a:hover {
 display: flex;
 flex-direction: column;
 height: 100vh;
-
+margin-top: 14vh;
 }
 
 .columns {
@@ -313,6 +317,9 @@ button {
 
 
 /* FAQ e PROFILO */
+.profilo-page{
+  margin-top: 14vh;
+}
 .Selettore {
   width: 90%;
   max-width: 80vh;
@@ -378,30 +385,71 @@ padding: 0.5vh 2.5vh;
 
 
 
-
-
 /* GRUPPI */
-
 .GruppiPage {
-display: flex;
-justify-content: space-between;
-gap: 20px;
-padding: 20px;
-height: 100vh; /* Occupa tutto lo schermo */
+  margin-top: 14vh;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 20px;
+  height: 100vh; /* Occupa tutto lo schermo */
+  background-color: #EEEEEE; /* Colore di sfondo per l'intera pagina */
 }
+
 /* Colonne */
 .columnG {
-flex: 1; /* Tutte le colonne hanno la stessa larghezza */
-background: #EEEEEE;
-padding: 20px;
-border-radius: 8px;
-height: 100%; /* Si estende per tutta l'altezza disponibile */
-overflow-y: auto; /* Scorrimento verticale solo dentro la colonna */
+  flex: 1; /* Tutte le colonne hanno la stessa larghezza */
+  background: #EEEEEE;
+  padding: 20px;
+  border-radius: 8px;
+  height: 100%; /* Si estende per tutta l'altezza disponibile */
+  overflow-y: auto; /* Scorrimento verticale solo dentro la colonna */
 }
 
 /* Colonna centrale più grande */
 .centraleG {
-flex: 1.5; /* La colonna centrale è leggermente più larga */
+  text-align: center; /* Allinea il testo al centro */
+  flex: 1.5; /* La colonna centrale è leggermente più larga */
+}
+
+/* Lista dei gruppi */
+.gruppi-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  padding: 10px;
+}
+
+/* Box di ciascun gruppo */
+.gruppo-box {
+  width: 300px;
+  padding: 20px;
+  background-color: #f4f4f4;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover per il box del gruppo */
+.gruppo-box:hover {
+  transform: scale(1.05); /* Ingigantisce leggermente il box */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Gruppo selezionato */
+.gruppo h4 {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
+
+.gruppo p {
+  font-size: 14px;
+  color: #555;
+  margin-top: 5px;
 }
 
 .gruppo {
@@ -414,59 +462,107 @@ flex: 1.5; /* La colonna centrale è leggermente più larga */
   align-items: center;
   transition: background-color 0.3s;
   background-color: #00ADB5;
-  }
-  
-  .gruppo:hover {
+  color: white;
+}
+
+.gruppo:hover {
   background-color: #EEEEEE;
-  }
-  .gruppo.expanded {
+  color: #333;
+}
+
+.gruppo.expanded {
   background-color: #EEEEEE;
-  }
-  .sottocategoriaG {
-    margin-left: 15px;
-    padding-left: 10px;
-    border-left: 2px solid #ddd;
-    list-style-type: none;
-  }
+  color: #333;
+}
+
+.gruppo-box h4 {
+  margin: 0;
+  padding: 10px 0;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.gruppo-box p {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #555;
+}
+
+/* Liste delle materie sotto il gruppo */
+.materie-list {
+  margin-top: 10px;
+}
+
+.materia-item {
+  padding: 5px;
+  background-color: #f0f0f0;
+  border-radius: 4px;
+  margin-bottom: 5px;
+}
+
+.materia-item:hover {
+  background-color: #e2e2e2;
+}
+
+.sottocategoriaG {
+  margin-left: 15px;
+  padding-left: 10px;
+  border-left: 2px solid #ddd;
+  list-style-type: none;
+}
+
+.sottocategoriaG li {
+  cursor: pointer;
+  padding: 3px;
+}
+
+.sottocategoriaG li:hover {
+  background-color: #f0f0f0;
+}
+
+.selectedG {
+  background-color: #d1e7ff;
+  font-weight: bold;
+  border-radius: 3px;
+}
+
+.selected-gruppo-box {
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-top: 20px;
+  background-color: #f9f9f9;
+}
+
+
+
+
+
+
+
+
   
-  .sottocategoriaG li {
-    cursor: pointer;
-    padding: 3px;
-  }
-  
-  .sottocategoriaG li:hover {
-    background-color: #f0f0f0;
-  }
-
-  .selectedG {
-    background-color: #d1e7ff;
-    font-weight: bold;
-    border-radius: 3px;
-  }
 
 
-
-/* Layout generale */
+/* APPUNTI */
 .AppuntiPage {
-display: flex;
-flex-direction: row; /* Disposizione orizzontale su desktop */
-width: 90%;
-height: 90vh;
-gap: 10px;
-
+  margin-top: 14vh;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 20px;
+  height: 100vh; /* Occupa tutto lo schermo */
+  background-color: #EEEEEE; /* Colore di sfondo per l'intera pagina */
 }
 
 /* Colonne */
 .columnA {
-flex: 1; /* Rende tutte le colonne flessibili */
-padding: 20px;
+  flex: 1; /* Tutte le colonne hanno la stessa larghezza */
+  background: #EEEEEE;
+  padding: 20px;
+  border-radius: 8px;
+  height: 100%; /* Si estende per tutta l'altezza disponibile */
+  overflow-y: auto; /* Scorrimento verticale solo dentro la colonna */
 }
-
-.materie-list, .appunti-list {
-list-style-type: none; /* Rimuove i punti dalla lista */
-padding: 0; /* Rimuove il padding predefinito */
-}
-
 .materia {
 cursor: pointer;
 padding: 10px;
@@ -479,16 +575,58 @@ transition: background-color 0.3s;
 background-color: #00ADB5;
 }
 
-.materia:hover {
-background-color: #EEEEEE;
-}
-.materia.expanded {
-background-color: #EEEEEE;
+/* Liste delle materie sotto l'appunto */
+.materie-listA {
+  margin-top: 10px;
 }
 
+.materia-itemA {
+  padding: 5px;
+  background-color: #f0f0f0;
+  border-radius: 4px;
+  margin-bottom: 5px;
+}
+
+.materia-itemA:hover {
+  background-color: #e2e2e2;
+}
+
+.sottocategoriaA {
+  margin-left: 15px;
+  padding-left: 10px;
+  border-left: 2px solid #ddd;
+  list-style-type: none;
+}
+
+.sottocategoriaA li {
+  cursor: pointer;
+  padding: 3px;
+}
+
+.sottocategoriaA li:hover {
+  background-color: #f0f0f0;
+}
+
+.selectedA {
+  background-color: #d1e7ff;
+  font-weight: bold;
+  border-radius: 3px;
+}
+
+.selected-appunto-box {
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-top: 20px;
+  background-color: #f9f9f9;
+}
+
+/* Lista degli appunti */
 .appunti-list {
-margin-left: 20px;
-margin-top: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  padding: 10px;
 }
 
 .appunto {
@@ -563,68 +701,59 @@ top: 10px;
 right: 10px;
 cursor: pointer;
 }
-/* Box per ogni appunto */
-.appunto-box {
-width: 100%;
-max-width: 400px;
-border: 1px solid #EEEEEE;
-border-radius: 8px;
-padding: 15px;
-margin: 10px 0;
-text-align: center;
-background-color: #00ADB5;
+/* Hover per il box dell'appunto */
+.appunto-box:hover {
+  transform: scale(1.05); /* Ingigantisce leggermente il box */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-/* Materia al centro */
-.appunto-box h3.materia {
-font-size: 1.2em;
-margin: 0;
-font-weight: bold;
-text-align: center;
+/* Appunto selezionato */
+.appunto h4 {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
 }
 
-/* Titolo sotto la materia */
-.appunto-box p.titolo {
-font-size: 0.9em;
-margin: 5px 0;
-color: #555;
-align-items: center;
+.appunto p {
+  font-size: 14px;
+  color: #555;
+  margin-top: 5px;
 }
 
-/* Contenitore per i file allegati */
-.appunto-box .file-container {
-display: flex;
-overflow-x: auto;
-margin-top: 10px;
-padding-bottom: 10px;
+.appunto {
+  cursor: pointer;
+  padding: 10px;
+  border: 1px solid #EEEEEE;
+  margin-bottom: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color 0.3s;
+  background-color: #00ADB5;
+  color: white;
 }
 
-/* Stile per ogni file */
-.appunto-box .file-container .file {
-margin-right: 10px;
-padding: 5px;
-background-color: #EEEEEE;
-border-radius: 4px;
-text-align: center;
-min-width: 60px;
-max-width: 100px;
-overflow: hidden;
-text-overflow: ellipsis;
-white-space: nowrap;
+.appunto:hover {
+  background-color: #EEEEEE;
+  color: #333;
 }
 
-/* Barra di scorrimento orizzontale */
-.appunto-box .file-container::-webkit-scrollbar {
-height: 8px;
+.appunto.expanded {
+  background-color: #EEEEEE;
+  color: #333;
 }
 
-.appunto-box .file-container::-webkit-scrollbar-thumb {
-background-color: #EEEEEE;
-border-radius: 4px;
+.appunto-box h4 {
+  margin: 0;
+  padding: 10px 0;
+  font-size: 18px;
+  font-weight: bold;
 }
 
-.appunto-box .file-container::-webkit-scrollbar-thumb:hover {
-background-color: #555;
+.appunto-box p {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #555;
 }
 .appunti-list {
 display: flex;
@@ -632,6 +761,9 @@ flex-direction: column;
 gap: 10px;
 overflow-y: auto;
 }
+
+
+
 #add-button {
 background-color: #00ADB5; /* Colore di sfondo */
 color:#EEEEEE ; /* Colore del testo */

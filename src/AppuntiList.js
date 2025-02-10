@@ -22,7 +22,7 @@ const AppuntiList = ({
 
   return (
     <div className="columnA centrale">
-      <h2>Appunti</h2>
+      <h2>APPUNTI</h2>
       <div className="appunti-list">
         {appuntiToShow.length > 0 ? (
           appuntiToShow.map((appunto, index) => (

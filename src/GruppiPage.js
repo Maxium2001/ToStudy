@@ -149,7 +149,7 @@ const GruppiPage = () => {
     <div className="GruppiPage">
       {/* Colonna sinistra: Elenco dei gruppi */}
       <div className="columnG">
-        <h2>Gruppi</h2>
+        <h2>GRUPPI</h2>
         <ul>
           {groups.map((group) => {
             const groupId = group._id || group.id;
@@ -192,16 +192,19 @@ const GruppiPage = () => {
         </ul>
       </div>
 
-      {/* Colonna centrale: eventualmente puoi inserire qui un altro componente (es. GruppiList) */}
       <GruppiList
-        expandedMaterie={expandedGroups}
-        materie={materie}
-        handleGruppiClick={handleGruppiClick}
-      />
+  groups={groups}
+  materie={materie}  // Usa lo stato 'materie' definito
+  expandedGroups={expandedGroups}
+  handleGruppiClick={handleGruppiClick}
+  handleMateriaClick={handleMateriaClick}
+  selectedMateria={selectedMateria}
+/>
+
 
       {/* Colonna destra: Dettagli (ad esempio della materia selezionata) */}
       <div className="columnG">
-        <h2>Info Gruppo</h2>
+        <h2>INFO GRUPPO</h2>
         {selectedMateria ? (
           <>
             <p>{selectedMateria.titolo || selectedMateria.nome}</p>

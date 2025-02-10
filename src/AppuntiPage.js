@@ -305,7 +305,7 @@ const AppuntiPage = () => {
     <div className="AppuntiPage">
       {/* Colonna sinistra - Materie */}
       <div className="columnA">
-        <h2>Materie</h2>
+        <h2>MATERIE</h2>
         <ul>
           {materie.map((materia, index) => (
             <li key={index}>
@@ -345,7 +345,7 @@ const AppuntiPage = () => {
 
       {/* Colonna destra - Dettagli */}
       <div className="columnA">
-        <h2>Info Appunto</h2>
+        <h2>INFO APPUNTO</h2>
         {selectedAppunto ? (
           <>
             <p>Autore: {selectedAppunto.autore}</p>
@@ -362,15 +362,14 @@ const AppuntiPage = () => {
       </div>
 
       {/* Pulsante flottante */}
-      <div className="floating-button-container">
+      <div className="add-button">
         <button
-          className="floating-button"
+          className="add-button"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
         >
           +
         </button>
-        {isMenuOpen && (
-          <div className="floating-menu">
+        {isMenuOpen && ( <div className="popup-container">
             <button
               onClick={() => {
                 setIsModalOpen(true);
