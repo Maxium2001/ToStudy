@@ -19,12 +19,9 @@ function HomePage() {
   useEffect(() => {
     const fetchUsername = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:3000/getusernamebyid`,
-          {
-            params: { id: id },
-          }
-        );
+        const response = await axios.get(`http://localhost:3000/getuserbyid`, {
+          params: { id: id },
+        });
         setUsername(response.data.username);
       } catch (error) {
         console.error("Errore nel recupero dell'username:", error);

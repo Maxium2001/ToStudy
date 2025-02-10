@@ -18,11 +18,14 @@ const PasswordReset = () => {
       return;
     }
     try {
-      const response = await axios.post("http://localhost:3001/passwordreset", {
-        email: email,
-        otp: otp,
-        password: password,
-      });
+      const response = await axios.post(
+        "http://localhost:3001/passwordresetwithopt",
+        {
+          email: email,
+          otp: otp,
+          password: password,
+        }
+      );
       if (response.status === 200) {
         navigate("/homepage");
       }
