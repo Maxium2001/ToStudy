@@ -1,20 +1,20 @@
-import React, { useState } from 'react';
-import { useAuth } from './Autenticato';
-import { NavLink } from 'react-router-dom';
-import ProfiloWidget from './ProfiloWidget';
-import './Style.css';
+import React, { useState } from "react";
+import { useAuth } from "./Autenticato";
+import { NavLink } from "react-router-dom";
+import ProfiloWidget from "./ProfiloWidget";
+import "./Style.css";
 
 const ProfiloPage = () => {
   const userData = {
-    nome: 'Mario',
-    cognome: 'Rossi',
-    email: 'mario.rossi@email.com',
-    istruzione: 'Università',
+    nome: "Mario",
+    cognome: "Rossi",
+    email: "mario.rossi@email.com",
+    istruzione: "Università",
   };
 
   const [istruzione, setIstruzione] = useState(userData.istruzione); // Stato per l'istruzione
   const [imagePreview, setImagePreview] = useState(null); // Stato per l'anteprima dell'immagine
-  const [username, setUsername] = useState('Utente123');
+  const [username, setUsername] = useState("Utente123");
   const [openIndex, setOpenIndex] = useState(null);
   const { logout } = useAuth();
 
@@ -27,7 +27,7 @@ const ProfiloPage = () => {
     if (file) {
       const imageUrl = URL.createObjectURL(file);
       setImagePreview(imageUrl);
-      console.log('Foto caricata:', file);
+      console.log("Foto caricata:", file);
     }
   };
 
@@ -49,7 +49,9 @@ const ProfiloPage = () => {
         <div id="Titolo-container">
           <button className="Titolo" onClick={() => handleClick(0)}>
             Dettagli Profilo
-            <span className={`arrow ${openIndex === 0 ? 'open' : ''}`}>&#9662;</span>
+            <span className={`arrow ${openIndex === 0 ? "open" : ""}`}>
+              &#9662;
+            </span>
           </button>
           {openIndex === 0 && (
             <div className="answer">
@@ -69,7 +71,8 @@ const ProfiloPage = () => {
                   Nome: <input type="text" value={userData.nome} readOnly />
                 </div>
                 <div className="campo">
-                  Cognome: <input type="text" value={userData.cognome} readOnly />
+                  Cognome:{" "}
+                  <input type="text" value={userData.cognome} readOnly />
                 </div>
                 <div className="campo">
                   Selezione sesso: <input type="text" placeholder="Sesso" />
@@ -89,18 +92,23 @@ const ProfiloPage = () => {
         <div id="Titolo-container">
           <button className="Titolo" onClick={() => handleClick(1)}>
             Ripristina Password
-            <span className={`arrow ${openIndex === 1 ? 'open' : ''}`}>&#9662;</span>
+            <span className={`arrow ${openIndex === 1 ? "open" : ""}`}>
+              &#9662;
+            </span>
           </button>
           {openIndex === 1 && (
             <div className="answer">
               <div className="campo">
-                Password attuale: <input type="password" placeholder="Password Attuale" />
+                Password attuale:{" "}
+                <input type="password" placeholder="Password Attuale" />
               </div>
               <div className="campo">
-                Nuova password: <input type="password" placeholder="Nuova Password" />
+                Nuova password:{" "}
+                <input type="password" placeholder="Nuova Password" />
               </div>
               <div className="campo">
-                Ripeti nuova password: <input type="password" placeholder="Ripeti Nuova Password" />
+                Ripeti nuova password:{" "}
+                <input type="password" placeholder="Ripeti Nuova Password" />
               </div>
               <button className="mini-button">Modifica Password</button>
             </div>
@@ -110,7 +118,9 @@ const ProfiloPage = () => {
         <div id="Titolo-container">
           <button className="Titolo" onClick={() => handleClick(2)}>
             Privacy
-            <span className={`arrow ${openIndex === 2 ? 'open' : ''}`}>&#9662;</span>
+            <span className={`arrow ${openIndex === 2 ? "open" : ""}`}>
+              &#9662;
+            </span>
           </button>
           {openIndex === 2 && (
             <div className="answer">
@@ -122,7 +132,9 @@ const ProfiloPage = () => {
         <div id="Titolo-container">
           <button className="Titolo" onClick={() => handleClick(3)}>
             Accessibilità
-            <span className={`arrow ${openIndex === 3 ? 'open' : ''}`}>&#9662;</span>
+            <span className={`arrow ${openIndex === 3 ? "open" : ""}`}>
+              &#9662;
+            </span>
           </button>
           {openIndex === 3 && (
             <div className="answer">

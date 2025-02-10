@@ -14,6 +14,10 @@ const AppuntiPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   // Stato per gestire l'apertura del modale per aggiungere materie
   const [isAddMateriaModalOpen, setIsAddMateriaModalOpen] = useState(false);
+  const [isDeleteMateriaModalOpen, setIsDeleteMateriaModalOpen] =
+    useState(false);
+  const [isDeleteAppuntoModalOpen, setIsDeleteAppuntoModalOpen] =
+    useState(false);
   // Stato per gestire l'apertura del menu popup
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   // Stato per gestire il nome della nuova materia
@@ -51,7 +55,6 @@ const AppuntiPage = () => {
     const fetchData = async () => {
       await fetchGroups();
     };
-
     fetchData();
   }, []);
 
@@ -249,6 +252,49 @@ const AppuntiPage = () => {
     }
   };
 
+  const handleRimouviMateria = async () => {
+    try {
+      const materiaId = materie.find((m) => m.nome === newMateria).id;
+      await axios.post("http://localhost:3000/rimuovimateria", {
+        id: materiaId,
+      });
+      setMaterie((prevMaterie) =>
+        prevMaterie.filter((materia) => materia.nome !== newMateria)
+      );
+      alert(`Materia "${newMateria}" rimossa`);
+      setIsDeleteMateriaModalOpen(false);
+      setNewMateria("");
+    } catch (error) {
+      console.error("Errore nella rimozione della materia:", error);
+      alert("Errore nella rimozione della materia");
+    }
+  };
+
+  const handleRimouviAppunti = async () => {
+    try {
+      const appuntoId = materie
+        .flatMap((m) => m.appunti)
+        .find((a) => a.titolo === newTitle).id;
+      console.log(appuntoId);
+      await axios.post("http://localhost:3000/rimuoviappunti", {
+        id: appuntoId,
+      });
+      setMaterie((prevMaterie) =>
+        prevMaterie.map((materia) => ({
+          ...materia,
+          appunti: materia.appunti.filter(
+            (appunto) => appunto.titolo !== newTitle
+          ),
+        }))
+      );
+      alert(`Appunto "${newTitle}" rimosso`);
+      setIsDeleteAppuntoModalOpen(false);
+      setNewTitle("");
+    } catch (error) {
+      console.error("Errore nella rimozione dell'appunto:", error);
+    }
+  };
+
   // Funzione per aprire/chiudere il popup menu
   const togglePopup = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -340,6 +386,22 @@ const AppuntiPage = () => {
             >
               Aggiungi Materia
             </button>
+            <button
+              onClick={() => {
+                setIsDeleteMateriaModalOpen(true);
+                setIsMenuOpen(false);
+              }}
+            >
+              elimina Materia
+            </button>
+            <button
+              onClick={() => {
+                setIsDeleteAppuntoModalOpen(true);
+                setIsMenuOpen(false);
+              }}
+            >
+              elimina Appunto
+            </button>
           </div>
         )}
       </div>
@@ -390,6 +452,68 @@ const AppuntiPage = () => {
 
             <button className="add-button" onClick={handleAddAppunto}>
               Aggiungi Appunto
+            </button>
+          </div>
+        </div>
+      )}
+
+      {isDeleteMateriaModalOpen && (
+        <div className={`modal ${isDeleteMateriaModalOpen ? "open" : ""}`}>
+          <div className="modal-content">
+            <span
+              className="close-button"
+              onClick={() => setIsDeleteMateriaModalOpen(false)}
+            >
+              ×
+            </span>
+            <h2>Rimuovi una materia</h2>
+            <label>Materia:</label>
+            <select
+              value={newMateria}
+              onChange={(e) => setNewMateria(e.target.value)}
+            >
+              <option value="">Seleziona materia</option>
+              {materie.map((m, index) => (
+                <option key={index} value={m.nome}>
+                  {m.nome}
+                </option>
+              ))}
+            </select>
+
+            <button className="add-button" onClick={handleRimouviMateria}>
+              elimina Materia
+            </button>
+          </div>
+        </div>
+      )}
+
+      {isDeleteAppuntoModalOpen && (
+        <div className={`modal ${isDeleteAppuntoModalOpen ? "open" : ""}`}>
+          <div className="modal-content">
+            <span
+              className="close-button"
+              onClick={() => setIsDeleteAppuntoModalOpen(false)}
+            >
+              ×
+            </span>
+            <h2>Rimuovi un Appunto</h2>
+            <label>Appunti:</label>
+            <select
+              value={newTitle}
+              onChange={(e) => setNewTitle(e.target.value)}
+            >
+              <option value="">Seleziona appunto</option>
+              {materie
+                .flatMap((m) => m.appunti)
+                .map((a, index) => (
+                  <option key={index} value={a.titolo}>
+                    {a.titolo}
+                  </option>
+                ))}
+            </select>
+
+            <button className="add-button" onClick={handleRimouviAppunti}>
+              elimina Materia
             </button>
           </div>
         </div>

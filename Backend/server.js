@@ -54,6 +54,8 @@ app.post("/creamateria", MateriaController.creaMateria);
 
 app.get("/getmateria", MateriaController.getMateriaById);
 
+app.post("/rimuovimateria", MateriaController.rimuoviMateria);
+
 app.post("/addusergroup", userController.addUserGroup);
 
 app.post(
@@ -61,6 +63,10 @@ app.post(
   userController.upload.single("file"),
   userController.creaAppunti
 );
+
+app.post("/rimuoviappunti", userController.rimuoviAppunti);
+
+app.get("/getappunti", userController.getAppunti);
 
 app.get("/getappuntibyid", userController.getAppuntiById);
 

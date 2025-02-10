@@ -37,4 +37,19 @@ const getMateriaById = async (req, res) => {
   }
 };
 
-module.exports = { creaMateria, getMateriaById };
+const rimuoviMateria = async (req, res) => {
+  try {
+    const { id } = req.body;
+    console.log(id);
+    await Materia.findByIdAndDelete(id);
+    await Group.updateMany({ materie: id }, { $pull: { materie: id } });
+    res.status(200).json({ message: "Materia rimossa con successo" });
+  } catch (error) {
+    console.error(error);
+    res
+      .status(500)
+      .json({ message: "Errore del server", error: error.message });
+  }
+};
+
+module.exports = { creaMateria, getMateriaById, rimuoviMateria };

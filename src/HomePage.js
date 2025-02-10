@@ -92,6 +92,7 @@ function HomePage() {
       console.error("Errore nel recupero delle materie:", error);
     }
   };
+
   const getMaterieWithAppunti = async (materie) => {
     return await Promise.all(
       materie.map(async (materia) => {
@@ -133,36 +134,15 @@ function HomePage() {
   ]);
   const [materie, setMaterie] = useState([
     {
-      nome: "Matematica",
+      nome: String,
+      id: String,
       appunti: [
         {
-          titolo: "Algebra",
-          commento: "Appunto su Algebra",
-          autore: "Mario Rossi",
-          dataCreazione: "01/01/2025",
-        },
-        {
-          titolo: "Geometria",
-          commento: "Appunto su Geometria",
-          autore: "Luigi Bianchi",
-          dataCreazione: "02/01/2025",
-        },
-      ],
-    },
-    {
-      nome: "Fisica",
-      appunti: [
-        {
-          titolo: "Meccanica",
-          commento: "Appunto su Meccanica",
-          autore: "Giulia Verdi",
-          dataCreazione: "03/01/2025",
-        },
-        {
-          titolo: "Ottica",
-          commento: "Appunto su Ottica",
-          autore: "Anna Neri",
-          dataCreazione: "04/01/2025",
+          titolo: String,
+          commento: String,
+          autore: String,
+          dataCreazione: Date,
+          id: String,
         },
       ],
     },

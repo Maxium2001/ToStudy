@@ -115,6 +115,21 @@ const creaAppunti = async (req, res) => {
   }
 };
 
+const rimuoviAppunti = async (req, res) => {
+  try {
+    const { id } = req.body;
+    console.log(id);
+    await Appunti.findByIdAndDelete(id);
+    await Materia.updateMany({ appunti: id }, { $pull: { appunti: id } });
+    res.status(200).json({ message: "Appunti rimossi con successo" });
+  } catch (error) {
+    console.error(error);
+    res
+      .status(500)
+      .json({ message: "Errore del server", error: error.message });
+  }
+};
+
 const getAppunti = async (req, res) => {
   try {
     const { id } = req.query;
@@ -156,7 +171,6 @@ const getAppuntiById = async (req, res) => {
 const getUsernameById = async (req, res) => {
   try {
     const { id } = req.query;
-    console.log(id);
     const user = await User.findById(id).select("username");
     if (!user) {
       return res.status(404).json({ message: "Utente non trovato" });
@@ -179,4 +193,5 @@ module.exports = {
   addUserGroup,
   getAppunti,
   getAppuntiById,
+  rimuoviAppunti,
 };
