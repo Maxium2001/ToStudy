@@ -18,7 +18,7 @@ function NavBar() {
         <div className="navbar-nav">
           <ul>
             <li>
-              <NavLink exact to="/" activeClassName="active">
+              <NavLink exact to="/homepage" activeClassName="active">
                 Home
               </NavLink>
             </li>
