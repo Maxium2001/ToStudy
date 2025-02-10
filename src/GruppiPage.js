@@ -1,98 +1,86 @@
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useState } from "react";
 import "./Style.css";
 import GruppiList from "./GruppiList";
 import { useAuth } from "./Autenticato";
 import axios from "axios";
 
 const GruppiPage = () => {
-  const { id } = useAuth(); // Ottieni l'ID utente autenticato
-  const [groups, setGroups] = useState([]); // Stato per gestire i gruppi
-  const [expandedGroups, setExpandedGroups] = useState([]); // Stato per gestire i gruppi espansi
-  const [materie, setMaterie] = useState([]); // Stato per gestire le materie
-  const [expandedMaterie, setExpandedMaterie] = useState([]); // Stato per gestire le materie espanse
-  const [selectedMateria, setSelectedMateria] = useState(null); // Stato per gestire la materia selezionata
-  const [selectedGruppi, setSelectedGruppi] = useState(null); // Stato per gestire il gruppo selezionato
-  const [isModalOpen, setIsModalOpen] = useState(false); // Stato per gestire l'apertura del modale per aggiungere gruppi
-  const [isAddMateriaModalOpen, setIsAddMateriaModalOpen] = useState(false); // Stato per gestire l'apertura del modale per aggiungere materie
-  const [isMenuOpen, setIsMenuOpen] = useState(false); // Stato per gestire l'apertura del menu popup
-  const [newMateria, setNewMateria] = useState(""); // Stato per gestire il nome della nuova materia
-  const [newTitle, setNewTitle] = useState(""); // Stato per gestire il titolo del nuovo gruppo
-  const [newDescription, setNewDescription] = useState(""); // Stato per gestire la descrizione del nuovo gruppo
-  const [newGroup, setNewGroup] = useState(""); // Stato per gestire il gruppo selezionato per la nuova materia
+  const { id } = useAuth();
+
+  // Stati per gruppi e materie
+  const [groups, setGroups] = useState([]);                // Elenco dei gruppi
+  const [expandedGroups, setExpandedGroups] = useState([]);  // Array degli ID dei gruppi espansi
+  const [materie, setMaterie] = useState([]);                // Elenco di tutte le materie caricate
+  const [selectedMateria, setSelectedMateria] = useState(null);
+
+  // Stati per la gestione dei modali e per i nuovi dati da inserire
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isAddMateriaModalOpen, setIsAddMateriaModalOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [newMateria, setNewMateria] = useState("");
+  const [newTitle, setNewTitle] = useState("");
+  const [newDescription, setNewDescription] = useState("");
+  const [newGroup, setNewGroup] = useState("");
 
   useEffect(() => {
-    const fetchData = async () => {
-      await fetchGroups();
-    };
-
-    fetchData();
+    fetchGroups();
+  }, []);
+  useEffect(() => {
+    fetchMaterie();
   }, []);
 
+  // Carica i gruppi dall'API
   const fetchGroups = async () => {
     try {
       const response = await axios.get("http://localhost:3000/getusergroups", {
         params: { id: id },
       });
-      console.log("Gruppi utente:", response.data);
-      const groupData = response.data;
-      setGroups(groupData);
+      setGroups(response.data);
     } catch (error) {
-      if (error.response) {
-        // The request was made and the server responded with a status code
-        // that falls out of the range of 2xx
-        console.error("Errore nel recupero del gruppo:", error.response.data);
-        console.error("Status code:", error.response.status);
-      } else if (error.request) {
-        // The request was made but no response was received
-        console.error("Nessuna risposta ricevuta:", error.request);
-      } else {
-        // Something happened in setting up the request that triggered an Error
-        console.error("Errore nella richiesta:", error.message);
-      }
+      console.error("Errore nel recupero dei gruppi:", error);
     }
   };
 
-  const fetchMaterie = async (groupId) => {
+   // Funzione per ottenere tutte le materie
+   const fetchMaterie = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/getgroup", {
-        params: { id: groupId },
-      });
-      return response.data.materie;
+      const response = await axios.get('http://localhost:3000/getmaterie');
+      setMaterie(response.data);  // Popola lo stato con tutte le materie
     } catch (error) {
-      console.error("Errore nel recupero delle materie:", error);
-      return [];
+      console.error('Errore nel recupero delle materie:', error);
     }
   };
 
-  // Funzione per gestire il click su un gruppo
+  // Carica tutte le materie quando il componente viene montato
+  useEffect(() => {
+    fetchMaterie();  // Chiamata per caricare tutte le materie
+  }, []);
+
+  // Funzione per gestire l'espansione dei gruppi
   const handleGruppiClick = async (group) => {
-    if (expandedGroups.includes(group.id)) {
-      setExpandedGroups(expandedGroups.filter((id) => id !== group.id));
+    const groupId = group._id || group.id;
+    if (expandedGroups.includes(groupId)) {
+      setExpandedGroups(expandedGroups.filter((id) => id !== groupId));
     } else {
-      const materie = await fetchMaterie(group.id);
-      setMaterie((prevMaterie) => [
-        ...prevMaterie,
-        ...materie.map((materia) => ({ ...materia, gruppo: group.id })),
-      ]);
-      setExpandedGroups([...expandedGroups, group.id]);
+      // Qui puoi decidere di caricare materie specifiche per un gruppo, se necessario
+      setExpandedGroups([...expandedGroups, groupId]);
     }
   };
-
-  // Funzione per gestire il click su una materia
-  const handleMateriaClick = (materiaNome) => {
-    setExpandedMaterie((prevExpandedMaterie) =>
-      prevExpandedMaterie.includes(materiaNome)
-        ? prevExpandedMaterie.filter((nome) => nome !== materiaNome)
-        : [...prevExpandedMaterie, materiaNome]
-    );
-    setSelectedMateria(materiaNome);
+  
+  // Gestisce il click su una materia (se necessario)
+  const handleMateriaClick = (materia) => {
+    setSelectedMateria(materia);
   };
 
-  const handleAddGruppo = async (e) => {
-    e.preventDefault(); // Evita il comportamento predefinito del form (rinfrescare la pagina)
+  // ***********************
+  // Definizione delle funzioni per aggiungere gruppi e materie
+  // ***********************
 
+  // Funzione per aggiungere un nuovo gruppo
+  const handleAddGruppo = async (e) => {
+    e.preventDefault();
     if (!newTitle || !newDescription) {
-      alert("Per favore, completa tutti i campi.");
+      alert("Completa tutti i campi per il gruppo");
       return;
     }
     try {
@@ -101,152 +89,118 @@ const GruppiPage = () => {
         descrizione: newDescription,
         _id: id, // Assicurati di passare un ID utente valido
       });
-
       if (response.status === 201) {
         alert("Gruppo creato con successo!");
-        console.log("Gruppo salvato:", response.data); // Puoi vedere il gruppo appena creato
         setNewTitle("");
         setNewDescription("");
         setIsModalOpen(false);
         fetchGroups(); // Ricarica i gruppi
       }
     } catch (error) {
-      console.error("Errore nel salvataggio del gruppo:", error.response);
-      alert(
-        "Errore nel salvataggio del gruppo: " +
-          (error.response?.data?.message || "Errore sconosciuto")
-      );
+      console.error("Errore nel salvataggio del gruppo:", error);
+      alert("Errore nel salvataggio del gruppo");
     }
   };
 
   // Funzione per aggiungere una nuova materia
   const handleAddMateria = async (e) => {
-    e.preventDefault(); // Evita il comportamento predefinito del form (rinfrescare la pagina)
-
+    e.preventDefault();
     if (!newMateria || !newGroup) {
-      alert("Per favore, completa tutti i campi.");
+      alert("Completa tutti i campi per la materia");
       return;
     }
-    const gruppoId = groups.find((m) => m.nome === newGroup);
-    console.log("Gruppo selezionato:", groups);
     try {
       const response = await axios.post("http://localhost:3000/creamateria", {
         nome: newMateria,
         autore: id,
-        gruppo: gruppoId, // Ensure newGroup is an ObjectId
+        gruppo: newGroup, // Utilizza l'ID del gruppo selezionato
       });
-
       if (response.status === 201) {
         alert(`Materia "${newMateria}" aggiunta con successo!`);
         setMaterie((prevMaterie) => [
           ...prevMaterie,
-          { nome: newMateria, gruppo: newGroup },
+          { nome: newMateria, gruppo: newGroup, appunti: [] },
         ]);
         setNewMateria("");
         setNewGroup("");
         setIsAddMateriaModalOpen(false);
       }
     } catch (error) {
-      console.error("Errore nell'aggiunta della materia:", error.response);
-      alert(
-        "Errore nell'aggiunta della materia: " +
-          (error.response?.data?.message || "Errore sconosciuto")
-      );
+      console.error("Errore nell'aggiunta della materia:", error);
+      alert("Errore nell'aggiunta della materia");
     }
   };
 
-  // Funzione per aprire/chiudere il popup menu
+  // Funzione per aprire/chiudere il menu popup
   const togglePopup = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
   return (
     <div className="GruppiPage">
-      {/* Colonna sinistra - Gruppi */}
+      {/* Colonna sinistra: Elenco dei gruppi */}
       <div className="columnG">
         <h2>Gruppi</h2>
         <ul>
-          {groups.length > 0 ? (
-            groups.map((group, index) => (
-              <li key={index}>
-                <div
-                  className="Gruppi"
-                  onClick={() => handleGruppiClick(group)}
-                >
+          {groups.map((group) => {
+            const groupId = group._id || group.id;
+            return (
+              <li key={groupId}>
+                <div className="gruppo" onClick={() => handleGruppiClick(group)}>
                   {group.nome}{" "}
-                  <span>{expandedGroups.includes(group.id) ? "▼" : "▶"}</span>
+                  <span>{expandedGroups.includes(groupId) ? "▼" : "▶"}</span>
                 </div>
-                {expandedGroups.includes(group.id) && (
-                  <ul className="sottocategoria">
+                {expandedGroups.includes(groupId) && (
+                  <ul className="sottocategoriaG">
                     {materie
-                      .filter((materia) => materia.gruppo === group.id)
-                      .map((materia, i) => (
-                        <li
-                          key={i}
-                          onClick={() => handleMateriaClick(materia.nome)}
-                          className={
-                            selectedMateria === materia.nome ? "selected" : ""
-                          }
-                        >
-                          {materia.nome}
-                        </li>
-                      ))}
+                      .filter((m) => m.gruppo === groupId)
+                      .map((materia) => {
+                        const materiaId = materia._id || materia.id;
+                        return (
+                          <li
+                            key={materiaId}
+                            onClick={() => handleMateriaClick(materia)}
+                            className={
+                              selectedMateria &&
+                              (selectedMateria._id || selectedMateria.id) === materiaId
+                                ? "selectedG"
+                                : ""
+                            }
+                          >
+                            {materia.titolo || materia.nome}
+                          </li>
+                        );
+                      })}
                   </ul>
                 )}
               </li>
-            ))
-          ) : (
-            <p>Nessun gruppo trovato.</p>
-          )}
+            );
+          })}
         </ul>
       </div>
 
-      {/* Colonna centrale */}
+      {/* Colonna centrale: eventualmente puoi inserire qui un altro componente (es. GruppiList) */}
       <GruppiList
-        expandedMaterie={expandedMaterie}
+        expandedMaterie={expandedGroups}
         materie={materie}
         handleGruppiClick={handleGruppiClick}
       />
 
-      {/* Colonna destra - Dettagli */}
+      {/* Colonna destra: Dettagli (ad esempio della materia selezionata) */}
       <div className="columnG">
         <h2>Info Gruppo</h2>
-        {selectedGruppi ? (
+        {selectedMateria ? (
           <>
-            <p>Autore: {selectedGruppi.autore}</p>
-            <p>Data di creazione: {selectedGruppi.dataCreazione}</p>
-
-            {/* Visualizzazione dei file associati al gruppo */}
-            <h3>File del Gruppo</h3>
-            {selectedGruppi.files && selectedGruppi.files.length > 0 ? (
-              <ul>
-                {selectedGruppi.files.map((file, index) => (
-                  <li key={index}>
-                    <a
-                      href={file.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {file.nome}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p>Nessun file caricato per questo gruppo.</p>
-            )}
+            <p>{selectedMateria.titolo || selectedMateria.nome}</p>
+            {/* Altri dettagli se necessari */}
           </>
         ) : (
           <p>Seleziona un gruppo per visualizzare i dettagli</p>
         )}
       </div>
 
-      {/* Pulsante flottante */}
-      <button
-        id="add-button"
-        className={isMenuOpen ? "active" : ""}
-        onClick={togglePopup}
-      >
+      {/* Pulsante flottante e popup menu */}
+      <button id="add-button" className={isMenuOpen ? "active" : ""} onClick={togglePopup}>
         +
       </button>
       <div id="popup-container" className={isMenuOpen ? "active" : ""}>
@@ -272,14 +226,10 @@ const GruppiPage = () => {
       {isModalOpen && (
         <div className={`modal ${isModalOpen ? "open" : ""}`}>
           <div className="modal-content">
-            <span
-              className="close-button"
-              onClick={() => setIsModalOpen(false)}
-            >
+            <span className="close-button" onClick={() => setIsModalOpen(false)}>
               ×
             </span>
             <h2>Nuovo Gruppo</h2>
-
             <label>Titolo:</label>
             <input
               type="text"
@@ -299,37 +249,29 @@ const GruppiPage = () => {
         </div>
       )}
 
-      {/* Modale per aggiungere materia */}
+      {/* Modale per aggiungere materie */}
       {isAddMateriaModalOpen && (
         <div className={`modal ${isAddMateriaModalOpen ? "open" : ""}`}>
           <div className="modal-content">
-            <span
-              className="close-button"
-              onClick={() => setIsAddMateriaModalOpen(false)}
-            >
+            <span className="close-button" onClick={() => setIsAddMateriaModalOpen(false)}>
               ×
             </span>
             <h2>Aggiungi Nuova Materia</h2>
             <label>Gruppo:</label>
-            <select
-              value={newGroup}
-              onChange={(e) => setNewGroup(e.target.value)}
-            >
+            <select value={newGroup} onChange={(e) => setNewGroup(e.target.value)}>
               <option value="">Seleziona gruppo</option>
-              {groups.map((group, index) => (
-                <option key={index} value={group.id}>
+              {groups.map((group) => (
+                <option key={group._id || group.id} value={group._id || group.id}>
                   {group.nome}
                 </option>
               ))}
             </select>
-
             <label>Nome Materia:</label>
             <input
               type="text"
               value={newMateria}
               onChange={(e) => setNewMateria(e.target.value)}
             />
-
             <button className="add-button" onClick={handleAddMateria}>
               Aggiungi Materia
             </button>
