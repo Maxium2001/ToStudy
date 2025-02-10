@@ -24,7 +24,7 @@ const PasswordReset = () => {
         password: password,
       });
       if (response.status === 200) {
-        navigate("/");
+        navigate("/homepage");
       }
     } catch (error) {
       if (error.response) {
