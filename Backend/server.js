@@ -43,10 +43,12 @@ app.post("/confermaotp", (req, res) => {
   authController.confirmOtp(req, res);
 });
 
-app.post("/passwordreset", (req, res) => {
+app.post("/passwordresetwithopt", (req, res) => {
   console.log("Password reset endpoint hit");
-  authController.passwordReset(req, res);
+  authController.passwordResetWithOtp(req, res);
 });
+
+app.post("/resetpassword", authController.resetPassword);
 
 app.get("/getusergroups", userController.getUserGroups);
 
@@ -57,6 +59,8 @@ app.get("/getmateria", MateriaController.getMateriaById);
 app.post("/rimuovimateria", MateriaController.rimuoviMateria);
 
 app.post("/addusergroup", userController.addUserGroup);
+
+app.put("/aggiornaprofilo", userController.aggiornaProfilo);
 
 app.post(
   "/creaappunti",
@@ -70,7 +74,7 @@ app.get("/getappunti", userController.getAppunti);
 
 app.get("/getappuntibyid", userController.getAppuntiById);
 
-app.get("/getusernamebyid", userController.getUsernameById);
+app.get("/getuserbyid", userController.getUserById);
 
 app.get("/getappunti", userController.getAppunti);
 

@@ -36,7 +36,7 @@ const Register = () => {
       if (response.status === 201) {
         setUserId(response.data.userId);
         login();
-        navigate("/");
+        navigate("/homepage");
       }
     } catch (error) {
       if (error.response) {

@@ -32,7 +32,7 @@ function Login() {
       if (response.status === 200) {
         setUserId(response.data.userId);
         login();
-        navigate("/");
+        navigate("/homepage");
       } else {
         setErrorMessage("Login fallito. Verifica le tue credenziali.");
       }

@@ -6,6 +6,7 @@ import {
   Route,
   Routes,
   useLocation,
+  Navigate,
 } from "react-router-dom";
 import NavBar from "./NavBar";
 import Register from "./Register";
@@ -30,7 +31,8 @@ const App = () => {
     <>
       {!hideNavBarPaths.includes(location.pathname) && <NavBar />}
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<Navigate to="/login" />} />
+        <Route path="/homepage" element={<HomePage />} />
         <Route path="/appunti" element={<AppuntiPage />} />
         <Route path="/esplora" element={<EsploraPage />} />
         <Route path="/gruppi" element={<GruppiPage />} />
@@ -72,11 +74,11 @@ const App = () => {
 
 ReactDOM.render(
   <React.StrictMode>
-    <Router>
-      <AuthProvider>
+    <AuthProvider>
+      <Router>
         <App />
-      </AuthProvider>
-    </Router>
+      </Router>
+    </AuthProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

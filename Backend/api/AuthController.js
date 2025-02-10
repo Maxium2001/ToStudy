@@ -136,7 +136,7 @@ const confirmOtp = async (req, res) => {
   }
 };
 
-const passwordReset = async (req, res) => {
+const passwordResetWithOtp = async (req, res) => {
   try {
     const { email, otp, newPassword } = req.body;
 
@@ -161,10 +161,36 @@ const passwordReset = async (req, res) => {
   }
 };
 
+const resetPassword = async (req, res) => {
+  try {
+    const { id, password, newPassword } = req.body;
+    console.log(id, password, newPassword);
+    const user = await User.findById(id);
+    const isMatch = await bcrypt.compare(password, user.password);
+    console.log(isMatch);
+    if (!isMatch) {
+      console.log("Password errata");
+      return res.status(400).json({ message: "Password sbagliata" });
+    }
+
+    // Hash della nuova password
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    console.log(hashedPassword);
+    // Aggiorna la password dell'utente
+    await user.updateOne({ password: hashedPassword });
+    console.log("Password aggiornata con successo");
+
+    res.status(200).json({ message: "Password aggiornata con successo" });
+  } catch (error) {
+    res.status(500).json({ message: "Errore del server" });
+  }
+};
+
 module.exports = {
   register,
   login,
   generateOtp,
   confirmOtp,
-  passwordReset,
+  passwordResetWithOtp,
+  resetPassword,
 };

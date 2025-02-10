@@ -118,7 +118,6 @@ const creaAppunti = async (req, res) => {
 const rimuoviAppunti = async (req, res) => {
   try {
     const { id } = req.body;
-    console.log(id);
     await Appunti.findByIdAndDelete(id);
     await Materia.updateMany({ appunti: id }, { $pull: { appunti: id } });
     res.status(200).json({ message: "Appunti rimossi con successo" });
@@ -168,10 +167,10 @@ const getAppuntiById = async (req, res) => {
   }
 };
 
-const getUsernameById = async (req, res) => {
+const getUserById = async (req, res) => {
   try {
     const { id } = req.query;
-    const user = await User.findById(id).select("username");
+    const user = await User.findById(id);
     if (!user) {
       return res.status(404).json({ message: "Utente non trovato" });
     }
@@ -184,9 +183,32 @@ const getUsernameById = async (req, res) => {
     }
   }
 };
+const aggiornaProfilo = async (req, res) => {
+  try {
+    const { id, eta, sesso, istruzione } = req.body;
+    const updateFields = {};
+
+    if (eta !== undefined) updateFields.eta = eta;
+    if (sesso !== undefined) updateFields.sesso = sesso;
+    if (istruzione !== undefined) updateFields.istruzione = istruzione;
+
+    const user = await User.findByIdAndUpdate(id, updateFields, { new: true });
+    if (!user) {
+      return res.status(404).json({ message: "Utente non trovato" });
+    }
+
+    res.status(200).json({ message: "Profilo aggiornato con successo", user });
+  } catch (error) {
+    if (error.name === "CastError") {
+      res.status(400).json({ message: "ID utente non valido" });
+    } else {
+      res.status(500).json({ message: error.message });
+    }
+  }
+};
 
 module.exports = {
-  getUsernameById,
+  getUserById,
   creaAppunti,
   getUserGroups,
   upload,
@@ -194,4 +216,5 @@ module.exports = {
   getAppunti,
   getAppuntiById,
   rimuoviAppunti,
+  aggiornaProfilo,
 };

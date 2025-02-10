@@ -8,6 +8,9 @@ const userSchema = new Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   gruppi: [{ type: Schema.Types.ObjectId, ref: "Gruppo", required: true }],
+  istruzione: { type: String },
+  sesso: { type: String },
+  eta: { type: Number },
   icon: {
     type: String,
     default:
