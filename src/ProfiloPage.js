@@ -22,13 +22,14 @@ const ProfiloPage = () => {
   const [password, setPassword] = useState();
   const [newPassword, setNewPassword] = useState();
   const [confirmPassword, setConfirmPassword] = useState();
-  const { logout } = useAuth();
-  const [id, setId] = useAuth();
+  const { logout, id, setUserId } = useAuth();
+  const [showPopup, setShowPopup] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     const fetchUsername = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/getuserbyid`, {
+        const response = await axios.get(`http://localhost:27017/getuserbyid`, {
           params: { id: id },
         });
         setUserData(response.data);
@@ -45,9 +46,8 @@ const ProfiloPage = () => {
 
   const changeProfile = async () => {
     try {
-      console.log(istruzione);
       const response = await axios.put(
-        "http://localhost:3000/aggiornaprofilo",
+        "http://localhost:27017/aggiornaprofilo",
         {
           id: id,
           sesso: sesso,
@@ -56,10 +56,12 @@ const ProfiloPage = () => {
         }
       );
       if (response.status === 200) {
-        alert("Profilo aggiornato con successo.");
+        setErrorMessage("Profilo aggiornato con successo.");
+        setShowPopup(true);
       }
     } catch (error) {
-      console.error("Errore nell'aggiornamento del profile:", error);
+      setErrorMessage("Errore nell'aggiornamento del profilo: " + error);
+      setShowPopup(true);
     }
   };
 
@@ -70,22 +72,38 @@ const ProfiloPage = () => {
     }
     try {
       console.log(id, password, newPassword);
-      const response = await axios.post("http://localhost:3000/resetpassword", {
-        id: id,
-        password: password,
-        newPassword: newPassword,
-      });
+      const response = await axios.post(
+        "http://localhost:27017/resetpassword",
+        {
+          id: id,
+          password: password,
+          newPassword: newPassword,
+        }
+      );
       if (response.status === 200) {
-        alert("Password aggiornata con successo.");
+        setErrorMessage("Password aggiornata con successo.");
+        setShowPopup(true);
       }
     } catch (error) {
-      console.error("Errore nell'aggiornamento della password:", error);
+      setErrorMessage("Errore nell'aggiornamento della password: " + error);
+      setShowPopup(true);
     }
   };
 
   const logoutFunction = () => {
     logout();
-    setId(null);
+    setUserId(null);
+  };
+
+  const ErrorPopup = ({ message, onClose }) => {
+    return (
+      <div className="error-popup">
+        <div className="error-content">
+          <p>{message}</p>
+          <button onClick={onClose}>Chiudi</button>
+        </div>
+      </div>
+    );
   };
 
   return (
@@ -231,6 +249,12 @@ const ProfiloPage = () => {
         </NavLink>
         <br />
       </div>
+      {showPopup && (
+        <ErrorPopup
+          message={errorMessage}
+          onClose={() => setShowPopup(false)}
+        />
+      )}
     </div>
   );
 };

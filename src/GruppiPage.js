@@ -22,6 +22,8 @@ const GruppiPage = () => {
   const [newTitle, setNewTitle] = useState("");
   const [newDescription, setNewDescription] = useState("");
   const [newGroup, setNewGroup] = useState("");
+  const [showPopup, setShowPopup] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -39,7 +41,7 @@ const GruppiPage = () => {
   // Carica i gruppi dall'API
   const fetchGroups = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/getusergroups", {
+      const response = await axios.get("http://localhost:27017/getusergroups", {
         params: { id: id },
       });
       setGroups(response.data);
@@ -54,7 +56,7 @@ const GruppiPage = () => {
       const m = groups.flatMap((group) => group.materie);
       const p = [];
       for (let i = 0; i < m.length; i++) {
-        const response = await axios.get("http://localhost:3000/getmateria", {
+        const response = await axios.get("http://localhost:27017/getmateria", {
           params: { id: m[i] },
         });
         p.push(response.data);
@@ -79,7 +81,6 @@ const GruppiPage = () => {
   // Gestisce il click su una materia (se necessario)
   const handleMateriaClick = (materia) => {
     setSelectedMateria(materia);
-    console.log(materie);
   };
 
   // ***********************
@@ -94,21 +95,22 @@ const GruppiPage = () => {
       return;
     }
     try {
-      const response = await axios.post("http://localhost:3000/creagroup", {
+      const response = await axios.post("http://localhost:27017/creagroup", {
         nome: newTitle,
         descrizione: newDescription,
         _id: id, // Assicurati di passare un ID utente valido
       });
       if (response.status === 201) {
-        alert("Gruppo creato con successo!");
         setNewTitle("");
         setNewDescription("");
         setIsModalOpen(false);
         fetchGroups(); // Ricarica i gruppi
+        setErrorMessage("Gruppo creato con successo");
+        setShowPopup(true);
       }
     } catch (error) {
-      console.error("Errore nel salvataggio del gruppo:", error);
-      alert("Errore nel salvataggio del gruppo");
+      setErrorMessage("Errore nella creazione del gruppo" + error);
+      setShowPopup(true);
     }
   };
 
@@ -123,13 +125,12 @@ const GruppiPage = () => {
       if (materie.find((m) => m.nome === newMateria)) {
         alert("Materia già esistente");
       }
-      const response = await axios.post("http://localhost:3000/creamateria", {
+      const response = await axios.post("http://localhost:27017/creamateria", {
         nome: newMateria,
         autore: id,
         gruppo: newGroup, // Utilizza l'ID del gruppo selezionato
       });
       if (response.status === 201) {
-        alert(`Materia "${newMateria}" aggiunta con successo!`);
         setMaterie((prevMaterie) => [
           ...prevMaterie,
           { nome: newMateria, gruppo: newGroup, appunti: [] },
@@ -137,10 +138,12 @@ const GruppiPage = () => {
         setNewMateria("");
         setNewGroup("");
         setIsAddMateriaModalOpen(false);
+        setErrorMessage("Materia creata con successo");
+        setShowPopup(true);
       }
     } catch (error) {
-      console.error("Errore nell'aggiunta della materia:", error);
-      alert("Errore nell'aggiunta della materia");
+      setErrorMessage("Errore nella creazione della materia" + error);
+      setShowPopup(true);
     }
   };
 
@@ -156,19 +159,33 @@ const GruppiPage = () => {
     }
     try {
       const groupId = groups.find((g) => g.nome === newGroup)._id;
-      const response = await axios.post("http://localhost:3000/rimouviGruppo", {
-        id: groupId,
-      });
+      const response = await axios.post(
+        "http://localhost:27017/rimouviGruppo",
+        {
+          id: groupId,
+        }
+      );
       if (response.status === 200) {
-        alert("Gruppo rimosso con successo!");
         setGroups(groups.filter((g) => g.nome !== newGroup));
       }
       setIsDeleteGroupModalOpen(false);
       setNewGroup("");
+      setErrorMessage("Gruppo rimosso con successo");
+      setShowPopup(true);
     } catch (error) {
-      console.error("Errore nella rimozione del gruppo:", error);
-      alert("Errore nella rimozione del gruppo");
+      setErrorMessage("Errore nella rimozione del gruppo" + error);
+      setShowPopup(true);
     }
+  };
+  const ErrorPopup = ({ message, onClose }) => {
+    return (
+      <div className="error-popup">
+        <div className="error-content">
+          <p>{message}</p>
+          <button onClick={onClose}>Chiudi</button>
+        </div>
+      </div>
+    );
   };
 
   return (
@@ -372,6 +389,12 @@ const GruppiPage = () => {
             </button>
           </div>
         </div>
+      )}
+      {showPopup && (
+        <ErrorPopup
+          message={errorMessage}
+          onClose={() => setShowPopup(false)}
+        />
       )}
     </div>
   );

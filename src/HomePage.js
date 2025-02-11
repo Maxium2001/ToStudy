@@ -39,7 +39,7 @@ function HomePage() {
 
   const fetchGroups = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/getusergroups", {
+      const response = await axios.get("http://localhost:27017/getusergroups", {
         params: { id: id },
       });
       const groupData = response.data;
@@ -87,7 +87,7 @@ function HomePage() {
     try {
       const a = [];
       for (let i = 0; i < temp.length; i++) {
-        const response = await axios.get("http://localhost:3000/getmateria", {
+        const response = await axios.get("http://localhost:27017/getmateria", {
           params: { id: temp[i] },
         });
         // Attacca il gruppo usando la mappa (se disponibile)
@@ -109,7 +109,7 @@ function HomePage() {
         const appunti = await Promise.all(
           materia.appunti.map(async (appuntoId) => {
             const response = await axios.get(
-              "http://localhost:3000/getappuntibyid",
+              "http://localhost:27017/getappuntibyid",
               {
                 params: { id: appuntoId },
               }

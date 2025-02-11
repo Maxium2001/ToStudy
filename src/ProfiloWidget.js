@@ -11,7 +11,7 @@ const ProfiloWidget = () => {
   useEffect(() => {
     const fetchUsername = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/getuserbyid", {
+        const response = await axios.get("http://localhost:27017/getuserbyid", {
           params: { id: id },
         });
         setUsername(response.data.username);
@@ -31,7 +31,7 @@ const ProfiloWidget = () => {
         const formData = new FormData();
         formData.append("icon", file);
         formData.append("autore", id);
-        await axios.post(`http://localhost:3000/uploadicon`, formData, {
+        await axios.post(`http://localhost:27017/uploadicon`, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
@@ -47,7 +47,7 @@ const ProfiloWidget = () => {
 
   const fetchIcon = async () => {
     try {
-      const response = await axios.get(`http://localhost:3000/geticon`, {
+      const response = await axios.get(`http://localhost:27017/geticon`, {
         params: { id: id },
         responseType: "blob",
       });

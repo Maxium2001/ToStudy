@@ -43,7 +43,7 @@ const Register = () => {
         return;
       }
       const response = await axios.post(
-        "http://localhost:3000/register",
+        "http://localhost:27017/register",
         formData
       );
       if (response.status === 201) {

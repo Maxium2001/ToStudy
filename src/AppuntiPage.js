@@ -29,6 +29,8 @@ const AppuntiPage = () => {
   // Stato per gestire il commento del nuovo appunto
   const [newComment, setNewComment] = useState("");
   const [newGroup, setNewGroup] = useState("");
+  const [showPopup, setShowPopup] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const [temp, setTemp] = useState([]);
 
@@ -66,7 +68,7 @@ const AppuntiPage = () => {
 
   const fetchGroups = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/getusergroups", {
+      const response = await axios.get("http://localhost:27017/getusergroups", {
         params: { id: id },
       });
       const groupData = response.data;
@@ -97,7 +99,7 @@ const AppuntiPage = () => {
     try {
       const a = [];
       for (let i = 0; i < temp.length; i++) {
-        const response = await axios.get("http://localhost:3000/getmateria", {
+        const response = await axios.get("http://localhost:27017/getmateria", {
           params: { id: temp[i] },
         });
 
@@ -116,7 +118,7 @@ const AppuntiPage = () => {
         const appunti = await Promise.all(
           materia.appunti.map(async (appuntoId) => {
             const response = await axios.get(
-              "http://localhost:3000/getappuntibyid",
+              "http://localhost:27017/getappuntibyid",
               {
                 params: { id: appuntoId },
               }
@@ -175,14 +177,22 @@ const AppuntiPage = () => {
         formData.append("file", uploadedFile);
         formData.append("autore", id);
         formData.append("materia", materiaId);
-        await axios.post("http://localhost:3000/creaappunti", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        });
+        const response = await axios.post(
+          "http://localhost:27017/creaappunti",
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+        if (response.status === 200) {
+          setErrorMessage("Appunto aggiunto con successo.");
+          setShowPopup(true);
+        }
       } catch (error) {
-        console.error("Errore nell'aggiunta dell'appunto:", error);
-        alert("Errore nell'aggiunta dell'appunto");
+        setErrorMessage("Errore nell'aggiunta dell'appunto: " + error.message);
+        setShowPopup(true);
       }
       setMaterie((prevMaterie) =>
         prevMaterie.map((materia) =>
@@ -212,30 +222,37 @@ const AppuntiPage = () => {
         { nome: newMateria, appunti: [] },
       ]);
       if (materie.find((m) => m.nome === newMateria)) {
-        alert("Materia già esistente");
+        setErrorMessage("Materia già esistente.");
+        setShowPopup(true);
       }
       const groupId = groups.find((group) => group.nome === newGroup).id;
       try {
-        axios.post("http://localhost:3000/creamateria", {
+        const response = axios.post("http://localhost:27017/creamateria", {
           nome: newMateria,
           autore: id,
           gruppo: groupId,
         });
+        if (response === 200) {
+          setErrorMessage("Materia aggiunta con successo.");
+          setShowPopup(true);
+        }
       } catch (error) {
-        console.error("Errore nell'aggiunta della materia:", error);
-        alert("Errore nell'aggiunta della materia");
+        setErrorMessage("Errore nell'aggiunta della materia: " + error.message);
+        setShowPopup(true);
       }
-      alert(`Materia "${newMateria}" aggiunta`);
       setIsAddMateriaModalOpen(false);
       setNewMateria("");
+      setErrorMessage("Materia aggiunta con successo.");
+      setShowPopup(true);
     } else {
-      alert("Inserisci un nome per la materia!");
+      setErrorMessage("Inserisci il nome della materia.");
+      setShowPopup(true);
     }
   };
 
   const handleDownload = async (appunto) => {
     try {
-      const response = await axios.get("http://localhost:3000/getappunti", {
+      const response = await axios.get("http://localhost:27017/getappunti", {
         params: { id: appunto.id },
         responseType: "blob",
       });
@@ -247,30 +264,32 @@ const AppuntiPage = () => {
         `${appunto.titolo}.${response.data.type.split("/")[1]}`
       ); // Imposta il nome del file
       document.body.appendChild(link);
-      alert("Appunto scaricato con successo");
       link.click();
       link.parentNode.removeChild(link);
+      setErrorMessage("Appunto scaricato con successo.");
+      setShowPopup(true);
     } catch (error) {
-      console.error("Errore nel download dell'appunto:", error);
-      alert("Errore nel download dell'appunto");
+      setErrorMessage("Errore nel download dell'appunto: " + error.message);
+      setShowPopup(true);
     }
   };
 
   const handleRimouviMateria = async () => {
     try {
       const materiaId = materie.find((m) => m.nome === newMateria).id;
-      await axios.post("http://localhost:3000/rimuovimateria", {
+      await axios.post("http://localhost:27017/rimuovimateria", {
         id: materiaId,
       });
       setMaterie((prevMaterie) =>
         prevMaterie.filter((materia) => materia.nome !== newMateria)
       );
-      alert(`Materia "${newMateria}" rimossa`);
+      setErrorMessage("Materia rimossa con successo.");
+      setShowPopup(true);
       setIsDeleteMateriaModalOpen(false);
       setNewMateria("");
     } catch (error) {
-      console.error("Errore nella rimozione della materia:", error);
-      alert("Errore nella rimozione della materia");
+      setErrorMessage("Errore nella rimozione della materia: " + error.message);
+      setShowPopup(true);
     }
   };
 
@@ -280,7 +299,7 @@ const AppuntiPage = () => {
         .flatMap((m) => m.appunti)
         .find((a) => a.titolo === newTitle).id;
       console.log(appuntoId);
-      await axios.post("http://localhost:3000/rimuoviappunti", {
+      await axios.post("http://localhost:27017/rimuoviappunti", {
         id: appuntoId,
       });
       setMaterie((prevMaterie) =>
@@ -291,17 +310,24 @@ const AppuntiPage = () => {
           ),
         }))
       );
-      alert(`Appunto "${newTitle}" rimosso`);
+      setErrorMessage("Appunto rimosso con successo.");
+      setShowPopup(true);
       setIsDeleteAppuntoModalOpen(false);
       setNewTitle("");
     } catch (error) {
-      console.error("Errore nella rimozione dell'appunto:", error);
+      setErrorMessage("Errore nella rimozione dell'appunto: " + error.message);
+      setShowPopup(true);
     }
   };
-
-  // Funzione per aprire/chiudere il popup menu
-  const togglePopup = () => {
-    setIsMenuOpen(!isMenuOpen);
+  const ErrorPopup = ({ message, onClose }) => {
+    return (
+      <div className="error-popup">
+        <div className="error-content">
+          <p>{message}</p>
+          <button onClick={onClose}>Chiudi</button>
+        </div>
+      </div>
+    );
   };
 
   return (
@@ -557,6 +583,12 @@ const AppuntiPage = () => {
           </div>
         )}
       </div>
+      {showPopup && (
+        <ErrorPopup
+          message={errorMessage}
+          onClose={() => setShowPopup(false)}
+        />
+      )}
     </div>
   );
 };

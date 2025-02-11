@@ -40,7 +40,7 @@ const register = async (req, res) => {
     // Salva l'utente nel database
     await newUser.save();
     res
-      .status(201)
+      .status(200)
       .json({ message: "Registrazione riuscita", userId: newUser._id });
   } catch (error) {
     console.error(error);

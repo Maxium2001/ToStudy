@@ -6,32 +6,29 @@ const PasswordDimenticata = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [otp, setOtp] = useState("");
+  const [showPopup, setShowPopup] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleOtpGeneration = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:3000/generaotp", {
+      const response = await axios.post("http://localhost:27017/generaotp", {
         email: email,
       }); // Assicurati che l'URL sia corretto
       if (response.status === 200) {
-        setErrorMessage("OTP inviato alla tua email");
+        setErrorMessage("OTP generato con successo. Controlla la tua email.");
+        setShowPopup(true);
       }
     } catch (error) {
-      if (error.response) {
-        setErrorMessage("Errore: " + error.response.data.message);
-      } else if (error.request) {
-        setErrorMessage("Errore di rete. Per favore riprova.");
-      } else {
-        setErrorMessage("Errore: " + error.message);
-      }
+      setErrorMessage("Errore: " + error.message);
+      setShowPopup(true);
     }
   };
 
   const handleOtpSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:3000/confermaotp", {
+      const response = await axios.post("http://localhost:27017/confermaotp", {
         email: email,
         otp: otp,
       }); // Assicurati che l'URL sia corretto
@@ -39,14 +36,19 @@ const PasswordDimenticata = () => {
         navigate("/resetpassword", { state: { email: email, otp: otp } });
       }
     } catch (error) {
-      if (error.response) {
-        setErrorMessage("Errore: " + error.response.data.message);
-      } else if (error.request) {
-        setErrorMessage("Errore di rete. Per favore riprova.");
-      } else {
-        setErrorMessage("Errore: " + error.message);
-      }
+      setErrorMessage("Errore: " + error.message);
     }
+  };
+
+  const ErrorPopup = ({ message, onClose }) => {
+    return (
+      <div className="error-popup">
+        <div className="error-content">
+          <p>{message}</p>
+          <button onClick={onClose}>Chiudi</button>
+        </div>
+      </div>
+    );
   };
 
   return (
@@ -78,7 +80,12 @@ const PasswordDimenticata = () => {
         </div>
         <button type="submit">Conferma OTP</button>
       </form>
-      {errorMessage && <div className="error-message">{errorMessage}</div>}
+      {showPopup && (
+        <ErrorPopup
+          message={errorMessage}
+          onClose={() => setShowPopup(false)}
+        />
+      )}
     </div>
   );
 };
