@@ -12,7 +12,7 @@ const PasswordDimenticata = () => {
   const handleOtpGeneration = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:27017/generaotp", {
+      const response = await axios.post("http://localhost:8000/generaotp", {
         email: email,
       }); // Assicurati che l'URL sia corretto
       if (response.status === 200) {
@@ -28,7 +28,7 @@ const PasswordDimenticata = () => {
   const handleOtpSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:27017/confermaotp", {
+      const response = await axios.post("http://localhost:8000/confermaotp", {
         email: email,
         otp: otp,
       }); // Assicurati che l'URL sia corretto

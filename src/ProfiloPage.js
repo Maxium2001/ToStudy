@@ -29,7 +29,7 @@ const ProfiloPage = () => {
   useEffect(() => {
     const fetchUsername = async () => {
       try {
-        const response = await axios.get(`http://localhost:27017/getuserbyid`, {
+        const response = await axios.get(`http://localhost:8000/getuserbyid`, {
           params: { id: id },
         });
         setUserData(response.data);
@@ -47,7 +47,7 @@ const ProfiloPage = () => {
   const changeProfile = async () => {
     try {
       const response = await axios.put(
-        "http://localhost:27017/aggiornaprofilo",
+        "http://localhost:8000/aggiornaprofilo",
         {
           id: id,
           sesso: sesso,
@@ -72,14 +72,11 @@ const ProfiloPage = () => {
     }
     try {
       console.log(id, password, newPassword);
-      const response = await axios.post(
-        "http://localhost:27017/resetpassword",
-        {
-          id: id,
-          password: password,
-          newPassword: newPassword,
-        }
-      );
+      const response = await axios.post("http://localhost:8000/resetpassword", {
+        id: id,
+        password: password,
+        newPassword: newPassword,
+      });
       if (response.status === 200) {
         setErrorMessage("Password aggiornata con successo.");
         setShowPopup(true);

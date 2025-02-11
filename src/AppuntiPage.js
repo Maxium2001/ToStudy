@@ -68,7 +68,7 @@ const AppuntiPage = () => {
 
   const fetchGroups = async () => {
     try {
-      const response = await axios.get("http://localhost:27017/getusergroups", {
+      const response = await axios.get("http://localhost:8000/getusergroups", {
         params: { id: id },
       });
       const groupData = response.data;
@@ -99,7 +99,7 @@ const AppuntiPage = () => {
     try {
       const a = [];
       for (let i = 0; i < temp.length; i++) {
-        const response = await axios.get("http://localhost:27017/getmateria", {
+        const response = await axios.get("http://localhost:8000/getmateria", {
           params: { id: temp[i] },
         });
 
@@ -118,7 +118,7 @@ const AppuntiPage = () => {
         const appunti = await Promise.all(
           materia.appunti.map(async (appuntoId) => {
             const response = await axios.get(
-              "http://localhost:27017/getappuntibyid",
+              "http://localhost:8000/getappuntibyid",
               {
                 params: { id: appuntoId },
               }
@@ -178,7 +178,7 @@ const AppuntiPage = () => {
         formData.append("autore", id);
         formData.append("materia", materiaId);
         const response = await axios.post(
-          "http://localhost:27017/creaappunti",
+          "http://localhost:8000/creaappunti",
           formData,
           {
             headers: {
@@ -227,7 +227,7 @@ const AppuntiPage = () => {
       }
       const groupId = groups.find((group) => group.nome === newGroup).id;
       try {
-        const response = axios.post("http://localhost:27017/creamateria", {
+        const response = axios.post("http://localhost:8000/creamateria", {
           nome: newMateria,
           autore: id,
           gruppo: groupId,
@@ -252,7 +252,7 @@ const AppuntiPage = () => {
 
   const handleDownload = async (appunto) => {
     try {
-      const response = await axios.get("http://localhost:27017/getappunti", {
+      const response = await axios.get("http://localhost:8000/getappunti", {
         params: { id: appunto.id },
         responseType: "blob",
       });
@@ -277,7 +277,7 @@ const AppuntiPage = () => {
   const handleRimouviMateria = async () => {
     try {
       const materiaId = materie.find((m) => m.nome === newMateria).id;
-      await axios.post("http://localhost:27017/rimuovimateria", {
+      await axios.post("http://localhost:8000/rimuovimateria", {
         id: materiaId,
       });
       setMaterie((prevMaterie) =>
@@ -299,7 +299,7 @@ const AppuntiPage = () => {
         .flatMap((m) => m.appunti)
         .find((a) => a.titolo === newTitle).id;
       console.log(appuntoId);
-      await axios.post("http://localhost:27017/rimuoviappunti", {
+      await axios.post("http://localhost:8000/rimuoviappunti", {
         id: appuntoId,
       });
       setMaterie((prevMaterie) =>

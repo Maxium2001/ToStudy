@@ -41,7 +41,7 @@ const GruppiPage = () => {
   // Carica i gruppi dall'API
   const fetchGroups = async () => {
     try {
-      const response = await axios.get("http://localhost:27017/getusergroups", {
+      const response = await axios.get("http://localhost:8000/getusergroups", {
         params: { id: id },
       });
       setGroups(response.data);
@@ -56,7 +56,7 @@ const GruppiPage = () => {
       const m = groups.flatMap((group) => group.materie);
       const p = [];
       for (let i = 0; i < m.length; i++) {
-        const response = await axios.get("http://localhost:27017/getmateria", {
+        const response = await axios.get("http://localhost:8000/getmateria", {
           params: { id: m[i] },
         });
         p.push(response.data);
@@ -95,7 +95,7 @@ const GruppiPage = () => {
       return;
     }
     try {
-      const response = await axios.post("http://localhost:27017/creagroup", {
+      const response = await axios.post("http://localhost:8000/creagroup", {
         nome: newTitle,
         descrizione: newDescription,
         _id: id, // Assicurati di passare un ID utente valido
@@ -125,7 +125,7 @@ const GruppiPage = () => {
       if (materie.find((m) => m.nome === newMateria)) {
         alert("Materia già esistente");
       }
-      const response = await axios.post("http://localhost:27017/creamateria", {
+      const response = await axios.post("http://localhost:8000/creamateria", {
         nome: newMateria,
         autore: id,
         gruppo: newGroup, // Utilizza l'ID del gruppo selezionato
@@ -159,12 +159,9 @@ const GruppiPage = () => {
     }
     try {
       const groupId = groups.find((g) => g.nome === newGroup)._id;
-      const response = await axios.post(
-        "http://localhost:27017/rimouviGruppo",
-        {
-          id: groupId,
-        }
-      );
+      const response = await axios.post("http://localhost:8000/rimouviGruppo", {
+        id: groupId,
+      });
       if (response.status === 200) {
         setGroups(groups.filter((g) => g.nome !== newGroup));
       }

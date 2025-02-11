@@ -89,4 +89,4 @@ app.get("/getgroup", groupController.getGroupById);
 app.post("/rimouvigruppo", groupController.rimouviGruppo);
 
 // Avvio del server
-app.listen(27017, () => console.log("Server started on port 27017"));
+app.listen(8000, () => console.log("Server started on port 8000"));

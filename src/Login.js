@@ -38,10 +38,9 @@ function Login() {
 
     try {
       const response = await axios.post(
-        "http://localhost:27017/login",
+        "http://localhost:8000/login",
         formData
       );
-      console.log("Response:", response);
 
       if (response.status === 200) {
         setUserId(response.data.userId);
