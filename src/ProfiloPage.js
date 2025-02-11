@@ -23,7 +23,7 @@ const ProfiloPage = () => {
   const [newPassword, setNewPassword] = useState();
   const [confirmPassword, setConfirmPassword] = useState();
   const { logout } = useAuth();
-  const { id } = useAuth();
+  const [id, setId] = useAuth();
 
   useEffect(() => {
     const fetchUsername = async () => {
@@ -81,6 +81,11 @@ const ProfiloPage = () => {
     } catch (error) {
       console.error("Errore nell'aggiornamento della password:", error);
     }
+  };
+
+  const logoutFunction = () => {
+    logout();
+    setId(null);
   };
 
   return (
@@ -220,7 +225,7 @@ const ProfiloPage = () => {
         </div>
 
         <NavLink to="/login">
-          <button className="mini-button" onClick={logout}>
+          <button className="mini-button" onClick={logoutFunction}>
             Logout
           </button>
         </NavLink>

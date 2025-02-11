@@ -21,6 +21,7 @@ const ProfiloWidget = () => {
     };
     fetchUsername();
     fetchIcon();
+    console.log(profileImage);
   }, [id]);
 
   const handleFileChange = async (event) => {

@@ -25,7 +25,12 @@ import { ProfileImageProvider } from "./ProfileImageContext";
 
 const App = () => {
   const location = useLocation();
-  const hideNavBarPaths = ["/login", "/register"];
+  const hideNavBarPaths = [
+    "/login",
+    "/register",
+    "/passworddimenticata",
+    "/resetpassword",
+  ];
 
   return (
     <>
