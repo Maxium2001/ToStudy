@@ -6,6 +6,7 @@ import { useAuth } from "./Autenticato";
 const Register = () => {
   const navigate = useNavigate();
   const { login, setUserId } = useAuth();
+  const [showPopup, setShowPopup] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [formData, setFormData] = useState({
     nome: "",
@@ -15,6 +16,17 @@ const Register = () => {
     password: "",
   });
 
+  const ErrorPopup = ({ message, onClose }) => {
+    return (
+      <div className="error-popup">
+        <div className="error-content">
+          <p>{message}</p>
+          <button onClick={onClose}>Chiudi</button>
+        </div>
+      </div>
+    );
+  };
+  
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -27,6 +39,7 @@ const Register = () => {
     try {
       if (formData.password !== formData.confirmPassword) {
         setErrorMessage("Le password non corrispondono");
+        setShowPopup(true);
         return;
       }
       const response = await axios.post(
@@ -49,20 +62,21 @@ const Register = () => {
         // Qualcosa è andato storto nella configurazione della richiesta
         setErrorMessage(error.message);
       }
+      setShowPopup(true);
     }
   };
 
   return (
-    <div>
+    <div className="accedi">
       <h1>Crea il tuo account To Study</h1>
       <p>
-        Sei già registrato?{" "}
-        <Link to="/login">
-          <img src="/user.png" />
+       <p className="L-accedi" > Sei già registrato?{" "}</p>
+        <Link className="L-accedi" to="/login">
+          <img className="img-accedi" src="/user.png" />
         </Link>
-        Accedi
+       <p className="L-accedi"> Accedi </p>
       </p>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="register-form">
         <input
           type="text"
           name="nome"
@@ -86,6 +100,7 @@ const Register = () => {
           onChange={handleChange}
           placeholder="Username"
           required
+          className="full-width"
         />
         <input
           type="email"
@@ -94,6 +109,7 @@ const Register = () => {
           onChange={handleChange}
           placeholder="Email"
           required
+          className="full-width"
         />
         <input
           type="password"
@@ -102,6 +118,7 @@ const Register = () => {
           onChange={handleChange}
           placeholder="Password"
           required
+          className="full-width"
         />
         <input
           type="password"
@@ -110,6 +127,7 @@ const Register = () => {
           onChange={handleChange}
           placeholder="Conferma Password"
           required
+          className="full-width"
         />
         <input
           type="checkbox"
@@ -121,11 +139,12 @@ const Register = () => {
           required
         />
         <label htmlFor="terms">
-          Accetto i <Link to="/termsandconditions">Termini e Condizioni</Link>
+          <p className="L-accedi" >Accetto i  
+          <Link to="/termsandconditions">Termini e Condizioni</Link></p>
         </label>
         <button type="submit">Crea account</button>
       </form>
-      {errorMessage && <div className="error-message">{errorMessage}</div>}
+      {showPopup && <ErrorPopup message={errorMessage} onClose={() => setShowPopup(false)} />}
     </div>
   );
 };

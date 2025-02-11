@@ -146,9 +146,9 @@ const GruppiPage = () => {
   };
 
   return (
-    <div className="GruppiPage">
+    <div className="PageGA">
       {/* Colonna sinistra: Elenco dei gruppi */}
-      <div className="columnG">
+      <div className="column">
         <h2>GRUPPI</h2>
         <ul>
           {groups.map((group) => {
@@ -163,7 +163,7 @@ const GruppiPage = () => {
                   <span>{expandedGroups.includes(groupId) ? "▼" : "▶"}</span>
                 </div>
                 {expandedGroups.includes(groupId) && (
-                  <ul className="sottocategoriaG">
+                  <ul className="sottocategoria">
                     {materie
                       .filter((m) => m.gruppo === groupId)
                       .map((materia) => {
@@ -176,7 +176,7 @@ const GruppiPage = () => {
                               selectedMateria &&
                               (selectedMateria._id || selectedMateria.id) ===
                                 materiaId
-                                ? "selectedG"
+                                ? "selected"
                                 : ""
                             }
                           >
@@ -203,7 +203,7 @@ const GruppiPage = () => {
 
 
       {/* Colonna destra: Dettagli (ad esempio della materia selezionata) */}
-      <div className="columnG">
+      <div className="column">
         <h2>INFO GRUPPO</h2>
         {selectedMateria ? (
           <>

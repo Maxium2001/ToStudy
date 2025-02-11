@@ -11,7 +11,6 @@ import {
 import NavBar from "./NavBar";
 import Register from "./Register";
 import AppuntiPage from "./AppuntiPage";
-import EsploraPage from "./EsploraPage";
 import GruppiPage from "./GruppiPage";
 import FaqPage from "./FaqPage";
 import HomePage from "./HomePage";
@@ -34,7 +33,6 @@ const App = () => {
         <Route path="/" element={<Navigate to="/login" />} />
         <Route path="/homepage" element={<HomePage />} />
         <Route path="/appunti" element={<AppuntiPage />} />
-        <Route path="/esplora" element={<EsploraPage />} />
         <Route path="/gruppi" element={<GruppiPage />} />
         <Route path="/faq" element={<FaqPage />} />
         <Route path="/profilo" element={<ProfiloPage />} />

@@ -7,20 +7,20 @@ const GruppiList = ({ groups, materie, expandedGroups, handleGruppiClick, handle
   }
   
   return (
-    <div className="columnG centrale">
+    <div className="column centrale">
       <h2>GRUPPI</h2>
-      <div className="gruppi-list">
+      <div className="list">
         {groups.length > 0 ? (
           groups.map((group) => {
             const groupId = group._id || group.id;
             return (
-              <div key={groupId} className="gruppo-box">
+              <div key={groupId} className="barattolo">
                 <div className="gruppo" onClick={() => handleGruppiClick(group)}>
-                  <h4>{group.nome}</h4>
+                  <h5>{group.nome}</h5>
                   <p>{group.materia}</p>
                 </div>
                 {expandedGroups.includes(groupId) && (
-                  <ul className="sottocategoriaG">
+                  <ul className="sottocategoria">
                     {materie
                       .filter((m) => m.gruppo === groupId)
                       .map((materia) => {
@@ -29,7 +29,7 @@ const GruppiList = ({ groups, materie, expandedGroups, handleGruppiClick, handle
                           <li
                             key={materiaId}
                             onClick={() => handleMateriaClick(materia)}
-                            className={selectedMateria && ((selectedMateria._id || selectedMateria.id) === materiaId) ? "selectedG" : ""}
+                            className={selectedMateria && ((selectedMateria._id || selectedMateria.id) === materiaId) ? "selected" : ""}
                           >
                             {materia.titolo || materia.nome || "Materia non disponibile"}
                           </li>

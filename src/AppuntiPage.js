@@ -302,15 +302,15 @@ const AppuntiPage = () => {
   };
 
   return (
-    <div className="AppuntiPage">
+    <div className="PageGA">
       {/* Colonna sinistra - Materie */}
-      <div className="columnA">
+      <div className="column">
         <h2>MATERIE</h2>
         <ul>
           {materie.map((materia, index) => (
             <li key={index}>
               <div
-                className="materia"
+                className="gruppo"
                 onClick={() => handleMateriaClick(materia.nome)}
               >
                 {materia.nome}{" "}
@@ -344,7 +344,7 @@ const AppuntiPage = () => {
       />
 
       {/* Colonna destra - Dettagli */}
-      <div className="columnA">
+      <div className="column">
         <h2>INFO APPUNTO</h2>
         {selectedAppunto ? (
           <>
@@ -361,16 +361,16 @@ const AppuntiPage = () => {
         )}
       </div>
 
-      {/* Pulsante flottante */}
-      <div className="add-button">
+       {/* Pulsante flottante e popup menu */}
+       <button
+        id="add-button"
+        className={isMenuOpen ? "active" : ""}
+        onClick={togglePopup}
+      >
+        +
+      </button>
+      <div id="popup-container" className={isMenuOpen ? "active" : ""}>
         <button
-          className="add-button"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-        >
-          +
-        </button>
-        {isMenuOpen && ( <div className="popup-container">
-            <button
               onClick={() => {
                 setIsModalOpen(true);
                 setIsMenuOpen(false);
@@ -402,8 +402,6 @@ const AppuntiPage = () => {
             >
               elimina Appunto
             </button>
-          </div>
-        )}
       </div>
 
       {/* Modale per aggiungere appunti */}

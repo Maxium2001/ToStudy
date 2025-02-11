@@ -20,7 +20,7 @@ const ProfiloWidget = ({ username }) => {
         <h2>PROFILO</h2>
  
       {/* Widget della foto profilo e username */}
-      <div className="profilo-widget">
+      <div className="gruppo-box">
         <div className="foto-username-container">
           <div className="foto-container">
             {/* Se c'è un'anteprima, visualizza l'immagine, altrimenti mostra "Foto" */}
@@ -58,7 +58,7 @@ const ProfiloWidget = ({ username }) => {
             />
           </div>
           {/* Visualizza il nome dell'utente */}
-          <div className="username">{username || "Username"}</div>
+          <p className="gruppo">{username || "Username"}</p>
         </div>
       </div>
     </div>

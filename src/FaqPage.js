@@ -9,7 +9,7 @@ const FaqPage = () => {
     };
 
     return (
-        <div className="Selettore">
+        <div className="Selettore" id='FaqPage'>
             <h1>Domande Frequenti</h1>
             <div id="Titolo-container">
                 <button className="Titolo" onClick={() => handleClick(0)}>

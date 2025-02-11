@@ -17,12 +17,14 @@ html, body {
   height: 100%;
   overflow-x:  auto; /* Impedisce lo scroll orizzontale */
   overflow-y: auto !important; /* Permette lo scroll verticale */
+  scrollbar-width: none; /* Nasconde la scrollbar su Firefox */
+
 }
 h1, p, h2, h4{
   color: #222831;
   text-align: center;
 }
-h4{
+h5{
   font-weight: bold;
 }
 h1 {
@@ -57,14 +59,6 @@ margin-top: 14vh;
 .columns {
 display: flex;
 flex: 1; /* Le colonne occupano uguale spazio */
-}
-
-.column {
-display: flex;
-flex-direction: column;
-flex: 1;
-padding: 10px;
-height: calc(100vh - 60px); /* Altezza piena meno la navbar */
 }
 
 .neutral-zone {
@@ -125,7 +119,6 @@ nav {
 display: flex;
 align-items: center;
 justify-content: space-between;
-padding: 5px 20px; /* Ridotto per diminuire altezza */
 height: 10%; /* Altezza navbar più bassa */
 background-color: #EEEEEE;
 position: fixed;
@@ -133,6 +126,7 @@ top: 0;
 left: 0;
 width: 100%;
 z-index: 1000;
+font-size: 2.5vh;
 }
 /* Contenitore link navbar */
 .navbar-nav {
@@ -149,6 +143,7 @@ padding: 0;
 /* Distanza tra gli item della navbar */
 .navbar-nav li {
 margin: 0 15px;
+height: 1vh;
 }
 /* Link della navbar */
 .navbar-nav a {
@@ -164,7 +159,7 @@ position: absolute;
 left: 0;
 bottom: -3vh; /* Spazio tra testo e sottolineatura */
 width: 100%;
-height: 2px; /* Spessore sottolineatura */
+height: 0.2vh; /* Spessore sottolineatura */
 background-color: #222831;
 transform: scaleX(0);
 transition: transform 0.3s ease-in-out;
@@ -263,9 +258,15 @@ object-fit: contain; /* Evita distorsioni */
 /*LOGIN e REGISTRATI*/
 
 /* Contenitore principale della pagina di login */
-.page {
-  display: flex; /* Imposta Flexbox per la divisione a colonne */
-  height: 100vh; /* Imposta l'altezza della finestra del browser */
+.page{
+  display: flex;
+  height: 100vh;
+}
+.accedi {
+  width: 50%;
+  background: #EEEEEE;
+  border-radius: 10px;
+  text-align: center;
 }
 /* Sezione del login (a destra) */
 .section {
@@ -277,13 +278,6 @@ object-fit: contain; /* Evita distorsioni */
   height: 100vh; /* Altezza completa della finestra */
   background-color: #EEEEEE; /* Colore di sfondo per la sezione di login */
 }
-input:hover {
-  border: 0.3vh solid #222831; /* Colore del bordo quando si passa sopra l'input */
-}
-input:focus {
-  border: 0.4vh solid #222831; /* Colore del bordo quando si sta scrivendo*/
-  outline: none; /* Rimuove il focus predefinito */
-}
 form {
   width: 80%;
   padding: 15%;
@@ -294,21 +288,88 @@ form {
   margin: auto;
 }
 input {
-  border: 0.1vh solid #393E46;
-  border-radius: 0.5vh;
-  color: #393E46;
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #222831;
+  border-radius: 5px;
+  font-size: 16px;
+  background-color: #EEEEEE;
+}
+/* Stile checkbox */
+input[type="checkbox"] {
+  width: auto;
+  margin-right: 5px;
+}
+
+label {
+  width: 3vh;
+  height: 3vh;
 }
 button {
-  background-color: #00ADB5;
-  color: #EEEEEE;
-  padding: 5% 7%;
+  background-color: #71C9CE;
+  color: #222831;
+  width: 100%;
+  padding: 12px;
   border: none;
   border-radius: 1vh;
   cursor: pointer;
+  font-weight: bold;
+}
+.error-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #EEEEEE;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  z-index: 1000;
+  width: 300px;
+  box-shadow: 0px 4px 10px #222831;
+}
+.error-content p {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+.error-content button {
+  background: #EEEEEE;
+  color: #222831;
+  border: none;
+  padding: 8px 15px;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 5px;
 }
 
-
-
+.error-content button:hover {
+  background: #B0B0B0;
+}
+/* Stile per la pagina di registrazione */
+.register-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.register-form input {
+  width: 100%;
+}
+.full-width {
+  grid-column: span 2;
+}
+.L-accedi{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2vh;
+  font-size: 1.4vh;
+  margin: 0;
+}
+.img-accedi{
+  width: 5vh;
+  height: 5vh;
+}
 
 
 
@@ -385,74 +446,61 @@ padding: 0.5vh 2.5vh;
 
 
 
-/* GRUPPI */
-.GruppiPage {
+/* GRUPPI  E APPUNTI*/
+.PageGA {
   margin-top: 14vh;
   display: flex;
   justify-content: space-between;
-  gap: 20px;
-  padding: 20px;
+  gap: 0.5vh;
+  padding: 0.3vh;
   height: 100vh; /* Occupa tutto lo schermo */
-  background-color: #EEEEEE; /* Colore di sfondo per l'intera pagina */
+  background-color: #B0B0B0; /* Colore di sfondo per l'intera pagina */
 }
-
-/* Colonne */
-.columnG {
+/* COLONNE GRUPPI APPUNTI*/
+.column {
   flex: 1; /* Tutte le colonne hanno la stessa larghezza */
   background: #EEEEEE;
-  padding: 20px;
+  padding: 5vh;
   border-radius: 8px;
   height: 100%; /* Si estende per tutta l'altezza disponibile */
   overflow-y: auto; /* Scorrimento verticale solo dentro la colonna */
+  scrollbar-width: none; /* Nasconde la scrollbar su Firefox */
 }
 
 /* Colonna centrale più grande */
-.centraleG {
+.centrale {
   text-align: center; /* Allinea il testo al centro */
   flex: 1.5; /* La colonna centrale è leggermente più larga */
 }
 
 /* Lista dei gruppi */
-.gruppi-list {
+.list {
   display: flex;
   flex-direction: column;
   gap: 20px;
   align-items: center;
   padding: 10px;
+
 }
 
 /* Box di ciascun gruppo */
-.gruppo-box {
+.barattolo {
   width: 300px;
   padding: 20px;
-  background-color: #f4f4f4;
+  background-color: #EEEEEE;
   border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 5px #B0B0B0;
   text-align: center;
   cursor: pointer;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  
 }
-
 /* Hover per il box del gruppo */
-.gruppo-box:hover {
+.barattolo:hover {
   transform: scale(1.05); /* Ingigantisce leggermente il box */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  
 }
-
-/* Gruppo selezionato */
-.gruppo h4 {
-  font-size: 18px;
-  font-weight: bold;
-  color: #333;
-}
-
-.gruppo p {
-  font-size: 14px;
-  color: #555;
-  margin-top: 5px;
-}
-
-.gruppo {
+.gruppo,.titol {
   cursor: pointer;
   padding: 10px;
   border: 1px solid #EEEEEE;
@@ -462,75 +510,17 @@ padding: 0.5vh 2.5vh;
   align-items: center;
   transition: background-color 0.3s;
   background-color: #00ADB5;
-  color: white;
-}
-
-.gruppo:hover {
-  background-color: #EEEEEE;
-  color: #333;
-}
-
-.gruppo.expanded {
-  background-color: #EEEEEE;
-  color: #333;
-}
-
-.gruppo-box h4 {
-  margin: 0;
-  padding: 10px 0;
-  font-size: 18px;
   font-weight: bold;
 }
-
-.gruppo-box p {
-  margin-top: 10px;
-  font-size: 14px;
-  color: #555;
-}
-
-/* Liste delle materie sotto il gruppo */
-.materie-list {
-  margin-top: 10px;
-}
-
-.materia-item {
-  padding: 5px;
-  background-color: #f0f0f0;
-  border-radius: 4px;
-  margin-bottom: 5px;
-}
-
-.materia-item:hover {
-  background-color: #e2e2e2;
-}
-
-.sottocategoriaG {
+.sottocategoria {
   margin-left: 15px;
   padding-left: 10px;
-  border-left: 2px solid #ddd;
+  border-left: 2px solid #B0B0B0;
   list-style-type: none;
 }
-
-.sottocategoriaG li {
+.sottocategoria li {
   cursor: pointer;
   padding: 3px;
-}
-
-.sottocategoriaG li:hover {
-  background-color: #f0f0f0;
-}
-
-.selectedG {
-  background-color: #d1e7ff;
-  font-weight: bold;
-  border-radius: 3px;
-}
-
-.selected-gruppo-box {
-  border: 1px solid #ddd;
-  padding: 10px;
-  margin-top: 20px;
-  background-color: #f9f9f9;
 }
 
 
@@ -543,130 +533,9 @@ padding: 0.5vh 2.5vh;
   
 
 
-/* APPUNTI */
-.AppuntiPage {
-  margin-top: 14vh;
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
-  padding: 20px;
-  height: 100vh; /* Occupa tutto lo schermo */
-  background-color: #EEEEEE; /* Colore di sfondo per l'intera pagina */
-}
 
-/* Colonne */
-.columnA {
-  flex: 1; /* Tutte le colonne hanno la stessa larghezza */
-  background: #EEEEEE;
-  padding: 20px;
-  border-radius: 8px;
-  height: 100%; /* Si estende per tutta l'altezza disponibile */
-  overflow-y: auto; /* Scorrimento verticale solo dentro la colonna */
-}
-.materia {
-cursor: pointer;
-padding: 10px;
-border: 1px solid #EEEEEE;
-margin-bottom: 5px;
-display: flex;
-justify-content: space-between;
-align-items: center;
-transition: background-color 0.3s;
-background-color: #00ADB5;
-}
 
-/* Liste delle materie sotto l'appunto */
-.materie-listA {
-  margin-top: 10px;
-}
-
-.materia-itemA {
-  padding: 5px;
-  background-color: #f0f0f0;
-  border-radius: 4px;
-  margin-bottom: 5px;
-}
-
-.materia-itemA:hover {
-  background-color: #e2e2e2;
-}
-
-.sottocategoriaA {
-  margin-left: 15px;
-  padding-left: 10px;
-  border-left: 2px solid #ddd;
-  list-style-type: none;
-}
-
-.sottocategoriaA li {
-  cursor: pointer;
-  padding: 3px;
-}
-
-.sottocategoriaA li:hover {
-  background-color: #f0f0f0;
-}
-
-.selectedA {
-  background-color: #d1e7ff;
-  font-weight: bold;
-  border-radius: 3px;
-}
-
-.selected-appunto-box {
-  border: 1px solid #ddd;
-  padding: 10px;
-  margin-top: 20px;
-  background-color: #f9f9f9;
-}
-
-/* Lista degli appunti */
-.appunti-list {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  align-items: center;
-  padding: 10px;
-}
-
-.appunto {
-cursor: pointer;
-padding: 5px;
-border: 1px solid #EEEEEE;
-margin-bottom: 3px;
-transition: background-color 0.3s;
-}
-
-.appunto:hover {
-background-color: #EEEEEE;
-}
-
-.appunto.selected {
-background-color: #EEEEEE;
-}
-
-.toggle-icon {
-font-size: 12px;
-margin-left: 10px;
-}
-
-/* Colonna centrale - Appunti */
-.columnA.centrale {
-flex:2;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: flex-start; /* Allinea gli elementi in alto */
-padding: 20px;
-overflow-y: auto; /* Scorrimento verticale */
-}
-/* Titolo "Appunti" */
-.columnA.centrale h2 {
-margin-top: 0; /* Rimuove eventuali margini superiori */
-margin-bottom: 10px; /* Aggiunge uno spazio sotto il titolo */
-text-align: center; /* Allinea il testo al centro */
-}
-
+/*POP UP AGGIUNGI...*/
 .modal {
 position: fixed;
 top: 0;
@@ -679,6 +548,8 @@ align-items: center;
 visibility: hidden;
 opacity: 0;
 transition: opacity 0.3s ease, visibility 0.3s ease;
+backdrop-filter: blur(0.3vh); /* Effetto blur */
+
 }
 
 .modal.open {
@@ -700,66 +571,6 @@ position: absolute;
 top: 10px;
 right: 10px;
 cursor: pointer;
-}
-/* Hover per il box dell'appunto */
-.appunto-box:hover {
-  transform: scale(1.05); /* Ingigantisce leggermente il box */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
-
-/* Appunto selezionato */
-.appunto h4 {
-  font-size: 18px;
-  font-weight: bold;
-  color: #333;
-}
-
-.appunto p {
-  font-size: 14px;
-  color: #555;
-  margin-top: 5px;
-}
-
-.appunto {
-  cursor: pointer;
-  padding: 10px;
-  border: 1px solid #EEEEEE;
-  margin-bottom: 5px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  transition: background-color 0.3s;
-  background-color: #00ADB5;
-  color: white;
-}
-
-.appunto:hover {
-  background-color: #EEEEEE;
-  color: #333;
-}
-
-.appunto.expanded {
-  background-color: #EEEEEE;
-  color: #333;
-}
-
-.appunto-box h4 {
-  margin: 0;
-  padding: 10px 0;
-  font-size: 18px;
-  font-weight: bold;
-}
-
-.appunto-box p {
-  margin-top: 10px;
-  font-size: 14px;
-  color: #555;
-}
-.appunti-list {
-display: flex;
-flex-direction: column;
-gap: 10px;
-overflow-y: auto;
 }
 
 
@@ -801,8 +612,8 @@ margin-bottom: 50px;
 width: 100%;
 height: 10%;
 margin: 2px 0;
-background-color: #00adb5;
-color: white;
+background-color: #00ADB5;
+color: #EEEEEE;
 border: none;
 border-radius: 5px;
 cursor: pointer;
@@ -834,15 +645,6 @@ flex-direction: column;  /* Disposizione verticale */
 align-items: center;     /* Allineamento centrale */
 gap: 1vh;                /* Distanza tra il titolo e il widget */
 }
-/* Profilo widget - layout quadrato */
-.profilo-widget {
-display: flex;
-align-items: center;
-max-width: 80vh;
-padding: 1vh;
-border:0.1vh solid #222831;
-border-radius: 10px;
-}
 
 .foto-username-container {
 display: flex;
@@ -862,9 +664,8 @@ display: block;
 position: absolute;
 bottom: 1vh;
 right: 1.5vh;
-background-color: #EEEEEE;
+background-color: #00ADB5;
 color: #222831;
-border: 0.1vh solid #222831;
 width: 3.5vh;
 height: 3.5vh;
 border-radius: 50%;
@@ -876,7 +677,6 @@ transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .foto-label:hover {
-background-color: #EEEEEE;
 transform: scale(1.1); /* Aumenta leggermente la dimensione dell'icona al passaggio del mouse */
 }
 
@@ -889,9 +689,9 @@ opacity: 0.8; /* Aggiungi un leggero effetto di opacità quando si passa sopra l
 /*sfondo per la foto di default*/
 .foto-container {
 position: relative; /* Importante per il posizionamento dell'icona */
-width: 15vh;
-height: 15vh;
-border: 0.1vh solid #222831;
+width: 13.5vh;
+height: 13.5vh;
+box-shadow: 0 0 1vh #B0B0B0; /* Aggiunge un'ombra leggera */
 border-radius: 50%;
 overflow: hidden;
 }
@@ -903,12 +703,6 @@ height: 1.5vh;
 
 .foto-input {
 display: none; /* Nasconde il file input */
-}
-
-.username {
-font-size: 1.2rem;
-font-weight: bold;
-color: #222831;
 }
 
 .campo{
@@ -944,12 +738,8 @@ height: 100%;
     background-color: #EEEEEE;
     overflow-x:  auto; /* Impedisce lo scroll orizzontale */
     overflow-y: auto !important; /* Permette lo scroll verticale */
+    scrollbar-width: none; /* Nasconde la scrollbar su Firefox */
   }
-
-  body{
-    margin-top: 25vh;
-  }
-
   h1 {
     font-size: 6vh;
   }
@@ -957,6 +747,7 @@ height: 100%;
     padding: 0;  /* Rimuove il padding laterale su mobile */
     width: 100%;  /* Imposta la larghezza a 100% */
     padding-top: 60px; /* Spazio per la navbar */
+    margin-top: 25vh;
   }
   .container {
     flex-direction: column;  /* Le colonne si dispongono una sotto l'altra */
@@ -992,6 +783,10 @@ height: 100%;
     flex: 0 0 auto !important; /* Impedisce il ridimensionamento */
   margin-right: 10px; /* Spazio tra le box */
   }
+
+
+
+
 
 
 /*NAVBAR*/
@@ -1053,66 +848,63 @@ nav {
 
 
 
-/*APPUNTI*/
-.AppuntiPage {
-  flex-direction: column; /* Le colonne diventano verticali su mobile */
-  height: auto; /* Si adatta al contenuto */
-}
 
-.columnA {
-  max-width: 100%; /* Su mobile non serve il 100vh */
-}
-.appunti-list {
-  flex-direction: row; /* Disposizione orizzontale delle box */
-  overflow-x: auto; /* Permette lo scorrimento orizzontale */
-  white-space: nowrap; /* Impedisce il wrapping delle box */
-}
 
-.appunto-box {
-  flex: 0 0 auto; /* Impedisce il ridimensionamento delle box */
-  margin-right: 10px; /* Spazio tra le box */
-}
-
-.appunti-list::-webkit-scrollbar {
-  height: 8px; /* Altezza della scrollbar orizzontale */
-}
-
-.appunti-list::-webkit-scrollbar-thumb {
-  background-color: #888;
-  border-radius: 4px;
-}
-
-.appunti-list::-webkit-scrollbar-thumb:hover {
-  background-color: #555;
-}
-#add-button {
-  padding: 15px; /* Riduce la spaziatura interna */
-  width: 15%; /* Aumenta la larghezza del pulsante */
-  height: 15%; /* Aumenta l'altezza del pulsante */
-  right: 5%; /* Distanza dal lato destro */
-  bottom: 5%; /* Distanza dal fondo */
-}
-#popup-container {
-  width: 50%;
-  height: 15%;
-}
-#popup-container button {
-  height: 60%; /* Altezza massima */
+/*GRUPPI E APPUNTI*/
+.PageGA {
+  margin-top: 25.5vh;
+  flex-direction: column;
+  align-items: center;
+  gap: 1vh;
+  padding: 1vh;
+  height: auto;
+  background-color: #B0B0B0;
 
 }
 
-
-
-
-/*GRUPPI*/
-.GruppiPage {
-  flex-direction: column; /* Le colonne diventano verticali su mobile */
-  height: auto; /* Si adatta al contenuto */
+.column {
+  width: 90%;
+  padding: 3vh;
+  border-radius: 6px;
+  height: auto;
+  overflow-y: visible;
 }
 
-.columnG {
-  height: auto; /* Su mobile non serve il 100vh */
+.centrale {
+  flex: 1;
+  text-align: center;
 }
+
+.list {
+  gap: 15px;
+  padding: 5px;
+}
+
+.barattolo {
+  width: 90%;
+  padding: 15px;
+  box-shadow: 0 1px 4px #B0B0B0;
+}
+
+.barattolo:hover {
+  transform: scale(1.03);
+}
+
+.gruppo, .titol {
+  padding: 8px;
+  font-size: 0.9rem;
+}
+
+.sottocategoria {
+  margin-left: 10px;
+  padding-left: 5px;
+}
+
+.sottocategoria li {
+  padding: 2px;
+}
+
+
 
 
 
@@ -1120,11 +912,15 @@ nav {
 
 
 /*FAQ e PROFILO*/
+.profilo-page, #FaqPage {
+  margin-top: 25vh;
+}
 .Selettore {
   max-width: 90vw; /* Adatta la larghezza allo schermo */
   padding: 2vh; /* Riduce il padding per gli spazi stretti */
   margin-top: 4vh; /* Riduce il margine superiore */
   gap: 2vh; /* Aumenta lo spazio tra gli elementi */
+  
 }
 
 .Titolo {
@@ -1141,6 +937,58 @@ nav {
   padding: 3vh; /* Aggiunge spaziature più comode */
 }
 
+
+
+
+
+/*PROFILO WIDGET*/
+.profilo-widget-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 2vh; /* Maggiore spazio tra gli elementi */
+  padding: 2vh;
+}
+
+.foto-username-container {
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5vh;
+}
+
+.foto-profilo {
+  width: 100%;
+  height: auto;
+  max-width: 12vh;
+  max-height: 12vh;
+}
+
+.foto-container {
+  width: 12vh;
+  height: 12vh;
+  box-shadow: 0 0 0.8vh #B0B0B0;
+}
+
+.foto-label {
+  width: 3vh;
+  height: 3vh;
+  bottom: 0.8vh;
+  right: 1vh;
+}
+
+.foto-icon {
+  width: 1.2vh;
+  height: 1.2vh;
+}
+
+.fallback-text {
+  font-size: 1rem;
+}
+
+.campo {
+  padding: 1.2vh;
+  font-size: 1rem;
+}
 }
 
 

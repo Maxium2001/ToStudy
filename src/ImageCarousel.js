@@ -4,8 +4,8 @@ import "./Style.css";
 const Carousel = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const images = [
-        "https://th.bing.com/th/id/R.0924e1274aa95775cab14443d22299d0?rik=296flajosZl%2buw&pid=ImgRaw&r=0",
-        "https://th.bing.com/th/id/R.475e5fe114f84e39c2df2d2b771a3f35?rik=aWi9UEqPWXALBA&riu=http%3a%2f%2fwww.pixelstalk.net%2fwp-content%2fuploads%2f2016%2f06%2fWater-Clouds-Nature-Rivers-HD-Wallpaper-1920x1080.jpg&ehk=S2QOEKpU%2fGEJFvLS9HHHwibPhsOGHzlyGHgfrP%2brqo4%3d&risl=&pid=ImgRaw&r=0",
+        "./1.png",
+        "./2.png",
         "https://images2.alphacoders.com/168/thumb-1920-168102.jpg"
     ];
 

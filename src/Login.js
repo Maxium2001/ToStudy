@@ -4,8 +4,10 @@ import { Link, useNavigate } from "react-router-dom";
 import "./Style.css";
 import { useAuth } from "./Autenticato";
 
+
 function Login() {
   const navigate = useNavigate();
+  const [showPopup, setShowPopup] = useState(false);
   const { login, setUserId } = useAuth();
   const [errorMessage, setErrorMessage] = useState("");
   const [formData, setFormData] = useState({
@@ -20,41 +22,57 @@ function Login() {
     });
   };
 
+  const ErrorPopup = ({ message, onClose }) => {
+    return (
+      <div className="error-popup">
+        <div className="error-content">
+          <p>{message}</p>
+          <button onClick={onClose}>Chiudi</button>
+        </div>
+      </div>
+    );
+  };
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Form data:", formData); // Log dei dati del form
+    console.log("Form data:", formData);
+  
     try {
       const response = await axios.post(
-        "http://localhost:3000/login", // Assicurati che l'endpoint sia corretto
+        "http://localhost:3000/login",
         formData
       );
-      console.log("Response:", response); // Log della risposta del server
+      console.log("Response:", response);
+  
       if (response.status === 200) {
         setUserId(response.data.userId);
         login();
         navigate("/homepage");
       } else {
         setErrorMessage("Login fallito. Verifica le tue credenziali.");
+        setShowPopup(true);
       }
     } catch (error) {
-      console.error("Error:", error); // Log dell'errore
+      console.error("Error:", error);
+      let message = "Si è verificato un errore. Riprova.";
+  
       if (error.response) {
-        setErrorMessage(error.response.data.message);
-        // Il server ha risposto con uno stato diverso da 2xx
+        message = error.response.data.message;
       } else if (error.request) {
-        setErrorMessage(
-          "Nessuna risposta dal server. Verifica che il server sia in esecuzione."
-        );
-        // La richiesta è stata fatta ma non è stata ricevuta alcuna risposta
+        message = "Nessuna risposta dal server. Verifica che il server sia in esecuzione.";
       } else {
-        setErrorMessage(error.message);
-        // Qualcosa è andato storto nella configurazione della richiesta
+        message = error.message;
       }
+  
+      setErrorMessage(message);
+      setShowPopup(true);
     }
   };
-
+  
+ 
   return (
-    <div>
+    <div className="accedi">
       <h1>Accedi</h1>
       <form onSubmit={handleSubmit}>
         <input
@@ -73,17 +91,18 @@ function Login() {
           placeholder="Password*"
           required
         />
-        <Link to="/passworddimenticata">Password dimenticata?</Link>
+        <Link className="L-accedi" to="/passworddimenticata">Password dimenticata?</Link>
         <button type="submit">Login</button>
         <p>
-          Non hai un account?{" "}
-          <Link to="/register">
-            <img src="/user.png" alt="user" />
+        <p className="L-accedi"> Non hai un account?{" "} </p>
+          <Link className="L-accedi" to="/register">
+            <img className="img-accedi" src="/user.png" alt="user" />
           </Link>
-          Registrati qui
+         <p className="L-accedi" > Registrati qui </p>
         </p>
       </form>
-      {errorMessage && <div className="error-message">{errorMessage}</div>}
+      {showPopup && <ErrorPopup message={errorMessage} onClose={() => setShowPopup(false)} />}
+
     </div>
   );
 }

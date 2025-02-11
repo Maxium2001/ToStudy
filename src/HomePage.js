@@ -214,7 +214,7 @@ function HomePage() {
         {/* Colonna sinistra: Profilo e Appunti */}
         <div className="column" id="sinistra">
           <div className="neutral-zone">
-            <ProfiloWidget
+          <ProfiloWidget
               imagePreview={imagePreview}
               handleFileChange={handleFileChange}
               username={username}

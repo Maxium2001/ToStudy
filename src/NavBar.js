@@ -19,22 +19,22 @@ function NavBar() {
           <ul>
             <li>
               <NavLink exact to="/homepage" activeClassName="active">
-                Home
+                HOME
               </NavLink>
             </li>
             <li>
               <NavLink to="/appunti" activeClassName="active">
-                Appunti
+                APPUNTI
               </NavLink>
             </li>
             <li>
               <NavLink to="/gruppi" activeClassName="active">
-                Gruppo
+                GRUPPI
               </NavLink>
             </li>
             <li>
               <NavLink to="/faq" activeClassName="active">
-                Faq
+                FAQ
               </NavLink>
             </li>
           </ul>

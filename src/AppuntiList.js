@@ -21,19 +21,20 @@ const AppuntiList = ({
       });
 
   return (
-    <div className="columnA centrale">
+    <div className="column centrale">
       <h2>APPUNTI</h2>
-      <div className="appunti-list">
+      <div className="list">
         {appuntiToShow.length > 0 ? (
           appuntiToShow.map((appunto, index) => (
             <div
               key={index}
-              className="appunto-box"
+              className="barattolo"
               onClick={() => handleAppuntoClick(appunto)}
             >
-              <h4>{appunto.titolo}</h4>
+              <h5 className="titol">{appunto.titolo}</h5>
               <p>{appunto.commento}</p>
             </div>
+            
           ))
         ) : (
           <p>Seleziona una materia per visualizzare gli appunti</p>
