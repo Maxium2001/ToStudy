@@ -6,7 +6,7 @@ const Carousel = () => {
     const images = [
         "./1.png",
         "./2.png",
-        "https://images2.alphacoders.com/168/thumb-1920-168102.jpg"
+        "./3.png",
     ];
 
     useEffect(() => {
