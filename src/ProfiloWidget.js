@@ -1,24 +1,67 @@
-import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { useAuth } from "./Autenticato";
 
-const ProfiloWidget = ({ username }) => {
+const ProfiloWidget = () => {
   const [imagePreview, setImagePreview] = useState(null);
+  const { id } = useAuth();
+  const [username, setUsername] = useState("Utente123");
 
-  const handleFileChange = (event) => {
+  useEffect(() => {
+    const fetchUsername = async () => {
+      try {
+        const response = await axios.get("http://localhost:3000/getuserbyid", {
+          params: { id: id },
+        });
+        setUsername(response.data.username);
+      } catch (error) {
+        console.error("Errore nel recupero dell'username:", error);
+      }
+    };
+    fetchUsername();
+    fetchIcon();
+  }, [id]);
+  const handleFileChange = async (event) => {
     const file = event.target.files[0];
     if (file) {
-      // Crea un'anteprima dell'immagine
-      const previewUrl = URL.createObjectURL(file);
-      setImagePreview(previewUrl);
+      try {
+        const formData = new FormData();
+        formData.append("icon", file);
+        formData.append("autore", id);
+        await axios.post(`http://localhost:3000/uploadicon`, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+        const previewUrl = window.URL.createObjectURL(file);
+        setImagePreview(previewUrl);
+        alert("Anteprima creata con successo");
+      } catch (error) {
+        console.error("Errore durante la creazione dell'anteprima:", error);
+      }
+    }
+  };
+
+  const fetchIcon = async () => {
+    try {
+      const response = await axios.get(`http://localhost:3000/geticon`, {
+        params: { id: id },
+        responseType: "blob",
+      });
+      const iconUrl = URL.createObjectURL(response.data);
+      setImagePreview(iconUrl);
+      console.log("Icona caricata con successo");
+    } catch (error) {
+      console.error("Errore nel recupero dell'icona:", error);
     }
   };
 
   return (
     <div className="profilo-widget-container">
       {/* Link per navigare alla pagina del profilo */}
-   
-        <h2>PROFILO</h2>
- 
+
+      <h2>PROFILO</h2>
+
       {/* Widget della foto profilo e username */}
       <div className="gruppo-box">
         <div className="foto-username-container">

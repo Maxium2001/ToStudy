@@ -211,6 +211,9 @@ const AppuntiPage = () => {
         ...prevMaterie,
         { nome: newMateria, appunti: [] },
       ]);
+      if (materie.find((m) => m.nome === newMateria)) {
+        alert("Materia già esistente");
+      }
       const groupId = groups.find((group) => group.nome === newGroup).id;
       try {
         axios.post("http://localhost:3000/creamateria", {
@@ -361,16 +364,17 @@ const AppuntiPage = () => {
         )}
       </div>
 
-       {/* Pulsante flottante e popup menu */}
-       <button
-        id="add-button"
-        className={isMenuOpen ? "active" : ""}
-        onClick={togglePopup}
-      >
-        +
-      </button>
-      <div id="popup-container" className={isMenuOpen ? "active" : ""}>
+      {/* Pulsante flottante */}
+      <div className="add-button">
         <button
+          className="add-button"
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+        >
+          +
+        </button>
+        {isMenuOpen && (
+          <div className="popup-container">
+            <button
               onClick={() => {
                 setIsModalOpen(true);
                 setIsMenuOpen(false);
@@ -511,7 +515,7 @@ const AppuntiPage = () => {
             </select>
 
             <button className="add-button" onClick={handleRimouviAppunti}>
-              elimina Materia
+              elimina Appunto
             </button>
           </div>
         </div>

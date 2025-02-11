@@ -1,11 +1,8 @@
 const User = require("./Users");
-const Appunti = require("./Appunti");
-const crypto = require("crypto");
-const multer = require("multer");
-const Materia = require("./Materia");
 const Group = require("./Groups");
+const crypto = require("crypto");
+const Icona = require("./Icona");
 
-const upload = multer({ storage: multer.memoryStorage() });
 const getUserGroups = async (req, res) => {
   try {
     const { id } = req.query;
@@ -69,104 +66,6 @@ const addUserGroup = async (req, res) => {
   }
 };
 
-const creaAppunti = async (req, res) => {
-  try {
-    const { titolo, materia, autore, commento } = req.body;
-    const file = req.file;
-
-    // Calcola l'hash del file
-    const fileHash = crypto
-      .createHash("sha256")
-      .update(file.buffer)
-      .digest("hex");
-
-    // Controlla se esiste già un file con lo stesso hash
-    const existingFile = await Appunti.findOne({ fileHash });
-    if (existingFile) {
-      await Materia.findByIdAndUpdate(materia, {
-        $push: { appunti: existingFile._id },
-      });
-      return res.status(201).json({ message: "Appunto creato con successo" });
-    }
-
-    const newAppunti = new Appunti({
-      titolo: titolo,
-      autore: autore,
-      commento: commento,
-      file: file.buffer,
-      fileType: file.mimetype,
-      fileHash: fileHash,
-      materia: materia,
-    });
-
-    await newAppunti.save();
-
-    // Aggiungi il riferimento dell'appunto alla materia
-    await Materia.findByIdAndUpdate(materia, {
-      $push: { appunti: newAppunti._id },
-    });
-
-    res.status(201).json({ message: "Appunto creato con successo" });
-  } catch (error) {
-    console.error(error);
-    res
-      .status(500)
-      .json({ message: "Errore del server", error: error.message });
-  }
-};
-
-const rimuoviAppunti = async (req, res) => {
-  try {
-    const { id } = req.body;
-    await Appunti.findByIdAndDelete(id);
-    await Materia.updateMany({ appunti: id }, { $pull: { appunti: id } });
-    res.status(200).json({ message: "Appunti rimossi con successo" });
-  } catch (error) {
-    console.error(error);
-    res
-      .status(500)
-      .json({ message: "Errore del server", error: error.message });
-  }
-};
-
-const getAppunti = async (req, res) => {
-  try {
-    const { id } = req.query;
-    const appunti = await Appunti.findById(id);
-    if (!appunti) {
-      return res.status(404).json({ message: "Appunti non trovati" });
-    }
-    res.set("Content-Type", appunti.fileType);
-    res.send(appunti.file);
-    res.status(200);
-  } catch (error) {
-    if (error.name === "CastError") {
-      res.status(400).json({ message: "ID appunti non valido" });
-    } else {
-      res.status(500).json({ message: error.message });
-    }
-  }
-};
-
-const getAppuntiById = async (req, res) => {
-  try {
-    const { id } = req.query;
-    const appunti = await Appunti.findById(id)
-      .select("titolo autore commento dataCreazione")
-      .populate("autore", "username");
-    if (!appunti) {
-      return res.status(404).json({ message: "Appunti non trovati" });
-    }
-    res.status(200).json(appunti);
-  } catch (error) {
-    if (error.name === "CastError") {
-      res.status(400).json({ message: "ID appunti non valido" });
-    } else {
-      res.status(500).json({ message: error.message });
-    }
-  }
-};
-
 const getUserById = async (req, res) => {
   try {
     const { id } = req.query;
@@ -207,14 +106,69 @@ const aggiornaProfilo = async (req, res) => {
   }
 };
 
+const uploadIcon = async (req, res) => {
+  try {
+    const { autore } = req.body;
+    const icon = req.file;
+    const fileHash = crypto
+      .createHash("sha256")
+      .update(icon.buffer)
+      .digest("hex");
+
+    const existingIcon = await Icona.findOne({ fileHash });
+    const user = await User.findById(autore);
+    if (existingIcon) {
+      await User.findByIdAndUpdate(autore, {
+        icon: existingIcon._id,
+      });
+      return res.status(200).json({ message: "Icona caricata con successo" });
+    }
+    const defaultIcon = "67aa6c3f3cec4db75761072e";
+    if (user.icon !== defaultIcon) {
+      await Icona.findByIdAndDelete(user.icon);
+    }
+    const newIcon = new Icona({
+      autore: autore,
+      file: icon.buffer,
+      fileType: icon.mimetype,
+      fileHash: fileHash,
+    });
+    await newIcon.save();
+    user.updateOne({ icon: newIcon._id });
+    res.status(200).json({ message: "Icona caricata con successo" });
+  } catch (error) {
+    if (error.name === "CastError") {
+      res.status(400).json({ message: "ID utente non valido" });
+    } else {
+      res.status(500).json({ message: error.message });
+    }
+  }
+};
+
+const getIcon = async (req, res) => {
+  try {
+    const { id } = req.query;
+    console.log(id);
+    const user = await User.findById(id);
+    const icon = await Icona.findById(user.icon);
+    res.set("Content-Type", icon.fileType);
+    res.send(icon.file);
+    console.log("send");
+    res.status(200);
+  } catch (error) {
+    if (error.name === "CastError") {
+      res.status(400).json({ message: "ID utente non valido" });
+    } else {
+      res.status(500).json({ message: error.message });
+    }
+  }
+};
+
 module.exports = {
   getUserById,
-  creaAppunti,
   getUserGroups,
-  upload,
   addUserGroup,
-  getAppunti,
-  getAppuntiById,
-  rimuoviAppunti,
   aggiornaProfilo,
+  uploadIcon,
+  getIcon,
 };

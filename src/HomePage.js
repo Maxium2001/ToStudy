@@ -23,7 +23,10 @@ function HomePage() {
   const [materiaGroupMap, setMateriaGroupMap] = useState({}); // Mappa: materiaId -> gruppoId
 
   // Stati per AppuntiList e GruppiList
-  const [expandedMaterie, setExpandedMaterie] = useState(["Matematica", "Fisica"]);
+  const [expandedMaterie, setExpandedMaterie] = useState([
+    "Matematica",
+    "Fisica",
+  ]);
   const [expandedGroups, setExpandedGroups] = useState([]); // Gruppi espansi per GruppiList
   const [selectedMateria, setSelectedMateria] = useState(null);
 
@@ -38,19 +41,6 @@ function HomePage() {
   };
 
   // Fetch dell'username
-  useEffect(() => {
-    const fetchUsername = async () => {
-      try {
-        const response = await axios.get("http://localhost:3000/getusernamebyid", {
-          params: { id: id },
-        });
-        setUsername(response.data.username);
-      } catch (error) {
-        console.error("Errore nel recupero dell'username:", error);
-      }
-    };
-    fetchUsername();
-  }, [id]);
 
   // Fetch dei gruppi
   useEffect(() => {
@@ -66,7 +56,7 @@ function HomePage() {
         params: { id: id },
       });
       const groupData = response.data;
-      
+
       // Costruisci una mappa per associare ogni materia all'ID del gruppo
       const materiaGroupMapTemp = {};
       // Estrai gli ID delle materie da ciascun gruppo
@@ -79,10 +69,10 @@ function HomePage() {
         }
         return [];
       });
-      
+
       setTemp(materieData);
       setMateriaGroupMap(materiaGroupMapTemp);
-      
+
       // Costruisci la lista dei gruppi da passare a GruppiList
       const groupList = groupData.map((group) => ({
         nome: group.nome,
@@ -131,23 +121,28 @@ function HomePage() {
       materieArray.map(async (materia) => {
         const appunti = await Promise.all(
           materia.appunti.map(async (appuntoId) => {
-            const response = await axios.get("http://localhost:3000/getappuntibyid", {
-              params: { id: appuntoId },
-            });
+            const response = await axios.get(
+              "http://localhost:3000/getappuntibyid",
+              {
+                params: { id: appuntoId },
+              }
+            );
             return {
               titolo: response.data.titolo,
               commento: response.data.commento,
               autore: response.data.autore.username,
-              dataCreazione: new Date(response.data.dataCreazione).toLocaleDateString(),
+              dataCreazione: new Date(
+                response.data.dataCreazione
+              ).toLocaleDateString(),
               id: appuntoId,
             };
           })
         );
-        return { 
-          nome: materia.nome, 
+        return {
+          nome: materia.nome,
           id: materia._id,
           gruppo: materia.gruppo, // Assicurati che questo campo sia valorizzato
-          appunti: appunti 
+          appunti: appunti,
         };
       })
     );
@@ -214,11 +209,7 @@ function HomePage() {
         {/* Colonna sinistra: Profilo e Appunti */}
         <div className="column" id="sinistra">
           <div className="neutral-zone">
-          <ProfiloWidget
-              imagePreview={imagePreview}
-              handleFileChange={handleFileChange}
-              username={username}
-            />
+            <ProfiloWidget />
           </div>
           <AppuntiList
             expandedMaterie={expandedMaterie}
