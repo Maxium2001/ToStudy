@@ -153,11 +153,11 @@ const GruppiPage = () => {
       {/* Colonna sinistra: Elenco dei gruppi */}
       <div className="column">
         <h2>GRUPPI</h2>
-        <ul>
+        <ul className="list">
           {groups.map((group) => {
             const groupId = group._id || group.id;
             return (
-              <li key={groupId}>
+              <li className="barattolo" key={groupId}>
                 <div
                   className="gruppo"
                   onClick={() => handleGruppiClick(group)}

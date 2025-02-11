@@ -1,7 +1,7 @@
 // Esempio di GruppiList (versione semplificata)
 import React from "react";
 
-const GruppiList = ({ groups, materie, expandedGroups, handleGruppiClick, handleMateriaClick, selectedMateria }) => {
+const GruppiList = ({ groups, materie, expandedGroups, handleGruppiClick, handleMateriaClick, selectedMateria,defaultOpen }) => {
   if (!Array.isArray(groups)) {
     return <p>Loading groups...</p>;
   }
@@ -19,8 +19,8 @@ const GruppiList = ({ groups, materie, expandedGroups, handleGruppiClick, handle
                   <h5>{group.nome}</h5>
                   <p>{group.materia}</p>
                 </div>
-                {expandedGroups.includes(groupId) && (
-                  <ul className="sottocategoria">
+                {(defaultOpen || expandedGroups.includes(groupId)) && (
+                    <ul className="sottocategoria">
                     {materie
                       .filter((m) => m.gruppo === groupId)
                       .map((materia) => {

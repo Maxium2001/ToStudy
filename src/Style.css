@@ -39,6 +39,11 @@ a:hover {
 ul {
   list-style: none;
 }
+a.Home{
+  text-decoration: none;
+}a.Home:hover {
+  color: #222831;
+}
 
 
 
@@ -54,11 +59,15 @@ display: flex;
 flex-direction: column;
 height: 100vh;
 margin-top: 14vh;
+background-color: #B0B0B0; /* Colore di sfondo per l'intera pagina */
+padding: 0.3vh;
 }
 
 .columns {
 display: flex;
 flex: 1; /* Le colonne occupano uguale spazio */
+gap: 0.5vh;
+height: 100%;
 }
 
 .neutral-zone {
@@ -75,29 +84,9 @@ margin-top: 10vh;
 display: flex;
 flex-direction: column;
 flex: 1; /* Permette di riempire lo spazio della colonna */
-overflow-y: auto; /* Permette lo scroll verticale solo dentro le clickbox */
+
 }
 
-.box {
-width: 100%;
-height: 100px;
-display: flex;
-align-items: center;
-justify-content: center;
-text-align: center;
-padding: 10px;
-margin: 10px 0;
-background-color: #00ADB5;
-border-radius: 5px;
-}
-
-#sinistra .click-box-container .box {
-width: calc(100% - 20px); /* Diminuisce la larghezza per la zona neutra */
-}
-
-#destra .click-box-container .box {
-width: 100%; /* La seconda colonna ha larghezza completa */
-}
 
 
 
@@ -181,12 +170,22 @@ object-fit: contain; /* Evita distorsioni */
 }
 
 #user{
-  width: 8vh; /* Modifica la larghezza del logo */
-  height: auto; /* Mantiene le proporzioni */
-  object-fit: contain; /* Evita distorsioni */ 
-  margin-top: 30% 
+  width: 100%; /* Modifica la larghezza del logo */
+  height: 100%; /* Mantiene le proporzioni */
+  object-fit: cover; /* Evita distorsioni */ 
+  align-items: center;
+  
 }
-
+.foto-navbar{
+  position: relative; /* Importante per il posizionamento dell'icona */
+  width: 10vh;
+  height: 10vh;
+  box-shadow: 0 0 1vh #B0B0B0; /* Aggiunge un'ombra leggera */
+  border-radius: 50%;
+  overflow: hidden;
+  margin-top: 4vh;
+  margin-right: 2vh;
+}
 
 
 
@@ -280,7 +279,7 @@ object-fit: contain; /* Evita distorsioni */
 }
 form {
   width: 80%;
-  padding: 15%;
+  padding: 2%;
   display: flex;
   flex-direction: column;
   gap: 2vh;
@@ -358,19 +357,36 @@ button {
 .full-width {
   grid-column: span 2;
 }
+.L-accedi-container {
+  display: flex;
+  align-items: center; /* Allineare gli elementi al centro orizzontalmente */
+  justify-content: center;
+}
 .L-accedi{
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 2vh;
-  font-size: 1.4vh;
+  font-size: 2vh;
   margin: 0;
+  padding: 0 2vh;
 }
 .img-accedi{
   width: 5vh;
   height: 5vh;
+  margin: 0 1vh;
 }
+.register-link {
+  display: flex;
+  align-items: center; /* Allinea verticalmente l'immagine e il testo */
+  margin-left: 10px; /* Spazio tra l'immagine e il testo */
+  text-align: center;
+  justify-content: center;
+}
+#br{
+  flex-direction: column;
 
+}
 
 
 
@@ -404,6 +420,7 @@ button {
   justify-content: space-between;
   align-items: center;
   border-radius: 0;
+  font-weight: normal;
 }
 #Titolo-container {
   border-bottom: 0.2vh solid #222831;
@@ -438,7 +455,10 @@ text-align: center;
 margin-left: 2vh;
 padding: 0.5vh 2.5vh;
 }
-
+#little{
+  width: 25%;
+  margin: 0 auto;
+}
 
 
 
@@ -463,8 +483,11 @@ padding: 0.5vh 2.5vh;
   padding: 5vh;
   border-radius: 8px;
   height: 100%; /* Si estende per tutta l'altezza disponibile */
-  overflow-y: auto; /* Scorrimento verticale solo dentro la colonna */
-  scrollbar-width: none; /* Nasconde la scrollbar su Firefox */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* Nasconde il contenuto che esce dalla colonna */
+  overflow-y: auto;
+  scrollbar-width:none; /* Nasconde la scrollbar su Firefox */
 }
 
 /* Colonna centrale più grande */
@@ -480,12 +503,11 @@ padding: 0.5vh 2.5vh;
   gap: 20px;
   align-items: center;
   padding: 10px;
-
 }
 
 /* Box di ciascun gruppo */
 .barattolo {
-  width: 300px;
+  width: 100%;
   padding: 20px;
   background-color: #EEEEEE;
   border-radius: 8px;
@@ -743,17 +765,19 @@ height: 100%;
   h1 {
     font-size: 6vh;
   }
+
+
+
   .homepage {
     padding: 0;  /* Rimuove il padding laterale su mobile */
     width: 100%;  /* Imposta la larghezza a 100% */
-    padding-top: 60px; /* Spazio per la navbar */
+    padding-top: 1.5vh; /* Spazio per la navbar */
     margin-top: 25vh;
   }
-  .container {
-    flex-direction: column;  /* Le colonne si dispongono una sotto l'altra */
-    justify-content: flex-start;  /* Allinea le colonne dall'alto */
-    align-items: stretch !important;  /* Allinea gli elementi all'interno delle colonne */
-    min-height: 100vh;  /* Imposta l'altezza minima a 100vh */
+
+ .neutral-zone {
+    margin-top: 15vh;  /* Spazio sopra la zona neutra */
+    margin-bottom: 20vh;  /* Spazio sotto la zona neutra */
   }
   .columns {
     flex-direction: column;  /* Le colonne si dispongono una sotto l'altra */
@@ -762,27 +786,80 @@ height: 100%;
     display: block !important;
     position: relative !important;
   }
-
-  .column {
-    height: 50vh;
-    width: 100% !important;  /* Le colonne occupano tutta la larghezza disponibile */
-    padding: 5px;
-    margin: 0;
-    border: none !important;  /* Rimuove le linee laterali */
+  .barattolo {
+    width: auto;  /* Mantiene la larghezza del barattolo naturale */
+    flex: 0 0 auto;
+      /* Impedisce che i barattoli si ridimensionino */
   }
-
-  .click-box-container {
-    flex-direction: row !important; /* Da verticale a orizzontale */
-    overflow-x: auto !important; /* Scorrimento se non entrano */
-    white-space: nowrap;
-  }
-  .clickbox-container::-webkit-scrollbar {
+  .barattolo::-webkit-scrollbar {
     display: none; /* Nasconde la scrollbar su Chrome/Safari */
   }
-  .box {
+  .barattolo {
     flex: 0 0 auto !important; /* Impedisce il ridimensionamento */
   margin-right: 10px; /* Spazio tra le box */
   }
+  /*contenitore dei baratoli home page*/
+  .list{
+   flex-direction: row;
+   overflow-x: auto;
+   scrollbar-width: none;
+  }
+
+
+
+
+
+
+  
+/*GRUPPI E APPUNTI*/
+.PageGA {
+  margin-top: 25.5vh;
+  flex-direction: column;
+  align-items: center;
+  gap: 1vh;
+  padding: 1vh;
+  height: auto;
+  background-color: #B0B0B0;
+}
+.column {
+  padding: 3vh;
+  border-radius: 6px;
+  height: auto;
+  overflow-y: visible;
+  width: 100% !important;  /* Le colonne occupano tutta la larghezza disponibile */
+  margin: 0;
+  border: none !important;  /* Rimuove il bordo */
+}
+.centrale {
+  flex: 1;
+  text-align: center;
+}
+.list {
+  gap: 15px;
+  padding: 5px;
+}
+.barattolo {
+  width: 90%;
+  padding: 15px;
+  box-shadow: 0 1px 4px #B0B0B0;
+}
+.barattolo:hover {
+  transform: scale(1.03);
+}
+.gruppo, .titol {
+  padding: 8px;
+  font-size: 0.9rem;
+}
+.sottocategoria {
+  margin-left: 10px;
+  padding-left: 5px;
+}
+.sottocategoria li {
+  padding: 2px;
+}
+
+
+
 
 
 
@@ -847,62 +924,6 @@ nav {
 }
 
 
-
-
-
-/*GRUPPI E APPUNTI*/
-.PageGA {
-  margin-top: 25.5vh;
-  flex-direction: column;
-  align-items: center;
-  gap: 1vh;
-  padding: 1vh;
-  height: auto;
-  background-color: #B0B0B0;
-
-}
-
-.column {
-  width: 90%;
-  padding: 3vh;
-  border-radius: 6px;
-  height: auto;
-  overflow-y: visible;
-}
-
-.centrale {
-  flex: 1;
-  text-align: center;
-}
-
-.list {
-  gap: 15px;
-  padding: 5px;
-}
-
-.barattolo {
-  width: 90%;
-  padding: 15px;
-  box-shadow: 0 1px 4px #B0B0B0;
-}
-
-.barattolo:hover {
-  transform: scale(1.03);
-}
-
-.gruppo, .titol {
-  padding: 8px;
-  font-size: 0.9rem;
-}
-
-.sottocategoria {
-  margin-left: 10px;
-  padding-left: 5px;
-}
-
-.sottocategoria li {
-  padding: 2px;
-}
 
 
 

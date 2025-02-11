@@ -69,13 +69,14 @@ const Register = () => {
   return (
     <div className="accedi">
       <h1>Crea il tuo account To Study</h1>
-      <p>
-       <p className="L-accedi" > Sei già registrato?{" "}</p>
+            <div className="L-accedi-container">
+        <p className="L-accedi">Sei già registrato?</p>
         <Link className="L-accedi" to="/login">
-          <img className="img-accedi" src="/user.png" />
+          <img className="img-accedi" src="/user.png" alt="user" />
         </Link>
-       <p className="L-accedi"> Accedi </p>
-      </p>
+        <p className="L-accedi">Accedi</p>
+      </div>
+
       <form onSubmit={handleSubmit} className="register-form">
         <input
           type="text"
@@ -139,10 +140,12 @@ const Register = () => {
           required
         />
         <label htmlFor="terms">
-          <p className="L-accedi" >Accetto i  
-          <Link to="/termsandconditions">Termini e Condizioni</Link></p>
+        <p className="L-accedi">
+            Accetto i  
+            <Link to="/termsandconditions">Termini e Condizioni</Link>
+          </p>
+          <button type="submit">Crea account</button>
         </label>
-        <button type="submit">Crea account</button>
       </form>
       {showPopup && <ErrorPopup message={errorMessage} onClose={() => setShowPopup(false)} />}
     </div>

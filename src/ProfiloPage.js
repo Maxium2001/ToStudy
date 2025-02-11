@@ -86,7 +86,7 @@ const ProfiloPage = () => {
   return (
     <div className="profilo-page">
       {/* Componente ProfiloWidget */}
-      <ProfiloWidget />
+     <div id="little"> <ProfiloWidget /></div>
 
       {/* Bottoni delle impostazioni */}
       <div className="Selettore">

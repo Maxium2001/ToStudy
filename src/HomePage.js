@@ -5,6 +5,7 @@ import GruppiList from "./GruppiList";
 import ProfiloWidget from "./ProfiloWidget";
 import { useAuth } from "./Autenticato";
 import axios from "axios";
+import { NavLink } from "react-router-dom";
 
 function HomePage() {
   const { id } = useAuth();
@@ -207,43 +208,33 @@ function HomePage() {
     <div className="homepage">
       <div className="columns" ref={containerRef}>
         {/* Colonna sinistra: Profilo e Appunti */}
-        <div className="column" id="sinistra">
+        <div className="column" >
           <div className="neutral-zone">
-            <ProfiloWidget />
+           <NavLink className="Home" to="/profilo">  <ProfiloWidget /></NavLink>
           </div>
-          <AppuntiList
+          <NavLink className="Home" to="/appunti">  <AppuntiList
             expandedMaterie={expandedMaterie}
             materie={materie}
             handleAppuntoClick={handleAppuntoClick}
             recent={true}
-          />
+          /></NavLink>
         </div>
         {/* Colonna destra: Gruppi e Materie */}
-        <div className="column" id="destra">
-          <GruppiList
-            groups={groups}
-            materie={materie}
-            expandedGroups={expandedGroups}
-            handleGruppiClick={handleGruppiClick}
-            handleMateriaClick={handleMateriaClick}
-            selectedMateria={selectedMateria}
-          />
+        <div className="column" >
+        <NavLink className="Home" to="/gruppi">   <GruppiList 
+              groups={groups}
+              materie={materie} // Usa lo stato 'materie'
+              expandedGroups={expandedGroups}
+              handleGruppiClick={handleGruppiClick}
+              handleMateriaClick={handleMateriaClick}
+              selectedMateria={selectedMateria}
+            /></NavLink>
         </div>
       </div>
     </div>
   );
 }
 
-function ClickBoxContainer({ clickBoxes }) {
-  return (
-    <div className="click-box-container">
-      {clickBoxes.map((box, index) => (
-        <div className="box clickable" key={index}>
-          {box.title}
-        </div>
-      ))}
-    </div>
-  );
-}
+
 
 export default HomePage;

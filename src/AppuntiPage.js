@@ -309,9 +309,9 @@ const AppuntiPage = () => {
       {/* Colonna sinistra - Materie */}
       <div className="column">
         <h2>MATERIE</h2>
-        <ul>
+        <ul className="list">
           {materie.map((materia, index) => (
-            <li key={index}>
+            <li className="barattolo" key={index}>
               <div
                 className="gruppo"
                 onClick={() => handleMateriaClick(materia.nome)}
@@ -367,7 +367,7 @@ const AppuntiPage = () => {
       {/* Pulsante flottante */}
       <div className="add-button">
         <button
-          className="add-button"
+          id="add-button"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
           +

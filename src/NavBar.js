@@ -59,9 +59,9 @@ function NavBar() {
           </ul>
         </div>
       </div>
-      <div className="navbar-user">
+      <div className="navbar-user ">
         <NavLink to="/profilo">
-          <img src={image} alt="user" id="user" />
+         <div className="foto-navbar"> <img  src={image} alt="user" id="user" /></div>
         </NavLink>
       </div>
     </nav>

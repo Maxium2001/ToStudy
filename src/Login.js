@@ -91,15 +91,17 @@ function Login() {
           placeholder="Password*"
           required
         />
-        <Link className="L-accedi" to="/passworddimenticata">Password dimenticata?</Link>
+        <Link className="L-accedi"  to="/passworddimenticata">Password dimenticata?</Link>
         <button type="submit">Login</button>
-        <p>
-        <p className="L-accedi"> Non hai un account?{" "} </p>
-          <Link className="L-accedi" to="/register">
+              <div className="L-accedi-container" id="br">
+        <p className="L-accedi">Non hai un account?</p>
+        <Link className="L-accedi" to="/register">
+          <span className="register-link">
             <img className="img-accedi" src="/user.png" alt="user" />
-          </Link>
-         <p className="L-accedi" > Registrati qui </p>
-        </p>
+            Registrati qui
+          </span>
+        </Link>
+      </div>
       </form>
       {showPopup && <ErrorPopup message={errorMessage} onClose={() => setShowPopup(false)} />}
 
