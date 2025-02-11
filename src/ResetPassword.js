@@ -19,7 +19,7 @@ const PasswordReset = () => {
     }
     try {
       const response = await axios.post(
-        "http://localhost:3001/passwordresetwithopt",
+        "http://localhost:8000/passwordresetwithopt",
         {
           email: email,
           otp: otp,

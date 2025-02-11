@@ -40,7 +40,7 @@ const register = async (req, res) => {
     // Salva l'utente nel database
     await newUser.save();
     res
-      .status(201)
+      .status(200)
       .json({ message: "Registrazione riuscita", userId: newUser._id });
   } catch (error) {
     console.error(error);
@@ -164,21 +164,16 @@ const passwordResetWithOtp = async (req, res) => {
 const resetPassword = async (req, res) => {
   try {
     const { id, password, newPassword } = req.body;
-    console.log(id, password, newPassword);
     const user = await User.findById(id);
     const isMatch = await bcrypt.compare(password, user.password);
-    console.log(isMatch);
     if (!isMatch) {
-      console.log("Password errata");
       return res.status(400).json({ message: "Password sbagliata" });
     }
 
     // Hash della nuova password
     const hashedPassword = await bcrypt.hash(newPassword, 10);
-    console.log(hashedPassword);
     // Aggiorna la password dell'utente
     await user.updateOne({ password: hashedPassword });
-    console.log("Password aggiornata con successo");
 
     res.status(200).json({ message: "Password aggiornata con successo" });
   } catch (error) {

@@ -11,7 +11,7 @@ const ProfiloWidget = () => {
   useEffect(() => {
     const fetchUsername = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/getuserbyid", {
+        const response = await axios.get("http://localhost:8000/getuserbyid", {
           params: { id: id },
         });
         setUsername(response.data.username);
@@ -21,7 +21,6 @@ const ProfiloWidget = () => {
     };
     fetchUsername();
     fetchIcon();
-    console.log(profileImage);
   }, [id]);
 
   const handleFileChange = async (event) => {
@@ -31,7 +30,7 @@ const ProfiloWidget = () => {
         const formData = new FormData();
         formData.append("icon", file);
         formData.append("autore", id);
-        await axios.post(`http://localhost:3000/uploadicon`, formData, {
+        await axios.post(`http://localhost:8000/uploadicon`, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
@@ -47,13 +46,12 @@ const ProfiloWidget = () => {
 
   const fetchIcon = async () => {
     try {
-      const response = await axios.get(`http://localhost:3000/geticon`, {
+      const response = await axios.get(`http://localhost:8000/geticon`, {
         params: { id: id },
         responseType: "blob",
       });
       const iconUrl = URL.createObjectURL(response.data);
       setProfileImage(iconUrl);
-      console.log("Icona caricata con successo");
     } catch (error) {
       console.error("Errore nel recupero dell'icona:", error);
     }
