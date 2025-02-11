@@ -71,7 +71,6 @@ const ProfiloPage = () => {
       return;
     }
     try {
-      console.log(id, password, newPassword);
       const response = await axios.post("http://localhost:8000/resetpassword", {
         id: id,
         password: password,

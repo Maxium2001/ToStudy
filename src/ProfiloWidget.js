@@ -21,7 +21,6 @@ const ProfiloWidget = () => {
     };
     fetchUsername();
     fetchIcon();
-    console.log(profileImage);
   }, [id]);
 
   const handleFileChange = async (event) => {
@@ -53,7 +52,6 @@ const ProfiloWidget = () => {
       });
       const iconUrl = URL.createObjectURL(response.data);
       setProfileImage(iconUrl);
-      console.log("Icona caricata con successo");
     } catch (error) {
       console.error("Errore nel recupero dell'icona:", error);
     }

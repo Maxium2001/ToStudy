@@ -107,7 +107,6 @@ const AppuntiPage = () => {
       }
       const materieWithAppunti = await getMaterieWithAppunti(a);
       setMaterie(materieWithAppunti);
-      console.log(materie);
     } catch (error) {
       console.error("Errore nel recupero delle materie:", error);
     }
@@ -157,7 +156,6 @@ const AppuntiPage = () => {
   // Funzione per gestire il click su un appunto
   const handleAppuntoClick = (appunto) => {
     setSelectedAppunto(appunto);
-    console.log(appunto);
   };
 
   // Funzione per aggiungere un nuovo appunto
@@ -298,7 +296,6 @@ const AppuntiPage = () => {
       const appuntoId = materie
         .flatMap((m) => m.appunti)
         .find((a) => a.titolo === newTitle).id;
-      console.log(appuntoId);
       await axios.post("http://localhost:8000/rimuoviappunti", {
         id: appuntoId,
       });

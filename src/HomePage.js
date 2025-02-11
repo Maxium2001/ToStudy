@@ -137,7 +137,6 @@ function HomePage() {
 
   // Gestori degli eventi per AppuntiList e GruppiList
   const handleAppuntoClick = (appunto) => {
-    console.log("Appunto clicked:", appunto);
     // Logica per la selezione di un appunto, se necessaria
   };
 
@@ -152,7 +151,6 @@ function HomePage() {
 
   const handleMateriaClick = (materia) => {
     setSelectedMateria(materia);
-    console.log("Materia selezionata:", materia);
   };
 
   // Altri useEffect per localStorage e gestione del resize/touch

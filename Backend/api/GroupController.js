@@ -20,8 +20,6 @@ const creaGroupo = async (req, res) => {
 
     await newGroup.save();
 
-    console.log("Gruppo creato con successo:", newGroup);
-
     await User.findOneAndUpdate(
       { _id: user._id },
       { $push: { gruppi: newGroup._id } },
