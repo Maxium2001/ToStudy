@@ -1,20 +1,16 @@
 const Group = require("./Groups");
 const User = require("./Users");
+const Materia = require("./Materia");
 
 const creaGroupo = async (req, res) => {
   try {
-    console.log("Richiesta ricevuta per creazione gruppo:", req.body);
-
     const { nome, descrizione, _id } = req.body;
 
-    // Trova l'utente per _id
     const user = await User.findById(_id);
 
     if (!user) {
       throw new Error("Utente non trovato.");
     }
-
-    // Converti il valore di 'user._id' in ObjectId
 
     const newGroup = new Group({
       nome: nome,
@@ -56,4 +52,20 @@ const getGroupById = async (req, res) => {
   }
 };
 
-module.exports = { creaGroupo, getGroupById };
+const rimouviGruppo = async (req, res) => {
+  try {
+    const { id } = req.body;
+    const materie = await Group.findById(id);
+    await Group.findByIdAndDelete(id);
+    await User.updateMany({ gruppi: id }, { $pull: { gruppi: id } });
+    await Materia.deleteMany({ _id: { $in: materie.materie } });
+    res.status(200).json({ message: "Gruppo rimosso con successo" });
+  } catch (error) {
+    console.error(error);
+    res
+      .status(500)
+      .json({ message: "Errore del server", error: error.message });
+  }
+};
+
+module.exports = { creaGroupo, getGroupById, rimouviGruppo };

@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import "./Style.css";
-import { useAuth } from "./Autenticato";
-
+import { useAuth } from "./AutenticatoContext";
 
 function Login() {
   const navigate = useNavigate();
@@ -33,18 +32,17 @@ function Login() {
     );
   };
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log("Form data:", formData);
-  
+
     try {
       const response = await axios.post(
         "http://localhost:3000/login",
         formData
       );
       console.log("Response:", response);
-  
+
       if (response.status === 200) {
         setUserId(response.data.userId);
         login();
@@ -56,21 +54,21 @@ function Login() {
     } catch (error) {
       console.error("Error:", error);
       let message = "Si è verificato un errore. Riprova.";
-  
+
       if (error.response) {
         message = error.response.data.message;
       } else if (error.request) {
-        message = "Nessuna risposta dal server. Verifica che il server sia in esecuzione.";
+        message =
+          "Nessuna risposta dal server. Verifica che il server sia in esecuzione.";
       } else {
         message = error.message;
       }
-  
+
       setErrorMessage(message);
       setShowPopup(true);
     }
   };
-  
- 
+
   return (
     <div className="accedi">
       <h1>Accedi</h1>
@@ -91,20 +89,26 @@ function Login() {
           placeholder="Password*"
           required
         />
-        <Link className="L-accedi"  to="/passworddimenticata">Password dimenticata?</Link>
-        <button type="submit">Login</button>
-              <div className="L-accedi-container" id="br">
-        <p className="L-accedi">Non hai un account?</p>
-        <Link className="L-accedi" to="/register">
-          <span className="register-link">
-            <img className="img-accedi" src="/user.png" alt="user" />
-            Registrati qui
-          </span>
+        <Link className="L-accedi" to="/passworddimenticata">
+          Password dimenticata?
         </Link>
-      </div>
+        <button type="submit">Login</button>
+        <div className="L-accedi-container" id="br">
+          <p className="L-accedi">Non hai un account?</p>
+          <Link className="L-accedi" to="/register">
+            <span className="register-link">
+              <img className="img-accedi" src="/user.png" alt="user" />
+              Registrati qui
+            </span>
+          </Link>
+        </div>
       </form>
-      {showPopup && <ErrorPopup message={errorMessage} onClose={() => setShowPopup(false)} />}
-
+      {showPopup && (
+        <ErrorPopup
+          message={errorMessage}
+          onClose={() => setShowPopup(false)}
+        />
+      )}
     </div>
   );
 }

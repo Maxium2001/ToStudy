@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "./Autenticato";
+import { useAuth } from "./AutenticatoContext";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -26,7 +26,7 @@ const Register = () => {
       </div>
     );
   };
-  
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -69,7 +69,7 @@ const Register = () => {
   return (
     <div className="accedi">
       <h1>Crea il tuo account To Study</h1>
-            <div className="L-accedi-container">
+      <div className="L-accedi-container">
         <p className="L-accedi">Sei già registrato?</p>
         <Link className="L-accedi" to="/login">
           <img className="img-accedi" src="/user.png" alt="user" />
@@ -140,14 +140,18 @@ const Register = () => {
           required
         />
         <label htmlFor="terms">
-        <p className="L-accedi">
-            Accetto i  
-            <Link to="/termsandconditions">Termini e Condizioni</Link>
+          <p className="L-accedi">
+            Accetto i<Link to="/termsandconditions">Termini e Condizioni</Link>
           </p>
           <button type="submit">Crea account</button>
         </label>
       </form>
-      {showPopup && <ErrorPopup message={errorMessage} onClose={() => setShowPopup(false)} />}
+      {showPopup && (
+        <ErrorPopup
+          message={errorMessage}
+          onClose={() => setShowPopup(false)}
+        />
+      )}
     </div>
   );
 };

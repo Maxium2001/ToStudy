@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useAuth } from "./Autenticato";
+import { useAuth } from "./AutenticatoContext";
 import { NavLink } from "react-router-dom";
 import ProfiloWidget from "./ProfiloWidget";
 import axios from "axios";
@@ -86,7 +86,10 @@ const ProfiloPage = () => {
   return (
     <div className="profilo-page">
       {/* Componente ProfiloWidget */}
-     <div id="little"> <ProfiloWidget /></div>
+      <div id="little">
+        {" "}
+        <ProfiloWidget />
+      </div>
 
       {/* Bottoni delle impostazioni */}
       <div className="Selettore">

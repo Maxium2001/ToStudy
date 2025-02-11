@@ -3,7 +3,7 @@ import "./Style.css";
 import AppuntiList from "./AppuntiList";
 import GruppiList from "./GruppiList";
 import ProfiloWidget from "./ProfiloWidget";
-import { useAuth } from "./Autenticato";
+import { useAuth } from "./AutenticatoContext";
 import axios from "axios";
 import { NavLink } from "react-router-dom";
 
@@ -12,10 +12,8 @@ function HomePage() {
 
   // Stati principali
   const [clickBoxes, setClickBoxes] = useState([]);
-  const [username, setUsername] = useState("Utente123");
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const containerRef = useRef(null);
-  const [imagePreview, setImagePreview] = useState(null);
 
   // Stati per gruppi e materie
   const [groups, setGroups] = useState([]); // Elenco dei gruppi
@@ -30,18 +28,6 @@ function HomePage() {
   ]);
   const [expandedGroups, setExpandedGroups] = useState([]); // Gruppi espansi per GruppiList
   const [selectedMateria, setSelectedMateria] = useState(null);
-
-  // Gestione del cambio file (anteprima immagine)
-  const handleFileChange = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      setImagePreview(imageUrl);
-      console.log("Foto caricata:", file);
-    }
-  };
-
-  // Fetch dell'username
 
   // Fetch dei gruppi
   useEffect(() => {
@@ -208,33 +194,40 @@ function HomePage() {
     <div className="homepage">
       <div className="columns" ref={containerRef}>
         {/* Colonna sinistra: Profilo e Appunti */}
-        <div className="column" >
+        <div className="column">
           <div className="neutral-zone">
-           <NavLink className="Home" to="/profilo">  <ProfiloWidget /></NavLink>
+            <NavLink className="Home" to="/profilo">
+              {" "}
+              <ProfiloWidget />
+            </NavLink>
           </div>
-          <NavLink className="Home" to="/appunti">  <AppuntiList
-            expandedMaterie={expandedMaterie}
-            materie={materie}
-            handleAppuntoClick={handleAppuntoClick}
-            recent={true}
-          /></NavLink>
+          <NavLink className="Home" to="/appunti">
+            {" "}
+            <AppuntiList
+              expandedMaterie={expandedMaterie}
+              materie={materie}
+              handleAppuntoClick={handleAppuntoClick}
+              recent={true}
+            />
+          </NavLink>
         </div>
         {/* Colonna destra: Gruppi e Materie */}
-        <div className="column" >
-        <NavLink className="Home" to="/gruppi">   <GruppiList 
+        <div className="column">
+          <NavLink className="Home" to="/gruppi">
+            {" "}
+            <GruppiList
               groups={groups}
               materie={materie} // Usa lo stato 'materie'
               expandedGroups={expandedGroups}
               handleGruppiClick={handleGruppiClick}
               handleMateriaClick={handleMateriaClick}
               selectedMateria={selectedMateria}
-            /></NavLink>
+            />
+          </NavLink>
         </div>
       </div>
     </div>
   );
 }
-
-
 
 export default HomePage;

@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useAuth } from "./Autenticato";
+import { useAuth } from "./AutenticatoContext";
+import { useProfileImage } from "./ProfileImageContext";
 
 const ProfiloWidget = () => {
-  const [imagePreview, setImagePreview] = useState(null);
   const { id } = useAuth();
   const [username, setUsername] = useState("Utente123");
+  const { profileImage, setProfileImage } = useProfileImage();
 
   useEffect(() => {
     const fetchUsername = async () => {
@@ -21,6 +22,7 @@ const ProfiloWidget = () => {
     fetchUsername();
     fetchIcon();
   }, [id]);
+
   const handleFileChange = async (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -34,7 +36,7 @@ const ProfiloWidget = () => {
           },
         });
         const previewUrl = window.URL.createObjectURL(file);
-        setImagePreview(previewUrl);
+        setProfileImage(previewUrl);
         alert("Anteprima creata con successo");
       } catch (error) {
         console.error("Errore durante la creazione dell'anteprima:", error);
@@ -49,7 +51,7 @@ const ProfiloWidget = () => {
         responseType: "blob",
       });
       const iconUrl = URL.createObjectURL(response.data);
-      setImagePreview(iconUrl);
+      setProfileImage(iconUrl);
       console.log("Icona caricata con successo");
     } catch (error) {
       console.error("Errore nel recupero dell'icona:", error);
@@ -67,9 +69,9 @@ const ProfiloWidget = () => {
         <div className="foto-username-container">
           <div className="foto-container">
             {/* Se c'è un'anteprima, visualizza l'immagine, altrimenti mostra "Foto" */}
-            {imagePreview ? (
+            {profileImage ? (
               <img
-                src={imagePreview}
+                src={profileImage}
                 alt="Foto Profilo"
                 className="foto-profilo"
                 onClick={() => document.getElementById("foto-utente").click()} // Cliccando sull'immagine si apre il file input

@@ -19,8 +19,9 @@ import Login from "./Login";
 import TermsAndConditions from "./TermsAndConditions";
 import PasswordDimenticata from "./PasswordDimenticata";
 import PasswordReset from "./ResetPassword";
-import { AuthProvider } from "./Autenticato";
+import { AuthProvider } from "./AutenticatoContext";
 import ProfiloPage from "./ProfiloPage";
+import { ProfileImageProvider } from "./ProfileImageContext";
 
 const App = () => {
   const location = useLocation();
@@ -73,9 +74,11 @@ const App = () => {
 ReactDOM.render(
   <React.StrictMode>
     <AuthProvider>
-      <Router>
-        <App />
-      </Router>
+      <ProfileImageProvider>
+        <Router>
+          <App />
+        </Router>
+      </ProfileImageProvider>
     </AuthProvider>
   </React.StrictMode>,
   document.getElementById("root")

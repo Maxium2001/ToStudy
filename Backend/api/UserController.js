@@ -118,13 +118,11 @@ const uploadIcon = async (req, res) => {
     const existingIcon = await Icona.findOne({ fileHash });
     const user = await User.findById(autore);
     if (existingIcon) {
-      await User.findByIdAndUpdate(autore, {
-        icon: existingIcon._id,
-      });
+      await user.updateOne({ icon: existingIcon._id });
       return res.status(200).json({ message: "Icona caricata con successo" });
     }
-    const defaultIcon = "67aa6c3f3cec4db75761072e";
-    if (user.icon !== defaultIcon) {
+    const defaultIcon = "67ab50dea47c266ca5180fc5";
+    if (String(user.icon) !== String(defaultIcon)) {
       await Icona.findByIdAndDelete(user.icon);
     }
     const newIcon = new Icona({
@@ -134,7 +132,7 @@ const uploadIcon = async (req, res) => {
       fileHash: fileHash,
     });
     await newIcon.save();
-    user.updateOne({ icon: newIcon._id });
+    await user.updateOne({ icon: newIcon._id });
     res.status(200).json({ message: "Icona caricata con successo" });
   } catch (error) {
     if (error.name === "CastError") {
@@ -148,12 +146,10 @@ const uploadIcon = async (req, res) => {
 const getIcon = async (req, res) => {
   try {
     const { id } = req.query;
-    console.log(id);
     const user = await User.findById(id);
     const icon = await Icona.findById(user.icon);
     res.set("Content-Type", icon.fileType);
     res.send(icon.file);
-    console.log("send");
     res.status(200);
   } catch (error) {
     if (error.name === "CastError") {

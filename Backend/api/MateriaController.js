@@ -41,8 +41,6 @@ const getMateriaById = async (req, res) => {
 const rimuoviMateria = async (req, res) => {
   try {
     const { id } = req.body;
-    const materia = Materia.findById(id);
-    const appunti = materia.appunti;
     await Materia.findByIdAndDelete(id);
     await Materia.findByIdAndDelete(id);
     await Group.updateMany({ materie: id }, { $pull: { materie: id } });

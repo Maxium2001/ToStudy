@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./Style.css";
 import AppuntiList from "./AppuntiList";
 import axios from "axios";
-import { useAuth } from "./Autenticato";
+import { useAuth } from "./AutenticatoContext";
 
 const AppuntiPage = () => {
   const { id } = useAuth();
@@ -366,13 +366,11 @@ const AppuntiPage = () => {
 
       {/* Pulsante flottante */}
       <div className="add-button">
-        <button
-          id="add-button"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
+        <button id="add-button" onClick={() => setIsMenuOpen(!isMenuOpen)}>
           +
         </button>
-        {isMenuOpen && ( <div className="popup-container">
+        {isMenuOpen && (
+          <div className="popup-container">
             <button
               onClick={() => {
                 setIsModalOpen(true);
@@ -405,161 +403,161 @@ const AppuntiPage = () => {
             >
               elimina Appunto
             </button>
-      </div>
-      )}
-
-      {/* Modale per aggiungere appunti */}
-      {isModalOpen && (
-        <div className={`modal ${isModalOpen ? "open" : ""}`}>
-          <div className="modal-content">
-            <span
-              className="close-button"
-              onClick={() => setIsModalOpen(false)}
-            >
-              ×
-            </span>
-            <h2>Nuovo Appunto</h2>
-
-            <label>Materia:</label>
-            <select
-              value={newMateria}
-              onChange={(e) => setNewMateria(e.target.value)}
-            >
-              <option value="">Seleziona materia</option>
-              {materie.map((m, index) => (
-                <option key={index} value={m.nome}>
-                  {m.nome}
-                </option>
-              ))}
-            </select>
-
-            <label>Titolo:</label>
-            <input
-              type="text"
-              value={newTitle}
-              onChange={(e) => setNewTitle(e.target.value)}
-            />
-
-            <label>Allega File:</label>
-            <div className="file-upload-box">
-              <input type="file" onChange={handleFileUpload} />
-              {uploadedFile && <p>{uploadedFile.name}</p>}
-            </div>
-
-            <label>Commento:</label>
-            <textarea
-              value={newComment}
-              onChange={(e) => setNewComment(e.target.value)}
-            />
-
-            <button className="add-button" onClick={handleAddAppunto}>
-              Aggiungi Appunto
-            </button>
           </div>
-        </div>
-      )}
+        )}
 
-      {isDeleteMateriaModalOpen && (
-        <div className={`modal ${isDeleteMateriaModalOpen ? "open" : ""}`}>
-          <div className="modal-content">
-            <span
-              className="close-button"
-              onClick={() => setIsDeleteMateriaModalOpen(false)}
-            >
-              ×
-            </span>
-            <h2>Rimuovi una materia</h2>
-            <label>Materia:</label>
-            <select
-              value={newMateria}
-              onChange={(e) => setNewMateria(e.target.value)}
-            >
-              <option value="">Seleziona materia</option>
-              {materie.map((m, index) => (
-                <option key={index} value={m.nome}>
-                  {m.nome}
-                </option>
-              ))}
-            </select>
+        {/* Modale per aggiungere appunti */}
+        {isModalOpen && (
+          <div className={`modal ${isModalOpen ? "open" : ""}`}>
+            <div className="modal-content">
+              <span
+                className="close-button"
+                onClick={() => setIsModalOpen(false)}
+              >
+                ×
+              </span>
+              <h2>Nuovo Appunto</h2>
 
-            <button className="add-button" onClick={handleRimouviMateria}>
-              elimina Materia
-            </button>
-          </div>
-        </div>
-      )}
-
-      {isDeleteAppuntoModalOpen && (
-        <div className={`modal ${isDeleteAppuntoModalOpen ? "open" : ""}`}>
-          <div className="modal-content">
-            <span
-              className="close-button"
-              onClick={() => setIsDeleteAppuntoModalOpen(false)}
-            >
-              ×
-            </span>
-            <h2>Rimuovi un Appunto</h2>
-            <label>Appunti:</label>
-            <select
-              value={newTitle}
-              onChange={(e) => setNewTitle(e.target.value)}
-            >
-              <option value="">Seleziona appunto</option>
-              {materie
-                .flatMap((m) => m.appunti)
-                .map((a, index) => (
-                  <option key={index} value={a.titolo}>
-                    {a.titolo}
+              <label>Materia:</label>
+              <select
+                value={newMateria}
+                onChange={(e) => setNewMateria(e.target.value)}
+              >
+                <option value="">Seleziona materia</option>
+                {materie.map((m, index) => (
+                  <option key={index} value={m.nome}>
+                    {m.nome}
                   </option>
                 ))}
-            </select>
+              </select>
 
-            <button className="add-button" onClick={handleRimouviAppunti}>
-              elimina Appunto
-            </button>
+              <label>Titolo:</label>
+              <input
+                type="text"
+                value={newTitle}
+                onChange={(e) => setNewTitle(e.target.value)}
+              />
+
+              <label>Allega File:</label>
+              <div className="file-upload-box">
+                <input type="file" onChange={handleFileUpload} />
+                {uploadedFile && <p>{uploadedFile.name}</p>}
+              </div>
+
+              <label>Commento:</label>
+              <textarea
+                value={newComment}
+                onChange={(e) => setNewComment(e.target.value)}
+              />
+
+              <button className="add-button" onClick={handleAddAppunto}>
+                Aggiungi Appunto
+              </button>
+            </div>
           </div>
-        </div>
-      )}
+        )}
 
-      {/* Modale per aggiungere materia */}
-      {isAddMateriaModalOpen && (
-        <div className={`modal ${isAddMateriaModalOpen ? "open" : ""}`}>
-          <div className="modal-content">
-            <span
-              className="close-button"
-              onClick={() => setIsAddMateriaModalOpen(false)}
-            >
-              ×
-            </span>
-            <h2>Aggiungi Nuova Materia</h2>
-            <label>Gruppo:</label>
-            <select
-              value={newGroup}
-              onChange={(e) => setNewGroup(e.target.value)}
-            >
-              <option value="">Seleziona gruppo</option>
-              {groups.map((group, index) => (
-                <option key={index} value={group.nome}>
-                  {group.nome}
-                </option>
-              ))}
-            </select>
+        {isDeleteMateriaModalOpen && (
+          <div className={`modal ${isDeleteMateriaModalOpen ? "open" : ""}`}>
+            <div className="modal-content">
+              <span
+                className="close-button"
+                onClick={() => setIsDeleteMateriaModalOpen(false)}
+              >
+                ×
+              </span>
+              <h2>Rimuovi una materia</h2>
+              <label>Materia:</label>
+              <select
+                value={newMateria}
+                onChange={(e) => setNewMateria(e.target.value)}
+              >
+                <option value="">Seleziona materia</option>
+                {materie.map((m, index) => (
+                  <option key={index} value={m.nome}>
+                    {m.nome}
+                  </option>
+                ))}
+              </select>
 
-            <label>Nome Materia:</label>
-            <input
-              type="text"
-              value={newMateria}
-              onChange={(e) => setNewMateria(e.target.value)}
-            />
-
-            <button className="add-button" onClick={handleAddMateria}>
-              Aggiungi Materia
-            </button>
+              <button className="add-button" onClick={handleRimouviMateria}>
+                elimina Materia
+              </button>
+            </div>
           </div>
-        </div>
-      )}
+        )}
+
+        {isDeleteAppuntoModalOpen && (
+          <div className={`modal ${isDeleteAppuntoModalOpen ? "open" : ""}`}>
+            <div className="modal-content">
+              <span
+                className="close-button"
+                onClick={() => setIsDeleteAppuntoModalOpen(false)}
+              >
+                ×
+              </span>
+              <h2>Rimuovi un Appunto</h2>
+              <label>Appunti:</label>
+              <select
+                value={newTitle}
+                onChange={(e) => setNewTitle(e.target.value)}
+              >
+                <option value="">Seleziona appunto</option>
+                {materie
+                  .flatMap((m) => m.appunti)
+                  .map((a, index) => (
+                    <option key={index} value={a.titolo}>
+                      {a.titolo}
+                    </option>
+                  ))}
+              </select>
+
+              <button className="add-button" onClick={handleRimouviAppunti}>
+                elimina Appunto
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* Modale per aggiungere materia */}
+        {isAddMateriaModalOpen && (
+          <div className={`modal ${isAddMateriaModalOpen ? "open" : ""}`}>
+            <div className="modal-content">
+              <span
+                className="close-button"
+                onClick={() => setIsAddMateriaModalOpen(false)}
+              >
+                ×
+              </span>
+              <h2>Aggiungi Nuova Materia</h2>
+              <label>Gruppo:</label>
+              <select
+                value={newGroup}
+                onChange={(e) => setNewGroup(e.target.value)}
+              >
+                <option value="">Seleziona gruppo</option>
+                {groups.map((group, index) => (
+                  <option key={index} value={group.nome}>
+                    {group.nome}
+                  </option>
+                ))}
+              </select>
+
+              <label>Nome Materia:</label>
+              <input
+                type="text"
+                value={newMateria}
+                onChange={(e) => setNewMateria(e.target.value)}
+              />
+
+              <button className="add-button" onClick={handleAddMateria}>
+                Aggiungi Materia
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
-  </div>
   );
 };
 

@@ -1,7 +1,7 @@
 import React, { use, useEffect, useState } from "react";
 import "./Style.css";
 import GruppiList from "./GruppiList";
-import { useAuth } from "./Autenticato";
+import { useAuth } from "./AutenticatoContext";
 import axios from "axios";
 
 const GruppiPage = () => {
@@ -12,6 +12,7 @@ const GruppiPage = () => {
   const [expandedGroups, setExpandedGroups] = useState([]); // Array degli ID dei gruppi espansi
   const [materie, setMaterie] = useState([]); // Elenco di tutte le materie caricate
   const [selectedMateria, setSelectedMateria] = useState(null);
+  const [isDeleteGroupModalOpen, setIsDeleteGroupModalOpen] = useState(false);
 
   // Stati per la gestione dei modali e per i nuovi dati da inserire
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -148,6 +149,28 @@ const GruppiPage = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
+  const handleRimouviGruppo = async (e) => {
+    if (!newGroup) {
+      alert("Seleziona un gruppo da rimuovere");
+      return;
+    }
+    try {
+      const groupId = groups.find((g) => g.nome === newGroup)._id;
+      const response = await axios.post("http://localhost:3000/rimouviGruppo", {
+        id: groupId,
+      });
+      if (response.status === 200) {
+        alert("Gruppo rimosso con successo!");
+        setGroups(groups.filter((g) => g.nome !== newGroup));
+      }
+      setIsDeleteGroupModalOpen(false);
+      setNewGroup("");
+    } catch (error) {
+      console.error("Errore nella rimozione del gruppo:", error);
+      alert("Errore nella rimozione del gruppo");
+    }
+  };
+
   return (
     <div className="PageGA">
       {/* Colonna sinistra: Elenco dei gruppi */}
@@ -242,6 +265,14 @@ const GruppiPage = () => {
         >
           Aggiungi Materia
         </button>
+        <button
+          onClick={() => {
+            setIsDeleteGroupModalOpen(true);
+            setIsMenuOpen(false);
+          }}
+        >
+          Elimina Gruppo
+        </button>
       </div>
 
       {/* Modale per aggiungere gruppi */}
@@ -308,6 +339,36 @@ const GruppiPage = () => {
             />
             <button className="add-button" onClick={handleAddMateria}>
               Aggiungi Materia
+            </button>
+          </div>
+        </div>
+      )}
+
+      {isDeleteGroupModalOpen && (
+        <div className={`modal ${isDeleteGroupModalOpen ? "open" : ""}`}>
+          <div className="modal-content">
+            <span
+              className="close-button"
+              onClick={() => setIsDeleteGroupModalOpen(false)}
+            >
+              ×
+            </span>
+            <h2>Rimuovi un gruppo</h2>
+            <label>Gruppi:</label>
+            <select
+              value={newGroup}
+              onChange={(e) => setNewGroup(e.target.value)}
+            >
+              <option value="">Seleziona gruppo</option>
+              {groups.map((m, index) => (
+                <option key={index} value={m.nome}>
+                  {m.nome}
+                </option>
+              ))}
+            </select>
+
+            <button className="add-button" onClick={handleRimouviGruppo}>
+              elimina Gruppo
             </button>
           </div>
         </div>
