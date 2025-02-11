@@ -369,11 +369,10 @@ const AppuntiPage = () => {
         <button
           className="add-button"
           onClick={() => setIsMenuOpen(!isMenuOpen)}
-        >
+          >
           +
         </button>
-        {isMenuOpen && (
-          <div className="popup-container">
+        {isMenuOpen && ( <div className="popup-container">
             <button
               onClick={() => {
                 setIsModalOpen(true);
@@ -407,6 +406,7 @@ const AppuntiPage = () => {
               elimina Appunto
             </button>
       </div>
+      )}
 
       {/* Modale per aggiungere appunti */}
       {isModalOpen && (
@@ -559,6 +559,7 @@ const AppuntiPage = () => {
         </div>
       )}
     </div>
+  </div>
   );
 };
 
