@@ -132,9 +132,6 @@ const ProfiloPage = () => {
                   <option value="Superiori">Scuola Superiore</option>
                   <option value="Università">Università</option>
                 </select>
-                <button className="mini-button" onClick={changeProfile}>
-                  Aggiungi
-                </button>
               </div>
               <div className="categoria">
                 <h4>Informazioni di base</h4>
@@ -165,6 +162,9 @@ const ProfiloPage = () => {
                   Email: <input type="email" value={userData.email} readOnly />
                 </div>
               </div>
+              <button className="mini-button" onClick={changeProfile}>
+                  Aggiungi
+                </button>
             </div>
           )}
         </div>
