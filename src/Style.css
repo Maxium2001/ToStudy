@@ -228,19 +228,19 @@ object-fit: contain; /* Evita distorsioni */
   margin-top: 10px;
 }
 .indicator {
-  width: 12px;
-  height: 12px;
-  background-color: #EEEEEE;
+  width: 1.7vh;
+  height: 1.7vh;
+  background-color: #B0B0B0;
   border-radius: 50%;
-  margin: 0 5px;
+  margin: 0.7vh 0.7vh;
   cursor: pointer;
   transition: background-color 0.3s;
 }
 .indicator.active {
-  background-color: #393E46; /* Colore quando attivo */
+  background-color: #222831; /* Colore quando attivo */
 }
 .indicator:hover {
-  background-color: #222831; /* Colore al passaggio del mouse */
+  background-color: #EEEEEE; /* Colore al passaggio del mouse */
 }
 
 
@@ -285,6 +285,9 @@ form {
   gap: 2vh;
   justify-content: center;
   margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 input {
   width: 100%;
@@ -297,10 +300,10 @@ input {
 }
 /* Stile checkbox */
 input[type="checkbox"] {
-  width: auto;
-  margin-right: 5px;
+  width: 2.5vh;
+  height: 2.5vh;
+  vertical-align: middle; /* Assicura che il checkbox sia allineato con il testo */
 }
-
 label {
   width: 3vh;
   height: 3vh;
@@ -308,15 +311,18 @@ label {
 button {
   background-color: #71C9CE;
   color: #222831;
-  width: 5vh;
-  height: 10vh;
-  padding: 12px;
+  width: 15vh;
+  height: 7vh;
   border: none;
   border-radius: 1vh;
   cursor: pointer;
   font-weight: bold;
+  margin:0 auto; /* Centra il bottone */
+  grid-column: span 2; /* Il bottone occuperà entrambe le colonne */
+
+  white-space:nowrap; /* Evita che il testo vada a capo */
 }
-.error-popup {
+.error-popup, .LogoutPopup {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -329,22 +335,21 @@ button {
   width: 300px;
   box-shadow: 0px 4px 10px #222831;
 }
-.error-content p {
+.error-content p, .popupContent p {
   font-size: 18px;
   margin-bottom: 10px;
 }
-.error-content button {
-  background: #EEEEEE;
+.error-content button, .LogoutPopup button{
+  background: #B0B0B0;
   color: #222831;
   border: none;
-  padding: 8px 15px;
   cursor: pointer;
   font-size: 16px;
   border-radius: 5px;
+  margin: 1vh;
 }
-
-.error-content button:hover {
-  background: #B0B0B0;
+.error-content button:hover, .LogoutPopup button:hover {
+  background: #00ADB5;
 }
 /* Stile per la pagina di registrazione */
 .register-form {
@@ -354,9 +359,6 @@ button {
 }
 .register-form input {
   width: 100%;
-}
-.full-width {
-  grid-column: span 2;
 }
 .L-accedi-container {
   display: flex;
@@ -369,8 +371,11 @@ button {
   align-items: center;
   gap: 2vh;
   font-size: 2vh;
-  margin: 0;
-  padding: 0 2vh;
+}
+.L-accedi a{
+  margin-left: 20%;
+  margin-top: 3%;
+  white-space:nowrap; /* Evita che il testo vada a capo */
 }
 .img-accedi{
   width: 5vh;
@@ -427,6 +432,7 @@ button {
   border-bottom: 0.2vh solid #222831;
   border-left: 0.2vh solid #222831;
   border-right: 0.2vh solid #222831;
+  grid-column: span 2;
 }
 .Titolo:hover, .Titolo:focus {
   background-color: #B0B0B0;
@@ -453,9 +459,12 @@ button {
 
 .mini-button{
 text-align: center;
-margin-left: 2vh;
-padding: 0.5vh 2.5vh;
+display: block;
+margin:0 auto; /* Centra il bottone */
+width:auto; /* Garantisce che la larghezza si adatti al contenuto */
+white-space:nowrap; /* Evita che il testo vada a capo */
 }
+
 #little{
   width: 25%;
   margin: 0 auto;
@@ -958,11 +967,6 @@ nav {
 .container {
   padding: 3vh; /* Aggiunge spaziature più comode */
 }
-
-
-
-
-
 /*PROFILO WIDGET*/
 .profilo-widget-container {
   display: flex;
@@ -971,46 +975,100 @@ nav {
   gap: 2vh; /* Maggiore spazio tra gli elementi */
   padding: 2vh;
 }
-
 .foto-username-container {
   flex-direction: column;
   align-items: center;
   gap: 1.5vh;
 }
-
 .foto-profilo {
   width: 100%;
   height: auto;
   max-width: 12vh;
   max-height: 12vh;
 }
-
 .foto-container {
   width: 12vh;
   height: 12vh;
-  box-shadow: 0 0 0.8vh #B0B0B0;
 }
-
 .foto-label {
   width: 3vh;
   height: 3vh;
   bottom: 0.8vh;
   right: 1vh;
 }
-
 .foto-icon {
   width: 1.2vh;
   height: 1.2vh;
 }
-
 .fallback-text {
   font-size: 1rem;
 }
-
 .campo {
   padding: 1.2vh;
   font-size: 1rem;
 }
+/*LOGIN e REGISTER*/
+  /* Cambio layout principale */
+  .page {
+    flex-direction: column;
+    height: auto;
+  }
+  /* Il carosello sopra */
+  .carousel-container {
+    height: 50%;
+    width: 100%;
+  }
+  /* Adatta il carosello */
+  .carousel-section {
+    height: 50%;
+  }
+  .carousel-slides img {
+    height: 50%;
+  }
+  /* Sezione Login/Registrati sotto */
+  .section {
+    max-width: 100%; /* Occupa tutta la larghezza */
+    height: auto; /* Altezza automatica */
+    padding: 5vh 5vw;
+  }
+  /* Rende il form più compatto */
+  form {
+    width: 90%;
+  }
+  /* Riduce i margini e padding degli input */
+  input {
+    padding: 8px;
+    font-size: 14px;
+  }
+  /* Riduce il pulsante */
+  button {
+    width: 100%;
+    height: auto;
+    padding: 10px;
+    font-size: 14px;
+  }
+  /* Centro gli elementi del login */
+  .L-accedi {
+    flex-direction: column;
+    gap: 1vh;
+  }
+  .L-accedi a {
+    margin-left: -50%;
+    margin-top: 4%;
+  }
+  /* Checkbox e testo più piccoli */
+  input[type="checkbox"] {
+    width: 2vh;
+    height: 2vh;
+  }
+  label {
+    font-size: 1.8vh;
+  }
+  .img-accedi{
+    margin:0;
+    width: 4vh;
+    height: 4vh;
+  }
 }
 
 

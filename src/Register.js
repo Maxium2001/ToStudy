@@ -72,9 +72,11 @@ const Register = () => {
       <div className="L-accedi-container">
         <p className="L-accedi">Sei già registrato?</p>
         <Link className="L-accedi" to="/login">
+        <span className="register-link">
           <img className="img-accedi" src="/user.png" alt="user" />
+          Accedi
+        </span>
         </Link>
-        <p className="L-accedi">Accedi</p>
       </div>
 
       <form onSubmit={handleSubmit} className="register-form">
@@ -101,7 +103,6 @@ const Register = () => {
           onChange={handleChange}
           placeholder="Username"
           required
-          className="full-width"
         />
         <input
           type="email"
@@ -110,7 +111,6 @@ const Register = () => {
           onChange={handleChange}
           placeholder="Email"
           required
-          className="full-width"
         />
         <input
           type="password"
@@ -119,7 +119,6 @@ const Register = () => {
           onChange={handleChange}
           placeholder="Password"
           required
-          className="full-width"
         />
         <input
           type="password"
@@ -128,7 +127,6 @@ const Register = () => {
           onChange={handleChange}
           placeholder="Conferma Password"
           required
-          className="full-width"
         />
         <input
           type="checkbox"
@@ -140,12 +138,13 @@ const Register = () => {
           required
         />
         <label htmlFor="terms">
+        <div className="L-accedi-container" id="br">
           <p className="L-accedi">
-            Accetto i<Link to="/termsandconditions">Termini e Condizioni</Link>
+            <Link to="/termsandconditions">Accetto i Termini e Condizioni</Link>
           </p>
-          <button type="submit">Crea account</button>
-        </label>
-   
+        </div>
+        </label><br/>
+        <button type="submit" >Crea account</button>
       </form>
       {showPopup && (
         <ErrorPopup
