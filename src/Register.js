@@ -145,6 +145,7 @@ const Register = () => {
           </p>
           <button type="submit">Crea account</button>
         </label>
+   
       </form>
       {showPopup && (
         <ErrorPopup
