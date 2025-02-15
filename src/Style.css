@@ -308,7 +308,8 @@ label {
 button {
   background-color: #71C9CE;
   color: #222831;
-  width: 100%;
+  width: 5vh;
+  height: 10vh;
   padding: 12px;
   border: none;
   border-radius: 1vh;
