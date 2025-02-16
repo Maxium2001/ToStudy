@@ -30,6 +30,7 @@ const App = () => {
     "/register",
     "/passworddimenticata",
     "/resetpassword",
+    "/termsandconditions",
   ];
 
   return (

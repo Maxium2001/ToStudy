@@ -64,7 +64,7 @@ const ProfiloWidget = () => {
       <h2>PROFILO</h2>
 
       {/* Widget della foto profilo e username */}
-      <div className="barattolo">
+      <div className="barattoloWidget">
         <div className="foto-username-container">
           <div className="foto-container">
             {/* Se c'è un'anteprima, visualizza l'immagine, altrimenti mostra "Foto" */}

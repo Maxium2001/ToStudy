@@ -78,9 +78,9 @@ const Register = () => {
         </span>
         </Link>
       </div>
-
+      
       <form onSubmit={handleSubmit} className="register-form">
-        <input
+        <input className="input-group"
           type="text"
           name="nome"
           value={formData.nome}
@@ -88,7 +88,7 @@ const Register = () => {
           placeholder="Nome"
           required
         />
-        <input
+        <input 
           type="text"
           name="cognome"
           value={formData.cognome}
@@ -96,7 +96,7 @@ const Register = () => {
           placeholder="Cognome"
           required
         />
-        <input
+        <input className="input-group"
           type="text"
           name="username"
           value={formData.username}
@@ -112,7 +112,7 @@ const Register = () => {
           placeholder="Email"
           required
         />
-        <input
+        <input className="input-group"
           type="password"
           name="password"
           value={formData.password}
@@ -120,7 +120,7 @@ const Register = () => {
           placeholder="Password"
           required
         />
-        <input
+        <input className="input-group"
           type="password"
           name="confirmPassword"
           value={formData.confirmPassword}
@@ -128,22 +128,22 @@ const Register = () => {
           placeholder="Conferma Password"
           required
         />
-        <input
-          type="checkbox"
-          name="terms"
-          checked={formData.terms || false}
-          onChange={(e) =>
-            setFormData({ ...formData, terms: e.target.checked })
-          }
-          required
-        />
-        <label htmlFor="terms">
-        <div className="L-accedi-container" id="br">
-          <p className="L-accedi">
+        <div className="terms-container">
+          <input 
+            type="checkbox"
+            name="terms"
+            id="terms"
+            checked={formData.terms || false}
+            onChange={(e) =>
+              setFormData({ ...formData, terms: e.target.checked })
+            }
+            required
+          />
+          <label htmlFor="terms">
             <Link to="/termsandconditions">Accetto i Termini e Condizioni</Link>
-          </p>
+          </label>
         </div>
-        </label><br/>
+        
         <button type="submit" >Crea account</button>
       </form>
       {showPopup && (
@@ -154,6 +154,7 @@ const Register = () => {
       )}
     </div>
   );
-};
+}; 
+
 
 export default Register;

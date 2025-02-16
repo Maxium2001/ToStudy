@@ -199,16 +199,16 @@ const AppuntiPage = () => {
             : materia
         )
       );
-      alert(
-        `Appunto "${newTitle}" aggiunto a ${newMateria} con file: ${uploadedFile.name}`
-      );
+      setErrorMessage("Appunto aggiunto con successo.");
+      setShowPopup(true);
       setIsModalOpen(false);
       setNewMateria("");
       setNewTitle("");
       setUploadedFile(null);
       setNewComment("");
     } else {
-      alert("Compila tutti i campi!");
+      setErrorMessage("Compila tutti i campi" );
+      setShowPopup(true);
     }
   };
 
@@ -387,47 +387,56 @@ const AppuntiPage = () => {
         )}
       </div>
 
-      {/* Pulsante flottante */}
-      <div className="add-button">
-        <button id="add-button" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-          +
-        </button>
-        {isMenuOpen && (
-          <div className="popup-container">
-            <button
-              onClick={() => {
-                setIsModalOpen(true);
-                setIsMenuOpen(false);
-              }}
-            >
-              Inserisci Appunto
-            </button>
-            <button
-              onClick={() => {
-                setIsAddMateriaModalOpen(true);
-                setIsMenuOpen(false);
-              }}
-            >
-              Aggiungi Materia
-            </button>
-            <button
-              onClick={() => {
-                setIsDeleteMateriaModalOpen(true);
-                setIsMenuOpen(false);
-              }}
-            >
-              elimina Materia
-            </button>
-            <button
-              onClick={() => {
-                setIsDeleteAppuntoModalOpen(true);
-                setIsMenuOpen(false);
-              }}
-            >
-              elimina Appunto
-            </button>
-          </div>
-        )}
+            {/* Pulsante flottante */}
+        <div className="add-button">
+          <button id="add-button" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+            +
+          </button>
+
+          {/* Menu strutturato come un modale */}
+          {isMenuOpen && (
+            <div className={`modal ${isMenuOpen ? "open" : ""}`}>
+              <div className="modal-content">
+                <span className="close-button" onClick={() => setIsMenuOpen(false)}>
+                  ×
+                </span>
+                <h2>Opzioni</h2>
+                <button className="GA"
+                  onClick={() => {
+                    setIsModalOpen(true);
+                    setIsMenuOpen(false);
+                  }}
+                >
+                  Inserisci Appunto
+                </button>
+                <button className="GA"
+                  onClick={() => {
+                    setIsAddMateriaModalOpen(true);
+                    setIsMenuOpen(false);
+                  }}
+                >
+                  Aggiungi Materia
+                </button>
+                <button className="GA"
+                  onClick={() => {
+                    setIsDeleteMateriaModalOpen(true);
+                    setIsMenuOpen(false);
+                  }}
+                >
+                  Elimina Materia
+                </button>
+                <button className="GA"
+                  onClick={() => {
+                    setIsDeleteAppuntoModalOpen(true);
+                    setIsMenuOpen(false);
+                  }}
+                >
+                  Elimina Appunto
+                </button>
+              </div>
+            </div>
+          )}
+
 
         {/* Modale per aggiungere appunti */}
         {isModalOpen && (
@@ -462,7 +471,7 @@ const AppuntiPage = () => {
               />
 
               <label>Allega File:</label>
-              <div className="file-upload-box">
+              <div> 
                 <input type="file" onChange={handleFileUpload} />
                 {uploadedFile && <p>{uploadedFile.name}</p>}
               </div>
@@ -504,7 +513,7 @@ const AppuntiPage = () => {
               </select>
 
               <button className="add-button" onClick={handleRimouviMateria}>
-                elimina Materia
+                Elimina Materia
               </button>
             </div>
           </div>
@@ -536,7 +545,7 @@ const AppuntiPage = () => {
               </select>
 
               <button className="add-button" onClick={handleRimouviAppunti}>
-                elimina Appunto
+                Elimina Appunto
               </button>
             </div>
           </div>

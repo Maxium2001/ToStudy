@@ -20,9 +20,13 @@ html, body {
   scrollbar-width: none; /* Nasconde la scrollbar su Firefox */
 
 }
-h1, p, h2, h4{
+h1, h2, h4{
   color: #222831;
   text-align: center;
+}
+p{
+  color: #222831;
+  text-align: left;
 }
 h5{
   font-weight: bold;
@@ -44,6 +48,19 @@ a.Home{
 }a.Home:hover {
   color: #222831;
 }
+button {
+  background-color: #71C9CE;
+  color: #222831;
+  width: 100%;
+  height: 7vh;
+  border: none;
+  border-radius: 1vh;
+  cursor: pointer;
+  font-weight: bold;
+  margin:0 auto; /* Centra il bottone */
+  grid-column: span 2; /* Il bottone occuperà entrambe le colonne */
+  white-space:nowrap; /* Evita che il testo vada a capo */
+}
 
 
 
@@ -62,14 +79,12 @@ margin-top: 14vh;
 background-color: #B0B0B0; /* Colore di sfondo per l'intera pagina */
 padding: 0.3vh;
 }
-
 .columns {
 display: flex;
 flex: 1; /* Le colonne occupano uguale spazio */
 gap: 0.5vh;
 height: 100%;
 }
-
 .neutral-zone {
 height: 50px; /* Imposta un'altezza fissa per la zona neutra */
 background-color: #EEEEEE; /* Colore della zona neutra */
@@ -79,12 +94,10 @@ align-items: center;
 margin-bottom: 14vh;
 margin-top: 10vh;
 }
-
 .click-box-container {
 display: flex;
 flex-direction: column;
 flex: 1; /* Permette di riempire lo spazio della colonna */
-
 }
 
 
@@ -146,7 +159,7 @@ position: relative; /* Necessario per la sottolineatura */
 content: '';
 position: absolute;
 left: 0;
-bottom: -3vh; /* Spazio tra testo e sottolineatura */
+bottom: -2vh; /* Spazio tra testo e sottolineatura */
 width: 100%;
 height: 0.2vh; /* Spessore sottolineatura */
 background-color: #222831;
@@ -262,10 +275,13 @@ object-fit: contain; /* Evita distorsioni */
   height: 100vh;
 }
 .accedi {
-  width: 50%;
+  /* Permette di ridimensionarsi senza occupare tutto lo schermo */
+  max-width: 100vh; /* Imposta un limite massimo alla larghezza */
   background: #EEEEEE;
-  border-radius: 10px;
+
   text-align: center;
+
+  margin: auto; /* Lo centra orizzontalmente */
 }
 /* Sezione del login (a destra) */
 .section {
@@ -278,7 +294,6 @@ object-fit: contain; /* Evita distorsioni */
   background-color: #EEEEEE; /* Colore di sfondo per la sezione di login */
 }
 form {
-  width: 80%;
   padding: 2%;
   display: flex;
   flex-direction: column;
@@ -289,14 +304,15 @@ form {
   flex-direction: column;
   align-items: center;
 }
-input {
+input, select, textarea{
   width: 100%;
   padding: 10px;
-  margin: 10px 0;
+  margin: 1vh 0;
   border: 1px solid #222831;
   border-radius: 5px;
   font-size: 16px;
   background-color: #EEEEEE;
+  
 }
 /* Stile checkbox */
 input[type="checkbox"] {
@@ -305,23 +321,10 @@ input[type="checkbox"] {
   vertical-align: middle; /* Assicura che il checkbox sia allineato con il testo */
 }
 label {
-  width: 3vh;
-  height: 3vh;
+  width: auto;
+  height: auto;
 }
-button {
-  background-color: #71C9CE;
-  color: #222831;
-  width: 15vh;
-  height: 7vh;
-  border: none;
-  border-radius: 1vh;
-  cursor: pointer;
-  font-weight: bold;
-  margin:0 auto; /* Centra il bottone */
-  grid-column: span 2; /* Il bottone occuperà entrambe le colonne */
 
-  white-space:nowrap; /* Evita che il testo vada a capo */
-}
 .error-popup, .LogoutPopup {
   position: fixed;
   top: 50%;
@@ -331,11 +334,14 @@ button {
   padding: 20px;
   border-radius: 10px;
   text-align: center;
-  z-index: 1000;
+  z-index: 9999;
   width: 300px;
   box-shadow: 0px 4px 10px #222831;
 }
 .error-content p, .popupContent p {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   font-size: 18px;
   margin-bottom: 10px;
 }
@@ -346,19 +352,27 @@ button {
   cursor: pointer;
   font-size: 16px;
   border-radius: 5px;
-  margin: 1vh;
+  margin: 1vh auto; /* Margine automatico ai lati per centrare */
+  display: block;
+  padding: 10px 20px; /* Per migliorare la leggibilità */
 }
 .error-content button:hover, .LogoutPopup button:hover {
   background: #00ADB5;
 }
 /* Stile per la pagina di registrazione */
-.register-form {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
+
+  .register-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    width: 100%;
+    overflow: visible; /* Assicura che gli elementi siano visibili */
+  
+  
 }
 .register-form input {
   width: 100%;
+  min-width: 0;
 }
 .L-accedi-container {
   display: flex;
@@ -389,11 +403,36 @@ button {
   text-align: center;
   justify-content: center;
 }
-#br{
-  flex-direction: column;
-
+.terms-container {
+  display: flex;
+  align-items: center;
+  gap: 1vh; /* Spazio tra checkbox e testo */
+  width: 100%;
+  justify-content: start;
+  white-space:nowrap; /* Evita che il testo vada a capo */
 }
 
+.terms-container input[type="checkbox"] {
+  width: 20px; /* Adatta la grandezza della checkbox */
+  height: 20px;
+  margin: 0;
+}
+
+.terms-container label {
+  font-size: 16px;
+  cursor: pointer;
+}
+.input-group {
+  display: flex;
+  gap: 10px; /* Spazio tra gli input */
+  width: 100%;
+}
+
+.input-group input {
+  flex: 1; /* Gli input si dividono equamente lo spazio */
+  min-width: 0; /* Previene il comportamento indesiderato di stretching */
+  max-width: 100%; /* Impedisce che gli input si allarghino */
+}
 
 
 
@@ -403,12 +442,15 @@ button {
 .profilo-page{
   margin-top: 14vh;
 }
+#FaqPage{
+  margin-top: 14vh;
+}
 .Selettore {
   width: 90%;
   max-width: 80vh;
   margin: 0 auto;
   padding: 4vh;
-  margin-top: 8vh;
+
   display: grid;
   gap: 1vh;
   max-height: 80vh; 
@@ -427,6 +469,14 @@ button {
   align-items: center;
   border-radius: 0;
   font-weight: normal;
+  word-wrap: break-word;  /* Fai in modo che il testo vada a capo quando è troppo lungo */
+  white-space: normal;    /* Permette al testo di andare a capo */
+  overflow: hidden;
+}
+button.Titolo {
+  width: 100%;
+  height: auto;
+ 
 }
 #Titolo-container {
   border-bottom: 0.2vh solid #222831;
@@ -525,14 +575,13 @@ white-space:nowrap; /* Evita che il testo vada a capo */
   text-align: center;
   cursor: pointer;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  
 }
+
 /* Hover per il box del gruppo */
 .barattolo:hover {
   transform: scale(1.05); /* Ingigantisce leggermente il box */
-  
 }
-.gruppo,.titol {
+.gruppo,.titol, #materia{
   cursor: pointer;
   padding: 10px;
   border: 1px solid #EEEEEE;
@@ -553,6 +602,9 @@ white-space:nowrap; /* Evita che il testo vada a capo */
 .sottocategoria li {
   cursor: pointer;
   padding: 3px;
+}
+button.GA{
+  margin-top: 5%;
 }
 
 
@@ -581,14 +633,11 @@ visibility: hidden;
 opacity: 0;
 transition: opacity 0.3s ease, visibility 0.3s ease;
 backdrop-filter: blur(0.3vh); /* Effetto blur */
-
 }
-
 .modal.open {
 visibility: visible;
 opacity: 1;
 }
-
 /* Modal Content */
 .modal-content {
 background-color: #EEEEEE;
@@ -605,8 +654,6 @@ right: 10px;
 cursor: pointer;
 }
 
-
-
 #add-button {
 background-color: #00ADB5; /* Colore di sfondo */
 color:#EEEEEE ; /* Colore del testo */
@@ -622,44 +669,10 @@ text-align: center;
 display: flex; /* Abilita Flexbox */
 justify-content: center; /* Centra orizzontalmente */
 align-items: center; /* Centra verticalmente */
+border-radius: 100%;
 }
 
-/* Contenitore delle box */
-#popup-container {
-position: fixed;
-bottom: 10px;
-right: 50px;
-z-index: 11;
-display: none;  /* Hidden by default */
-border-radius: 8px;
-padding: 10px;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-margin-bottom: 50px;
-}
 
-/* Stile per i pulsanti all'interno del popup-container */
-#popup-container button {
-width: 100%;
-height: 10%;
-margin: 2px 0;
-background-color: #00ADB5;
-color: #EEEEEE;
-border: none;
-border-radius: 5px;
-cursor: pointer;
-transition: background-color 0.3s;
-display: flex;
-align-items: center;
-justify-content: center;
-text-align: center;
-font-size: 12px;
-}
-/* Mostra le box quando il pulsante "+" è cliccato */
-#popup-container.active {
-display: block;  /* Shows when active */
-}
 
 
 
@@ -726,6 +739,7 @@ height: 13.5vh;
 box-shadow: 0 0 1vh #B0B0B0; /* Aggiunge un'ombra leggera */
 border-radius: 50%;
 overflow: hidden;
+
 }
 
 .foto-icon {
@@ -753,12 +767,70 @@ align-items: center;
 width: 100%;
 height: 100%;
 }
+.barattoloWidget{
+  width: 100%;
+  padding: 20px;
+  background-color: #EEEEEE;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px #B0B0B0;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 
+}
 
+/*PAGEXTRA*/
+.barattoloPage{
+  width: 100%;
+  background-color: #EEEEEE;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px #B0B0B0;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  padding: 2.5vh;
+}
+.containerPage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;   /* Centra orizzontalmente */
+  justify-content: center; /* Centra verticalmente */
+  min-height: 100vh;       /* Occupa l'altezza totale della viewport */
+  text-align: center; 
+}
+.listPage{
+  width: 100%;
+  max-width: 50vh;  /* Se vuoi ingrandire anche il contenitore della lista */
+}
+.TermsAndConditions{
+  width: 60%;
+}
+.terminiPage{
+  display: flex;
+  flex-direction: column;
+  align-items: center;   /* Centra orizzontalmente */
+  justify-content: center; /* Centra verticalmente */
+  min-height: 100vh;       /* Occupa l'altezza totale della viewport */
+  text-align: center;
+  margin-top: 12vh;
+}
+.extra-container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  position: relative;
+}
 
-
-
-
+.Extra {
+  margin-right: 0;
+  background-color: #EEEEEE;
+  border-radius: 50%;
+  height: auto;
+  color: #222831;
+}
+.Extra:focus{
+  outline: none;
+}
 
 
 /* Media Queries per dispositivi mobili */
@@ -772,12 +844,12 @@ height: 100%;
     overflow-y: auto !important; /* Permette lo scroll verticale */
     scrollbar-width: none; /* Nasconde la scrollbar su Firefox */
   }
-  h1 {
+  h1, h2, h4 {
     font-size: 6vh;
   }
-
-
-
+  p{
+    font-size: 2.5vh;
+  }
   .homepage {
     padding: 0;  /* Rimuove il padding laterale su mobile */
     width: 100%;  /* Imposta la larghezza a 100% */
@@ -858,7 +930,7 @@ height: 100%;
 }
 .gruppo, .titol {
   padding: 8px;
-  font-size: 0.9rem;
+  font-size: 4vh;
 }
 .sottocategoria {
   margin-left: 10px;
@@ -867,7 +939,11 @@ height: 100%;
 .sottocategoria li {
   padding: 2px;
 }
-
+#add-button {
+  width: 10vh; /* Aumenta la larghezza del pulsante sui dispositivi mobili */
+  height: 10vh; /* Imposta altezza per mantenere la forma rotonda */
+  padding: 10px; /* Riduce il padding per evitare che il pulsante sia troppo grande */
+}
 
 
 
@@ -883,19 +959,12 @@ nav {
   align-items: flex-start; /* Allinea tutto a sinistra */
   height: 26%; /* Altezza dinamica */
   padding: 0.1vh; /* Aggiunge più padding */
+
 }
 
 /* Logo e utente in alto */
 #logo {
   width: 20vh; /* Rende il logo più piccolo */
-}
-
-#user {
-  width: 6vh; /* Rende l'icona utente più piccola */
-  margin: 0;
-  position: absolute; /* Posizionamento fisso in alto a destra */
-  top: 6vh;
-  right: 5vh;
 }
 
 /* Contenitore della navbar */
@@ -914,8 +983,8 @@ nav {
   width: 90%; /* Occupa tutta la larghezza */
   padding: 0; /* Rimuove il padding */
   scrollbar-width: thin; /* Per Firefox */
-  scrollbar-color: #B0B0B0 transparent; /* Per Firefox */
   height: 11vh;
+  scrollbar-width: none;
 }
 
 /* Elementi della lista */
@@ -932,8 +1001,28 @@ nav {
   display: block; /* Ogni link occupa una riga intera */
   text-align: center; /* Allinea il testo a sinistra */
 }
+.navbar-user {
+  position: fixed; /* Rende l'icona fissa in alto a destra */
+  top: -2%;
+  right: -9%;
+  width: 30%;
+  height: 30%;
 
+}
 
+.navbar-user img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover; /* Adatta l'immagine al cerchio */
+}
+#user{
+  width: 100%; /* Modifica la larghezza del logo */
+  height: 100%; /* Mantiene le proporzioni */
+  object-fit: cover; /* Evita distorsioni */ 
+  align-items: center;
+  
+}
 
 
 
@@ -943,7 +1032,10 @@ nav {
 
 
 /*FAQ e PROFILO*/
-.profilo-page, #FaqPage {
+.profilo-page {
+  margin-top: 25vh;
+}
+#FaqPage{
   margin-top: 25vh;
 }
 .Selettore {
@@ -967,6 +1059,7 @@ nav {
 .container {
   padding: 3vh; /* Aggiunge spaziature più comode */
 }
+
 /*PROFILO WIDGET*/
 .profilo-widget-container {
   display: flex;
@@ -974,6 +1067,15 @@ nav {
   flex-direction: column;
   gap: 2vh; /* Maggiore spazio tra gli elementi */
   padding: 2vh;
+  margin: 0;
+
+
+}
+.barattoloWidget{
+  display: flex;
+  justify-content: center; /* Centra orizzontalmente */
+  width: 40vh; /* Occupa tutta la larghezza disponibile */
+
 }
 .foto-username-container {
   flex-direction: column;
@@ -982,13 +1084,13 @@ nav {
 }
 .foto-profilo {
   width: 100%;
-  height: auto;
-  max-width: 12vh;
-  max-height: 12vh;
+  height: 100%; /* L'immagine occupa tutta l'altezza e la larghezza del contenitore */
+  object-fit: cover; /* Adatta l'immagine per riempire il cerchio senza distorsioni */
+  display: block;
 }
 .foto-container {
-  width: 12vh;
-  height: 12vh;
+  width: 15vh;
+  height: 15vh;
 }
 .foto-label {
   width: 3vh;
@@ -997,16 +1099,21 @@ nav {
   right: 1vh;
 }
 .foto-icon {
-  width: 1.2vh;
-  height: 1.2vh;
+  width: 1vh;
+  height: 1vh;
 }
 .fallback-text {
-  font-size: 1rem;
+  font-size: 1vh;
 }
 .campo {
   padding: 1.2vh;
-  font-size: 1rem;
+  font-size: 1vh;
 }
+.little {
+  width: 100vh;
+  margin: 0 auto;
+}
+
 /*LOGIN e REGISTER*/
   /* Cambio layout principale */
   .page {
@@ -1025,49 +1132,38 @@ nav {
   .carousel-slides img {
     height: 50%;
   }
-  /* Sezione Login/Registrati sotto */
+
+  /* Sezione di login e registrazione in piena larghezza */
+  .accedi,
   .section {
-    max-width: 100%; /* Occupa tutta la larghezza */
-    height: auto; /* Altezza automatica */
-    padding: 5vh 5vw;
-  }
-  /* Rende il form più compatto */
-  form {
-    width: 90%;
-  }
-  /* Riduce i margini e padding degli input */
-  input {
-    padding: 8px;
-    font-size: 14px;
-  }
-  /* Riduce il pulsante */
-  button {
     width: 100%;
+    max-width: 100%;
     height: auto;
-    padding: 10px;
-    font-size: 14px;
+    padding: 5vh 0;
   }
-  /* Centro gli elementi del login */
-  .L-accedi {
+
+  /* Disposizione verticale per gli input a coppie */
+  .input-group {
     flex-direction: column;
-    gap: 1vh;
   }
-  .L-accedi a {
-    margin-left: -50%;
-    margin-top: 4%;
+
+  .input-group input {
+    width: 100%;
   }
-  /* Checkbox e testo più piccoli */
-  input[type="checkbox"] {
-    width: 2vh;
-    height: 2vh;
+
+  /* Registrazione in colonna su mobile */
+  .register-form {
+    display: flex;
+    flex-direction: column;
   }
-  label {
-    font-size: 1.8vh;
+
+  .register-form .input-group {
+    flex-direction: column;
+    gap: 10px;
   }
-  .img-accedi{
-    margin:0;
-    width: 4vh;
-    height: 4vh;
+
+  .register-form .input-group input {
+    width: 100%;
   }
 }
 

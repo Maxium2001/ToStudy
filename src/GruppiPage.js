@@ -9,7 +9,7 @@ const GruppiPage = () => {
 
   // Stati per gruppi e materie
   const [groups, setGroups] = useState([]); // Elenco dei gruppi
-  const [expandedGroups, setExpandedGroups] = useState([]); // Array degli ID dei gruppi espansi
+  const [expandedGroups] = useState([]); // Array degli ID dei gruppi espansi
   const [materie, setMaterie] = useState([]); // Elenco di tutte le materie caricate
   const [selectedMateria, setSelectedMateria] = useState(null);
   const [isDeleteGroupModalOpen, setIsDeleteGroupModalOpen] = useState(false);
@@ -24,6 +24,7 @@ const GruppiPage = () => {
   const [newGroup, setNewGroup] = useState("");
   const [showPopup, setShowPopup] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [selectedGroup, setSelectedGroup] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -67,14 +68,14 @@ const GruppiPage = () => {
     }
   };
 
-  // Funzione per gestire l'espansione dei gruppi
-  const handleGruppiClick = async (group) => {
+  const handleGruppiClick = (group) => {
     const groupId = group._id || group.id;
-    if (expandedGroups.includes(groupId)) {
-      setExpandedGroups(expandedGroups.filter((id) => id !== groupId));
+    
+    // Se il gruppo cliccato è già selezionato, lo deselezioniamo (toggle)
+    if (selectedGroup === groupId) {
+      setSelectedGroup(null);
     } else {
-      // Qui puoi decidere di caricare materie specifiche per un gruppo, se necessario
-      setExpandedGroups([...expandedGroups, groupId]);
+      setSelectedGroup(groupId);
     }
   };
 
@@ -232,29 +233,35 @@ const GruppiPage = () => {
         </ul>
       </div>
 
-      <GruppiList
-        groups={groups}
-        materie={materie} // Usa lo stato 'materie' definito
-        expandedGroups={expandedGroups}
-        handleGruppiClick={handleGruppiClick}
+       <GruppiList
+        materie={materie}
+        selectedGroup={selectedGroup} // Filtra in base al gruppo
         handleMateriaClick={handleMateriaClick}
         selectedMateria={selectedMateria}
       />
 
+
       {/* Colonna destra: Dettagli (ad esempio della materia selezionata) */}
       <div className="column">
         <h2>INFO GRUPPO</h2>
-        {selectedMateria ? (
-          <>
-            <p>{selectedMateria.titolo || selectedMateria.nome}</p>
-            {/* Altri dettagli se necessari */}
-          </>
+        {selectedGroup ? (
+          (() => {
+            const groupInfo = groups.find((g) => g._id === selectedGroup || g.id === selectedGroup);
+            return groupInfo ? (
+              <>
+                <p>Nome: {groupInfo.nome}</p>
+                <p>Descrizione: {groupInfo.descrizione || "Nessuna descrizione disponibile"}</p>
+              </>
+            ) : (
+              <p>Errore nel recupero del gruppo</p>
+            );
+          })()
         ) : (
           <p>Seleziona un gruppo per visualizzare i dettagli</p>
         )}
       </div>
 
-      {/* Pulsante flottante e popup menu */}
+          {/* Pulsante flottante e popup menu */}
       <button
         id="add-button"
         className={isMenuOpen ? "active" : ""}
@@ -262,32 +269,43 @@ const GruppiPage = () => {
       >
         +
       </button>
-      <div id="popup-container" className={isMenuOpen ? "active" : ""}>
-        <button
-          onClick={() => {
-            setIsModalOpen(true);
-            setIsMenuOpen(false);
-          }}
-        >
-          Inserisci Gruppo
-        </button>
-        <button
-          onClick={() => {
-            setIsAddMateriaModalOpen(true);
-            setIsMenuOpen(false);
-          }}
-        >
-          Aggiungi Materia
-        </button>
-        <button
-          onClick={() => {
-            setIsDeleteGroupModalOpen(true);
-            setIsMenuOpen(false);
-          }}
-        >
-          Elimina Gruppo
-        </button>
-      </div>
+
+        {/* Popup menu strutturato come un modale */}
+        {isMenuOpen && (
+          <div className={`modal ${isMenuOpen ? "open" : ""}`}>
+            <div className="modal-content">
+              <span className="close-button" onClick={() => setIsMenuOpen(false)}>
+                ×
+              </span>
+              <h2>Opzioni</h2>
+              <button className="GA"
+                onClick={() => {
+                  setIsModalOpen(true);
+                  setIsMenuOpen(false);
+                }}
+              >
+                Inserisci Gruppo
+              </button>
+              <button className="GA"
+                onClick={() => {
+                  setIsAddMateriaModalOpen(true);
+                  setIsMenuOpen(false);
+                }}
+              >
+                Aggiungi Materia
+              </button>
+              <button className="GA"
+                onClick={() => {
+                  setIsDeleteGroupModalOpen(true);
+                  setIsMenuOpen(false);
+                }}
+              >
+                Elimina Gruppo
+              </button>
+            </div>
+          </div>
+        )}
+
 
       {/* Modale per aggiungere gruppi */}
       {isModalOpen && (

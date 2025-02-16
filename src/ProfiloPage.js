@@ -172,31 +172,31 @@ const LogoutPopup = ({ onConfirm, onCancel }) => {
               <div className="categoria">
                 <h4>Informazioni di base</h4>
                 <div className="campo">
-                  Nome: <input type="text" value={userData.nome} readOnly />
+                 <p> Nome: <input type="text" value={userData.nome} readOnly /></p>
                 </div>
                 <div className="campo">
-                  Cognome:{" "}
-                  <input type="text" value={userData.cognome} readOnly />
+                <p> Cognome:{" "}
+                  <input type="text" value={userData.cognome} readOnly /></p>
                 </div>
                   <div className="campo">
-                    Selezione sesso:
+                  <p>  Selezione sesso:
                     <select value={sesso} onChange={(e) => setSesso(e.target.value)}>
                       <option value="">Sesso</option>
                       <option value="Maschio">Maschio</option>
                       <option value="Femmina">Femmina</option>
                       <option value="Altro">Altro</option>
-                    </select>
+                    </select></p>
                   </div>
-                <div className="campo">Età: 
-                  <input type="number" min={12} value={eta} onChange={handleChange} />
+                <div className="campo"><p>Età: 
+                  <input type="number" min={12} value={userData.eta} onChange={handleChange} /></p>
                 </div>
 
                 <div className="campo">
-                  Email: <input type="email" value={userData.email} readOnly />
+                <p> Email: <input type="email" value={userData.email} readOnly /></p>
                 </div>
               </div>
               <button className="mini-button" onClick={changeProfile}>
-                  Aggiungi
+                Aggiungi
                 </button>
             </div>
           )}
@@ -205,7 +205,7 @@ const LogoutPopup = ({ onConfirm, onCancel }) => {
         {/* Altre sezioni */}
         <div id="Titolo-container">
           <button className="Titolo" onClick={() => handleClick(1)}>
-            Ripristina Password
+            Modifica Password
             <span className={`arrow ${openIndex === 1 ? "open" : ""}`}>
               &#9662;
             </span>
@@ -213,28 +213,28 @@ const LogoutPopup = ({ onConfirm, onCancel }) => {
           {openIndex === 1 && (
             <div className="answer">
               <div className="campo">
-                Password attuale:{" "}
+              <p> Password attuale:{" "}
                 <input
                   type="password"
                   placeholder="Password Attuale"
                   onChange={(e) => setPassword(e.target.value)}
-                />
+                /></p>
               </div>
               <div className="campo">
-                Nuova password:{" "}
+              <p> Nuova password:{" "}
                 <input
                   type="password"
                   placeholder="Nuova Password"
                   onChange={(e) => setNewPassword(e.target.value)}
-                />
+                /></p>
               </div>
               <div className="campo">
-                Ripeti nuova password:{" "}
+              <p>  Ripeti nuova password:{" "}
                 <input
                   type="password"
                   placeholder="Ripeti Nuova Password"
                   onChange={(e) => setConfirmPassword(e.target.value)}
-                />
+                /></p>
               </div>
               <button className="mini-button" onClick={changePassword}>
                 Modifica Password
