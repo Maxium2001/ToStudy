@@ -8,7 +8,7 @@ const GruppiList = ({ groups, materie, expandedGroups, handleGruppiClick, handle
   
   return (
     <div className="column centrale">
-      <h2>GRUPPI</h2>
+      <h2>MATERIE</h2>
       <div className="list">
         {groups.length > 0 ? (
           groups.map((group) => {
