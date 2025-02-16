@@ -92,8 +92,8 @@ const GruppiPage = () => {
   const handleAddGruppo = async (e) => {
     e.preventDefault();
     if (!newTitle || !newDescription) {
-      alert("Completa tutti i campi per il gruppo");
-      return;
+      setErrorMessage("Inserisci tutti i campi per creare un gruppo" );
+      setShowPopup(true);
     }
     try {
       const response = await axios.post("http://localhost:8000/creagroup", {
@@ -110,7 +110,7 @@ const GruppiPage = () => {
         setShowPopup(true);
       }
     } catch (error) {
-      setErrorMessage("Errore nella creazione del gruppo" + error);
+      setErrorMessage("Compila tutti i campi" );
       setShowPopup(true);
     }
   };
@@ -119,12 +119,13 @@ const GruppiPage = () => {
   const handleAddMateria = async (e) => {
     e.preventDefault();
     if (!newMateria || !newGroup) {
-      alert("Completa tutti i campi per la materia");
-      return;
+      setErrorMessage("Compila tutti i campi" );
+      setShowPopup(true);
     }
     try {
       if (materie.find((m) => m.nome === newMateria)) {
-        alert("Materia già esistente");
+        setErrorMessage("Materia già esistente" );
+      setShowPopup(true);
       }
       const response = await axios.post("http://localhost:8000/creamateria", {
         nome: newMateria,
@@ -143,7 +144,7 @@ const GruppiPage = () => {
         setShowPopup(true);
       }
     } catch (error) {
-      setErrorMessage("Errore nella creazione della materia" + error);
+      setErrorMessage("Compila tutti i campi" );
       setShowPopup(true);
     }
   };
@@ -155,8 +156,8 @@ const GruppiPage = () => {
 
   const handleRimouviGruppo = async (e) => {
     if (!newGroup) {
-      alert("Seleziona un gruppo da rimuovere");
-      return;
+      setErrorMessage("Seleziona un gruppo da rimuovere" );
+      setShowPopup(true);
     }
     try {
       const groupId = groups.find((g) => g.nome === newGroup)._id;
@@ -171,7 +172,7 @@ const GruppiPage = () => {
       setErrorMessage("Gruppo rimosso con successo");
       setShowPopup(true);
     } catch (error) {
-      setErrorMessage("Errore nella rimozione del gruppo" + error);
+      setErrorMessage("Compila tutti i campi" );
       setShowPopup(true);
     }
   };
@@ -400,7 +401,7 @@ const GruppiPage = () => {
             </select>
 
             <button className="add-button" onClick={handleRimouviGruppo}>
-              elimina Gruppo
+              Elimina Gruppo
             </button>
           </div>
         </div>
