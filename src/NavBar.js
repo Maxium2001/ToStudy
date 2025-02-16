@@ -10,7 +10,7 @@ function NavBar() {
     <nav>
       <div className="navbar">
         <div className="navbar-brand">
-          <NavLink to="/">
+          <NavLink to="/homepage">
             <img src="/logo.png" alt="logo" id="logo" />
           </NavLink>
         </div>
