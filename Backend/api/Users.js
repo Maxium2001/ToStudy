@@ -14,7 +14,7 @@ const userSchema = new Schema({
   icon: {
     type: Schema.Types.ObjectId,
     ref: "Icona",
-    default: "67ab50dea47c266ca5180fc5",
+    default: "67b1efa80b5323204868ef4d",
   },
 });
 

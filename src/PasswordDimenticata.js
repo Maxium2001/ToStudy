@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const PasswordDimenticata = () => {
   const navigate = useNavigate();
@@ -52,34 +52,66 @@ const PasswordDimenticata = () => {
   };
 
   return (
-    <div>
-      <h1>Password Dimenticata</h1>
-      <form onSubmit={handleOtpGeneration}>
-        <div>
-          <label htmlFor="email">Email:</label>
-          <input
-            type="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
+    <div className="containerPage">
+      <h2>Password Dimenticata</h2>
+      <div className="listPage">
+        {/* Form per generare l'OTP */}
+        <div className="barattoloPage">
+          <div className="extra-container">
+            <NavLink to="/login">
+              <button type="submit" className="Extra">X</button>
+            </NavLink>
+          </div>
+          <form
+            onSubmit={handleOtpGeneration}
+            className="form-container"
+            id="otp-generation"
+          >
+            <div className="form-group">
+              <label htmlFor="email">Email:</label>
+              <input
+                type="email"
+                id="email"
+                className="input-email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </div>
+            <button type="submit">
+              Genera OTP
+            </button>
+          </form>
+
+
+          {/* Form per confermare l'OTP */}
+
+          <form
+            onSubmit={handleOtpSubmit}
+            className="form-container"
+            id="otp-confirmation"
+          >
+            <div className="form-group">
+              <label htmlFor="otp">OTP:</label>
+              <input
+                type="text"
+                id="otp"
+                className="input-otp"
+                value={otp}
+                onChange={(e) => setOtp(e.target.value)}
+                required
+              />
+            </div>
+            <button type="submit" >
+              Conferma OTP
+            </button><br />
+          </form>
+
         </div>
-        <button type="submit">Genera OTP</button>
-      </form>
-      <form onSubmit={handleOtpSubmit}>
-        <div>
-          <label htmlFor="otp">OTP:</label>
-          <input
-            type="text"
-            id="otp"
-            value={otp}
-            onChange={(e) => setOtp(e.target.value)}
-            required
-          />
-        </div>
-        <button type="submit">Conferma OTP</button>
-      </form>
+
+      </div>
+
+
       {showPopup && (
         <ErrorPopup
           message={errorMessage}

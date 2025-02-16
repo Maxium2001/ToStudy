@@ -72,13 +72,15 @@ const Register = () => {
       <div className="L-accedi-container">
         <p className="L-accedi">Sei già registrato?</p>
         <Link className="L-accedi" to="/login">
-          <img className="img-accedi" src="/user.png" alt="user" />
+          <span className="register-link">
+            <img className="img-accedi" src="/user.png" alt="user" />
+            Accedi
+          </span>
         </Link>
-        <p className="L-accedi">Accedi</p>
       </div>
 
       <form onSubmit={handleSubmit} className="register-form">
-        <input
+        <input className="input-group"
           type="text"
           name="nome"
           value={formData.nome}
@@ -94,14 +96,13 @@ const Register = () => {
           placeholder="Cognome"
           required
         />
-        <input
+        <input className="input-group"
           type="text"
           name="username"
           value={formData.username}
           onChange={handleChange}
           placeholder="Username"
           required
-          className="full-width"
         />
         <input
           type="email"
@@ -110,41 +111,40 @@ const Register = () => {
           onChange={handleChange}
           placeholder="Email"
           required
-          className="full-width"
         />
-        <input
+        <input className="input-group"
           type="password"
           name="password"
           value={formData.password}
           onChange={handleChange}
           placeholder="Password"
           required
-          className="full-width"
         />
-        <input
+        <input className="input-group"
           type="password"
           name="confirmPassword"
           value={formData.confirmPassword}
           onChange={handleChange}
           placeholder="Conferma Password"
           required
-          className="full-width"
         />
-        <input
-          type="checkbox"
-          name="terms"
-          checked={formData.terms || false}
-          onChange={(e) =>
-            setFormData({ ...formData, terms: e.target.checked })
-          }
-          required
-        />
-        <label htmlFor="terms">
-          <p className="L-accedi">
-            Accetto i<Link to="/termsandconditions">Termini e Condizioni</Link>
-          </p>
-          <button type="submit">Crea account</button>
-        </label>
+        <div className="terms-container">
+          <input
+            type="checkbox"
+            name="terms"
+            id="terms"
+            checked={formData.terms || false}
+            onChange={(e) =>
+              setFormData({ ...formData, terms: e.target.checked })
+            }
+            required
+          />
+          <label htmlFor="terms">
+            <Link to="/termsandconditions">Accetto i Termini e Condizioni</Link>
+          </label>
+        </div>
+
+        <button type="submit" >Crea account</button>
       </form>
       {showPopup && (
         <ErrorPopup
@@ -155,5 +155,6 @@ const Register = () => {
     </div>
   );
 };
+
 
 export default Register;

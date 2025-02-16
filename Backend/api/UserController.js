@@ -3,6 +3,8 @@ const Group = require("./Groups");
 const crypto = require("crypto");
 const Icona = require("./Icona");
 
+const DEFAULTICON = "67b1efa80b5323204868ef4d";
+
 const getUserGroups = async (req, res) => {
   try {
     const { id } = req.query;
@@ -121,8 +123,7 @@ const uploadIcon = async (req, res) => {
       await user.updateOne({ icon: existingIcon._id });
       return res.status(200).json({ message: "Icona caricata con successo" });
     }
-    const defaultIcon = "67ab50dea47c266ca5180fc5";
-    if (String(user.icon) !== String(defaultIcon)) {
+    if (String(user.icon) !== String(DEFAULTICON)) {
       await Icona.findByIdAndDelete(user.icon);
     }
     const newIcon = new Icona({

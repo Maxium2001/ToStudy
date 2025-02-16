@@ -16,9 +16,9 @@ const AppuntiList = ({
   const appuntiToShow = recent
     ? getRecentAppunti(materie)
     : expandedMaterie.flatMap((materiaNome) => {
-        const materia = materie.find((m) => m.nome === materiaNome);
-        return materia ? materia.appunti : [];
-      });
+      const materia = materie.find((m) => m.nome === materiaNome);
+      return materia ? materia.appunti : [];
+    });
 
   return (
     <div className="column centrale">
@@ -34,7 +34,7 @@ const AppuntiList = ({
               <h5 className="titol">{appunto.titolo}</h5>
               <p>{appunto.commento}</p>
             </div>
-            
+
           ))
         ) : (
           <p>Seleziona una materia per visualizzare gli appunti</p>
