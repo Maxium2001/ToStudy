@@ -48,40 +48,40 @@ const PasswordReset = () => {
     <div className="containerPage">
       <h2>Reimposta Password</h2>
       <div className="listPage">
-      <div className="barattoloPage">
-      <div className="extra-container">
+        <div className="barattoloPage">
+          <div className="extra-container">
             <NavLink to="/passworddimenticata">
               <button type="submit" className="Extra">X</button>
             </NavLink>
           </div>
-      <form onSubmit={handleSubmit} className="form-container" id="password-reset-form">
-        <div className="form-group">
-          <label htmlFor="password">Nuova Password:</label>
-          <input
-            type="password"
-            id="password"
-            className="input-password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
+          <form onSubmit={handleSubmit} className="form-container" id="password-reset-form">
+            <div className="form-group">
+              <label htmlFor="password">Nuova Password:</label>
+              <input
+                type="password"
+                id="password"
+                className="input-password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="confirmPassword">Conferma Password:</label>
+              <input
+                type="password"
+                id="confirmPassword"
+                className="input-confirm-password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                required
+              />
+            </div>
+            <button type="submit">Reimposta Password</button>
+            {errorMessage && <p className="error-message">{errorMessage}</p>}
+          </form>
         </div>
-        <div className="form-group">
-          <label htmlFor="confirmPassword">Conferma Password:</label>
-          <input
-            type="password"
-            id="confirmPassword"
-            className="input-confirm-password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            required
-          />
-        </div>
-        <button type="submit">Reimposta Password</button>
-        {errorMessage && <p className="error-message">{errorMessage}</p>}
-      </form>
-    </div>
-    </div>
+      </div>
     </div>
   );
 };

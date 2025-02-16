@@ -72,13 +72,13 @@ const Register = () => {
       <div className="L-accedi-container">
         <p className="L-accedi">Sei già registrato?</p>
         <Link className="L-accedi" to="/login">
-        <span className="register-link">
-          <img className="img-accedi" src="/user.png" alt="user" />
-          Accedi
-        </span>
+          <span className="register-link">
+            <img className="img-accedi" src="/user.png" alt="user" />
+            Accedi
+          </span>
         </Link>
       </div>
-      
+
       <form onSubmit={handleSubmit} className="register-form">
         <input className="input-group"
           type="text"
@@ -88,7 +88,7 @@ const Register = () => {
           placeholder="Nome"
           required
         />
-        <input 
+        <input
           type="text"
           name="cognome"
           value={formData.cognome}
@@ -129,7 +129,7 @@ const Register = () => {
           required
         />
         <div className="terms-container">
-          <input 
+          <input
             type="checkbox"
             name="terms"
             id="terms"
@@ -143,7 +143,7 @@ const Register = () => {
             <Link to="/termsandconditions">Accetto i Termini e Condizioni</Link>
           </label>
         </div>
-        
+
         <button type="submit" >Crea account</button>
       </form>
       {showPopup && (
@@ -154,7 +154,7 @@ const Register = () => {
       )}
     </div>
   );
-}; 
+};
 
 
 export default Register;

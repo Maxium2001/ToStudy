@@ -57,7 +57,7 @@ const PasswordDimenticata = () => {
       <div className="listPage">
         {/* Form per generare l'OTP */}
         <div className="barattoloPage">
-        <div className="extra-container">
+          <div className="extra-container">
             <NavLink to="/login">
               <button type="submit" className="Extra">X</button>
             </NavLink>
@@ -82,10 +82,10 @@ const PasswordDimenticata = () => {
               Genera OTP
             </button>
           </form>
-        
 
-        {/* Form per confermare l'OTP */}
-        
+
+          {/* Form per confermare l'OTP */}
+
           <form
             onSubmit={handleOtpSubmit}
             className="form-container"
@@ -104,13 +104,13 @@ const PasswordDimenticata = () => {
             </div>
             <button type="submit" >
               Conferma OTP
-            </button><br/>
+            </button><br />
           </form>
-          
+
         </div>
-        
+
       </div>
-      
+
 
       {showPopup && (
         <ErrorPopup
