@@ -121,7 +121,7 @@ const uploadIcon = async (req, res) => {
       await user.updateOne({ icon: existingIcon._id });
       return res.status(200).json({ message: "Icona caricata con successo" });
     }
-    const defaultIcon = "67ab50dea47c266ca5180fc5";
+    const defaultIcon = "67b1efa80b5323204868ef4d";
     if (String(user.icon) !== String(defaultIcon)) {
       await Icona.findByIdAndDelete(user.icon);
     }
