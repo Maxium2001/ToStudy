@@ -15,7 +15,7 @@ const GruppiList = ({ materie, selectedGroup, handleMateriaClick, selectedMateri
               return (
                 <div key={materiaId} className="barattolo">
                   <div
-                  id="materia"
+                    id="materia"
                     className={`materia ${selectedMateria && ((selectedMateria._id || selectedMateria.id) === materiaId) ? "selected" : ""}`}
                     onClick={() => handleMateriaClick(materia)}
                   >

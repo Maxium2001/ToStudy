@@ -14,42 +14,42 @@ const ProfiloPage = () => {
     istruzione: String,
   });
 
-const [istruzione, setIstruzione] = useState(userData.istruzione); // Stato per l'istruzione
-const [openIndex, setOpenIndex] = useState(null);
-const [sesso, setSesso] = useState(userData.sesso);
-const [eta, setEta] = useState(userData.eta);
-const [password, setPassword] = useState();
-const [newPassword, setNewPassword] = useState();
-const [confirmPassword, setConfirmPassword] = useState();
-const { logout, id, setUserId } = useAuth();
-const [showPopup, setShowPopup] = useState(false);
-const [errorMessage, setErrorMessage] = useState("");
-const [showLogoutPopup, setShowLogoutPopup] = useState(false);
-const navigate = useNavigate();
+  const [istruzione, setIstruzione] = useState(userData.istruzione); // Stato per l'istruzione
+  const [openIndex, setOpenIndex] = useState(null);
+  const [sesso, setSesso] = useState(userData.sesso);
+  const [eta, setEta] = useState(userData.eta);
+  const [password, setPassword] = useState();
+  const [newPassword, setNewPassword] = useState();
+  const [confirmPassword, setConfirmPassword] = useState();
+  const { logout, id, setUserId } = useAuth();
+  const [showPopup, setShowPopup] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [showLogoutPopup, setShowLogoutPopup] = useState(false);
+  const navigate = useNavigate();
 
-const confirmLogout = () => {
-  logout();
-  setUserId(null);
-  navigate("/login"); // Redirigi alla pagina di login
-};
+  const confirmLogout = () => {
+    logout();
+    setUserId(null);
+    navigate("/login"); // Redirigi alla pagina di login
+  };
 
-const LogoutPopup = ({ onConfirm, onCancel }) => {
-  return (
-    <div onClick={onCancel}>
-      <div className="LogoutPopup" onClick={(e) => e.stopPropagation()}>
-        <p>Sicuro di voler uscire dall'account?</p>
-        <div>
-          <button className="popup" onClick={onConfirm}>
-            Sì
-          </button>
-          <button className="popup" onClick={onCancel}>
-            No
-          </button>
+  const LogoutPopup = ({ onConfirm, onCancel }) => {
+    return (
+      <div onClick={onCancel}>
+        <div className="LogoutPopup" onClick={(e) => e.stopPropagation()}>
+          <p>Sicuro di voler uscire dall'account?</p>
+          <div>
+            <button className="popup" onClick={onConfirm}>
+              Sì
+            </button>
+            <button className="popup" onClick={onCancel}>
+              No
+            </button>
+          </div>
         </div>
       </div>
-    </div>
-  );
-};
+    );
+  };
 
   useEffect(() => {
     const fetchUsername = async () => {
@@ -162,7 +162,7 @@ const LogoutPopup = ({ onConfirm, onCancel }) => {
                   value={userData.istruzione}
                   onChange={(e) => setIstruzione(e.target.value)}
                 >
-                  <option value="">Istruzione</option>  
+                  <option value="">Istruzione</option>
                   <option value="Elementari">Scuola Elementare</option>
                   <option value="Medie">Scuola Media</option>
                   <option value="Superiori">Scuola Superiore</option>
@@ -172,13 +172,13 @@ const LogoutPopup = ({ onConfirm, onCancel }) => {
               <div className="categoria">
                 <h4>Informazioni di base</h4>
                 <div className="campo">
-                 <p> Nome: <input type="text" value={userData.nome} readOnly /></p>
+                  <p> Nome: <input type="text" value={userData.nome} readOnly /></p>
                 </div>
                 <div className="campo">
-                <p> Cognome:{" "}
-                  <input type="text" value={userData.cognome} readOnly /></p>
+                  <p> Cognome:{" "}
+                    <input type="text" value={userData.cognome} readOnly /></p>
                 </div>
-                  <div className="campo">
+                <div className="campo">
                   <p>  Selezione sesso:
                     <select value={sesso} onChange={(e) => setSesso(e.target.value)}>
                       <option value="">Sesso</option>
@@ -186,18 +186,18 @@ const LogoutPopup = ({ onConfirm, onCancel }) => {
                       <option value="Femmina">Femmina</option>
                       <option value="Altro">Altro</option>
                     </select></p>
-                  </div>
-                <div className="campo"><p>Età: 
+                </div>
+                <div className="campo"><p>Età:
                   <input type="number" min={12} value={userData.eta} onChange={handleChange} /></p>
                 </div>
 
                 <div className="campo">
-                <p> Email: <input type="email" value={userData.email} readOnly /></p>
+                  <p> Email: <input type="email" value={userData.email} readOnly /></p>
                 </div>
               </div>
               <button className="mini-button" onClick={changeProfile}>
                 Aggiungi
-                </button>
+              </button>
             </div>
           )}
         </div>
@@ -213,28 +213,28 @@ const LogoutPopup = ({ onConfirm, onCancel }) => {
           {openIndex === 1 && (
             <div className="answer">
               <div className="campo">
-              <p> Password attuale:{" "}
-                <input
-                  type="password"
-                  placeholder="Password Attuale"
-                  onChange={(e) => setPassword(e.target.value)}
-                /></p>
+                <p> Password attuale:{" "}
+                  <input
+                    type="password"
+                    placeholder="Password Attuale"
+                    onChange={(e) => setPassword(e.target.value)}
+                  /></p>
               </div>
               <div className="campo">
-              <p> Nuova password:{" "}
-                <input
-                  type="password"
-                  placeholder="Nuova Password"
-                  onChange={(e) => setNewPassword(e.target.value)}
-                /></p>
+                <p> Nuova password:{" "}
+                  <input
+                    type="password"
+                    placeholder="Nuova Password"
+                    onChange={(e) => setNewPassword(e.target.value)}
+                  /></p>
               </div>
               <div className="campo">
-              <p>  Ripeti nuova password:{" "}
-                <input
-                  type="password"
-                  placeholder="Ripeti Nuova Password"
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                /></p>
+                <p>  Ripeti nuova password:{" "}
+                  <input
+                    type="password"
+                    placeholder="Ripeti Nuova Password"
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                  /></p>
               </div>
               <button className="mini-button" onClick={changePassword}>
                 Modifica Password
@@ -252,31 +252,31 @@ const LogoutPopup = ({ onConfirm, onCancel }) => {
           </button>
           {openIndex === 2 && (
             <div className="answer">
-              <p>Informativa sulla Privacy<br/>
+              <p>Informativa sulla Privacy<br />
 
-                Ultimo aggiornamento: 1 Gennaio 2025<br/>
+                Ultimo aggiornamento: 1 Gennaio 2025<br />
 
-                Questa informativa descrive il trattamento dei dati personali su ToStudy.<br/>
+                Questa informativa descrive il trattamento dei dati personali su ToStudy.<br />
 
-                Dati Raccolti<br/>
-                Raccogliamo:<br/>
-                - Dati di navigazione: IP, browser, dispositivo;<br/>
-                - Dati forniti dall'utente: nome, email.<br/>
+                Dati Raccolti<br />
+                Raccogliamo:<br />
+                - Dati di navigazione: IP, browser, dispositivo;<br />
+                - Dati forniti dall'utente: nome, email.<br />
 
-                Finalità e Base Giuridica<br/>
+                Finalità e Base Giuridica<br />
                 Trattiamo i dati per fornire servizi, rispondere a richieste, inviare comunicazioni promozionali (con consenso) e adempiere a obblighi legali.
-                <br/>
-                Conservazione e Sicurezza<br/>
-                I dati sono protetti e conservati per il tempo necessario agli scopi indicati.<br/>
+                <br />
+                Conservazione e Sicurezza<br />
+                I dati sono protetti e conservati per il tempo necessario agli scopi indicati.<br />
 
-                Condivisione dei Dati<br/>
-                Non vendiamo dati, ma possiamo condividerli con fornitori di servizi e autorità competenti.<br/>
+                Condivisione dei Dati<br />
+                Non vendiamo dati, ma possiamo condividerli con fornitori di servizi e autorità competenti.<br />
 
-                Diritti degli Utenti<br/>
+                Diritti degli Utenti<br />
                 Gli utenti possono richiedere accesso, modifica, cancellazione, limitazione, opposizione e portabilità dei dati, nonché revocare il consenso.
-                <br/>
-                Modifiche e Contatti<br/>
-                L’informativa può essere aggiornata.<br/>
+                <br />
+                Modifiche e Contatti<br />
+                L’informativa può essere aggiornata.<br />
               </p>
             </div>
           )}
@@ -292,19 +292,19 @@ const LogoutPopup = ({ onConfirm, onCancel }) => {
           {openIndex === 3 && (
             <div className="answer">
               <p>Il nostro sito è progettato per offrire un’esperienza di navigazione intuitiva e accessibile a tutti gli utenti. Abbiamo adottato accorgimenti per migliorare la leggibilità e la fruizione dei contenuti, tra cui:
-                Interfaccia semplice e intuitiva, per facilitare l’uso del sito da parte di chiunque.<br/>
-                Colori con elevato contrasto, per garantire una migliore leggibilità.<br/>
-                Struttura chiara e ordinata, per rendere la navigazione più agevole.<br/>
+                Interfaccia semplice e intuitiva, per facilitare l’uso del sito da parte di chiunque.<br />
+                Colori con elevato contrasto, per garantire una migliore leggibilità.<br />
+                Struttura chiara e ordinata, per rendere la navigazione più agevole.<br />
                 Se hai suggerimenti per migliorare ulteriormente l’accessibilità, saremo lieti di ascoltarli</p>
             </div>
           )}
         </div>
-          <button className="mini-button" onClick={logoutFunction}>
-            Logout
-          </button>
+        <button className="mini-button" onClick={logoutFunction}>
+          Logout
+        </button>
         <br />
       </div>
-       {showLogoutPopup && (
+      {showLogoutPopup && (
         <LogoutPopup
           onConfirm={confirmLogout}
           onCancel={() => setShowLogoutPopup(false)}

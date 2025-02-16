@@ -207,7 +207,7 @@ const AppuntiPage = () => {
       setUploadedFile(null);
       setNewComment("");
     } else {
-      setErrorMessage("Compila tutti i campi" );
+      setErrorMessage("Compila tutti i campi");
       setShowPopup(true);
     }
   };
@@ -387,55 +387,55 @@ const AppuntiPage = () => {
         )}
       </div>
 
-            {/* Pulsante flottante */}
-        <div className="add-button">
-          <button id="add-button" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-            +
-          </button>
+      {/* Pulsante flottante */}
+      <div className="add-button">
+        <button id="add-button" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+          +
+        </button>
 
-          {/* Menu strutturato come un modale */}
-          {isMenuOpen && (
-            <div className={`modal ${isMenuOpen ? "open" : ""}`}>
-              <div className="modal-content">
-                <span className="close-button" onClick={() => setIsMenuOpen(false)}>
-                  ×
-                </span>
-                <h2>Opzioni</h2>
-                <button className="GA"
-                  onClick={() => {
-                    setIsModalOpen(true);
-                    setIsMenuOpen(false);
-                  }}
-                >
-                  Inserisci Appunto
-                </button>
-                <button className="GA"
-                  onClick={() => {
-                    setIsAddMateriaModalOpen(true);
-                    setIsMenuOpen(false);
-                  }}
-                >
-                  Aggiungi Materia
-                </button>
-                <button className="GA"
-                  onClick={() => {
-                    setIsDeleteMateriaModalOpen(true);
-                    setIsMenuOpen(false);
-                  }}
-                >
-                  Elimina Materia
-                </button>
-                <button className="GA"
-                  onClick={() => {
-                    setIsDeleteAppuntoModalOpen(true);
-                    setIsMenuOpen(false);
-                  }}
-                >
-                  Elimina Appunto
-                </button>
-              </div>
+        {/* Menu strutturato come un modale */}
+        {isMenuOpen && (
+          <div className={`modal ${isMenuOpen ? "open" : ""}`}>
+            <div className="modal-content">
+              <span className="close-button" onClick={() => setIsMenuOpen(false)}>
+                ×
+              </span>
+              <h2>Opzioni</h2>
+              <button className="GA"
+                onClick={() => {
+                  setIsModalOpen(true);
+                  setIsMenuOpen(false);
+                }}
+              >
+                Inserisci Appunto
+              </button>
+              <button className="GA"
+                onClick={() => {
+                  setIsAddMateriaModalOpen(true);
+                  setIsMenuOpen(false);
+                }}
+              >
+                Aggiungi Materia
+              </button>
+              <button className="GA"
+                onClick={() => {
+                  setIsDeleteMateriaModalOpen(true);
+                  setIsMenuOpen(false);
+                }}
+              >
+                Elimina Materia
+              </button>
+              <button className="GA"
+                onClick={() => {
+                  setIsDeleteAppuntoModalOpen(true);
+                  setIsMenuOpen(false);
+                }}
+              >
+                Elimina Appunto
+              </button>
             </div>
-          )}
+          </div>
+        )}
 
 
         {/* Modale per aggiungere appunti */}
@@ -471,7 +471,7 @@ const AppuntiPage = () => {
               />
 
               <label>Allega File:</label>
-              <div> 
+              <div>
                 <input type="file" onChange={handleFileUpload} />
                 {uploadedFile && <p>{uploadedFile.name}</p>}
               </div>

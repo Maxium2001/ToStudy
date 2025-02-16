@@ -210,19 +210,19 @@ function HomePage() {
           </NavLink>
         </div>
         {/* Colonna destra: Gruppi e Materie */}
-              <div className="column">
-        <NavLink className="Home" to="/gruppi">
-          <GruppiList
-            groups={groups}
-            materie={materie} // Mostra tutte le materie
-            expandedGroups={expandedGroups}
-            handleGruppiClick={handleGruppiClick}
-            handleMateriaClick={handleMateriaClick}
-            selectedMateria={selectedMateria}
-            showAllMaterie={true} // Aggiunto per mostrare tutto in Homepage
-          />
-        </NavLink>
-      </div>
+        <div className="column">
+          <NavLink className="Home" to="/gruppi">
+            <GruppiList
+              groups={groups}
+              materie={materie} // Mostra tutte le materie
+              expandedGroups={expandedGroups}
+              handleGruppiClick={handleGruppiClick}
+              handleMateriaClick={handleMateriaClick}
+              selectedMateria={selectedMateria}
+              showAllMaterie={true} // Aggiunto per mostrare tutto in Homepage
+            />
+          </NavLink>
+        </div>
 
       </div>
     </div>

@@ -7,47 +7,65 @@
 Roboto: font-family per il testo;
 sans-serif: fallback font-family;
 */
-html, body {
-  margin : 0;
+html,
+body {
+  margin: 0;
   padding: 0;
   font-family: 'Roboto', sans-serif;
-  background-color: #EEEEEE; 
-  font-size: 2.2vh; /*grandezza scritte*/
+  background-color: #EEEEEE;
+  font-size: 2.2vh;
+  /*grandezza scritte*/
   flex-direction: column;
   height: 100%;
-  overflow-x:  auto; /* Impedisce lo scroll orizzontale */
-  overflow-y: auto !important; /* Permette lo scroll verticale */
-  scrollbar-width: none; /* Nasconde la scrollbar su Firefox */
-
+  overflow-x: auto;
+  /* Impedisce lo scroll orizzontale */
+  overflow-y: auto !important;
+  /* Permette lo scroll verticale */
+  scrollbar-width: none;
+  /* Nasconde la scrollbar su Firefox */
 }
-h1, h2, h4{
+
+h1,
+h2,
+h4 {
   color: #222831;
   text-align: center;
 }
-p{
+
+p {
   color: #222831;
   text-align: left;
 }
-h5{
+
+h5 {
   font-weight: bold;
 }
+
 h1 {
-  font-size: 5vh; /*grandezza scritte*/
+  font-size: 5vh;
+  /*grandezza scritte*/
 }
+
 a {
   color: #222831;
 }
+
 a:hover {
   color: #00ADB5;
 }
+
 ul {
   list-style: none;
 }
-a.Home{
+
+a.Home {
   text-decoration: none;
-}a.Home:hover {
+}
+
+a.Home:hover {
   color: #222831;
 }
+
 button {
   background-color: #71C9CE;
   color: #222831;
@@ -57,189 +75,214 @@ button {
   border-radius: 1vh;
   cursor: pointer;
   font-weight: bold;
-  margin:0 auto; /* Centra il bottone */
-  grid-column: span 2; /* Il bottone occuperà entrambe le colonne */
-  white-space:nowrap; /* Evita che il testo vada a capo */
+  margin: 0 auto;
+  /* Centra il bottone */
+  grid-column: span 2;
+  /* Il bottone occuperà entrambe le colonne */
+  white-space: nowrap;
+  /* Evita che il testo vada a capo */
 }
-
-
-
-
-
-
-
 
 /*HOMEPAGE*/
 /* Impostazioni per la homepage */
 .homepage {
-display: flex;
-flex-direction: column;
-height: 100vh;
-margin-top: 14vh;
-background-color: #B0B0B0; /* Colore di sfondo per l'intera pagina */
-padding: 0.3vh;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  margin-top: 14vh;
+  background-color: #B0B0B0;
+  /* Colore di sfondo per l'intera pagina */
+  padding: 0.3vh;
 }
+
 .columns {
-display: flex;
-flex: 1; /* Le colonne occupano uguale spazio */
-gap: 0.5vh;
-height: 100%;
+  display: flex;
+  flex: 1;
+  /* Le colonne occupano uguale spazio */
+  gap: 0.5vh;
+  height: 100%;
 }
+
 .neutral-zone {
-height: 50px; /* Imposta un'altezza fissa per la zona neutra */
-background-color: #EEEEEE; /* Colore della zona neutra */
-display: flex;
-justify-content: center;
-align-items: center;
-margin-bottom: 14vh;
-margin-top: 10vh;
+  height: 50px;
+  /* Imposta un'altezza fissa per la zona neutra */
+  background-color: #EEEEEE;
+  /* Colore della zona neutra */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 14vh;
+  margin-top: 10vh;
 }
+
 .click-box-container {
-display: flex;
-flex-direction: column;
-flex: 1; /* Permette di riempire lo spazio della colonna */
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  /* Permette di riempire lo spazio della colonna */
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /* NAVBAR */
 nav {
-display: flex;
-align-items: center;
-justify-content: space-between;
-height: 10%; /* Altezza navbar più bassa */
-background-color: #EEEEEE;
-position: fixed;
-top: 0;
-left: 0;
-width: 100%;
-z-index: 1000;
-font-size: 2.5vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 10%;
+  /* Altezza navbar più bassa */
+  background-color: #EEEEEE;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  font-size: 2.5vh;
 }
+
 /* Contenitore link navbar */
 .navbar-nav {
-display: flex;
-align-items: center; /* Allinea i link al centro accanto al logo */
+  display: flex;
+  align-items: center;
+  /* Allinea i link al centro accanto al logo */
 }
+
 /* Lista navbar */
 .navbar-nav ul {
-list-style: none;
-display: flex;
-margin: 0;
-padding: 0;
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
 }
+
 /* Distanza tra gli item della navbar */
 .navbar-nav li {
-margin: 0 15px;
-height: 1vh;
+  margin: 0 15px;
+  height: 1vh;
 }
+
 /* Link della navbar */
 .navbar-nav a {
-color: #222831;
-text-decoration: none;
-font-size: 90%;
-position: relative; /* Necessario per la sottolineatura */
+  color: #222831;
+  text-decoration: none;
+  font-size: 90%;
+  position: relative;
+  /* Necessario per la sottolineatura */
 }
+
 /* Sottolineatura animata */
 .navbar-nav a::after {
-content: '';
-position: absolute;
-left: 0;
-bottom: -2vh; /* Spazio tra testo e sottolineatura */
-width: 100%;
-height: 0.2vh; /* Spessore sottolineatura */
-background-color: #222831;
-transform: scaleX(0);
-transition: transform 0.3s ease-in-out;
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2vh;
+  /* Spazio tra testo e sottolineatura */
+  width: 100%;
+  height: 0.2vh;
+  /* Spessore sottolineatura */
+  background-color: #222831;
+  transform: scaleX(0);
+  transition: transform 0.3s ease-in-out;
 }
+
 /* Mostra la sottolineatura al passaggio del mouse */
 .navbar-nav a:hover::after,
 .navbar-nav a.active::after {
-transform: scaleX(1);
+  transform: scaleX(1);
 }
+
 /* Evita la sottolineatura sotto il logo */
 .icon-nav::after {
-display: none;
+  display: none;
 }
 
-#logo{
-width: 30vh; /* Modifica la larghezza del logo */
-height: auto; /* Mantiene le proporzioni */
-object-fit: contain; /* Evita distorsioni */
+#logo {
+  width: 30vh;
+  /* Modifica la larghezza del logo */
+  height: auto;
+  /* Mantiene le proporzioni */
+  object-fit: contain;
+  /* Evita distorsioni */
 }
 
-#user{
-  width: 100%; /* Modifica la larghezza del logo */
-  height: 100%; /* Mantiene le proporzioni */
-  object-fit: cover; /* Evita distorsioni */ 
+#user {
+  width: 100%;
+  /* Modifica la larghezza del logo */
+  height: 100%;
+  /* Mantiene le proporzioni */
+  object-fit: cover;
+  /* Evita distorsioni */
   align-items: center;
-  
+
 }
-.foto-navbar{
-  position: relative; /* Importante per il posizionamento dell'icona */
+
+.foto-navbar {
+  position: relative;
+  /* Importante per il posizionamento dell'icona */
   width: 10vh;
   height: 10vh;
-  box-shadow: 0 0 1vh #B0B0B0; /* Aggiunge un'ombra leggera */
+  box-shadow: 0 0 1vh #B0B0B0;
+  /* Aggiunge un'ombra leggera */
   border-radius: 50%;
   overflow: hidden;
   margin-top: 4vh;
   margin-right: 2vh;
 }
 
-
-
-
-
-
-
 /*CAROSELLO*/
 .carousel-container {
-  width: 100%; /* Imposta la larghezza del carosello */
-  height: 100vh; /* Imposta l'altezza del carosello */
-  overflow: hidden; /* Nasconde le immagini che escono dal carosello */
+  width: 100%;
+  /* Imposta la larghezza del carosello */
+  height: 100vh;
+  /* Imposta l'altezza del carosello */
+  overflow: hidden;
+  /* Nasconde le immagini che escono dal carosello */
   position: relative;
 }
+
 /* Sezione del carosello (a sinistra) */
 .carousel-section {
-  flex: 1; /* Il carosello occupa tutta la larghezza disponibile della sezione a sinistra */
-  width: 100%; /* Ogni immagine occupa tutta la larghezza del carosello */
-  height: 100vh; /* Ogni immagine occupa tutta l'altezza del carosello */
-  overflow: hidden; /* Nasconde eventuali contenuti che escono dal carosello */
-  position: relative; /* Necessario per l'overlay o altre proprietà di posizione */
+  flex: 1;
+  /* Il carosello occupa tutta la larghezza disponibile della sezione a sinistra */
+  width: 100%;
+  /* Ogni immagine occupa tutta la larghezza del carosello */
+  height: 100vh;
+  /* Ogni immagine occupa tutta l'altezza del carosello */
+  overflow: hidden;
+  /* Nasconde eventuali contenuti che escono dal carosello */
+  position: relative;
+  /* Necessario per l'overlay o altre proprietà di posizione */
 }
+
 .carousel {
-  display: flex; /* Allinea le immagini orizzontalmente */
-  transition: transform 1s ease-in-out; /* Transizione fluida tra le immagini */
+  display: flex;
+  /* Allinea le immagini orizzontalmente */
+  transition: transform 1s ease-in-out;
+  /* Transizione fluida tra le immagini */
 }
+
 .carousel-slides {
-  display: flex; /* Le immagini sono allineate in una riga */
-  height: 100%; /* Imposta l'altezza al 100% del contenitore */
-  width: 100%; /* Imposta la larghezza al 100% */
+  display: flex;
+  /* Le immagini sono allineate in una riga */
+  height: 100%;
+  /* Imposta l'altezza al 100% del contenitore */
+  width: 100%;
+  /* Imposta la larghezza al 100% */
 }
+
 .carousel-slides img {
-  width: 100%; /* Ogni immagine occupa tutta la larghezza del carosello */
-  height: 100vh; /* Ogni immagine occupa tutta l'altezza del carosello */
-  object-fit: cover; /* Ritaglia l'immagine per coprire l'intero contenitore */
+  width: 100%;
+  /* Ogni immagine occupa tutta la larghezza del carosello */
+  height: 100vh;
+  /* Ogni immagine occupa tutta l'altezza del carosello */
+  object-fit: cover;
+  /* Ritaglia l'immagine per coprire l'intero contenitore */
 }
+
 .carousel-indicators {
   display: flex;
   justify-content: center;
   margin-top: 10px;
 }
+
 .indicator {
   width: 1.7vh;
   height: 1.7vh;
@@ -249,50 +292,53 @@ object-fit: contain; /* Evita distorsioni */
   cursor: pointer;
   transition: background-color 0.3s;
 }
+
 .indicator.active {
-  background-color: #222831; /* Colore quando attivo */
+  background-color: #222831;
+  /* Colore quando attivo */
 }
+
 .indicator:hover {
-  background-color: #EEEEEE; /* Colore al passaggio del mouse */
+  background-color: #EEEEEE;
+  /* Colore al passaggio del mouse */
 }
-
-
-
-
-
-
-
-
-
-
-
 
 /*LOGIN e REGISTRATI*/
-
 /* Contenitore principale della pagina di login */
-.page{
+.page {
   display: flex;
   height: 100vh;
 }
+
 .accedi {
   /* Permette di ridimensionarsi senza occupare tutto lo schermo */
-  max-width: 100vh; /* Imposta un limite massimo alla larghezza */
+  max-width: 100vh;
+  /* Imposta un limite massimo alla larghezza */
   background: #EEEEEE;
 
   text-align: center;
 
-  margin: auto; /* Lo centra orizzontalmente */
+  margin: auto;
+  /* Lo centra orizzontalmente */
 }
+
 /* Sezione del login (a destra) */
 .section {
-  flex: 1; /* Il modulo di login occupa metà dello spazio */
-  max-width: 50%; /* Limita la larghezza del modulo di login alla metà della pagina */
+  flex: 1;
+  /* Il modulo di login occupa metà dello spazio */
+  max-width: 50%;
+  /* Limita la larghezza del modulo di login alla metà della pagina */
   display: flex;
-  justify-content: center; /* Allinea il modulo di login al centro orizzontalmente */
-  align-items: center; /* Allinea il modulo di login al centro verticalmente */
-  height: 100vh; /* Altezza completa della finestra */
-  background-color: #EEEEEE; /* Colore di sfondo per la sezione di login */
+  justify-content: center;
+  /* Allinea il modulo di login al centro orizzontalmente */
+  align-items: center;
+  /* Allinea il modulo di login al centro verticalmente */
+  height: 100vh;
+  /* Altezza completa della finestra */
+  background-color: #EEEEEE;
+  /* Colore di sfondo per la sezione di login */
 }
+
 form {
   padding: 2%;
   display: flex;
@@ -304,7 +350,10 @@ form {
   flex-direction: column;
   align-items: center;
 }
-input, select, textarea{
+
+input,
+select,
+textarea {
   width: 100%;
   padding: 10px;
   margin: 1vh 0;
@@ -312,20 +361,24 @@ input, select, textarea{
   border-radius: 5px;
   font-size: 16px;
   background-color: #EEEEEE;
-  
+
 }
+
 /* Stile checkbox */
 input[type="checkbox"] {
   width: 2.5vh;
   height: 2.5vh;
-  vertical-align: middle; /* Assicura che il checkbox sia allineato con il testo */
+  vertical-align: middle;
+  /* Assicura che il checkbox sia allineato con il testo */
 }
+
 label {
   width: auto;
   height: auto;
 }
 
-.error-popup, .LogoutPopup {
+.error-popup,
+.LogoutPopup {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -338,82 +391,103 @@ label {
   width: 300px;
   box-shadow: 0px 4px 10px #222831;
 }
-.error-content p, .popupContent p {
+
+.error-content p,
+.popupContent p {
   display: flex;
   flex-direction: column;
   align-items: center;
   font-size: 18px;
   margin-bottom: 10px;
 }
-.error-content button, .LogoutPopup button{
+
+.error-content button,
+.LogoutPopup button {
   background: #B0B0B0;
   color: #222831;
   border: none;
   cursor: pointer;
   font-size: 16px;
   border-radius: 5px;
-  margin: 1vh auto; /* Margine automatico ai lati per centrare */
+  margin: 1vh auto;
+  /* Margine automatico ai lati per centrare */
   display: block;
-  padding: 10px 20px; /* Per migliorare la leggibilità */
+  padding: 10px 20px;
+  /* Per migliorare la leggibilità */
 }
-.error-content button:hover, .LogoutPopup button:hover {
+
+.error-content button:hover,
+.LogoutPopup button:hover {
   background: #00ADB5;
 }
+
 /* Stile per la pagina di registrazione */
 
-  .register-form {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    width: 100%;
-    overflow: visible; /* Assicura che gli elementi siano visibili */
-  
-  
+.register-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  width: 100%;
+  overflow: visible;
+  /* Assicura che gli elementi siano visibili */
 }
+
 .register-form input {
   width: 100%;
   min-width: 0;
 }
+
 .L-accedi-container {
   display: flex;
-  align-items: center; /* Allineare gli elementi al centro orizzontalmente */
+  align-items: center;
+  /* Allineare gli elementi al centro orizzontalmente */
   justify-content: center;
 }
-.L-accedi{
+
+.L-accedi {
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 2vh;
   font-size: 2vh;
 }
-.L-accedi a{
+
+.L-accedi a {
   margin-left: 20%;
   margin-top: 3%;
-  white-space:nowrap; /* Evita che il testo vada a capo */
+  white-space: nowrap;
 }
-.img-accedi{
+
+.img-accedi {
   width: 5vh;
   height: 5vh;
   margin: 0 1vh;
 }
+
 .register-link {
   display: flex;
-  align-items: center; /* Allinea verticalmente l'immagine e il testo */
-  margin-left: 10px; /* Spazio tra l'immagine e il testo */
+  align-items: center;
+  /* Allinea verticalmente l'immagine e il testo */
+  margin-left: 10px;
+  /* Spazio tra l'immagine e il testo */
   text-align: center;
   justify-content: center;
 }
+
 .terms-container {
   display: flex;
   align-items: center;
-  gap: 1vh; /* Spazio tra checkbox e testo */
+  gap: 1vh;
+  /* Spazio tra checkbox e testo */
   width: 100%;
   justify-content: start;
-  white-space:nowrap; /* Evita che il testo vada a capo */
+  white-space: nowrap;
+  /* Evita che il testo vada a capo */
 }
 
 .terms-container input[type="checkbox"] {
-  width: 20px; /* Adatta la grandezza della checkbox */
+  width: 20px;
+  /* Adatta la grandezza della checkbox */
   height: 20px;
   margin: 0;
 }
@@ -422,29 +496,32 @@ label {
   font-size: 16px;
   cursor: pointer;
 }
+
 .input-group {
   display: flex;
-  gap: 10px; /* Spazio tra gli input */
+  gap: 10px;
+  /* Spazio tra gli input */
   width: 100%;
 }
 
 .input-group input {
-  flex: 1; /* Gli input si dividono equamente lo spazio */
-  min-width: 0; /* Previene il comportamento indesiderato di stretching */
-  max-width: 100%; /* Impedisce che gli input si allarghino */
+  flex: 1;
+  /* Gli input si dividono equamente lo spazio */
+  min-width: 0;
+  /* Previene il comportamento indesiderato di stretching */
+  max-width: 100%;
+  /* Impedisce che gli input si allarghino */
 }
-
-
-
-
 
 /* FAQ e PROFILO */
-.profilo-page{
+.profilo-page {
   margin-top: 14vh;
 }
-#FaqPage{
+
+#FaqPage {
   margin-top: 14vh;
 }
+
 .Selettore {
   width: 90%;
   max-width: 80vh;
@@ -453,8 +530,9 @@ label {
 
   display: grid;
   gap: 1vh;
-  max-height: 80vh; 
+  max-height: 80vh;
 }
+
 .Titolo {
   width: 100%;
   padding: 1vh;
@@ -469,35 +547,45 @@ label {
   align-items: center;
   border-radius: 0;
   font-weight: normal;
-  word-wrap: break-word;  /* Fai in modo che il testo vada a capo quando è troppo lungo */
-  white-space: normal;    /* Permette al testo di andare a capo */
+  word-wrap: break-word;
+  /* Fai in modo che il testo vada a capo quando è troppo lungo */
+  white-space: normal;
+  /* Permette al testo di andare a capo */
   overflow: hidden;
 }
+
 button.Titolo {
   width: 100%;
   height: auto;
- 
+
 }
+
 #Titolo-container {
   border-bottom: 0.2vh solid #222831;
   border-left: 0.2vh solid #222831;
   border-right: 0.2vh solid #222831;
   grid-column: span 2;
 }
-.Titolo:hover, .Titolo:focus {
+
+.Titolo:hover,
+.Titolo:focus {
   background-color: #B0B0B0;
   border: 0.1vh solid #222831;
 }
+
 .arrow {
   transition: transform 0.3s ease;
 }
+
 .arrow.open {
   transform: rotate(180deg);
 }
+
 .answer {
   padding: 1vh;
   margin-top: 5px;
 }
+
 /* Flex per layout generali */
 .container {
   display: flex;
@@ -507,24 +595,21 @@ button.Titolo {
   padding: 2vh;
 }
 
-.mini-button{
-text-align: center;
-display: block;
-margin:0 auto; /* Centra il bottone */
-width:auto; /* Garantisce che la larghezza si adatti al contenuto */
-white-space:nowrap; /* Evita che il testo vada a capo */
+.mini-button {
+  text-align: center;
+  display: block;
+  margin: 0 auto;
+  /* Centra il bottone */
+  width: auto;
+  /* Garantisce che la larghezza si adatti al contenuto */
+  white-space: nowrap;
+  /* Evita che il testo vada a capo */
 }
 
-#little{
+#little {
   width: 25%;
   margin: 0 auto;
 }
-
-
-
-
-
-
 
 /* GRUPPI  E APPUNTI*/
 .PageGA {
@@ -533,27 +618,36 @@ white-space:nowrap; /* Evita che il testo vada a capo */
   justify-content: space-between;
   gap: 0.5vh;
   padding: 0.3vh;
-  height: 100vh; /* Occupa tutto lo schermo */
-  background-color: #B0B0B0; /* Colore di sfondo per l'intera pagina */
+  height: 100vh;
+  /* Occupa tutto lo schermo */
+  background-color: #B0B0B0;
+  /* Colore di sfondo per l'intera pagina */
 }
+
 /* COLONNE GRUPPI APPUNTI*/
 .column {
-  flex: 1; /* Tutte le colonne hanno la stessa larghezza */
+  flex: 1;
+  /* Tutte le colonne hanno la stessa larghezza */
   background: #EEEEEE;
   padding: 5vh;
   border-radius: 8px;
-  height: 100%; /* Si estende per tutta l'altezza disponibile */
+  height: 100%;
+  /* Si estende per tutta l'altezza disponibile */
   display: flex;
   flex-direction: column;
-  overflow: hidden; /* Nasconde il contenuto che esce dalla colonna */
+  overflow: hidden;
+  /* Nasconde il contenuto che esce dalla colonna */
   overflow-y: auto;
-  scrollbar-width:none; /* Nasconde la scrollbar su Firefox */
+  scrollbar-width: none;
+  /* Nasconde la scrollbar su Firefox */
 }
 
 /* Colonna centrale più grande */
 .centrale {
-  text-align: center; /* Allinea il testo al centro */
-  flex: 1.5; /* La colonna centrale è leggermente più larga */
+  text-align: center;
+  /* Allinea il testo al centro */
+  flex: 1.5;
+  /* La colonna centrale è leggermente più larga */
 }
 
 /* Lista dei gruppi */
@@ -579,9 +673,13 @@ white-space:nowrap; /* Evita che il testo vada a capo */
 
 /* Hover per il box del gruppo */
 .barattolo:hover {
-  transform: scale(1.05); /* Ingigantisce leggermente il box */
+  transform: scale(1.05);
+  /* Ingigantisce leggermente il box */
 }
-.gruppo,.titol, #materia{
+
+.gruppo,
+.titol,
+#materia {
   cursor: pointer;
   padding: 10px;
   border: 1px solid #EEEEEE;
@@ -593,181 +691,186 @@ white-space:nowrap; /* Evita che il testo vada a capo */
   background-color: #00ADB5;
   font-weight: bold;
 }
+
 .sottocategoria {
   margin-left: 15px;
   padding-left: 10px;
   border-left: 2px solid #B0B0B0;
   list-style-type: none;
 }
+
 .sottocategoria li {
   cursor: pointer;
   padding: 3px;
 }
-button.GA{
+
+button.GA {
   margin-top: 5%;
 }
 
-
-
-
-
-
-
-
-  
-
-
-
-
 /*POP UP AGGIUNGI...*/
 .modal {
-position: fixed;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-display: flex;
-justify-content: center;
-align-items: center;
-visibility: hidden;
-opacity: 0;
-transition: opacity 0.3s ease, visibility 0.3s ease;
-backdrop-filter: blur(0.3vh); /* Effetto blur */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  backdrop-filter: blur(0.3vh);
+  /* Effetto blur */
 }
+
 .modal.open {
-visibility: visible;
-opacity: 1;
+  visibility: visible;
+  opacity: 1;
 }
+
 /* Modal Content */
 .modal-content {
-background-color: #EEEEEE;
-padding: 20px;
-border-radius: 8px;
-max-width: 400px;
-width: 100%;
-position: relative;
+  background-color: #EEEEEE;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 400px;
+  width: 100%;
+  position: relative;
 }
+
 .modal-content .close-button {
-position: absolute;
-top: 10px;
-right: 10px;
-cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
 }
 
 #add-button {
-background-color: #00ADB5; /* Colore di sfondo */
-color:#EEEEEE ; /* Colore del testo */
-border: none; /* Rimuove il bordo */
-padding: 20px; /* Spaziatura interna */
-height: 10%;
-width: 5%;
-right: 10px;
-bottom: 10px;
-position: fixed; /* Posizionamento fisso */
-z-index: 10; /* Posizionamento sopra gli altri elementi */
-text-align: center;
-display: flex; /* Abilita Flexbox */
-justify-content: center; /* Centra orizzontalmente */
-align-items: center; /* Centra verticalmente */
-border-radius: 100%;
+  background-color: #00ADB5;
+  /* Colore di sfondo */
+  color: #EEEEEE;
+  /* Colore del testo */
+  border: none;
+  /* Rimuove il bordo */
+  padding: 20px;
+  /* Spaziatura interna */
+  height: 10%;
+  width: 5%;
+  right: 10px;
+  bottom: 10px;
+  position: fixed;
+  /* Posizionamento fisso */
+  z-index: 10;
+  /* Posizionamento sopra gli altri elementi */
+  text-align: center;
+  display: flex;
+  /* Abilita Flexbox */
+  justify-content: center;
+  /* Centra orizzontalmente */
+  align-items: center;
+  /* Centra verticalmente */
+  border-radius: 100%;
 }
-
-
-
-
-
-
-
-
-
-
 
 /*WIDGET PROFILO*/
 .profilo-widget-container {
-display: flex;
-align-items: center;
-flex-direction: column;  /* Disposizione verticale */
-align-items: center;     /* Allineamento centrale */
-gap: 1vh;                /* Distanza tra il titolo e il widget */
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  /* Disposizione verticale */
+  align-items: center;
+  /* Allineamento centrale */
+  gap: 1vh;
+  /* Distanza tra il titolo e il widget */
 }
 
 .foto-username-container {
-display: flex;
-align-items: center;
-gap: 2vh; /* Spazio tra l'immagine, il bottone e l'username */
+  display: flex;
+  align-items: center;
+  gap: 2vh;
+  /* Spazio tra l'immagine, il bottone e l'username */
 }
 
 .foto-profilo {
-width: 100%;
-height: 100%;
-object-fit: cover; /* Assicura che l'immagine sia adattata al contenitore */
-display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Assicura che l'immagine sia adattata al contenitore */
+  display: block;
 }
 
 /*bottone modifica*/
 .foto-label {
-position: absolute;
-bottom: 1vh;
-right: 1.5vh;
-background-color: #00ADB5;
-color: #222831;
-width: 3.5vh;
-height: 3.5vh;
-border-radius: 50%;
-display: flex;
-justify-content: center;
-align-items: center;
-cursor: pointer;
-transition: background-color 0.3s ease, transform 0.2s ease;
+  position: absolute;
+  bottom: 1vh;
+  right: 1.5vh;
+  background-color: #00ADB5;
+  color: #222831;
+  width: 3.5vh;
+  height: 3.5vh;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .foto-label:hover {
-transform: scale(1.1); /* Aumenta leggermente la dimensione dell'icona al passaggio del mouse */
+  transform: scale(1.1);
+  /* Aumenta leggermente la dimensione dell'icona al passaggio del mouse */
 }
 
 /* Modifica della foto - quando clicchi sull'immagine */
 .foto-profilo:hover {
-cursor: pointer;
-opacity: 0.8; /* Aggiungi un leggero effetto di opacità quando si passa sopra l'immagine */
+  cursor: pointer;
+  opacity: 0.8;
+  /* Aggiungi un leggero effetto di opacità quando si passa sopra l'immagine */
 }
 
 /*sfondo per la foto di default*/
 .foto-container {
-position: relative; /* Importante per il posizionamento dell'icona */
-width: 13.5vh;
-height: 13.5vh;
-box-shadow: 0 0 1vh #B0B0B0; /* Aggiunge un'ombra leggera */
-border-radius: 50%;
-overflow: hidden;
+  position: relative;
+  /* Importante per il posizionamento dell'icona */
+  width: 13.5vh;
+  height: 13.5vh;
+  box-shadow: 0 0 1vh #B0B0B0;
+  /* Aggiunge un'ombra leggera */
+  border-radius: 50%;
+  overflow: hidden;
 
 }
 
 .foto-icon {
-width: 1.5vh;
-height: 1.5vh;
+  width: 1.5vh;
+  height: 1.5vh;
 }
 
 .foto-input {
-display: none; /* Nasconde il file input */
+  display: none;
+  /* Nasconde il file input */
 }
 
-.campo{
-padding: 1vh;
+.campo {
+  padding: 1vh;
 }
 
 /*quando l'immagine non è presente*/
 .fallback-text {
-position: absolute;
-font-size: 1.2rem;
-color: #EEEEEE; 
-text-align: center;
-display: flex;
-justify-content: center;
-align-items: center;
-width: 100%;
-height: 100%;
+  position: absolute;
+  font-size: 1.2rem;
+  color: #EEEEEE;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
 }
-.barattoloWidget{
+
+.barattoloWidget {
   width: 100%;
   padding: 20px;
   background-color: #EEEEEE;
@@ -780,7 +883,7 @@ height: 100%;
 }
 
 /*PAGEXTRA*/
-.barattoloPage{
+.barattoloPage {
   width: 100%;
   background-color: #EEEEEE;
   border-radius: 8px;
@@ -790,30 +893,42 @@ height: 100%;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   padding: 2.5vh;
 }
+
 .containerPage {
   display: flex;
   flex-direction: column;
-  align-items: center;   /* Centra orizzontalmente */
-  justify-content: center; /* Centra verticalmente */
-  min-height: 100vh;       /* Occupa l'altezza totale della viewport */
-  text-align: center; 
+  align-items: center;
+  /* Centra orizzontalmente */
+  justify-content: center;
+  /* Centra verticalmente */
+  min-height: 100vh;
+  /* Occupa l'altezza totale della viewport */
+  text-align: center;
 }
-.listPage{
+
+.listPage {
   width: 100%;
-  max-width: 50vh;  /* Se vuoi ingrandire anche il contenitore della lista */
+  max-width: 50vh;
+  /* Se vuoi ingrandire anche il contenitore della lista */
 }
-.TermsAndConditions{
+
+.TermsAndConditions {
   width: 60%;
 }
-.terminiPage{
+
+.terminiPage {
   display: flex;
   flex-direction: column;
-  align-items: center;   /* Centra orizzontalmente */
-  justify-content: center; /* Centra verticalmente */
-  min-height: 100vh;       /* Occupa l'altezza totale della viewport */
+  align-items: center;
+  /* Centra orizzontalmente */
+  justify-content: center;
+  /* Centra verticalmente */
+  min-height: 100vh;
+  /* Occupa l'altezza totale della viewport */
   text-align: center;
   margin-top: 12vh;
 }
+
 .extra-container {
   width: 100%;
   display: flex;
@@ -828,307 +943,383 @@ height: 100%;
   height: auto;
   color: #222831;
 }
-.Extra:focus{
+
+.Extra:focus {
   outline: none;
 }
-
 
 /* Media Queries per dispositivi mobili */
 @media (max-width: 768px) {
 
   /*STYLE*/
-  html, body {
+  html,
+  body {
     font-size: 3.5vh;
     background-color: #EEEEEE;
-    overflow-x:  auto; /* Impedisce lo scroll orizzontale */
-    overflow-y: auto !important; /* Permette lo scroll verticale */
-    scrollbar-width: none; /* Nasconde la scrollbar su Firefox */
+    overflow-x: auto;
+    /* Impedisce lo scroll orizzontale */
+    overflow-y: auto !important;
+    /* Permette lo scroll verticale */
+    scrollbar-width: none;
+    /* Nasconde la scrollbar su Firefox */
   }
-  h1, h2, h4 {
+
+  h1,
+  h2,
+  h4 {
     font-size: 6vh;
   }
-  p{
+
+  p {
     font-size: 2.5vh;
   }
+
   .homepage {
-    padding: 0;  /* Rimuove il padding laterale su mobile */
-    width: 100%;  /* Imposta la larghezza a 100% */
-    padding-top: 1.5vh; /* Spazio per la navbar */
+    padding: 0;
+    /* Rimuove il padding laterale su mobile */
+    width: 100%;
+    /* Imposta la larghezza a 100% */
+    padding-top: 1.5vh;
+    /* Spazio per la navbar */
     margin-top: 25vh;
   }
 
- .neutral-zone {
-    margin-top: 15vh;  /* Spazio sopra la zona neutra */
-    margin-bottom: 20vh;  /* Spazio sotto la zona neutra */
+  .neutral-zone {
+    margin-top: 15vh;
+    /* Spazio sopra la zona neutra */
+    margin-bottom: 20vh;
+    /* Spazio sotto la zona neutra */
   }
+
   .columns {
-    flex-direction: column;  /* Le colonne si dispongono una sotto l'altra */
-    width: 100% !important;  /* Colonne prendono tutta la larghezza disponibile */
-    gap: 0;  /* Rimuove lo spazio tra le colonne */
+    flex-direction: column;
+    /* Le colonne si dispongono una sotto l'altra */
+    width: 100% !important;
+    /* Colonne prendono tutta la larghezza disponibile */
+    gap: 0;
+    /* Rimuove lo spazio tra le colonne */
     display: block !important;
     position: relative !important;
   }
+
   .barattolo {
-    width: auto;  /* Mantiene la larghezza del barattolo naturale */
+    width: auto;
+    /* Mantiene la larghezza del barattolo naturale */
     flex: 0 0 auto;
-      /* Impedisce che i barattoli si ridimensionino */
+    /* Impedisce che i barattoli si ridimensionino */
   }
+
   .barattolo::-webkit-scrollbar {
-    display: none; /* Nasconde la scrollbar su Chrome/Safari */
+    display: none;
+    /* Nasconde la scrollbar su Chrome/Safari */
   }
+
   .barattolo {
-    flex: 0 0 auto !important; /* Impedisce il ridimensionamento */
-  margin-right: 10px; /* Spazio tra le box */
+    flex: 0 0 auto !important;
+    /* Impedisce il ridimensionamento */
+    margin-right: 10px;
+    /* Spazio tra le box */
   }
+
   /*contenitore dei baratoli home page*/
-  .list{
-   flex-direction: row;
-   overflow-x: auto;
-   scrollbar-width: none;
+  .list {
+    flex-direction: row;
+    overflow-x: auto;
+    scrollbar-width: none;
   }
 
+  /*GRUPPI E APPUNTI*/
+  .PageGA {
+    margin-top: 25.5vh;
+    flex-direction: column;
+    align-items: center;
+    gap: 1vh;
+    padding: 1vh;
+    height: auto;
+    background-color: #B0B0B0;
+  }
 
+  .column {
+    padding: 3vh;
+    border-radius: 6px;
+    height: auto;
+    overflow-y: visible;
+    width: 100% !important;
+    /* Le colonne occupano tutta la larghezza disponibile */
+    margin: 0;
+    border: none !important;
+    /* Rimuove il bordo */
+  }
 
+  .centrale {
+    flex: 1;
+    text-align: center;
+  }
 
+  .list {
+    gap: 15px;
+    padding: 5px;
+  }
 
+  .barattolo {
+    width: 90%;
+    padding: 15px;
+    box-shadow: 0 1px 4px #B0B0B0;
+  }
 
-  
-/*GRUPPI E APPUNTI*/
-.PageGA {
-  margin-top: 25.5vh;
-  flex-direction: column;
-  align-items: center;
-  gap: 1vh;
-  padding: 1vh;
-  height: auto;
-  background-color: #B0B0B0;
-}
-.column {
-  padding: 3vh;
-  border-radius: 6px;
-  height: auto;
-  overflow-y: visible;
-  width: 100% !important;  /* Le colonne occupano tutta la larghezza disponibile */
-  margin: 0;
-  border: none !important;  /* Rimuove il bordo */
-}
-.centrale {
-  flex: 1;
-  text-align: center;
-}
-.list {
-  gap: 15px;
-  padding: 5px;
-}
-.barattolo {
-  width: 90%;
-  padding: 15px;
-  box-shadow: 0 1px 4px #B0B0B0;
-}
-.barattolo:hover {
-  transform: scale(1.03);
-}
-.gruppo, .titol {
-  padding: 8px;
-  font-size: 4vh;
-}
-.sottocategoria {
-  margin-left: 10px;
-  padding-left: 5px;
-}
-.sottocategoria li {
-  padding: 2px;
-}
-#add-button {
-  width: 10vh; /* Aumenta la larghezza del pulsante sui dispositivi mobili */
-  height: 10vh; /* Imposta altezza per mantenere la forma rotonda */
-  padding: 10px; /* Riduce il padding per evitare che il pulsante sia troppo grande */
-}
+  .barattolo:hover {
+    transform: scale(1.03);
+  }
 
+  .gruppo,
+  .titol {
+    padding: 8px;
+    font-size: 4vh;
+  }
 
+  .sottocategoria {
+    margin-left: 10px;
+    padding-left: 5px;
+  }
 
+  .sottocategoria li {
+    padding: 2px;
+  }
 
+  #add-button {
+    width: 10vh;
+    /* Aumenta la larghezza del pulsante sui dispositivi mobili */
+    height: 10vh;
+    /* Imposta altezza per mantenere la forma rotonda */
+    padding: 10px;
+    /* Riduce il padding per evitare che il pulsante sia troppo grande */
+  }
 
+  /*NAVBAR*/
+  /* Imposta il layout della navbar */
+  nav {
+    flex-direction: row;
+    /* Cambia l'orientamento a riga*/
+    align-items: flex-start;
+    /* Allinea tutto a sinistra */
+    height: 26%;
+    /* Altezza dinamica */
+    padding: 0.1vh;
+    /* Aggiunge più padding */
 
+  }
 
+  /* Logo e utente in alto */
+  #logo {
+    width: 20vh;
+    /* Rende il logo più piccolo */
+  }
 
-/*NAVBAR*/
-/* Imposta il layout della navbar */
-nav {
-  flex-direction: row; /* Cambia l'orientamento a riga*/
-  align-items: flex-start; /* Allinea tutto a sinistra */
-  height: 26%; /* Altezza dinamica */
-  padding: 0.1vh; /* Aggiunge più padding */
+  /* Contenitore della navbar */
+  .navbar-nav {
+    flex-direction: row;
+    /* Disposizione orizzontalmente*/
+    width: 100%;
+    /* Occupa tutta la larghezza */
+    align-items: flex-start;
+    /* Allinea i link a sinistra */
+    margin-top: 20px;
+    /* Spazio sotto il logo e user */
+  }
 
-}
+  /* Lista della navbar */
+  .navbar-nav ul {
+    flex-direction: row;
+    /* Cambia orientamento in orizzontalmente*/
+    overflow-x: auto;
+    /* Permette lo scroll */
+    max-height: 50vh;
+    /* Limita l'altezza massima della lista */
+    width: 90%;
+    /* Occupa tutta la larghezza */
+    padding: 0;
+    /* Rimuove il padding */
+    scrollbar-width: thin;
+    /* Per Firefox */
+    height: 11vh;
+    scrollbar-width: none;
+  }
 
-/* Logo e utente in alto */
-#logo {
-  width: 20vh; /* Rende il logo più piccolo */
-}
+  /* Elementi della lista */
+  .navbar-nav li {
+    margin: 0;
+    /* Spazio verticale tra gli elementi */
+    width: 35%;
+    /* Link a tutta larghezza */
+    flex-shrink: 0;
+    /* Evita che i link si restringano */
+  }
 
-/* Contenitore della navbar */
-.navbar-nav {
-  flex-direction: row; /* Disposizione orizzontalmente*/
-  width: 100%; /* Occupa tutta la larghezza */
-  align-items: flex-start; /* Allinea i link a sinistra */
-  margin-top: 20px; /* Spazio sotto il logo e user */
-}
+  /* Link della navbar */
+  .navbar-nav a {
+    font-size: 1rem;
+    /* Rende i link più leggibili */
+    padding: 1vh;
+    /* Aggiunge padding interno ai link */
+    display: block;
+    /* Ogni link occupa una riga intera */
+    text-align: center;
+    /* Allinea il testo a sinistra */
+  }
 
-/* Lista della navbar */
-.navbar-nav ul {
-  flex-direction: row; /* Cambia orientamento in orizzontalmente*/
-  overflow-x: auto; /* Permette lo scroll */
-  max-height: 50vh; /* Limita l'altezza massima della lista */
-  width: 90%; /* Occupa tutta la larghezza */
-  padding: 0; /* Rimuove il padding */
-  scrollbar-width: thin; /* Per Firefox */
-  height: 11vh;
-  scrollbar-width: none;
-}
+  .navbar-user {
+    position: fixed;
+    /* Rende l'icona fissa in alto a destra */
+    top: -2%;
+    right: -9%;
+    width: 30%;
+    height: 30%;
 
-/* Elementi della lista */
-.navbar-nav li {
-  margin: 0; /* Spazio verticale tra gli elementi */
-  width: 35%; /* Link a tutta larghezza */
-  flex-shrink: 0; /* Evita che i link si restringano */
-}
+  }
 
-/* Link della navbar */
-.navbar-nav a {
-  font-size: 1rem; /* Rende i link più leggibili */
-  padding: 1vh; /* Aggiunge padding interno ai link */
-  display: block; /* Ogni link occupa una riga intera */
-  text-align: center; /* Allinea il testo a sinistra */
-}
-.navbar-user {
-  position: fixed; /* Rende l'icona fissa in alto a destra */
-  top: -2%;
-  right: -9%;
-  width: 30%;
-  height: 30%;
+  .navbar-user img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    /* Adatta l'immagine al cerchio */
+  }
 
-}
+  #user {
+    width: 100%;
+    /* Modifica la larghezza del logo */
+    height: 100%;
+    /* Mantiene le proporzioni */
+    object-fit: cover;
+    /* Evita distorsioni */
+    align-items: center;
 
-.navbar-user img {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  object-fit: cover; /* Adatta l'immagine al cerchio */
-}
-#user{
-  width: 100%; /* Modifica la larghezza del logo */
-  height: 100%; /* Mantiene le proporzioni */
-  object-fit: cover; /* Evita distorsioni */ 
-  align-items: center;
-  
-}
+  }
 
+  /*FAQ e PROFILO*/
+  .profilo-page {
+    margin-top: 25vh;
+  }
 
+  #FaqPage {
+    margin-top: 25vh;
+  }
 
+  .Selettore {
+    max-width: 90vw;
+    /* Adatta la larghezza allo schermo */
+    padding: 2vh;
+    /* Riduce il padding per gli spazi stretti */
+    margin-top: 4vh;
+    /* Riduce il margine superiore */
+    gap: 2vh;
+    /* Aumenta lo spazio tra gli elementi */
 
+  }
 
+  .Titolo {
+    width: 100%;
+    /* Usa il 100% della larghezza */
+    font-size: 1em;
+    /* Riduce leggermente il font */
+    padding: 2vh;
+    /* Aumenta il padding per un migliore tocco su mobile */
+  }
 
+  .answer {
+    padding: 2vh;
+    /* Aumenta il padding per leggibilità */
+  }
 
+  .container {
+    padding: 3vh;
+    /* Aggiunge spaziature più comode */
+  }
 
-/*FAQ e PROFILO*/
-.profilo-page {
-  margin-top: 25vh;
-}
-#FaqPage{
-  margin-top: 25vh;
-}
-.Selettore {
-  max-width: 90vw; /* Adatta la larghezza allo schermo */
-  padding: 2vh; /* Riduce il padding per gli spazi stretti */
-  margin-top: 4vh; /* Riduce il margine superiore */
-  gap: 2vh; /* Aumenta lo spazio tra gli elementi */
-  
-}
+  /*PROFILO WIDGET*/
+  .profilo-widget-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 2vh;
+    /* Maggiore spazio tra gli elementi */
+    padding: 2vh;
+    margin: 0;
+  }
 
-.Titolo {
-  width: 100%; /* Usa il 100% della larghezza */
-  font-size: 1em; /* Riduce leggermente il font */
-  padding: 2vh; /* Aumenta il padding per un migliore tocco su mobile */
-}
+  .barattoloWidget {
+    display: flex;
+    justify-content: center;
+    /* Centra orizzontalmente */
+    width: 40vh;
+    /* Occupa tutta la larghezza disponibile */
 
-.answer {
-  padding: 2vh; /* Aumenta il padding per leggibilità */
-}
+  }
 
-.container {
-  padding: 3vh; /* Aggiunge spaziature più comode */
-}
+  .foto-username-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5vh;
+  }
 
-/*PROFILO WIDGET*/
-.profilo-widget-container {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  gap: 2vh; /* Maggiore spazio tra gli elementi */
-  padding: 2vh;
-  margin: 0;
+  .foto-profilo {
+    width: 100%;
+    height: 100%;
+    /* L'immagine occupa tutta l'altezza e la larghezza del contenitore */
+    object-fit: cover;
+    /* Adatta l'immagine per riempire il cerchio senza distorsioni */
+    display: block;
+  }
 
+  .foto-container {
+    width: 15vh;
+    height: 15vh;
+  }
 
-}
-.barattoloWidget{
-  display: flex;
-  justify-content: center; /* Centra orizzontalmente */
-  width: 40vh; /* Occupa tutta la larghezza disponibile */
+  .foto-label {
+    width: 3vh;
+    height: 3vh;
+    bottom: 0.8vh;
+    right: 1vh;
+  }
 
-}
-.foto-username-container {
-  flex-direction: column;
-  align-items: center;
-  gap: 1.5vh;
-}
-.foto-profilo {
-  width: 100%;
-  height: 100%; /* L'immagine occupa tutta l'altezza e la larghezza del contenitore */
-  object-fit: cover; /* Adatta l'immagine per riempire il cerchio senza distorsioni */
-  display: block;
-}
-.foto-container {
-  width: 15vh;
-  height: 15vh;
-}
-.foto-label {
-  width: 3vh;
-  height: 3vh;
-  bottom: 0.8vh;
-  right: 1vh;
-}
-.foto-icon {
-  width: 1vh;
-  height: 1vh;
-}
-.fallback-text {
-  font-size: 1vh;
-}
-.campo {
-  padding: 1.2vh;
-  font-size: 1vh;
-}
-.little {
-  width: 100vh;
-  margin: 0 auto;
-}
+  .foto-icon {
+    width: 1vh;
+    height: 1vh;
+  }
 
-/*LOGIN e REGISTER*/
+  .fallback-text {
+    font-size: 1vh;
+  }
+
+  .campo {
+    padding: 1.2vh;
+    font-size: 1vh;
+  }
+
+  .little {
+    width: 100vh;
+    margin: 0 auto;
+  }
+
+  /*LOGIN e REGISTER*/
   /* Cambio layout principale */
   .page {
     flex-direction: column;
     height: auto;
   }
+
   /* Il carosello sopra */
   .carousel-container {
     height: 50%;
     width: 100%;
   }
+
   /* Adatta il carosello */
   .carousel-section {
     height: 50%;
   }
+
   .carousel-slides img {
     height: 50%;
   }
@@ -1166,7 +1357,3 @@ nav {
     width: 100%;
   }
 }
-
-
-
-
